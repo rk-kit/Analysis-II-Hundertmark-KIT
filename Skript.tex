@@ -1,0 +1,198 @@
+\documentclass[11pt, twoside, a4paper]{article}
+
+% Setup
+\usepackage[margin=2.4cm, top=3.5cm]{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage[ngerman]{babel}
+
+% Package imports
+\usepackage{amsfonts}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{mathtools}
+\usepackage{setspace}
+\usepackage{float}
+\usepackage{enumitem}
+\usepackage{hyperref}
+\usepackage[pagestyles]{titlesec}
+\usepackage{fancyhdr}
+\usepackage{colonequals}
+\usepackage{caption}
+\usepackage{tikz}
+\usepackage{marginnote}
+\usepackage{etoolbox}
+\usepackage{mdframed}
+\usepackage{aligned-overset}
+
+% Font-Encoding
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+
+% Theorems
+\newtheorem{blockelement}{Blockelement}[subsection]
+\newtheoremstyle{plain}{}{}{}{}{\bfseries}{.}{ }{}
+\theoremstyle{plain}
+\newtheorem{bemerkung}[blockelement]{Bemerkung}
+\newtheorem{definition}[blockelement]{Definition}
+\newtheorem{lemma}[blockelement]{Lemma}
+\newtheorem{satz}[blockelement]{Satz}
+\newtheorem{notation}[blockelement]{Notation}
+\newtheorem{korollar}[blockelement]{Korollar}
+\newtheorem{uebung}[blockelement]{Übung}
+\newtheorem{beispiel}[blockelement]{Beispiel}
+\newtheorem{folgerung}[blockelement]{Folgerung}
+\newtheorem{axiom}[blockelement]{Axiom}
+\newtheorem{beobachtung}[blockelement]{Beobachtung}
+\newtheorem{konzept}[blockelement]{Konzept}
+\newtheorem{visualisierung}[blockelement]{Visualisierung}
+\newtheorem{anwendung}[blockelement]{Anwendung}
+\newtheorem{skizze}[blockelement]{Skizze}
+
+% Marginnotes left
+\makeatletter
+\patchcmd{\@mn@@@marginnote}{\begingroup}{\begingroup\@twosidefalse}{}{\fail}
+\reversemarginpar
+\makeatother
+
+% Long equations
+\allowdisplaybreaks
+
+% \left \right
+\newcommand{\set}[1]{\left\{#1\right\}}
+\newcommand{\pair}[1]{\left(#1\right)}
+\newcommand{\of}[1]{\mathopen{}\mathclose{}\bgroup\left(#1\aftergroup\egroup\right)}
+\newcommand{\abs}[1]{\left\lvert#1\right\rvert}
+\newcommand{\norm}[1]{\left\lVert#1\right\rVert}
+\newcommand{\linterv}[1]{\left[#1\right)}
+\newcommand{\rinterv}[1]{\left(#1\right]}
+\newcommand{\interv}[1]{\left[#1\right]}
+\newcommand{\sprod}[1]{\left<#1\right>}
+
+% Shorten commands
+\newcommand{\equivalent}[0]{\Leftrightarrow{}}
+\newcommand{\impl}[0]{\Rightarrow{}}
+\newcommand{\fromto}{\rightarrow{}}
+\newcommand{\definedas}[0]{\coloneqq}
+\newcommand{\definedasbackwards}[0]{\eqqcolon}
+\newcommand{\definedasequiv}[0]{\ratio\Leftrightarrow{}}
+\newcommand{\exclude}[0]{\setminus}
+\renewcommand{\emptyset}{\varnothing}
+\newcommand{\sbset}{\subseteq}
+
+\newcommand{\ntoinf}[0]{n\fromto\infty}
+\newcommand{\toinf}{\fromto\infty}
+\newcommand{\fa}{\;\forall\,}
+\newcommand{\ex}{\;\exists\,}
+\newcommand{\conj}[1]{\overline{#1}}
+
+\newcommand{\annot}[3][]{\overset{\text{#3}}#1{#2}}
+\newcommand{\biglim}[1]{{\displaystyle \lim_{#1}}}
+\newcommand{\nn}[0]{\\[2\baselineskip]}
+\newcommand{\anf}[1]{\glqq{}#1\grqq}
+\newcommand{\OBDA}{o.B.d.A. }
+\newcommand{\theoremescape}{\leavevmode}
+\newcommand{\aligntoright}[2]{\hfill#1\hspace{#2\textwidth}~}
+\newcommand{\horizontalline}[0]{\par\noindent\rule{0.05\textwidth}{0.1pt}\\}
+\newcommand{\rgbcolor}[3]{rgb,255:red,#1;green,#2;blue,#3}
+\newcommand{\fixedspace}[2]{\makebox[#1][l]{#2}}
+
+\let\Re\relax
+\let\Im\relax
+
+% MathOperators
+\DeclareMathOperator{\grad}{Grad}
+\DeclareMathOperator{\bild}{Bild}
+\DeclareMathOperator{\Re}{Re}
+\DeclareMathOperator{\Im}{Im}
+
+% Mengenbezeichner
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\K}{\mathbb{K}}
+
+\newcommand\imaginarysubsection[1]{
+    \refstepcounter{subsection}
+    \subsectionmark{#1}
+}
+
+% Unfassbar hässlich, aber effektiv für temporäre schnelle Lösungen
+\def\:={\coloneqq}
+\def\->{\fromto}
+\def\=>{\impl}
+\def\<={\leq}
+\def\>={\geq}
+\def\!={\neq}
+
+% Envs
+\newenvironment{induktionsanfang}{
+    \rule{0pt}{3ex}\noindent
+    \begin{minipage}[t]{0.11\textwidth}
+    {I-Anfang}
+    \end{minipage}
+    \hfill
+    \begin{minipage}[t]{0.89\textwidth}
+    }
+    {
+    \end{minipage}
+}
+\newenvironment{induktionsvoraussetzung}{
+    \rule{0pt}{3ex}\noindent
+    \begin{minipage}[t]{0.11\textwidth}
+    {I-Vor.}
+    \end{minipage}
+    \hfill
+    \begin{minipage}[t]{0.89\textwidth}
+    }
+    {
+    \end{minipage}
+}
+\newenvironment{induktionsschritt}{
+    \rule{0pt}{3ex}\noindent
+    \begin{minipage}[t]{0.11\textwidth}
+    {I-Schritt}
+    \end{minipage}
+    \hfill
+    \begin{minipage}[t]{0.89\textwidth}
+    }
+    {
+    \end{minipage}
+}
+
+% Section style
+\titleformat*{\section}{\LARGE\bfseries}
+\titleformat*{\subsection}{\large\bfseries}
+
+% Page styles
+\newpagestyle{pagenumberonly}{
+    \sethead{}{}{}
+    \setfoot[][][\thepage]{\thepage}{}{}
+}
+\newpagestyle{headfootdefault}{
+    \sethead[][][\thesubsection~\textit{\subsectiontitle}]{\thesection~\textit{\sectiontitle}}{}{}
+    \setfoot[][][\thepage]{\thepage}{}{}
+}
+\pagestyle{headfootdefault}
+
+\begin{document}
+    \title{\vspace{3cm} Skript zur Vorlesung\\Analysis II\\bei Prof. Dr. Dirk Hundertmark}
+    \author{Karlsruher Institut für Technologie}
+    \date{Sommersemester 2024}
+    \maketitle
+    \begin{center}
+        Dieses Skript ist inoffiziell. Es besteht kein\\ Anspruch auf Vollständigkeit oder Korrektheit.
+    \end{center}
+    \thispagestyle{empty}
+    \newpage
+
+    \tableofcontents
+    ~\\
+    Alle mit [*] markierten Kapitel sind noch nicht Korrektur gelesen und bedürfen eventuell noch Änderungen.
+
+    \newpage
+
+
+\end{document}

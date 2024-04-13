@@ -1,0 +1,15 @@
+.idea
+
+*.aux
+*.log
+*.synctex.gz
+*.toc
+*.ods
+*.snm
+*.out
+*.nav
+*.synctex(busy)
+*.auxlock
+*.tmp
+*.fls
+*.fdb_latexmk
