@@ -49,6 +49,7 @@
 \newtheorem{visualisierung}[blockelement]{Visualisierung}
 \newtheorem{anwendung}[blockelement]{Anwendung}
 \newtheorem{skizze}[blockelement]{Skizze}
+\newtheorem{genv}[blockelement]{}
 
 % Marginnotes left
 \makeatletter
@@ -195,6 +196,7 @@
 
     \newpage
 
+
     \section{[*] Das eindimensionale Riemann-Integral}
     \imaginarysubsection{Das eindimensionale Riemann-Integral}
     \thispagestyle{pagenumberonly}
@@ -203,30 +205,39 @@
     % TODO: Vis
     % TODO: Konstant.
     \begin{definition}[Zerlegung eines Intervalls]
-        \theoremescape
-        \begin{enumerate}[label=(\alph*)]
-            \item Eine Zerlegung $Z$ eines kompakten Intervalls $I=\interv{a,b}$ in Teilintervalle $I_j$ der Längen $\abs{I_j}$ ($j=1,\dots, k$) ist eine Menge von Punkten $x_0, x_1,\dots, x_k\in I$ (Teilpunkte von $Z$) mit $a=x_0 < x_1 < x_2 < \dots < x_k = b$.
-            \item Wir setzen $\varDelta x_j \definedas x_j - x_{j-1} \definedasbackwards\abs{I_j}$
-            \item Die Feinheit der Zerlegung $Z$ ist $\varDelta\of{z}\definedas \max\of{\abs{I_1}, \abs{I_2}, \dots, \abs{I_k}} = \max\of{\varDelta x_1, \varDelta x_2, \dots, \varDelta x_k}$ (Länge des längsten Teilintervalls von $Z$).
-        \end{enumerate}
-        An jedem $I_j$ wählen wir $\xi_j\in I_j$, setzen $\xi=\pair{\xi_1, \xi_2, \dots, \xi_k}$, setzen $B\of{I} =$ Menge aller beschränkten reelwertigen Funktionen auf $I$ $= \set{f: I\fromto \R: \sup_{x\in I} \abs{f(x)} < \infty}$.\\
-        Für $f\in B\of{I}$ setzen
+        Eine Zerlegung $Z$ eines kompakten Intervalls $I=\interv{a,b}$ in Teilintervalle $I_j$ ($j=1,\dots, k$) der Längen $\abs{I_j}$ ist eine Menge von Punkten $x_0, x_1,\dots, x_k\in I$ (Teilpunkte von $Z$) mit $a=x_0 < x_1 < x_2 < \dots < x_k = b$ und $I_j = \interv{x_{j-1}, x_j}$.\\
+        Wir setzen $\varDelta x_j \definedas x_j - x_{j-1} \definedasbackwards\abs{I_j}$
+    \end{definition}
+    \begin{definition}[Feinheit einer Zerlegung]
+        Die Feinheit der Zerlegung $Z$ ist definiert als die Länge des längsten Teilintervalls von $Z$:
         \begin{align*}
-            S_z\of{f} &= S_z\of{f, \xi} \definedas \sum_{j=1}^{k} f\of{\xi_j}\varDelta x_j = \sum_{j=1}^{k} f\of{\xi_j}\abs{I_j}\tag{Riemannsche Zwischensumme}
+            \varDelta\of{z}\definedas \max\of{\abs{I_1}, \abs{I_2}, \dots, \abs{I_k}} = \max\of{\varDelta x_1, \varDelta x_2, \dots, \varDelta x_k}
         \end{align*}
-        Für $f\in B\of{I}$ setzen
+    \end{definition}
+    \begin{notation}[Riemannsche Zwischensumme]
+        Wir setzen
+        \begin{align*}
+            B\of{I} = \set{f: I\fromto \R: \sup_{x\in I} \abs{f(x)} < \infty}
+        \end{align*}
+        als die Menge aller beschränkten reellwertigen Funktionen auf $I$. In jedem $I_j$ wählen wir ein $\xi_j\in I_j$ und setzen $\xi=\pair{\xi_1, \xi_2, \dots, \xi_k}$. Für $f\in B\of{I}$ setzen wir die Riemannsche Zwischensumme
+        \begin{align*}
+            S_Z\of{f} &= S_Z\of{f, \xi} \definedas \sum_{j=1}^{k} f\of{\xi_j}\cdot\varDelta x_j = \sum_{j=1}^{k} f\of{\xi_j}\cdot\abs{I_j}
+        \end{align*}
+    \end{notation}
+    \begin{notation}[Ober- und Untersumme]
+        Für $f\in B\of{I}$ setzen wir
         \begin{align*}
             \underline{m}_j &\definedas \inf_{I_j} f = \inf\set{f(x): x\in I_j}\\
             \overline{m}_j &\definedas \sup_{I_j} f = \sup\set{f(x): x\in I_j}\\
-            \overline{S}_z\of{f}&\definedas \sum_{j=1}^{k} \overline{m}_j \varDelta x_j\tag{Obersumme}\\
-            \underline{S}_z\of{f}&\definedas \sum_{j=1}^{k} \underline{m}_j \varDelta x_j\tag{Untersumme}
-            \intertext{Haben}
-            \underline{m}_j &\leq f\of{x} \leq \overline{m}_j \text{ für } x \in I_j\\
+            \overline{S}_Z\of{f}&\definedas \sum_{j=1}^{k} \overline{m}_j\cdot \varDelta x_j\tag{Obersumme}\\
+            \underline{S}_Z\of{f}&\definedas \sum_{j=1}^{k} \underline{m}_j\cdot \varDelta x_j\tag{Untersumme}
+            \intertext{Damit gilt für $x \in I_j$}
+            \underline{m}_j &\leq f\of{x} \leq \overline{m}_j\\
             \impl \underline{m}_j &\leq f\of{\xi_j} \leq \overline{m}_j\\
-            \impl \underline{S}_z\of{f} &\leq S_z\of{f, \xi} \leq \overline{S}_z\of{f}
+            \impl \underline{S}_Z\of{f} &\leq S_Z\of{f, \xi} \leq \overline{S}_Z\of{f}
         \end{align*}
-    \end{definition}
-    \noindent Wir wollen Zerlegung $Z$ systematisch verfeinern.
+    \end{notation}
+    \horizontalline \noindent Wir wollen die Zerlegung $Z$ systematisch verfeinern.
     \begin{definition}[Verfeinerung einer Zerlegung]
         Eine Zerlegung $Z^{*}$ von $I$ ist eine Verfeinerung der Zerlegung $Z$ von $I$, falls alle Teilpunkte von $Z$ auch Teilpunkte von $Z^{*}$ sind.
     \end{definition}
@@ -249,7 +260,7 @@
                 y_j &= x_j\quad 0\leq j \leq l\\
                 x_l &< y_{l+1} < x_{l+1}\\
                 y_{l+1} &= x_j\quad l+ 1 \leq j \leq k\\
-                \underline{S}_z\of{f} &= \sum_{j=1}^{k} \underline{m}_j\varDelta x_j\\
+                \underline{S}_Z\of{f} &= \sum_{j=1}^{k} \underline{m}_j\varDelta x_j\\
                 &= \sum_{j=1}^{l} \underline{m}_j \varDelta x_j + \sum_{j=l+2}^{k} \underline{m}_j \varDelta x_j\\
                 \underline{m}_j &= \inf_{I_j} f = \inf_{I_j^{*}} f = \underline{m}_j^{*} \text{ für } 1 \leq j \leq l
                 \intertext{$j\geq l+2$}
@@ -263,7 +274,7 @@
                 \intertext{zusammen}
                 \underline{S}_{Z}\of{f} &\leq \sum_{j=1}^{l} \underline{m}_j^{*} \varDelta y_j + \underline{m}_{l+1} \varDelta y_{l+1} + \underline{m}_{l+1}\varDelta y_{l+2} + \sum_{j=l+3}^{k+1} \underline{m}_j^{*}\varDelta y_j = \underline{S}_{z}\of{f}
             \end{align*}
-            ähnlich zeigt man $\overline{S}_z\of{f} \geq \overline{S}_{Z^{*}}\of{f}$.\\
+            ähnlich zeigt man $\overline{S}_Z\of{f} \geq \overline{S}_{Z^{*}}\of{f}$.\\
             \textsc{Schritt 2:} Sei $Z^{*}$ eine beliebige Verfeinerung von $Z$. Nehmen eine endliche Folge von Einpunkt-Verfeinerungen $Z=Z_0, Z_1, Z_2, \dots, Z_r = Z^{*}$ und $Z_{s+1}$ hat genau einen Punkt mehr als $Z_{s}$. Dann gilt nach \textsc{Schritt 1}, dass
             \begin{align*}
                 \underline{S}_{Z}\of{f} \leq \underline{S}_{Z_1}\of{f} \leq \dots \leq \underline{S}_{Z^{*}}\of{f}\\
@@ -286,9 +297,9 @@
             \end{align*}
         \end{proof}
     \end{lemma}
-    
+
     \begin{bemerkung}
-        Für $I=\interv{a,b}$ und $f\in B\of{I}$ gilt immer $\underbrace{\abs{I}}_{=b-a} \inf_{I} f \leq \underline{S}_Z\of{f} \leq \overline{S}_z\of{f} \leq \abs{I} \sup_{I} f$ für alle Zerlegungen $Z$ von $I$.\\
+        Für $I=\interv{a,b}$ und $f\in B\of{I}$ gilt immer $\underbrace{\abs{I}}_{=b-a} \inf_{I} f \leq \underline{S}_Z\of{f} \leq \overline{S}_Z\of{f} \leq \abs{I} \sup_{I} f$ für alle Zerlegungen $Z$ von $I$.\\
         $\set{\overline{S}_Z\of{f} : Z \text{ ist eine Zerlegung von } I}$ und $\set{\underline{S}_Z\of{f} : Z \text{ ist eine Zerlegung von } I}$ sind bereits beschränkte, nicht-leere Teilmengen von $\R$.
     \end{bemerkung}
 
@@ -312,7 +323,7 @@
                 \impl \sup\set{\underline{S}_{Z_1}\of{f}: Z_1 \text{ ist eine Zerlegung von } I} \leq \overline{S}_{Z_1}\of{f}\\
                 \impl \underline{J}\of{f} \leq \overline{S}_{Z_1}\of{f}\\
                 \impl \underline{J}\of{f} \leq \inf\set{\overline{S}_{Z_2}\of{f}: "} = \overline{J}\of{f}\\
-                \underline{S}_{Z}\of{f} \leq \underline{J}\of{f}\leq \overline{J}\of{f} \leq \overline{S}_z\of{f}
+                \underline{S}_{Z}\of{f} \leq \underline{J}\of{f}\leq \overline{J}\of{f} \leq \overline{S}_Z\of{f}
             \end{align*}
         \end{proof}
     \end{lemma}
