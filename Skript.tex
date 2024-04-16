@@ -28,6 +28,7 @@
 % Font-Encoding
 \usepackage[T1]{fontenc}
 \usepackage{lmodern}
+\usepackage{watermark}
 
 % Theorems
 \newtheorem{blockelement}{Blockelement}[subsection]
@@ -183,7 +184,7 @@
     \date{Sommersemester 2024}
     \maketitle
     \begin{center}
-        Dieses Skript ist inoffiziell. Es besteht kein\\ Anspruch auf Vollständigkeit oder Korrektheit.
+        Dieses Skript ist inoffiziell. Es besteht kein\\Anspruch auf Vollständigkeit oder Korrektheit.
     \end{center}
     \thispagestyle{empty}
     \newpage
@@ -193,6 +194,140 @@
     Alle mit [*] markierten Kapitel sind noch nicht Korrektur gelesen und bedürfen eventuell noch Änderungen.
 
     \newpage
+
+    \section{[*] Das eindimensionale Riemann-Integral}
+    \imaginarysubsection{Das eindimensionale Riemann-Integral}
+    \thispagestyle{pagenumberonly}
+    \marginnote{[16. Apr]}
+    Frage: Was ist die Fläche unter einem Graphen?
+    % TODO: Vis
+    % TODO: Konstant.
+    \begin{definition}[Zerlegung eines Intervalls]
+        \theoremescape
+        \begin{enumerate}[label=(\alph*)]
+            \item Eine Zerlegung $Z$ eines kompakten Intervalls $I=\interv{a,b}$ in Teilintervalle $I_j$ der Längen $\abs{I_j}$ ($j=1,\dots, k$) ist eine Menge von Punkten $x_0, x_1,\dots, x_k\in I$ (Teilpunkte von $Z$) mit $a=x_0 < x_1 < x_2 < \dots < x_k = b$.
+            \item Wir setzen $\varDelta x_j \definedas x_j - x_{j-1} \definedasbackwards\abs{I_j}$
+            \item Die Feinheit der Zerlegung $Z$ ist $\varDelta\of{z}\definedas \max\of{\abs{I_1}, \abs{I_2}, \dots, \abs{I_k}} = \max\of{\varDelta x_1, \varDelta x_2, \dots, \varDelta x_k}$ (Länge des längsten Teilintervalls von $Z$).
+        \end{enumerate}
+        An jedem $I_j$ wählen wir $\xi_j\in I_j$, setzen $\xi=\pair{\xi_1, \xi_2, \dots, \xi_k}$, setzen $B\of{I} =$ Menge aller beschränkten reelwertigen Funktionen auf $I$ $= \set{f: I\fromto \R: \sup_{x\in I} \abs{f(x)} < \infty}$.\\
+        Für $f\in B\of{I}$ setzen
+        \begin{align*}
+            S_z\of{f} &= S_z\of{f, \xi} \definedas \sum_{j=1}^{k} f\of{\xi_j}\varDelta x_j = \sum_{j=1}^{k} f\of{\xi_j}\abs{I_j}\tag{Riemannsche Zwischensumme}
+        \end{align*}
+        Für $f\in B\of{I}$ setzen
+        \begin{align*}
+            \underline{m}_j &\definedas \inf_{I_j} f = \inf\set{f(x): x\in I_j}\\
+            \overline{m}_j &\definedas \sup_{I_j} f = \sup\set{f(x): x\in I_j}\\
+            \overline{S}_z\of{f}&\definedas \sum_{j=1}^{k} \overline{m}_j \varDelta x_j\tag{Obersumme}\\
+            \underline{S}_z\of{f}&\definedas \sum_{j=1}^{k} \underline{m}_j \varDelta x_j\tag{Untersumme}
+            \intertext{Haben}
+            \underline{m}_j &\leq f\of{x} \leq \overline{m}_j \text{ für } x \in I_j\\
+            \impl \underline{m}_j &\leq f\of{\xi_j} \leq \overline{m}_j\\
+            \impl \underline{S}_z\of{f} &\leq S_z\of{f, \xi} \leq \overline{S}_z\of{f}
+        \end{align*}
+    \end{definition}
+    \noindent Wir wollen Zerlegung $Z$ systematisch verfeinern.
+    \begin{definition}[Verfeinerung einer Zerlegung]
+        Eine Zerlegung $Z^{*}$ von $I$ ist eine Verfeinerung der Zerlegung $Z$ von $I$, falls alle Teilpunkte von $Z$ auch Teilpunkte von $Z^{*}$ sind.
+    \end{definition}
+    % Vis
+    \begin{definition}[Gemeinsame Verfeinerung]
+        Die gemeinsame Verfeinerung $Z_1 \lor Z_2$ zweier Zerlegungen $Z_1, Z_2$ von $I$ ist die Zerlegung von $I$, deren Teilpunkte gerade die Teilpunkte von $Z_1$ und $Z_2$ sind.
+    \end{definition}
+    % Vis
+
+    \begin{lemma} % Lemma 3
+        \label{lemma:verfeinerung-ober-unter-summe}
+        Ist $Z^{*}$ eine Verfeinerung der Zerlegung $Z$ von $I$ und $f\in B\of{I}$. Dann gilt
+        \begin{align*}
+            \underline{S}_Z\of{f} \leq \underline{S}_{Z^{*}}\of{f} \leq \overline{S}_{Z^{*}}\of{f} \leq \overline{S}_Z\of{f}
+        \end{align*}
+        \begin{proof}
+            $Z^{*}$ enthält alle Teilpunkte von $Z$, nur mehr.\\
+            \textsc{Schritt 1:} Angenommen $Z^{*}$ enthält genau einen Teilpunkt mehr als $Z$.
+            \begin{align*}
+                y_j &= x_j\quad 0\leq j \leq l\\
+                x_l &< y_{l+1} < x_{l+1}\\
+                y_{l+1} &= x_j\quad l+ 1 \leq j \leq k\\
+                \underline{S}_z\of{f} &= \sum_{j=1}^{k} \underline{m}_j\varDelta x_j\\
+                &= \sum_{j=1}^{l} \underline{m}_j \varDelta x_j + \sum_{j=l+2}^{k} \underline{m}_j \varDelta x_j\\
+                \underline{m}_j &= \inf_{I_j} f = \inf_{I_j^{*}} f = \underline{m}_j^{*} \text{ für } 1 \leq j \leq l
+                \intertext{$j\geq l+2$}
+                \underline{m}_j &= \inf_{I_j} f = \inf_{I_{j+1}^{*}}f = \underline{m}_{j+1}^{*}\\
+                I_j &= \interv{x_j, x_{j-1}} = \interv{y_{j+1}, y_j} = I_{j+1}^{*} \text{ für } j \geq l+2\\
+                \impl \sum_{j=l+2}^{k} \underline{m}_j \varDelta x_j &= \sum_{j=l+2}^{k} \underline{m}_{j+1}^{*} \varDelta y_{j+1} = \sum_{j=l+3}^{k+1} \underline{m}_j^{*} \varDelta y_{j}\\
+                \underline{m}_{l+1} \varDelta x_{l+1} &= \underline{m}_{l+1}\of{x_{l+1} - x_l} = \underline{m}_{l+1}\of{y_{l+2}-y_l}\\
+                &= \underline{m}_{l+1}\of{y_{l+2} - y_{l+1} + y_{l+1} - y_l}\\
+                &= \underline{m}_{l+1} \varDelta y_{l+1} + \underline{m}_{l+1}\varDelta y_{l+1} \leq m_{l+2}\varDelta y_{l+2} + m_{l+1}\varDelta y_{l+1}\\
+                \underline{m}_{l+1} \inf_{I_{l+1}} f &\leq \inf_{I_{l+1}} f = \underline{m}^{*}_{l+1} \text{ und } \underline{m}_{l+1} \leq \inf_{I_{l+2}} f = \underline{m}^{*}_{l+2}
+                \intertext{zusammen}
+                \underline{S}_{Z}\of{f} &\leq \sum_{j=1}^{l} \underline{m}_j^{*} \varDelta y_j + \underline{m}_{l+1} \varDelta y_{l+1} + \underline{m}_{l+1}\varDelta y_{l+2} + \sum_{j=l+3}^{k+1} \underline{m}_j^{*}\varDelta y_j = \underline{S}_{z}\of{f}
+            \end{align*}
+            ähnlich zeigt man $\overline{S}_z\of{f} \geq \overline{S}_{Z^{*}}\of{f}$.\\
+            \textsc{Schritt 2:} Sei $Z^{*}$ eine beliebige Verfeinerung von $Z$. Nehmen eine endliche Folge von Einpunkt-Verfeinerungen $Z=Z_0, Z_1, Z_2, \dots, Z_r = Z^{*}$ und $Z_{s+1}$ hat genau einen Punkt mehr als $Z_{s}$. Dann gilt nach \textsc{Schritt 1}, dass
+            \begin{align*}
+                \underline{S}_{Z}\of{f} \leq \underline{S}_{Z_1}\of{f} \leq \dots \leq \underline{S}_{Z^{*}}\of{f}\\
+                \overline{S}_{Z}\of{f} \geq \overline{S}_{Z_1}\of{f} \geq \overline{S}_{Z_2} \geq \dots \geq \overline{S}_{Z^{*}}\of{f}
+            \end{align*}
+            \textsc{Schritt 3:} Sei $\xi^{*} = \pair{\xi_1^{*}, \xi_2^{*}, \dots, \xi_l^{*}}$ Zwischenpunkt zur Zerlegung $Z^{*}$. Dann gilt
+            \begin{align*}
+                S_{Z^{*}}\of{f} \leq S_{Z^*}\of{f, \xi^{*}} &\leq \overline{S}_{Z^*}\of{f}\qedhere
+            \end{align*}
+        \end{proof}
+    \end{lemma}
+
+    \begin{lemma} % Lemma 4
+        \label{lemma:temp-4}
+        Seien $Z_1$, $Z_2$ Zerlegungen von $I$. Dann gilt $\underline{S}_{Z_1}\of{f} \leq \overline{S}_{Z_2}\of{f}~\forall f\in B\of{I}$.
+        \begin{proof}
+            Es gilt nach Lemma~\ref{lemma:verfeinerung-ober-unter-summe}, dass
+            \begin{align*}
+                \underline{S}_{Z_1}\of{f} &\leq \underline{S}_{Z_1\lor Z_2} \leq \overline{S}_{Z_1\lor Z_2} \leq \overline{S}_{Z_2}\of{f}\qedhere
+            \end{align*}
+        \end{proof}
+    \end{lemma}
+    
+    \begin{bemerkung}
+        Für $I=\interv{a,b}$ und $f\in B\of{I}$ gilt immer $\underbrace{\abs{I}}_{=b-a} \inf_{I} f \leq \underline{S}_Z\of{f} \leq \overline{S}_z\of{f} \leq \abs{I} \sup_{I} f$ für alle Zerlegungen $Z$ von $I$.\\
+        $\set{\overline{S}_Z\of{f} : Z \text{ ist eine Zerlegung von } I}$ und $\set{\underline{S}_Z\of{f} : Z \text{ ist eine Zerlegung von } I}$ sind bereits beschränkte, nicht-leere Teilmengen von $\R$.
+    \end{bemerkung}
+
+    \begin{definition}
+        Für $I=\interv{a,b}$ und $f\in B\of{I}$ definieren wir
+        \begin{align*}
+            \underline{J}\of{f} \definedas \sup\set{\underline{S}_Z\of{f} : \text{ $Z$ ist Zerlegung von $I$ } }\tag{Unterintegral}\\
+            \overline{J}\of{f} \definedas \sup\set{\overline{S}_Z\of{f} : \text{ $Z$ ist Zerlegung von $I$ } }\tag{Oberintegral}\\
+        \end{align*}
+    \end{definition}
+
+    \begin{lemma} % Lemma 6
+        Es sei $Z$ eine Zerlegung von $I$. Dann gilt
+        \begin{align*}
+            \underline{S}_{Z}\of{f} \leq \underline{J}\of{f} \leq \overline{J}\of{f} \leq \overline{S}_{Z}\of{f}
+        \end{align*}
+        \begin{proof}
+            Nach Lemma~\ref{lemma:temp-4} gilt
+            \begin{align*}
+                \underline{S}_{Z_1}\of{f} \leq \overline{S}_{Z_2}\of{f}\\
+                \impl \sup\set{\underline{S}_{Z_1}\of{f}: Z_1 \text{ ist eine Zerlegung von } I} \leq \overline{S}_{Z_1}\of{f}\\
+                \impl \underline{J}\of{f} \leq \overline{S}_{Z_1}\of{f}\\
+                \impl \underline{J}\of{f} \leq \inf\set{\overline{S}_{Z_2}\of{f}: "} = \overline{J}\of{f}\\
+                \underline{S}_{Z}\of{f} \leq \underline{J}\of{f}\leq \overline{J}\of{f} \leq \overline{S}_z\of{f}
+            \end{align*}
+        \end{proof}
+    \end{lemma}
+
+    \begin{definition}
+        $I=\interv{a,b}$, $f\in B\of{I}$ heißt (Riemann-)integrierbar, falls
+        \begin{align*}
+            \underline{J}\of{f} = \overline{J}\of{f}
+        \end{align*}
+        In diese Fall nennen wir $J(f) \definedas \underline{J}\of{f} = \overline{J}\of{f}$ das bestimmte Integral über $\interv{a,b}$ und schreiben
+        \begin{align*}
+            \int_{a}^{b} f(x) dx = \int_{a}^{b} fdx = \int_{I} f(x)dx = \int_{I} fdx = J(f)
+        \end{align*}
+        Die Klasse der Riemann-integrierbaren Funktionen nennen wir $R(I)$.
+    \end{definition}
 
 
 \end{document}
