@@ -81,6 +81,7 @@
 \newcommand{\exclude}[0]{\setminus}
 \renewcommand{\emptyset}{\varnothing}
 \newcommand{\sbset}{\subseteq}
+\newcommand{\dif}{\mathop{}\!\mathrm{d}}
 
 \newcommand{\ntoinf}[0]{n\fromto\infty}
 \newcommand{\toinf}{\fromto\infty}
@@ -127,7 +128,6 @@
 \def\=>{\impl}
 \def\<={\leq}
 \def\>={\geq}
-\def\!={\neq}
 
 % Envs
 \newenvironment{induktionsanfang}{
@@ -204,9 +204,12 @@
     Frage: Was ist die Fläche unter einem Graphen?
     % TODO: Vis
     % TODO: Konstant.
-    \begin{definition}[Zerlegung eines Intervalls]
-        Eine Zerlegung $Z$ eines kompakten Intervalls $I=\interv{a,b}$ in Teilintervalle $I_j$ ($j=1,\dots, k$) der Längen $\abs{I_j}$ ist eine Menge von Punkten $x_0, x_1,\dots, x_k\in I$ (Teilpunkte von $Z$) mit $a=x_0 < x_1 < x_2 < \dots < x_k = b$ und $I_j = \interv{x_{j-1}, x_j}$.\\
-        Wir setzen $\varDelta x_j \definedas x_j - x_{j-1} \definedasbackwards\abs{I_j}$
+    \begin{definition}[Zerlegung]
+        Eine Zerlegung $Z$ eines kompakten Intervalls $I=\interv{a,b}$ in Teilintervalle $I_j$ ($j=1,\dots, k$) der Längen $\abs{I_j}$ ist eine Menge von Punkten $x_0$, $x_1$,$\dots$, $x_k\in I$ (Teilpunkte von $Z$) mit
+        \begin{align*}
+            a=x_0 < x_1 < x_2 < \dots < x_k = b
+        \end{align*}
+        und $I_j = \interv{x_{j-1}, x_j}$. Wir setzen $\varDelta x_j \definedas x_j - x_{j-1} \definedasbackwards\abs{I_j}$.
     \end{definition}
     \begin{definition}[Feinheit einer Zerlegung]
         Die Feinheit der Zerlegung $Z$ ist definiert als die Länge des längsten Teilintervalls von $Z$:
@@ -217,7 +220,7 @@
     \begin{notation}[Riemannsche Zwischensumme]
         Wir setzen
         \begin{align*}
-            B\of{I} = \set{f: I\fromto \R: \sup_{x\in I} \abs{f(x)} < \infty}
+            B\of{I} = \set{f: I\fromto \R~\middle\vert~\sup_{x\in I} \abs{f(x)} < \infty}
         \end{align*}
         als die Menge aller beschränkten reellwertigen Funktionen auf $I$. In jedem $I_j$ wählen wir ein $\xi_j\in I_j$ und setzen $\xi=\pair{\xi_1, \xi_2, \dots, \xi_k}$. Für $f\in B\of{I}$ setzen wir die Riemannsche Zwischensumme
         \begin{align*}
@@ -288,56 +291,71 @@
     \end{lemma}
 
     \begin{lemma} % Lemma 4
-        \label{lemma:temp-4}
-        Seien $Z_1$, $Z_2$ Zerlegungen von $I$. Dann gilt $\underline{S}_{Z_1}\of{f} \leq \overline{S}_{Z_2}\of{f}~\forall f\in B\of{I}$.
+        \label{lemma:ober-unter-summe-zerlegung}
+        Seien $Z_1$, $Z_2$ Zerlegungen von $I$. Dann gilt
+        \begin{align*}
+            \underline{S}_{Z_1}\of{f} \leq \overline{S}_{Z_2}\of{f}\qquad\forall f\in B\of{I}
+        \end{align*}
         \begin{proof}
             Es gilt nach Lemma~\ref{lemma:verfeinerung-ober-unter-summe}, dass
             \begin{align*}
-                \underline{S}_{Z_1}\of{f} &\leq \underline{S}_{Z_1\lor Z_2} \leq \overline{S}_{Z_1\lor Z_2} \leq \overline{S}_{Z_2}\of{f}\qedhere
+                \underline{S}_{Z_1}\of{f} &\leq \underline{S}_{Z_1\lor Z_2}\of{f}\leq \overline{S}_{Z_1\lor Z_2}\of{f} \leq \overline{S}_{Z_2}\of{f}\qedhere
             \end{align*}
         \end{proof}
     \end{lemma}
 
     \begin{bemerkung}
-        Für $I=\interv{a,b}$ und $f\in B\of{I}$ gilt immer $\underbrace{\abs{I}}_{=b-a} \inf_{I} f \leq \underline{S}_Z\of{f} \leq \overline{S}_Z\of{f} \leq \abs{I} \sup_{I} f$ für alle Zerlegungen $Z$ von $I$.\\
-        $\set{\overline{S}_Z\of{f} : Z \text{ ist eine Zerlegung von } I}$ und $\set{\underline{S}_Z\of{f} : Z \text{ ist eine Zerlegung von } I}$ sind bereits beschränkte, nicht-leere Teilmengen von $\R$.
+        Für $I=\interv{a,b}$ und $f\in B\of{I}$ gilt immer
+        \begin{align*}
+            \abs{I}\cdot \inf_{I} f \leq \underline{S}_Z\of{f} \leq \overline{S}_Z\of{f} \leq \abs{I}\cdot \sup_{I} f
+        \end{align*}
+        für alle Zerlegungen $Z$ von $I$. Somit sind
+        \begin{align*}
+            \set{\overline{S}_Z\of{f} : Z \text{ ist eine Zerlegung von } I}
+            \intertext{und}
+            \set{\underline{S}_Z\of{f} : Z \text{ ist eine Zerlegung von } I}
+        \end{align*}
+        beschränkte, nicht-leere Teilmengen von $\R$.
     \end{bemerkung}
 
-    \begin{definition}
-        Für $I=\interv{a,b}$ und $f\in B\of{I}$ definieren wir
+    \begin{definition}[Ober- und Unterintegral]
+        Es sei $I=\interv{a,b}$ und $f\in B\of{I}$. Dann definieren wir
         \begin{align*}
-            \underline{J}\of{f} \definedas \sup\set{\underline{S}_Z\of{f} : \text{ $Z$ ist Zerlegung von $I$ } }\tag{Unterintegral}\\
-            \overline{J}\of{f} \definedas \sup\set{\overline{S}_Z\of{f} : \text{ $Z$ ist Zerlegung von $I$ } }\tag{Oberintegral}\\
+            \overline{J}\of{f} \definedas \inf\set{\overline{S}_Z\of{f} : Z\text{ ist Zerlegung von $I$ } }\tag{Oberintegral}\\
+            \underline{J}\of{f} \definedas \sup\set{\underline{S}_Z\of{f} : Z\text{ ist Zerlegung von $I$ } }\tag{Unterintegral}
         \end{align*}
     \end{definition}
 
     \begin{lemma} % Lemma 6
+        \label{lemma:temp-6}
         Es sei $Z$ eine Zerlegung von $I$. Dann gilt
         \begin{align*}
             \underline{S}_{Z}\of{f} \leq \underline{J}\of{f} \leq \overline{J}\of{f} \leq \overline{S}_{Z}\of{f}
         \end{align*}
         \begin{proof}
-            Nach Lemma~\ref{lemma:temp-4} gilt
+            Nach Lemma~\ref{lemma:ober-unter-summe-zerlegung} gilt für zwei beliebige Zerlegungen $Z_1$, $Z_2$
             \begin{align*}
-                \underline{S}_{Z_1}\of{f} \leq \overline{S}_{Z_2}\of{f}\\
-                \impl \sup\set{\underline{S}_{Z_1}\of{f}: Z_1 \text{ ist eine Zerlegung von } I} \leq \overline{S}_{Z_1}\of{f}\\
-                \impl \underline{J}\of{f} \leq \overline{S}_{Z_1}\of{f}\\
-                \impl \underline{J}\of{f} \leq \inf\set{\overline{S}_{Z_2}\of{f}: "} = \overline{J}\of{f}\\
-                \underline{S}_{Z}\of{f} \leq \underline{J}\of{f}\leq \overline{J}\of{f} \leq \overline{S}_Z\of{f}
+                \underline{S}_{Z_1}\of{f} &\leq \overline{S}_{Z_2}\of{f}
+                \intertext{Wir fixieren $Z_2$ und erhalten}
+                \impl \sup\set{\underline{S}_{Z_1}\of{f}: Z_1 \text{ ist eine Zerlegung von } I} &\leq \overline{S}_{Z_2}\of{f}\\
+                \impl \underline{J}\of{f} &\leq \overline{S}_{Z_2}\of{f}\\
+                \impl \underline{J}\of{f} &\leq \inf\set{\overline{S}_{Z_2}\of{f}: Z_2 \text{ ist eine Zerlegung von } I}\\
+                \impl \underline{J}\of{f} &\leq \overline{J}\of{f}\\
+                \impl\underline{S}_{Z}\of{f} \leq \underline{J}\of{f}&\leq \overline{J}\of{f} \leq \overline{S}_Z\of{f}\qedhere
             \end{align*}
         \end{proof}
     \end{lemma}
 
-    \begin{definition}
-        $I=\interv{a,b}$, $f\in B\of{I}$ heißt (Riemann-)integrierbar, falls
+    \begin{definition}[Integral]
+        Es sei $I=\interv{a,b}$. $f\in B\of{I}$ heißt (Riemann-)integrierbar, falls
         \begin{align*}
             \underline{J}\of{f} = \overline{J}\of{f}
         \end{align*}
-        In diese Fall nennen wir $J(f) \definedas \underline{J}\of{f} = \overline{J}\of{f}$ das bestimmte Integral über $\interv{a,b}$ und schreiben
+        In diese Fall nennen wir $J(f) \definedas \underline{J}\of{f} = \overline{J}\of{f}$ das bestimmte Integral von $f$ über $\interv{a,b}$ und schreiben
         \begin{align*}
-            \int_{a}^{b} f(x) dx = \int_{a}^{b} fdx = \int_{I} f(x)dx = \int_{I} fdx = J(f)
+            \int_{a}^{b} f(x) \dif x = \int_{a}^{b} f\dif x = \int_{I} f(x)\dif x = \int_{I} f\dif x \definedasbackwards J(f)
         \end{align*}
-        Die Klasse der Riemann-integrierbaren Funktionen nennen wir $R(I)$.
+        Die Klasse der Riemann-integrierbaren Funktionen $f\in B\of{I}$ nennen wir $R(I)$.
     \end{definition}
 
 
