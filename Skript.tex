@@ -258,32 +258,31 @@
         \end{align*}
         \begin{proof}
             $Z^{*}$ enthält alle Teilpunkte von $Z$, nur mehr.\\
-            \textsc{Schritt 1:} Angenommen $Z^{*}$ enthält genau einen Teilpunkt mehr als $Z$.
+            \textsc{Schritt 1:} Angenommen $Z^{*}$ enthält genau einen Teilpunkt ($y_{\pair{l+1}}$) mehr als $Z$. Das heißt
             \begin{align*}
-                y_j &= x_j\quad 0\leq j \leq l\\
-                x_l &< y_{l+1} < x_{l+1}\\
-                y_{l+1} &= x_j\quad l+ 1 \leq j \leq k\\
-                \underline{S}_Z\of{f} &= \sum_{j=1}^{k} \underline{m}_j\varDelta x_j\\
-                &= \sum_{j=1}^{l} \underline{m}_j \varDelta x_j + \sum_{j=l+2}^{k} \underline{m}_j \varDelta x_j\\
-                \underline{m}_j &= \inf_{I_j} f = \inf_{I_j^{*}} f = \underline{m}_j^{*} \text{ für } 1 \leq j \leq l
-                \intertext{$j\geq l+2$}
-                \underline{m}_j &= \inf_{I_j} f = \inf_{I_{j+1}^{*}}f = \underline{m}_{j+1}^{*}\\
-                I_j &= \interv{x_j, x_{j-1}} = \interv{y_{j+1}, y_j} = I_{j+1}^{*} \text{ für } j \geq l+2\\
+                y_j &= x_j\quad\fa 0\leq j \leq l\\
+                x_l < y_{l+1} &< x_{l+1}\\
+                y_{j+1} &= x_j\quad \fa l+ 1 \leq j \leq k
+                \intertext{Dann gilt}
+                \underline{S}_Z\of{f} &= \sum_{j=1}^{k} \underline{m}_j\varDelta x_j = \sum_{j=1}^{l} \underline{m}_j \varDelta x_j + \underline{m}_{l+1}\varDelta x_{l+1} + \sum_{j=l+2}^{k} \underline{m}_j \varDelta x_j\\
+                \underline{m}_j &= \inf_{I_j} f = \inf_{I_j^{*}} f = \underline{m}_j^{*}\quad \fa 0 \leq j \leq l\\
+                \underline{m}_j &= \inf_{I_j} f = \inf_{I_{j+1}^{*}}f = \underline{m}_{j+1}^{*}\quad \fa j\geq l+2\\
+                I_j &= \interv{x_j, x_{j-1}} = \interv{y_{j+1}, y_j} = I_{j+1}^{*}\quad\fa j \geq l+2\\
                 \impl \sum_{j=l+2}^{k} \underline{m}_j \varDelta x_j &= \sum_{j=l+2}^{k} \underline{m}_{j+1}^{*} \varDelta y_{j+1} = \sum_{j=l+3}^{k+1} \underline{m}_j^{*} \varDelta y_{j}\\
                 \underline{m}_{l+1} \varDelta x_{l+1} &= \underline{m}_{l+1}\of{x_{l+1} - x_l} = \underline{m}_{l+1}\of{y_{l+2}-y_l}\\
                 &= \underline{m}_{l+1}\of{y_{l+2} - y_{l+1} + y_{l+1} - y_l}\\
-                &= \underline{m}_{l+1} \varDelta y_{l+1} + \underline{m}_{l+1}\varDelta y_{l+1} \leq m_{l+2}\varDelta y_{l+2} + m_{l+1}\varDelta y_{l+1}\\
-                \underline{m}_{l+1} \inf_{I_{l+1}} f &\leq \inf_{I_{l+1}} f = \underline{m}^{*}_{l+1} \text{ und } \underline{m}_{l+1} \leq \inf_{I_{l+2}} f = \underline{m}^{*}_{l+2}
-                \intertext{zusammen}
-                \underline{S}_{Z}\of{f} &\leq \sum_{j=1}^{l} \underline{m}_j^{*} \varDelta y_j + \underline{m}_{l+1} \varDelta y_{l+1} + \underline{m}_{l+1}\varDelta y_{l+2} + \sum_{j=l+3}^{k+1} \underline{m}_j^{*}\varDelta y_j = \underline{S}_{z}\of{f}
+                &= \underline{m}_{l+1} \varDelta y_{l+2} + \underline{m}_{l+1}\varDelta y_{l+1}\\
+                &\leq \underline{m}_{l+2}^{*}\varDelta y_{l+2} + \underline{m}_{l+1}^{*}\varDelta y_{l+1}
+                \intertext{Insgesamt ergibt sich}
+                \underline{S}_{Z}\of{f} &\leq \sum_{j=1}^{l} \underline{m}_j^{*} \varDelta y_j + \underline{m}_{l+1}^{*} \varDelta y_{l+1} + \underline{m}_{l+2}^{*}\varDelta y_{l+2} + \sum_{j=l+3}^{k+1} \underline{m}_j^{*}\varDelta y_j = \underline{S}_{Z^{*}}\of{f}
             \end{align*}
-            ähnlich zeigt man $\overline{S}_Z\of{f} \geq \overline{S}_{Z^{*}}\of{f}$.\\
-            \textsc{Schritt 2:} Sei $Z^{*}$ eine beliebige Verfeinerung von $Z$. Nehmen eine endliche Folge von Einpunkt-Verfeinerungen $Z=Z_0, Z_1, Z_2, \dots, Z_r = Z^{*}$ und $Z_{s+1}$ hat genau einen Punkt mehr als $Z_{s}$. Dann gilt nach \textsc{Schritt 1}, dass
+            ähnlich zeigt man $\overline{S}_Z\of{f} \geq \overline{S}_{Z^{*}}\of{f}$.\\[10pt]
+            \textsc{Schritt 2:} Sei $Z^{*}$ eine beliebige Verfeinerung von $Z$. Wir nehmen eine endliche Folge von Einpunkt-Verfeinerungen $Z=Z_0, Z_1, Z_2, \dots, Z_r = Z^{*}$. Dabei hat $Z_{s+1}$ genau einen Punkt mehr als $Z_{s}$. Dann gilt nach \textsc{Schritt 1}, dass
             \begin{align*}
-                \underline{S}_{Z}\of{f} \leq \underline{S}_{Z_1}\of{f} \leq \dots \leq \underline{S}_{Z^{*}}\of{f}\\
-                \overline{S}_{Z}\of{f} \geq \overline{S}_{Z_1}\of{f} \geq \overline{S}_{Z_2} \geq \dots \geq \overline{S}_{Z^{*}}\of{f}
+                \underline{S}_{Z}\of{f} &\leq \underline{S}_{Z_1}\of{f} \leq \dots \leq \underline{S}_{Z^{*}}\of{f}\\
+                \overline{S}_{Z}\of{f} &\geq \overline{S}_{Z_1}\of{f} \geq \dots \geq \overline{S}_{Z^{*}}\of{f}
             \end{align*}
-            \textsc{Schritt 3:} Sei $\xi^{*} = \pair{\xi_1^{*}, \xi_2^{*}, \dots, \xi_l^{*}}$ Zwischenpunkt zur Zerlegung $Z^{*}$. Dann gilt
+            \textsc{Schritt 3:} Sei $\xi^{*} = \pair{\xi_1^{*}, \xi_2^{*}, \dots, \xi_l^{*}}$ der Zwischenpunkt zur Zerlegung $Z^{*}$. Dann gilt
             \begin{align*}
                 S_{Z^{*}}\of{f} \leq S_{Z^*}\of{f, \xi^{*}} &\leq \overline{S}_{Z^*}\of{f}\qedhere
             \end{align*}
