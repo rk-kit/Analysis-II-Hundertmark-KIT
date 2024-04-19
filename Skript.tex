@@ -198,6 +198,7 @@
 
 
     \section{[*] Das eindimensionale Riemann-Integral}
+
     \subsection{Das Riemann-Integral}
     \thispagestyle{pagenumberonly}
     \marginnote{[16. Apr]}
@@ -364,7 +365,7 @@
             \int_{a}^{b} f\of{x} \dif x &= c\cdot\pair{b-a}
         \end{align*}
     \end{beispiel}
-    
+
     \begin{beispiel}
         Die Funktion $f: \interv{0,1}\fromto\R$
         \begin{align*}
@@ -375,7 +376,7 @@
         \end{align*}
         ist nicht Riemann-integrierbar, weil $\overline{J}\of{f} = 1$ und $\underline{J}\of{f} = 0$.
     \end{beispiel}
-    
+
     \subsection{Integrabilitätskriterien}
 
     \begin{satz}[1. Kriterium]
@@ -407,7 +408,7 @@
             \end{align*}
         \end{proof}
     \end{satz}
-    
+
     \begin{satz}[2. Kriterium]
         Sei $f\in B\of{I}$. Dann gilt $f\in R\of{I}$ genau dann, wenn
         \begin{align*}
@@ -462,5 +463,131 @@
         konvergiert gegen $J(f)$ falls $f\in R\of{I}$.
     \end{anwendung}
 
+    \begin{bemerkung}
+        \marginnote{[19. Apr]}
+        Sei $z=\pair{x_0, x_1, \dots, x_k}$ Zerlegung von $I=\interv{a,b}$ und $\zeta = \pair{\zeta_1, \zeta_2, \dots, \zeta_k}$ Zwischenpunkt zur Zerlegung $Z$, sodass
+        \begin{align*}
+            x_{j-1}&\leq \zeta_j \leq x_j\quad\fa j=1,\dots, k
+            \intertext{Dann ist die Riemannsche Zwischensumme}
+            S_Z\of{f} &= \sum_{j=1}^{k} f\of{\zeta_j}\cdot\abs{I_j}
+        \end{align*}
+        linear in $f$.
+    \end{bemerkung}
+
+    \begin{korollar} % Korollar 10
+        \label{korollar:temp-10}
+        Sei $f\in B\of{I}$. Dann gilt $f\in R\of{I}$ genau dann, wenn für jede Folge $(Z_n)_n$ von Zerlegungen $Z_n$ von $I$ mit Feinheit $\Delta\of{z_n}\fromto 0$ für $\ntoinf$ und jede Folge $(\xi_n)_n$ von Zwischenpunkten $\xi_n$ zugehörig zu $Z_n$ ein Grenzwert $\biglim{\ntoinf} S_{Z_n}\of{f, \xi_n}$ existiert.\\
+        Darüber hinaus ist in diesem Fall obiger Grenzwert unabhängig von der Wahl der Zerlegung $Z_n$ und der Zwischenpunkten $\xi_n$ und es gilt
+        \begin{align*}
+            \int_{a}^{b} f\of{x} \dif x &= \lim_{\ntoinf} S_{Z_n}\of{f, \xi_n}
+        \end{align*}
+        \begin{proof}
+            \anf{$\impl$} Sei $f\in R\of{I}$ zu $\varepsilon > 0\ex\delta > 0\colon \overline{S}_Z\of{f} - \underline{S}_Z\of{f} < \varepsilon\fa\text{Zerlegungen } Z \text{ von } I \text{ mit } \Delta\of{z} < \delta$. Da $\Delta\of{z_n}\fromto 0$ für $\ntoinf$
+            \begin{align*}
+                \impl \ex N\in\N_0\colon \Delta\of{Z_n} &< \delta\quad\forall n\geq N
+                \intertext{und}
+                \underline{S}_Z\of{f} \leq \underline{J}\of{f} &= J\of{f} \leq \overline{S}_Z\of{f}\\
+                \underline{S}_Z\of{f} \leq S_{Z_n}\of{f,\xi_n} &\leq \overline{S}_{Z_n}\of{f}\\
+                \impl \abs{J\of{f} - S_{Z_n}\of{f, \xi_n}} &< \varepsilon\quad\forall n\geq N
+                \intertext{das heißt}
+                \lim_{\ntoinf} S_{Z_n}\of{f, \xi_n} &= J\of{f} = \int_{a}^{b} f \dif x
+            \end{align*}
+            \anf{$\Leftarrow$} \textsc{Schritt 1:} Angenommen $\biglim{\ntoinf} S_{Z_n}\of{f, \xi_n}$ existiert für jede Folge $\pair{Z_n}_n$ von Zerlegungen von $I$ mit $\Delta\of{Z_n}\fromto 0$ und jede Wahl von Zwischenpunkten $\pair{\xi_n}_n$ zu $Z_n$.\\
+            Seien $\pair{Z_n^{1}}_n$, $\pair{Z_n^{2}}_n$ zwei solche Folgen von Zerlegungen mit $\pair{\xi_n^1}_n$, $\pair{\xi_n^2}_n$ zugehörigen Folgen von Zwischenpunkten. Sei $\pair{Z_n}_n$ eine neue Folge von Zerlegungen von $I$, wobei $Z_{2k} = Z_k^2$ und $Z_{2k-1} = Z^1_k$, außerdem sei $\xi_{2k} = \xi^2_k$ und $\xi_{2k-1}=\xi^1_k$. Dann wissen wir, dass
+            \begin{align*}
+                \lim_{\ntoinf} &S_{Z_n}\of{f, \xi_n}
+                \intertext{existiert und gilt}
+                \lim_{\ntoinf} S_{Z_n}\of{f, \xi_n} &= \lim_{\ntoinf} S_{Z_{2n}}\of{f, \xi_{2n}}\\
+                &= \lim_{\ntoinf} S_{Z_{2n-1}}\of{f, \xi_{2n-1}}\\
+                &= \lim_{\ntoinf} S_{Z_n^2}\of{f, \xi_n^2}\\
+                &= \lim_{\ntoinf} S_{Z_n^1}\of{f, \xi_n^1}
+            \end{align*}
+            \textsc{Schritt 2:} (Später)
+        \end{proof}
+    \end{korollar}
+    
+    \begin{satz} % Satz 11
+        Der Raum $R\of{I}$ auf einem kompakten Intervall $I=\interv{a,b}$ ist ein Vektorraum und $J: R\of{I}\fromto\R~~f\mapsto J\of{f} = \int_{a}^{b} f \dif x$ ist eine lineare Abbildung.\\
+        Für $f,g\in R\of{I}$ und $\alpha,\beta\in\R$ folgt $\alpha f + \beta g \in R\of{I}$ und $J\of{\alpha f + \beta g} = \alpha J\of{f} + \beta J\of{g}$.
+        \begin{proof}
+            \textsc{Schritt 1:} Sei $h: I\fromto\R$ und Zerlegung $Z$ von $I$ mit zugehörigen Intervallen $Ij$. Dann gilt
+            \begin{align*}
+                \overline{m}_j = \sup_{x\in I_j}h(x)&\quad \underline{m}_j = \inf_{y\in I_j} h(y)\\
+                \impl \overline{m}_j - \underline{m}_j &= \sup_{x\in I_j}h(x) - \inf_{y\in I_j} h(y)\\
+                &= \sup_{x\in I_j} h(x) + \sup_{y\in I_j}\pair{-h\of{y}}\\
+                &= \sup_{x,y\in I_j}\pair{h\of{x}-h\of{y}}\\
+                &= \sup_{x,y\in I_j}\pair{h(y) - h(x)}\tag{Vertauschen von $x,y$}\\
+                &= \sup_{x,y\in I_j}\pair{\abs{h(x)-h(y)}}\\
+                \overline{m}_j\of{h} - \underline{m}_j\of{h} &= \sup_{x,y\in I_j}\pair{\abs{h(x)-h(y)}}\tag{1}
+                \intertext{Nehmen $h=\alpha f + \beta g$; $f,g\in R\of{I}$; $\alpha, \beta\in\R$}
+                h(x) - h(y) &= \alpha\pair{f(x)-f(y)} + \beta\pair{g(x)-g(y)}\\
+                \abs{h(x)-h(y)} &\leq \abs{\alpha}\abs{f(x)-f(y)}+ \abs{\beta}\abs{g(x)-g(y)}\\
+                \impl \overline{m}_j\of{h} - \underline{m}_j\of{h} &= \sup_{x\in I_j} h(x) - \inf_{y\in I_j} h(y)\\
+                \annot[{&}]{=}{(1)} \sup_{x,y\in I_j} \pair{\abs{h(x)-h(y)}}\\
+                &\leq \abs{\alpha}\cdot \sup_{x,y\in I_j}\abs{f(x)-f(y)} + \abs{\beta}\cdot\sup_{x,y\in I_j} \abs{g(x)-g(y)}\\
+                \impl \overline{S}_Z\of{h} - \underline{S}_{Z}\of{h} &= \sum_{j}^{} \pair{\overline{m}_j\of{h} - \underline{m}_j\of{h}]}\abs{I_j}\\
+                &\leq \abs{\alpha}\sum_{j}^{} \pair{\overline{m}_j\of{f} - \underline{m}_j\of{f}}\abs{I_j} + \abs{\beta} \sum_{j}^{} \pair{\overline{m}_j\of{g} - \underline{m}_j\of{g}}\abs{I_j}\\
+                \impl \overline{S}_Z\of{h} - \underline{S}_Z\of{h} &\leq \abs{\alpha}\pair{\overline{S}_Z\of{f} - \underline{S}_Z\of{f}} + \abs{\beta}\pair{\overline{S}_Z\of{g} - \underline{S}_Z\of{g}}\\
+                \impl \fa\varepsilon > 0\ex Z_1\colon \overline{S}_{Z_1}\of{f} - \underline{S}_{Z_1}\of{f} &< \frac{\varepsilon}{2\pair{1+\abs{\alpha} + \abs{\beta}}}\\
+                \fa\varepsilon > 0\ex Z_2\colon \overline{S}_{Z_2}\of{g} - \underline{S}_{Z_2}\of{g} &< \frac{\varepsilon}{2\pair{1+\abs{\alpha} + \abs{\beta}}}\\
+                \intertext{Wähle $Z=Z_1\lor Z_2$}
+                \impl \overline{S}_Z\of{h} - \underline{S}_Z\of{h} &< \abs{\alpha}\frac{\varepsilon}{2\pair{1+\abs{\alpha}+\abs{\beta}}} + \abs{\beta}\frac{\varepsilon}{2\pair{1+\abs{\alpha}+\abs{\beta}}}\\
+                &\leq \frac{\varepsilon}{2} +\frac{\varepsilon}{2} = \varepsilon
+            \end{align*}
+            nach Satz~\ref{satz:integr-kriterium-1} ist $h=\alpha f + \beta g$ Riemann-integrierbar.\\
+            \textsc{Schritt 2:} Für Zwischensummen
+            \begin{align*}
+                S_Z\of{h, \xi} &= \sum_{j}^{} h\of{\xi_j}\abs{I_j}\\
+                &= \alpha S_Z\of{f, \xi} + \beta S_Z\of{g, \xi}
+            \end{align*}
+            haben wir Linearität!\\
+            Für $h,f,g\in R\of{I}$ gilt nach Korollar~\ref{korollar:temp-10}
+            \begin{align*}
+                J\of{h} &= \lim_{n\toinf} S_{Z_n}\of{h, \xi_n}\\
+                &= \lim_{n\toinf}\pair{\alpha S_{Z_n}\of{f, \xi_n} + \beta S_{Z_n}\of{g, \xi_n}}\tag{$\Delta\of{Z_n}\fromto 0$}\\
+                \annot[{&}]{=}{\ref{korollar:temp-10}}] \alpha \lim S_{Z_n}\of{f, \xi_n} + \beta \lim_{\ntoinf} S_{Z_n}\of{g, \xi_n}\\
+                &= \alpha J\of{f} + \beta J\of{g}\qedhere
+            \end{align*}
+        \end{proof}
+    \end{satz}
+
+    \begin{satz} % Satz 12
+        Seien $f, g\in R\of{I}$. Dann folgt $f\cdot g\in R\of{I}$ sowie $\abs{f} \in R\of{I}$. Ist außerdem $\abs{g} \geq c > 0$ auf $I$ für ein konstantes $c>0$, so ist auch $\frac{f}{g}\in R\of{I}$.
+        \begin{proof}
+            Es sei $h(x) = f(x)\cdot g(x)$ für $x\in I$. Dann gilt
+            \begin{align*}
+                \abs{h(x) - h(y)} &= \abs{f(x)g(x) - f(y)g(y)}\\
+                &= \abs{g(x)\pair{f(x)-f(y)} + f(y)\pair{g(x)-g(y)}}\\
+                &\leq \norm{g}_{\infty}\cdot\abs{f(x)-f(y)} + \norm{f}_{\infty} \cdot \abs{g(x)-g(y)}\\
+                \norm{f}_{\infty} &= \sup_{x\in I}\abs{f(x)} < \infty
+                \intertext{$Z$ Zerlegung von $I$ ist $I_j$; Teilintervalle}
+                \overline{S}_Z\of{h} - \underline{S}_Z\of{h} &= \sum_{j}^{} \pair{\overline{m}_j\of{h} - \underline{m}_j\of{h}}\cdot\abs{I_j}\\
+                \overline{m}_j\of{h} - \underline{m}_j\of{h} &= \sup_{I_j} h - \inf_{I_j} h = \sup_{x,y\in I_j} \abs{h(x)-h(y)}\\
+                &\leq \norm{g}_{\infty} \pair{\overline{m}_j\of{f}- \underline{m}_j\of{f}} + \norm{f}_{\infty} \pair{\overline{m}_j\of{y} - \underline{m}_j\of{g}}\\
+                \overline{S}_Z\of{h} - \underline{S}_Z\of{h} &\leq \norm{f}_{\infty}\cdot\abs{\overline{S}_Z\of{g} - \underline{S}_Z\of{g}} + \norm{g}_{\infty}\pair{\overline{S}_Z\of{f} - \underline{S}_Z\of{f}}
+                \intertext{Zu $\varepsilon > 0$}
+                \exists Z_1\colon \overline{S}_{Z_1}\of{f} - \underline{S}_{Z_1}\of{f} &< \frac{\varepsilon}{2\pair{1+\norm{f}_{\infty}}}\\
+                \exists Z_2\colon \overline{S}_{Z_2}\of{f} - \underline{S}_{Z_2}\of{f} &< \frac{\varepsilon}{2\pair{1+\norm{g}_{\infty}}}
+                \intertext{Es sei $Z\:= Z_1 \lor Z_2$}
+                \impl \overline{S}_Z\of{h} - \underline{S}_Z\of{h} &\leq \norm{f}_{\infty}\cdot\pair{\overline{S}_Z\of{g} - \underline{S}_Z\of{g}} + \norm{g}_{\infty} \cdot\pair{\overline{S}_Z\of{f} - \underline{S}_Z\of{f}} \leq \frac{\varepsilon}{2} + \frac{\varepsilon}{2} = \varepsilon
+            \end{align*}
+            Das heißt $h=f\cdot g\in R\of{I}$ nach Satz~\ref{satz:integr-kriterium-1}.\\
+            Für $\abs{f}$ verwende
+            \begin{align*}
+                \abs{\abs{f(x)}- \abs{f(y)}} &\leq \abs{f(x) - f(y)}\\
+                \impl \overline{m}_j\of{\abs{f}} - \underline{m}_j\of{\abs{f}} &= \sup_{x,y\in I_j}\pair{\abs{\abs{f(x)} - \abs{f(y)}}}\\
+                &\leq \sup_{x,y\in I_j} \pair{\abs{f(x)-f(y)}}\\
+                &= \overline{m}_j\of{f} - \underline{m}_j\of{f}
+            \end{align*}
+            wie vorher folgt also $\abs{f} \in R\of{I}$.\\
+            Für $\frac{f}{g}$ muss nur $\frac{1}{g}$ betrachtet und die Multiplikationsregel angewendet werden. Es gilt
+            \begin{align*}
+                \abs{\frac{1}{g(x)}- \frac{1}{g(y)}} &= \frac{\abs{g(x)-g(y)}}{\abs{g(x)}\abs{g(y)}}\\
+                &\leq \frac{1}{\varepsilon^2}\abs{g(x) - g(y)}\\
+                \impl \overline{m}_j\of{\frac{1}{y}}  - \underline{m}_j\of{\frac{1}{y}} \leq \frac{1}{\varepsilon^2} \pair{\overline{m}_j\of{y} - \underline{m}_j\of{y}}
+            \end{align*}
+            Dann wie vorher.\qedhere
+        \end{proof}
+    \end{satz}
 
 \end{document}
