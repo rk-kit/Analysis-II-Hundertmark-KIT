@@ -198,7 +198,7 @@
 
 
     \section{[*] Das eindimensionale Riemann-Integral}
-    \imaginarysubsection{Das eindimensionale Riemann-Integral}
+    \subsection{Das Riemann-Integral}
     \thispagestyle{pagenumberonly}
     \marginnote{[16. Apr]}
     Frage: Was ist die Fläche unter einem Graphen?
@@ -356,6 +356,111 @@
         \end{align*}
         Die Klasse der Riemann-integrierbaren Funktionen $f\in B\of{I}$ nennen wir $R(I)$.
     \end{definition}
+
+    \begin{beispiel}[Konstante Funktion]
+        \marginnote{[18. Apr]}
+        $f(x) \definedas c$ auf $\interv{a,b}$ für eine Konstante $c\in\R$. Dann gilt
+        \begin{align*}
+            \int_{a}^{b} f\of{x} \dif x &= c\cdot\pair{b-a}
+        \end{align*}
+    \end{beispiel}
+    
+    \begin{beispiel}
+        Die Funktion $f: \interv{0,1}\fromto\R$
+        \begin{align*}
+            f(x) \definedas \begin{cases}
+                                1 &x\in \Q\\
+                                0 &\text{sonst}
+            \end{cases}
+        \end{align*}
+        ist nicht Riemann-integrierbar, weil $\overline{J}\of{f} = 1$ und $\underline{J}\of{f} = 0$.
+    \end{beispiel}
+    
+    \subsection{Integrabilitätskriterien}
+
+    \begin{satz}[1. Kriterium]
+        \label{satz:integr-kriterium-1}
+        Es sei $f\in B\of{I}$. Dann gilt $f\in R\of{I}$ genau dann, wenn
+        \begin{align*}
+            \fa\varepsilon > 0\ex\text{Zerlegung } Z\text{ von } I\text{ mit } \overline{S}_{Z}\of{f}-\underline{S}_{Z}\of{f} < \varepsilon
+        \end{align*}
+        \begin{proof}
+            \anf{$\Leftarrow$} Nach Lemma~\ref{lemma:temp-6} gilt
+            \begin{align*}
+                \underline{S}_Z\of{f}\leq \underline{J}\of{f} &\leq \overline{J}\of{f} \leq \overline{S}_Z\of{f}
+                \intertext{Sei $\varepsilon > 0$, dann gilt}
+                0&\leq\overline{J}\of{f}-\underline{J}\of{f}\leq\overline{S}_Z\of{f} - \underline{S}_Z\of{f} < \varepsilon\\
+                \impl 0&\leq \overline{J}\of{f} - \underline{J}\of{f} \leq 0\\
+                \impl f&\in R\of{I}
+            \end{align*}
+            \anf{$\impl$} Angenommen $f\in R\of{I}$, das heißt
+            \begin{align*}
+                \overline{J}\of{f} &= \underline{J}\of{f}\\
+                \overline{J}\of{f} &= \inf\set{\overline{S}_Z\of{f}: Z \text{ ist eine Zerlegung von } I}\\
+                \underline{J}\of{f} &=\sup\set{\underline{S}_Z\of{f}: Z \text{ ist eine Zerlegung von } I}
+                \intertext{Das heißt zu $\varepsilon > 0$ existieren Zerlegungen $Z_1$, $Z_2$ von $I$ mit}
+                \overline{J}\of{f} + \frac{\varepsilon}{2} &> \overline{S}_{Z_1}\of{f}\\
+                \underline{J}\of{f} - \frac{\varepsilon}{2} &< S_{Z_2}\of{f}
+                \intertext{Da $f\in R\of{I}$ gilt $\underline{J}\of{f} = \overline{J}\of{f}$. Wir definieren die gemeinsame Verfeinerung $Z\definedas Z_1 \lor Z_2$. Dann gilt}
+                \overline{S}_Z\of{f} - \underline{S}_Z\of{f} &< \overline{J}\of{f} + \frac{\varepsilon}{2} - \pair{\underline{J}\of{f} - \frac{\varepsilon}{2}}\\
+                &= \overline{J}\of{f} - \underline{J}\of{f} + \frac{\varepsilon}{2} + \frac{\varepsilon}{2} = \varepsilon\qedhere
+            \end{align*}
+        \end{proof}
+    \end{satz}
+    
+    \begin{satz}[2. Kriterium]
+        Sei $f\in B\of{I}$. Dann gilt $f\in R\of{I}$ genau dann, wenn
+        \begin{align*}
+            \fa\varepsilon > 0\ex\delta > 0\fa \text{Zerlegungen }Z \text{ von } I \text{ mit Feinheit } \Delta\of{Z} < \delta\colon \overline{S}_Z\of{f} - \underline{S}\of{f} < \varepsilon
+        \end{align*}
+        \begin{proof}
+            \anf{$\Leftarrow$} wird von Satz~\ref{satz:integr-kriterium-1} bereits impliziert.\\[10pt]
+            \anf{$\impl$} Sei $f\in R\of{I}$ und $\varepsilon > 0$. Dann gilt nach Satz~\ref{satz:integr-kriterium-1}, dass eine Zerlegung $Z'=\pair{x_0', x_1', \dots, x_l' = b}$ von $I$ mit
+            \begin{align*}
+                \overline{S}_Z\of{f} - \underline{S}_Z\of{f} &< \frac{\varepsilon}{2}
+                \intertext{existiert. Wähle eine andere Zerlegung $Z$ von $I$ mit $\Delta\of{Z} < \delta$, wobei $\delta > 0$ noch später gewählt wird. Setze $Z^{*} = Z'\lor Z$. Nach Lemma~\ref{lemma:verfeinerung-ober-unter-summe} und Satz~\ref{satz:integr-kriterium-1} gilt}
+                \overline{S}_{Z^{*}}\of{f} - \underline{S}_{Z^{*}}\of{f} &< \frac{\varepsilon}{2}
+                \intertext{Wir wollen die Ober- und Untersumme von $Z^{*}$ mit denen in $Z$ vergleichen.}
+                \overline{S}_Z\of{f} - \underline{S}_{Z^{*}}\of{f} &= \sum_{j} \overline{m}_j\cdot\abs{I_j} - \sum_{t}^{} \overline{m}_t\cdot\abs{I_t}
+                \intertext{wobei $I_j = \interv{x_{j-1}, x_j}$. Da $Z^*$ eine Verfeinerung von $Z$ ist, sind alle Teilpunkte von $Z$ auch Teilpunkte von $Z^*$. Das heißt die Intervalle $I_j$ (zu $Z$) unterscheiden sich von den Intervallen $I_j^*$ (zu $Z^*$) sofern Punkte $x_{\nu}'$ (Teilpunkte von $Z^*$) im Inneren von $I_j$ liegen. Also gilt}
+                I_Z^{*} \cap I_j &\neq \emptyset \impl I_Z^{*} \subseteq I_j
+                \intertext{Frage: Wie viele Intervalle $I_j$ existieren maximal, für die $I_j$ eine Verfeinerung von $Z$ oder ? hinter reellen $I_j^*$ ist? Dann muss mindestens ein Punkt von der Zerlegung $Z'$ unterhalb von $I_j$ liegen. Wir haben $l$ Punkte in Zerlegung $Z'$. Das heißt die Anzahl solcher Intervalle $I_j$ ist maximal $l$.}
+                \overline{S}_Z\of{f} - \overline{S}_{Z^{*}}\of{f} &= \sum_{j}^{} \overline{m}_j\cdot\abs{I_j} - \sum_{t}^{} \overline{m}_t^{*} \cdot\abs{I_j^{*}}\\
+                &= \sum_{j}^{} \pair{\overline{m}_j \cdot\abs{I_j} - \sum_{t: I_{Z}^{*} \subseteq I_j}^{} \overline{m}_t^{*} \cdot\abs{I_t^{*}}}\\
+                &= \sum_{j}^{} \sum_{t: I_t^{*}}^{} \pair{\overline{m}_j - \overline{m}_t^{*}}\cdot\abs{I_t^{*}}\\
+                \overline{S}_Z\of{f} - \overline{S}_Z\of{f} &= \sum_{j}^{} \sum_{t: I_t^{*}}^{} \pair{\underbrace{\overline{m}_j - \overline{m}_t^{*}}_{= 0 \text{ falls } I_t^{*} = I_j}}\cdot\abs{I_t^{*}}\\
+                &= \sum_{j}^{} \sum_{t: I_t^{*}}^{} \pair{\overline{m}_j - \overline{m}_t^{*}}\cdot\abs{I_Z^{*}}\\
+                f(x) &= f(y) + f(x) - f(y)\\
+                &\leq f(y) + \sup_{s_1, s_2\in I}\set{f(s_1) - f(s_2)}\\
+                f(x) &\leq f(y) + 2\norm{f}_{\infty}
+                \intertext{genauso}
+                f(x) &= f(y) + f(x) - f(y)\\
+                &\geq f(y) + \inf_{s_1, s_2\in I}\set{f(s_1) - f(s_2)}\\
+                &\geq f(y) - 2\norm{f}_{\infty}\\[10pt]
+                \impl \overline{m}_j &= \sup_{s\in I_j}f(x) \leq 2\norm{f}_{\infty} + f(y)\quad\forall y\in I_t^{*}\\
+                \impl \overline{m}_j &\leq 2\norm{f}_{\infty} + \sup_{?} f = 2\norm{f}_{\infty} + \overline{m}_z^{*}\\
+                \vdots \quad &???
+                \intertext{Genauso zeigt man}
+                \underline{S}_Z\of{f} - \underline{S}_{Z^{*}}\of{f} &\geq -2\norm{f}_{\infty} l\cdot\delta\\
+                \impl \overline{S}_Z\of{f} &\leq \overline{S}_{Z^{*}} + 2\norm{f}_{\infty} l \cdot \delta\\
+                \underline{S}_Z\of{f} &\geq \underline{S}_{Z^{*}} - 2 \norm{f}_{\infty} l \cdot \delta\\
+                \impl \overline{S}_Z\of{f} - \underline{S}_Z\of{f} &\leq \overline{S}_{Z^{*}}\of{f} + 2\norm{f}_{\infty} l\delta - \pair{\underline{S}_{Z^{*}}\of{f} - 2 \norm{f}_{\infty} l \cdot\delta}\\
+                &= ?\\
+                &< \frac{\varepsilon}{2} + 4\norm{f}_{\infty} l \cdot\delta
+                \intertext{Jetzt wähle $\delta = \frac{\varepsilon}{\delta\pair{\norm{f}_{\infty} + 1}\cdot l}$}
+                \impl &\leq \frac{\varepsilon}{2} + 4\norm{f}_{\infty} \cdot \frac{\varepsilon}{\delta\pair{\norm{f}+1}\cdot l} < \frac{\varepsilon}{2} + \frac{\varepsilon}{2} = \varepsilon
+            \end{align*}
+            sofern um $\Delta\of{z} < \delta$ ist.
+        \end{proof}
+    \end{satz}
+
+    \begin{anwendung}
+        Zerlegung $Z_n$ von $I$ mit Feinheit $\Delta\of{Z_n}\fromto 0$ für $\ntoinf$. $\xi_n$ Zwischenpunkt von Zerlegung $Z_n$. Die Riemannnsumme
+        \begin{align*}
+            S_{z_n}\of{f, \xi_n} &= \sum_{j=1}^{k_n} f\of{\xi_j^n}\cdot\abs{I_j^n}
+        \end{align*}
+        konvergiert gegen $J(f)$ falls $f\in R\of{I}$.
+    \end{anwendung}
 
 
 \end{document}
