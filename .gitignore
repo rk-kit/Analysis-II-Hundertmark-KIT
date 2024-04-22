@@ -13,3 +13,4 @@
 *.tmp
 *.fls
 *.fdb_latexmk
+*.preview.pdf
