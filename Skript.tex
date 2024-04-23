@@ -505,8 +505,9 @@
             \textsc{Schritt 2:} (Später)
         \end{proof}
     \end{korollar}
-    
+
     \begin{satz} % Satz 11
+        \label{satz:temp-11}
         Der Raum $R\of{I}$ auf einem kompakten Intervall $I=\interv{a,b}$ ist ein Vektorraum und $J: R\of{I}\fromto\R~~f\mapsto J\of{f} = \int_{a}^{b} f \dif x$ ist eine lineare Abbildung.\\
         Für $f,g\in R\of{I}$ und $\alpha,\beta\in\R$ folgt $\alpha f + \beta g \in R\of{I}$ und $J\of{\alpha f + \beta g} = \alpha J\of{f} + \beta J\of{g}$.
         \begin{proof}
@@ -589,5 +590,167 @@
             Dann wie vorher.\qedhere
         \end{proof}
     \end{satz}
+
+    \begin{beispiel}[Exponentialfunktion]
+        \marginnote{[23. Apr]}
+        Sei $f: \R\fromto\R$, $x\mapsto e^{\alpha x}$, $n\in\N$ und $I=\interv{a,b}$. Wir betrachte eine äquidistante Zerlegung $Z_n = \pair{x_0^n, x_1^n, \dots, x_n^n}$ und $h_n = \frac{b-a}{n}$. sowie $x_j = x_j^n=a+jh_n$. Wenn $\alpha > 0$ gilt
+        \begin{align*}
+            \overline{m}_j &= \sup_{I_j} f = f\of{x_j} = f\of{x_j^n} = e^{\alpha x_j} = e^{\alpha a + \alpha h_j}\\
+            \underline{m}_j &= \inf_{I_j} f = f\of{x_{j-1}} = f\of{x_{j-1}^n} = e^{\alpha x_{j-1}}\\
+            \impl \overline{S}_Z\of{f} &= \overline{S}_{Z_n}\of{f} = \sum_{j=1}^{n} \overline{m}_j \cdot\abs{I_j} = \sum_{j=1}^{n} e^{\alpha x_j} \cdot h\\
+            &= h\cdot \sum_{j=1}^{n} e^{\alpha\pair{a+jh}} = h\cdot \sum_{j=1}^{h} e^{\alpha a}\cdot e^{\alpha jh}\\
+            &= h\cdot e^{\alpha a}\cdot e^{\alpha h}\cdot \sum_{j=1}^{n} \pair{e^{\alpha h}}^{j-1} = \sum_{j=0}^{n-1} \pair{e^{\alpha h}}^{j}\\
+            &= \frac{\pair{e^{\alpha h}}^h - 1}{e^{\alpha h} - 1}\tag{Geometrische Summe}\\
+            \overline{S}_Z\of{f} &= \frac{h}{e^{\alpha h} - 1}\cdot e^{\alpha h}\cdot e^{\alpha a} \cdot \pair{e^{\alpha h\cdot n} - 1}\\
+            &= \frac{h_n}{e^{\alpha h_n } - 1} e^{\alpha h_n} \pair{e^{\alpha b - e^{\alpha a}}}\\
+            \lim_{n\fromto\infty} \frac{e^{\alpha h_n} - 1}{h_n} &= \lim_{h\fromto0} \frac{e^{\alpha h} - 1}{h} = \alpha\\
+            \impl \lim_{n\fromto\infty} \overline{S}_{Z_n}\of{f} &= \frac{1}{\alpha}\pair{e^{\alpha b} - e^{\alpha a}}\\[10pt]
+            \underline{S}_Z &= \underline{S}_{Z_n} = \sum_{j=1}^{n} \underline{m}_j \cdot \abs{I_j} = h\cdot \sum_{j=1}^{n} \pair{e^{\alpha x_{j-1}}}\\
+            &= h\cdot e^{\alpha a}\cdot \sum_{j=1}^{n} \pair{e^{\alpha h}}^{j-1} = h\cdot e^{\alpha a} \sum_{j=0}^{n-1} \pair{e^{\alpha h}}^j\\
+            &= h\cdot e^{\alpha a} \frac{\pair{e^{\alpha h}}^n - 1}{e^{\alpha h} - 1}\\
+            &= \frac{h}{e^{\alpha h} - 1}\cdot e^{\alpha a}\cdot\pair{e^{\alpha\pair{b-a}} - 1} \fromto \frac{1}{\alpha} \pair{e^{\alpha b} - e^{\alpha a}}\\
+            \impl &f\in R\of{I}\\
+            \int_{a}^{b} e^{\alpha x} \dif x &= \frac{1}{\alpha} \pair{e^{\alpha b} - e^{\alpha a}}
+        \end{align*}
+    \end{beispiel}
+
+    \begin{beispiel}[]
+        Es sei $f: \linterv{0, \infty}\fromto \pair{0, \infty}$, $x\mapsto x^{\alpha}$ $\pair{\alpha\neq 1}$. Dann ist $f\in R\of{I}$ und es gilt
+        \begin{align*}
+            \int_{a}^{b} x^{\alpha} \dif x &= \frac{1}{\alpha+1}\pair{b^{\alpha +1} - a^{\alpha +1}}
+            \intertext{Wir wählen eine geometrische Zerlegung}
+            q &= q_n = \sqrt[n]{\frac{b}{a}}\\
+            z &= z_n = \pair{x_0^n, x_1^n, \dots, x_n^n}\\
+            I_j &= \interv{x_{j-1}, x_j}\\
+            \abs{I_j} &= \Delta x_j = x_j - x_{j-1} = a\cdot q^{j} - -a \cdot q{j-1}\\
+            &= a\cdot q^{j-1}\pair{q-1} \leq b\cdot\pair{q_n - 1}\fromto 0
+            \intertext{Beobachtung: Ober- und Untersumme lassen sich \anf{leicht} mittels geometrischer Summen ausrechnen}
+            \overline{m}_j &= \sup_{i_j} = x_j^{\alpha} = =\pair{q\cdot q^j}^{\alpha}\\
+            \underline{m}_j &= \inf_{I_j} = x_{j-1}^{\alpha} = \pair{a\cdot q^{j-1}}^{\alpha}\\
+            \vdots
+        \end{align*}
+    \end{beispiel}
+
+    \begin{satz}[Monotonie des Integrals] % Satz 13
+        Seien $f, g\in R\of{I}$, $I=\interv{a,b}$. Aus $f\leq g$ folgt $J\of{f} \leq J\of{g}$, das heißt
+        \begin{align*}
+            \int_{a}^{b} f\of{x} \dif x &= \int_{a}^{b} g\of{x} \dif x\tag{1}
+            \intertext{insbesondere}
+            \abs{\int_{a}^{b} f\of{x} \dif x} &\leq \int_{a}^{b} \pair{\abs{f}}\of{x} \dif x\tag{2}\\
+            \abs{\int_{a}^{b} fg \dif x} &\leq \sup_{I} \abs{f} \cdot \int_{a}^{b} \abs{g} \dif x\tag{3}
+        \end{align*}
+        \begin{proof}
+            Sei $h=g-f\geq 0$. Dann gilt nach Satz~\ref{satz:temp-11} $h\in R\of{I}$ und damit
+            \begin{align*}
+                \int_{a}^{b} h \dif x &\geq 0\\
+                \impl 0\leq \int_{a}^{b} h \dif x &= \int_{a}^{b} g \dif x + \int_{a}^{b} \pair{-f} \dif x = \int_{a}^{b} g \dif x - \int_{a}^{b} f \dif x
+                \intertext{Damit folgt (1).}
+                \pm f &\leq \abs{f}\\
+                \impl \int_{a}^{b} \pair{\pm f} \dif x &\leq \int_{a}^{b} \abs{f} \dif x = \pm \int_{a}^{b} f \dif x\\
+                \impl \abs{\int_{a}^{b} f \dif x} &= \max\pair{\int_{a}^{b} f \dif x, - \int_{a}^{b} f \dif x}\\
+                &\leq \int_{a}^{b} \abs{f} \dif x \impl (2)\\
+                \abs{\int_{a}^{b} fg \dif x} &\leq \int_{a}^{b} \abs{fg} \dif x\\
+                &= \abs{f} \cdot \abs{g} \leq \pair{\sup_I \abs{f}}\cdot\abs{g}\\
+                &\leq \int_{a}^{b} \pair{\sup_I \abs{f}}\abs{g} \dif x = \sup_I\of{\abs{f}}\cdot \int_{a}^{b} \abs{g} \dif x\qedhere
+            \end{align*}
+        \end{proof}
+    \end{satz}
+
+    \begin{satz}[Cauchy-Schwarz] % Satz 14
+        Seien $f, g\in R\of{I}$ und $I=\interv{a,b}$. Dann gilt
+        \begin{align*}
+            \abs{\int_{a}^{b} fg \dif x}^2 &\leq \pair{\int_{a}^{b} \abs{fg} \dif x}^2\\
+            &\leq \int_{a}^{b} \abs{f}^2 \dif x \cdot \int_{a}^{b} \abs{g}^2 \dif x
+            \intertext{mit}
+            \norm{f} &= \sqrt{\int_{a}^{b} \abs{f}^2 \dif x}\\
+            \impl \abs{\int_{}^{} fg \dif x} &\leq \norm{f}\cdot {g}
+        \end{align*}
+        \begin{proof}
+            \begin{align*}
+                0 &\leq \pair{a\pm b}^2 = a^2\pm 2ab + b^2\\
+                \impl \mp ab \leq \frac{a^2+b^2}{2}\\
+                \impl \abs{ab} &\leq \frac{1}{2}\pair{a^2+b^2}
+                \intertext{$t > 0$}
+                \abs{\alpha\beta} &= \abs{t\alpha - \frac{\beta}{t}} \leq \frac{1}{2}\pair{t\alpha^2 + \frac{1}{t}\beta^2}\\
+                \abs{\int_{a}^{b} fg \dif x} &\leq \int_{a}^{b} \abs{f\of{x}}\abs{g\of{x}} \dif x\\
+                &\leq \frac{1}{2}\pair{t\cdot \underbrace{\int_{a}^{b} \abs{f\of{x}}^2 \dif x}_{A} + \frac{1}{t}underbrae{\int_{a}^{b} \abs{g}^2 \dif x}}_{B}\\
+                &\leq \frac{1}{2}\pair{t\cdot\abs{f\of{x}}^2+ \frac{1}{t}\abs{g\of{x}}^2} = \frac{1}{2}\pair{tA + \frac{1}{t}B}
+                \intertext{Frage: Welches $t> 0$ maximiert $h$?}
+                A = 0 \impl h\of{t} &= \frac{1}{2t}B \fromto 0 \text{ für } \ntoinf\\
+                B = 0\impl h\of{t} &= \frac{1}{2}A \fromto 0 \text{ für } \ntoinf\\
+                \impl \lim_{t\fromto} h\of{t} &= \infty, \lim_{t\searrow 0} h\of{t} = \infty
+                \intertext{Minimum existiert für ein $t_0 > 0$ und es gilt $0=h'\of{t_0}$}
+                \impl 0 &= \frac{1}{2}\pair{A - \frac{1}{t_0}B}\\
+                \impl \pair{t_0}^2 &= \frac{B}{A}\quad t_0 = \sqrt {\frac{b}{A}}\\
+                \impl \inf_{\pair{0, \infty}} h\of{t} &= \frac{1}{2}t_0\pair{A + \frac{1}{t_0^2}B}\\
+                &= \frac{1}{2}\sqrt {\frac{b}{A}} \pair{A + \frac{A}{B}B} = \sqrt{AB}\qedhere
+            \end{align*}
+        \end{proof}
+    \end{satz}
+
+    \begin{bemerkung}
+        \begin{align*}
+            \sprod{f,g} &= \int_{a}^{b} f\of{x}g\of{x} \dif x\\
+            \norm{f} &\definedas\sqrt{\int_{a}^{b} \abs{f}^2 \dif x} \text{ ist eine Norm}\\
+            \impl \abs{\sprod{f,g}} &\leq \norm{f}\norm{g}
+        \end{align*}
+    \end{bemerkung}
+
+    \begin{satz} % Satz 15
+        \label{satz:temp-15}
+        Sei $C\of{I} = C\of{\interv{a,b}}$ der Raum der stetigen reellen Funktionen auf einem $I=\interv{a,b}$. Es gilt $C\of{I} \subseteq R\of{I}$.
+        \begin{proof}
+            $I=\interv{a,b}$ ist kompakt und $f: \interv{a,b}\fromto\R$ ist stetig und damit auch gleichmäßig stetig. Das heißt
+            \begin{align*}
+                \fa\varepsilon > 0\ex\delta > 0\colon \abs{f\of{x} - f\of{y}} &<\delta\quad\fa x,y\in I \text{ mit } \abs{x-y} < \delta
+            \end{align*}
+            Sei $Z$ eine Zerlegung von $I$ mit $\Delta\of{Z} < \delta$. $I_j = \interv{x_{j-1}, x_j}$ und $Z=\pair{x_0, x_1, \dots, x_k}$. Dann gilt
+            \begin{align*}
+                \overline{m}_j - \underline{m}_j &= \sup_{x\in I_j} f\of{x} - \inf_{y\in I_j} f\of{y}\\
+                &= \sup_{x,y\in I_j} \abs{f\of{x} - f\of{y}} = \sup_{x,y\in I_j}\pair{f\of{x} - f\of{y}}
+                \intertext{Da $\abs{x-y} \leq \abs{I_j} < \delta$ gilt}
+                \overline{m}_j - \underline{m}_j &\leq \varepsilon\\
+                \impl \overline{S}_Z\of{f} - \underline{S}_{Z}\of{f} &= \sum_{j=1}^{n} \pair{\overline{m}_j - \underline{m}_j}\cdot\abs{I_j}\\
+                &\leq \varepsilon \sum_{j=1}^{n} \abs{I_j} = \varepsilon \cdot \abs{I} = \varepsilon\cdot\pair{b-a}\\
+                \impl 0 &\leq \overline{J}\of{f} - \underline{J}\of{f}\leq \overline{S}_Z\of{f} - \underline{S}_Z\of{f}\\
+                &\leq \varepsilon\pair{b-a}\quad\forall\varepsilon > 0\\
+                \impl \overline{J}\of{f} &= \underline{J}\of{f} \impl f\in R\of{I}
+            \end{align*}
+        \end{proof}
+    \end{satz}
+
+    \begin{definition}
+        Eine Funktion $f: I\fromto\R$ auf $I=\interv{a,b}$ heißt stückweise stetig, falls es eine Zerlegung $Z = \pair{x_0, x_1, \dots, x_k}$ von $I$ gibt so, dass $f$ auf jedem der offenen Intervalle $\pair{x_{j-1}, x_j}$ stetig ist und die einseitigen Grenzwerte
+        \begin{align*}
+            f\of{a+} &= \lim_{x\fromto a+} f\of{x}, f\of{b-} = \lim_{x\fromto b-} f\of{x}\\
+            f\of{x_j-} &= \lim_{x\fromto x_j-} f\of{x}, f\of{x_j+} = \lim_{x\fromto x_j+} f\of{x}
+        \end{align*}
+        für $j=1, \dots, k-1$ existieren.\\
+        $f\of{\pair{x_{j-1}, x_j}}$ können zu stetigen Funktionen auf $I_j=\interv{x_{j-1}, x_j}$ fortgesetzt werden. Wir nennen diese Klasse von Funktionen $PC\of{I}$\footnote{Piecewwise continuos function in $I$}.
+    \end{definition}
+    
+    \begin{satz} % Satz 17
+        Es gilt $PC\of{I} \subseteq R\of{I}$. $I=\interv{a,b}$. Ist $Z=\pair{x_0, \dots, x_k}$ eine Zerlegung von $f\in PCI\of{I}$ und $f$ stetig auf $\pair{x_{j-1}, x_j}~\fa j$ und $f_j$ eine stetige Fortsetzung von $f\vert_{\pair{x_{j-1}, x_j}}$ auf $I_j = \interv{x_{j-1}, x_j}$. So gilt
+        \begin{align*}
+            \int_{a}^{b} f\of{x} \dif x &= \sum_{l=1}^{k} \int_{x_{l-1}}^{x_l} f_l\of{x}\dif x
+        \end{align*}
+        \begin{proof}
+            Arbeite auf $I_l = \interv{x_{l-1}, x_{l}}$ dann ist $f_l$ stetig nach Satz~\ref{satz:temp-15} und summiere zusammen. (Details selber machen).
+        \end{proof}
+    \end{satz}
+
+    \begin{bemerkung}[Treppenfunktion]
+        Ist $f$ stückweise konstant auf $I$. Das heißt es existiert eine Zerlegung $Z=\pair{x_0, \dots, x_{\nu}}$ von $I$ mit $f$ ist konstant auf $\pair{x_{k-1}, x_k}~\fa k=1, \dots, \nu$. So heißt $f$ Treppenfunktion. Schreiben $J\of{I}$ für die Klasse der Treppenfukntionen.
+    \end{bemerkung}
+
+    \begin{satz} % Satz 18
+        Sei $I=\interv{a,b}$, $f: I\fromto\R$ mit
+        \begin{enumerate}[label=(\alph*)]
+            \item In jedem Punkt $x\in\pair{a,b}$ existieren die rechts- und linksseitigen Grenzwerte.
+            \item In $a$ existiert der rechtsseitige und in $b$ der linksseitige Grenzwert.
+        \end{enumerate}
+        Dann gilt $f\in R\of{I}$.
+    \end{satz}
+
 
 \end{document}
