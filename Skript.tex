@@ -24,6 +24,7 @@
 \usepackage{etoolbox}
 \usepackage{mdframed}
 \usepackage{aligned-overset}
+\usepackage{esint}
 
 % Font-Encoding
 \usepackage[T1]{fontenc}
@@ -99,6 +100,8 @@
 \newcommand{\horizontalline}[0]{\par\noindent\rule{0.05\textwidth}{0.1pt}\\}
 \newcommand{\rgbcolor}[3]{rgb,255:red,#1;green,#2;blue,#3}
 \newcommand{\fixedspace}[2]{\makebox[#1][l]{#2}}
+\newcommand{\ov}[1]{\overline{#1}}
+\newcommand{\un}[1]{\underline{#1}}
 
 \let\Re\relax
 \let\Im\relax
@@ -726,10 +729,11 @@
             f\of{x_j-} &= \lim_{x\fromto x_j-} f\of{x}, f\of{x_j+} = \lim_{x\fromto x_j+} f\of{x}
         \end{align*}
         für $j=1, \dots, k-1$ existieren.\\
-        $f\of{\pair{x_{j-1}, x_j}}$ können zu stetigen Funktionen auf $I_j=\interv{x_{j-1}, x_j}$ fortgesetzt werden. Wir nennen diese Klasse von Funktionen $PC\of{I}$\footnote{Piecewwise continuos function in $I$}.
+        $f\of{\pair{x_{j-1}, x_j}}$ können zu stetigen Funktionen auf $I_j=\interv{x_{j-1}, x_j}$ fortgesetzt werden. Wir nennen diese Klasse von Funktionen $PC\of{I}$\footnote{Piecewise continuos function in $I$}.
     \end{definition}
-    
+
     \begin{satz} % Satz 17
+        \label{satz:temp-17}
         Es gilt $PC\of{I} \subseteq R\of{I}$. $I=\interv{a,b}$. Ist $Z=\pair{x_0, \dots, x_k}$ eine Zerlegung von $f\in PCI\of{I}$ und $f$ stetig auf $\pair{x_{j-1}, x_j}~\fa j$ und $f_j$ eine stetige Fortsetzung von $f\vert_{\pair{x_{j-1}, x_j}}$ auf $I_j = \interv{x_{j-1}, x_j}$. So gilt
         \begin{align*}
             \int_{a}^{b} f\of{x} \dif x &= \sum_{l=1}^{k} \int_{x_{l-1}}^{x_l} f_l\of{x}\dif x
@@ -744,13 +748,191 @@
     \end{bemerkung}
 
     \begin{satz} % Satz 18
-        Sei $I=\interv{a,b}$, $f: I\fromto\R$ mit
+        \label{satz:temp-18}
+        \marginnote{[26. Apr]}
+        Sei $I=\interv{a,b}$, $f: I\fromto\R$ mit den folgenden Eigenschaften
         \begin{enumerate}[label=(\alph*)]
             \item In jedem Punkt $x\in\pair{a,b}$ existieren die rechts- und linksseitigen Grenzwerte.
             \item In $a$ existiert der rechtsseitige und in $b$ der linksseitige Grenzwert.
         \end{enumerate}
-        Dann gilt $f\in R\of{I}$.
+        Dann gilt $f\in R\of{I}$.\\
+        Zum Beweis dieses Satzes benötigen wir zunächst das folgende Approximationslemma~\ref{lemma:temp-19}.
     \end{satz}
 
+    \begin{bemerkung}
+        Insbesondere erfüllt $PC\of{I}$ die Bedingungen a) und b) aus Satz~\ref{satz:temp-18}.
+    \end{bemerkung}
+
+    \begin{lemma} % Lemma 19
+        \label{lemma:temp-19}
+        Sei $f: I\fromto\R$ eine Funktion, die die Bedingungen aus Satz~\ref{satz:temp-18} erfüllt. Dann gibt es eine Folge $(\varphi_n)_n$ von Treppenfunktionen $\varphi_n: I\fromto\R$, die gleichmäßig gegen $f$ konvergiert. Das heißt
+        \begin{align*}
+            \lim_{\ntoinf} \norm{f-\varphi_n}_{\infty} &= \lim_{\ntoinf} \sup_{x\in\interv{a,b}} \abs{f(x)-\varphi_n(x)} = 0
+            \intertext{Also}
+            \fa\varepsilon > 0\ex\text{Treppenfunktion }&\varphi: I\fromto\R \text{ mit } \norm{f-\varphi}_{\infty} = \sup_{x\in I}\abs{f(x) - \varphi(x)} < \varepsilon
+        \end{align*}
+        \begin{proof}
+        (Später)
+        \end{proof}
+    \end{lemma}
+    \horizontalline
+    Mithilfe dieses Lemmas können wir nun Satz~\ref{satz:temp-18} beweisen.
+    \begin{proof}
+        Sei $f: \interv{a,b}\fromto\R$ wie in Satz~\ref{satz:temp-18} verlangt und $\varepsilon > 0$, sowie $\varphi: I\fromto\R$ Treppenfunktion mit $\norm{f-\varphi}_{\infty} < \frac{\varepsilon}{2}$. Wir definieren $\Psi_1\coloneqq \varphi - \frac{\varepsilon}{2}$, $\Psi_2 = \varphi + \frac{\varepsilon}{2}$ auch als Treppenfunktionen.
+        Dann gilt $\Psi_1 = \varphi - \frac{\varepsilon}{2} \leq f$ und $\Psi_2 \geq f$. Für alle Zerlegungen $Z$ von $I$ mit
+        \begin{align*}
+            \un{S}_Z\of{\Psi_1} &\leq \un{S}_Z\of{f}\\
+            \impl \un{S}_Z\of{f} \geq \un{S}_Z\of{\varphi - \frac{\varepsilon}{2}} &= \un{S}_Z\of{\varphi} - \frac{\varepsilon}{2}\cdot\abs{I} = \un{S}_Z\of{\varphi} - \frac{\varepsilon}{2}\pair{b-a}
+            \intertext{Analog gilt}
+            \ov{S}_Z\of{\varphi} + \frac{\varepsilon}{2}\pair{b-a} &\geq \ov{S}_Z\of{f}
+            \intertext{Damit folgt insgesamt}
+            \underline{S}_Z\of{\varphi} - \frac{\varepsilon}{2}\pair{b-a} &\leq \underline{S}_Z\of{f} \leq \un{J}\of{f}\\
+            \ov{S}_Z\of{\varphi} + \frac{\varepsilon}{2}\pair{b-a} &\geq \ov{S}_Z\of{f} \leq \ov{J}\of{f}\\
+            \intertext{Da $\varphi$ eine Treppenfunktion ist, ist $\varphi\in PC\of{I}\subseteq R\of{I}$. Also existiert eine Folge $(z_n)_n$ von Zerlegungen von $I$ mit}
+            \lim_{\ntoinf} \ov{S}_{Z_n}\of{\varphi} &= \lim_{\ntoinf}\un{S}_{Z_n}\of{\varphi} = \int_{a}^{b} \varphi\of{x} \dif x
+            \intertext{(sofern $\Delta\of{Z_n}\fromto 0$ für $\ntoinf$)}
+            \impl \ov{J}\of{f} - \un{J}\of{f} &\leq \ov{S}_{Z_n}\of{\varphi} + \frac{\varepsilon}{2}\pair{b-a} - \pair{\un{S}_{Z_n}\of{\varphi} - \frac{\varepsilon}{2}\pair{b-a}}\\
+            &= \ov{S}_{Z_n}\of{\varphi} - \un{S}_{Z_n}\of{\varphi} + \varepsilon\pair{b-a}\\
+            &\fromto_{\ntoinf} \int_{a}^{b} \varphi(x) \dif x - \int_{a}^{b} \varphi\of{x} \dif x + \varepsilon\pair{b-a}\\
+            &= \varepsilon\pair{b-a}\\
+            \impl \ov{J}\of{f} - \un{J}\of{f} &\leq \varepsilon\pair{b-a}\quad\forall\varepsilon > 0\\
+            \impl \ov{J}\of{f} - \un{J}\of{f} &\leq 0\\
+            \impl \ov{J}\of{f} &= \un{J}\of{f}\\
+            \impl f&\in R\of{I}\qedhere
+        \end{align*}
+    \end{proof}
+
+    \begin{bemerkung}
+        Welche $f\in B\of{I}$ sind genau Riemann-integrierbar?
+    \end{bemerkung}
+
+    \begin{definition}[Nullmenge]
+        Eine Menge $N\subseteq\R$ heißt Nullmenge, falls zu jedem $\varepsilon > 0$ höchstens abzählbar viele Intervalle $I_1, I_2, \dots$ existieren mit
+        \begin{align*}
+            N \subseteq \bigcup_{j} I_j\tag{$I_j$ überdecken $N$}
+            \intertext{und}
+            \sum_{j}^{} \abs{I_j} < \varepsilon
+        \end{align*}
+    \end{definition}
+
+    \begin{beispiel}
+        $\Q$ ist eine Nullmenge.
+        \begin{align*}
+            \Q&\subseteq \bigcup_{j\in \N} I_j
+            \intertext{Nehme $\varepsilon > 0$}
+            \mathcal{Q} &= \set{q_j \middle | j\in \N}
+            \intertext{Zu $q_j$ nehme  $I_J= \interv{q_j - \frac{\varepsilon}{2}, q_j + \frac{\varepsilon}{2}}$}
+            q_j \in I_j\quad\abs{I_j} &= \varepsilon 2^{-j}\\
+            \sum_{j\in\N}^{} \abs{I_j} &= \varepsilon \sum_{j=1}^{\infty} 2^{-j}\\
+            &= \varepsilon \cdot \frac{1}{2-1} = \varepsilon
+        \end{align*}
+    \end{beispiel}
+
+    % Alle abzählbaren Mengen sind Nullmenge
+
+    \begin{definition}
+        Eine Funktion $f: I\fromto\R$ heißt fast überall stetig auf $I$, falls die Menge der Unstetigkeitsstellen von $f$ eine Nullmenge ist.
+    \end{definition}
+
+    \begin{genv}[Lebesgue'sches Integrabilitätskriterium]
+        $R\of{I} = \set{f\in B\of{I}: f \text{ ist fast überfall stetig auf } I}$
+    \end{genv}
+
+    \begin{bemerkung}
+        Sei $f$ wie in Satz~\ref{satz:temp-18}. Dann ist die Menge der Unstetigkeitsstelle von $f$ höchstens abzählbar, also eine Nullmenge.\\
+        Ist $f\in PC\of{I}$ so ist die Menge der Unstetigkeitsstellen endlich.
+    \end{bemerkung}
+
+    \begin{proof}[Beweis von Lemma~\ref{lemma:temp-19}]
+        Wir führen einen Widerspruchsbeweis. Angenommen die Aussage stimmt nicht, dann existiert ein $\varepsilon_0 > 0$ sowie ein $f: I\fromto\R$ wie in Satz~\ref{satz:temp-18}, sodass
+        \begin{align*}
+            \fa\text{Treppenfunktionen }\varphi: I\fromto\R\colon \norm{f-\varphi}_{\infty} = \sup_{x\in\interv{a,b}} \abs{f(x) - \varphi(x)} \geq \varepsilon_0 > 0
+        \end{align*}
+        \textsc{Schritt 1:} $I_1=\interv{a,b}$, $a_1=a$, $b_1=b$. Dann weiter mit Divide \& Conquer:
+        \begin{align*}
+            \sup_{I_1} \abs{f-\varphi} &\geq\varepsilon_0
+            \intertext{Behauptung: Es existiert eine Folge $(I_n)_n$ von Intervallschachtelungen $I_{n+1}\subseteq I_n$ mit $\abs{I_n} = b-a\fromto 0$ für $\ntoinf$ mit}
+            \sup_{x\in I_n}\abs{f(x) - \varphi(x)} &\geq \varepsilon_0\quad \forall n\in\N \text{ und alle Treppenfunktionen } \varphi \text{ (auf $I_n$)}\tag{*}
+            \intertext{Beweis: Angenommen $I_n = \interv{a_n, b_n}$ ist gegeben und erfüllt die obige Bedingung}
+            M_N &= \frac{b_n+a_n}{2}\\
+            \impl \sup_{x\in\interv{a_n, M_n}} \abs{f(x) - \varphi(x)} &\geq \varepsilon_0 \text{ oder } \sup_{x\in\interv{M_n, b_n}} \abs{f(x) - \varphi(x)} \geq \varepsilon_0\tag{Für alle Treppenfunktionen $\varphi$}
+            \intertext{Im ersten Fall wählen wir die linke Hälfte des Intervalls, also $a_{n+1} = a_n$, $b_{n+1} = M_n$. Im zweiten Fall die rechte Hälfte, also $a_{n+1} = M_n$, $b_{n+1} = b_n$. Damit gilt im Sinne der Intervallhalbierung}
+            \impl I_{n+1} &\subseteq I_{n}
+            \intertext{sowie}
+            b_n - a_n &= \frac{1}{2}\pair{b_{n-1} - a_{n-1}} \leq \frac{1}{2^n}\pair{b-a} \fromto 0
+            \intertext{Nehme $c_n\subseteq I_n$}
+            a = a_1 \leq a_2 \leq \dots \leq a_n &\leq b_n \leq b_{n-1} \leq\dots\leq b_1 = b\\
+            \lim_{\ntoinf} a_n \text{ existiert und } &\lim_{\ntoinf} b_n \text{ texistiert aufgrund der monotonen Konvergenz}
+            \intertext{und}
+            \lim_{\ntoinf} a_n&= \lim_{\ntoinf} b_n \definedasbackwards \xi \tag{da $b_n-a_n\fromto 0$}\\
+            \impl \forall n\in\N\colon a_n &\leq \xi \leq b_n\\
+            \impl a_n &\leq \xi\quad\forall n\in\N
+            \intertext{Analog ergibt sich}
+            b_n &\geq\xi\quad\forall n\in\N\\
+            \impl \xi \in I_n &= \interv{a_n, b_n}\quad\forall n\in\N\\
+            \impl \bigcap_{n\in\N} I_n &= \set{\xi}
+        \end{align*}
+        \textsc{Schritt 2:} Angenommen $a < \xi < b$. Dann ist
+        \begin{align*}
+            c_l &= f\of{\xi-} = \lim_{x\fromto\xi-} f\of{x}\\
+            c_r &= f\of{\xi+} = \lim_{x\fromto\xi+} f\of{x}
+            \intertext{Nehmen $\delta > 0$}
+            \abs{f\of{x} - c_l} &< \varepsilon_0\quad \xi-\delta \leq x \leq \xi\\
+            \abs{f\of{x} - c_r} &< \varepsilon_0\quad \xi < x \leq \xi+\delta
+            \intertext{Wir definieren $\varphi: \interv{\xi-\delta, \xi + \delta}$ durch}
+            \varphi\of{x} &\coloneqq \begin{cases}
+                                         c_r &\xi < x < \xi + \delta\\
+                                         f\of{x} &x = \xi\\
+                                         c_l &\xi - \delta < x < \xi + \delta
+            \end{cases}
+            \intertext{und}
+            \sup_{\xi-\delta < x \leq \xi + \delta} \abs{f(x) - \varphi\of{x}} &< \varepsilon_0 \tag{**}
+        \end{align*}
+        Aber $I_n\subseteq\interv{\xi-\delta, \xi+\delta}$ für fast alle $n\in\N$. Für $n$ groß genug ist (**) im Widerspruch zu (*). Damit folgt die Aussage des Lemmas.
+    \end{proof}
+    
+    \begin{satz} % Satz 20
+        \label{satz:temp-20}
+        Seien $f, g\in R\of{I}$ ???.
+    \end{satz}
+
+    \begin{lemma} % Lemma 21
+        \label{lemma:temp-21}
+        Seien $f,g\in R\of{I}$ und gebe es eine Menge $G\subseteq I$ welche in $I$ dicht liegt und für die $f(x) = g(x)~\fa x\in G$ gilt. Dann folgt $\int_{a}^{b} f(x)\dif x = \int_{a}^{b} g(x)\dif x$
+    \end{lemma}
+
+    \subsection{Mittelwertsätze der Integralrechnung}
+
+    \begin{definition}
+        Sei $f\in R\of{I}$, $I=\interv{a,b}$. Dann ist
+        \begin{align*}
+            \fint_I f\of{x} \dif x = \fint_a^{b} f(x) \dif x &\coloneqq \frac{1}{b-a} \int_{a}^{b} f(x) \dif x
+            \intertext{definiert als der Mittelwert von $f$ über $I$. Wir schreiben auch}
+            \overline{f}_I &= \fint_{a}^{b} f(x) \dif x
+        \end{align*}
+    \end{definition}
+
+    \begin{satz}
+        Es sei $I=\interv{a,b}$, $f\in C\of{I}$. Dann gilt
+        \begin{align*}
+            \ex\xi\colon a < \xi < b \text{ mit } f\of{\xi} = \fint_{a}^{b} f(x) \dif x
+        \end{align*}
+        \begin{proof}
+            \begin{align*}
+                \ov{m} &= \sup_{I} f = \max_{I} f\\
+                \un{m} &= \inf_{I} f = \min_{I} f
+                \intertext{Nach Satz~\ref{satz:temp-13} gilt}
+                \un{m} &\leq f(x) \leq \ov{m}\quad\forall x \in I\\
+                \impl \un{m}\pair{b-a} &= \int_{a}^{b} \underline{m} \dif x \leq \int_{a}^{b} f(x) \dif x\leq \int_{a}^{b} \overline{m} \dif x = \ov{m}\pair{b-a}\\
+                \impl \un{m} &\leq \fint_{a}^{b} f(x) \dif x \leq \ov{m}
+                \intertext{Ist $\un{m} = \ov{m} \impl f$ ist konstant auf $\interv{a,b}$}
+                \impl \un{m} = \ov{m} = \fint_{a}^{b} f(x) \dif x
+                \intertext{und $\forall a < \xi < b$ ist $f\of{x} = \un{m}$. Damit gilt die Behauptung. Sei also $\un{m} < \ov{m}$. Dann folgt aus der Stetigkeit von $f$, dass $x_1$ und $x_2$ in $I$ existieren, sodass $f(x_1) = \un{m}$ und $f(x_2) = \ov{m}$ mit $x_1\neq x_2$. Außerdem folgt aus $\un{m} < \ov{m}$, $f\in C\of{I}$ auch}
+                \un{m} &\leq \fint_{a}^{b} f\of{x} \dif x < \ov{m}
+                \intertext{Nach dem Zwischenwertsatz für stetige Funktionen folgt}
+                \impl \ex\xi \text{ zwischen } x_1, x_2 \text{ mit } f\of{x} &= \fint_{a}^{b} f(x) \dif x\qedhere
+            \end{align*}
+        \end{proof}
+    \end{satz}
 
 \end{document}
