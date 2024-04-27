@@ -29,12 +29,11 @@
 % Font-Encoding
 \usepackage[T1]{fontenc}
 \usepackage{lmodern}
-\usepackage{watermark}
 
 % Theorems
-\newtheorem{blockelement}{Blockelement}[subsection]
 \newtheoremstyle{plain}{}{}{}{}{\bfseries}{.}{ }{}
 \theoremstyle{plain}
+\newtheorem{blockelement}{Blockelement}[subsection]
 \newtheorem{bemerkung}[blockelement]{Bemerkung}
 \newtheorem{definition}[blockelement]{Definition}
 \newtheorem{lemma}[blockelement]{Lemma}
@@ -120,6 +119,12 @@
 \newcommand{\Q}{\mathbb{Q}}
 \newcommand{\K}{\mathbb{K}}
 
+\newcommand{\mR}{\mathcal{R}}
+\newcommand{\mB}{\mathcal{B}}
+\newcommand{\mC}{\mathcal{C}}
+\newcommand{\mJ}{\mathcal{J}}
+\newcommand{\mPC}{\mathcal{PC}}
+
 \newcommand\imaginarysubsection[1]{
     \refstepcounter{subsection}
     \subsectionmark{#1}
@@ -202,7 +207,7 @@
 
     \section{[*] Das eindimensionale Riemann-Integral}
 
-    \subsection{Das Riemann-Integral}
+    \subsection{[*] Der Integralbegriff nach Riemann}
     \thispagestyle{pagenumberonly}
     \marginnote{[16. Apr]}
     Frage: Was ist die Fläche unter einem Graphen?
@@ -224,15 +229,15 @@
     \begin{notation}[Riemannsche Zwischensumme]
         Wir setzen
         \begin{align*}
-            B\of{I} = \set{f: I\fromto \R~\middle\vert~\sup_{x\in I} \abs{f(x)} < \infty}
+            \mB\of{I} = \set{f: I\fromto \R~\middle\vert~\sup_{x\in I} \abs{f(x)} < \infty}
         \end{align*}
-        als die Menge aller beschränkten reellwertigen Funktionen auf $I$. In jedem $I_j$ wählen wir ein $\xi_j\in I_j$ und setzen $\xi=\pair{\xi_1, \xi_2, \dots, \xi_k}$. Für $f\in B\of{I}$ setzen wir die Riemannsche Zwischensumme
+        als die Menge aller beschränkten reellwertigen Funktionen auf $I$. In jedem $I_j$ wählen wir ein $\xi_j\in I_j$ und setzen $\xi=\pair{\xi_1, \xi_2, \dots, \xi_k}$. Für $f\in \mB\of{I}$ setzen wir die Riemannsche Zwischensumme
         \begin{align*}
             S_Z\of{f} &= S_Z\of{f, \xi} \definedas \sum_{j=1}^{k} f\of{\xi_j}\cdot\varDelta x_j = \sum_{j=1}^{k} f\of{\xi_j}\cdot\abs{I_j}
         \end{align*}
     \end{notation}
     \begin{notation}[Ober- und Untersumme]
-        Für $f\in B\of{I}$ setzen wir
+        Für $f\in \mB\of{I}$ setzen wir
         \begin{align*}
             \underline{m}_j &\definedas \inf_{I_j} f = \inf\set{f(x): x\in I_j}\\
             \overline{m}_j &\definedas \sup_{I_j} f = \sup\set{f(x): x\in I_j}\\
@@ -256,7 +261,7 @@
 
     \begin{lemma} % Lemma 3
         \label{lemma:verfeinerung-ober-unter-summe}
-        Ist $Z^{*}$ eine Verfeinerung der Zerlegung $Z$ von $I$ und $f\in B\of{I}$. Dann gilt
+        Ist $Z^{*}$ eine Verfeinerung der Zerlegung $Z$ von $I$ und $f\in \mB\of{I}$. Dann gilt
         \begin{align*}
             \underline{S}_Z\of{f} \leq \underline{S}_{Z^{*}}\of{f} \leq \overline{S}_{Z^{*}}\of{f} \leq \overline{S}_Z\of{f}
         \end{align*}
@@ -297,7 +302,7 @@
         \label{lemma:ober-unter-summe-zerlegung}
         Seien $Z_1$, $Z_2$ Zerlegungen von $I$. Dann gilt
         \begin{align*}
-            \underline{S}_{Z_1}\of{f} \leq \overline{S}_{Z_2}\of{f}\qquad\forall f\in B\of{I}
+            \underline{S}_{Z_1}\of{f} \leq \overline{S}_{Z_2}\of{f}\qquad\forall f\in \mB\of{I}
         \end{align*}
         \begin{proof}
             Es gilt nach Lemma~\ref{lemma:verfeinerung-ober-unter-summe}, dass
@@ -308,7 +313,7 @@
     \end{lemma}
 
     \begin{bemerkung}
-        Für $I=\interv{a,b}$ und $f\in B\of{I}$ gilt immer
+        Für $I=\interv{a,b}$ und $f\in \mB\of{I}$ gilt immer
         \begin{align*}
             \abs{I}\cdot \inf_{I} f \leq \underline{S}_Z\of{f} \leq \overline{S}_Z\of{f} \leq \abs{I}\cdot \sup_{I} f
         \end{align*}
@@ -322,7 +327,7 @@
     \end{bemerkung}
 
     \begin{definition}[Ober- und Unterintegral]
-        Es sei $I=\interv{a,b}$ und $f\in B\of{I}$. Dann definieren wir
+        Es sei $I=\interv{a,b}$ und $f\in \mB\of{I}$. Dann definieren wir
         \begin{align*}
             \overline{J}\of{f} \definedas \inf\set{\overline{S}_Z\of{f} : Z\text{ ist Zerlegung von $I$ } }\tag{Oberintegral}\\
             \underline{J}\of{f} \definedas \sup\set{\underline{S}_Z\of{f} : Z\text{ ist Zerlegung von $I$ } }\tag{Unterintegral}
@@ -350,7 +355,7 @@
     \end{lemma}
 
     \begin{definition}[Integral]
-        Es sei $I=\interv{a,b}$. $f\in B\of{I}$ heißt (Riemann-)integrierbar, falls
+        Es sei $I=\interv{a,b}$. $f\in \mB\of{I}$ heißt (Riemann-)integrierbar, falls
         \begin{align*}
             \underline{J}\of{f} = \overline{J}\of{f}
         \end{align*}
@@ -358,7 +363,7 @@
         \begin{align*}
             \int_{a}^{b} f(x) \dif x = \int_{a}^{b} f\dif x = \int_{I} f(x)\dif x = \int_{I} f\dif x \definedasbackwards J(f)
         \end{align*}
-        Die Klasse der Riemann-integrierbaren Funktionen $f\in B\of{I}$ nennen wir $R(I)$.
+        Die Klasse der Riemann-integrierbaren Funktionen $f\in \mB\of{I}$ nennen wir $\mR\of{I}$.
     \end{definition}
 
     \begin{beispiel}[Konstante Funktion]
@@ -380,11 +385,11 @@
         ist nicht Riemann-integrierbar, weil $\overline{J}\of{f} = 1$ und $\underline{J}\of{f} = 0$.
     \end{beispiel}
 
-    \subsection{Integrabilitätskriterien}
+    \subsection{[*] Integrabilitätskriterien}
 
     \begin{satz}[1. Kriterium]
         \label{satz:integr-kriterium-1}
-        Es sei $f\in B\of{I}$. Dann gilt $f\in R\of{I}$ genau dann, wenn
+        Es sei $f\in \mB\of{I}$. Dann gilt $f\in \mR\of{I}$ genau dann, wenn
         \begin{align*}
             \fa\varepsilon > 0\ex\text{Zerlegung } Z\text{ von } I\text{ mit } \overline{S}_{Z}\of{f}-\underline{S}_{Z}\of{f} < \varepsilon
         \end{align*}
@@ -395,9 +400,9 @@
                 \intertext{Sei $\varepsilon > 0$, dann gilt}
                 0&\leq\overline{J}\of{f}-\underline{J}\of{f}\leq\overline{S}_Z\of{f} - \underline{S}_Z\of{f} < \varepsilon\\
                 \impl 0&\leq \overline{J}\of{f} - \underline{J}\of{f} \leq 0\\
-                \impl f&\in R\of{I}
+                \impl f&\in \mR\of{I}
             \end{align*}
-            \anf{$\impl$} Angenommen $f\in R\of{I}$, das heißt
+            \anf{$\impl$} Angenommen $f\in \mR\of{I}$, das heißt
             \begin{align*}
                 \overline{J}\of{f} &= \underline{J}\of{f}\\
                 \overline{J}\of{f} &= \inf\set{\overline{S}_Z\of{f}: Z \text{ ist eine Zerlegung von } I}\\
@@ -405,7 +410,7 @@
                 \intertext{Das heißt zu $\varepsilon > 0$ existieren Zerlegungen $Z_1$, $Z_2$ von $I$ mit}
                 \overline{J}\of{f} + \frac{\varepsilon}{2} &> \overline{S}_{Z_1}\of{f}\\
                 \underline{J}\of{f} - \frac{\varepsilon}{2} &< S_{Z_2}\of{f}
-                \intertext{Da $f\in R\of{I}$ gilt $\underline{J}\of{f} = \overline{J}\of{f}$. Wir definieren die gemeinsame Verfeinerung $Z\definedas Z_1 \lor Z_2$. Dann gilt}
+                \intertext{Da $f\in \mR\of{I}$ gilt $\underline{J}\of{f} = \overline{J}\of{f}$. Wir definieren die gemeinsame Verfeinerung $Z\definedas Z_1 \lor Z_2$. Dann gilt}
                 \overline{S}_Z\of{f} - \underline{S}_Z\of{f} &< \overline{J}\of{f} + \frac{\varepsilon}{2} - \pair{\underline{J}\of{f} - \frac{\varepsilon}{2}}\\
                 &= \overline{J}\of{f} - \underline{J}\of{f} + \frac{\varepsilon}{2} + \frac{\varepsilon}{2} = \varepsilon\qedhere
             \end{align*}
@@ -413,13 +418,13 @@
     \end{satz}
 
     \begin{satz}[2. Kriterium]
-        Sei $f\in B\of{I}$. Dann gilt $f\in R\of{I}$ genau dann, wenn
+        Sei $f\in \mB\of{I}$. Dann gilt $f\in \mR\of{I}$ genau dann, wenn
         \begin{align*}
             \fa\varepsilon > 0\ex\delta > 0\fa \text{Zerlegungen }Z \text{ von } I \text{ mit Feinheit } \Delta\of{Z} < \delta\colon \overline{S}_Z\of{f} - \underline{S}\of{f} < \varepsilon
         \end{align*}
         \begin{proof}
             \anf{$\Leftarrow$} wird von Satz~\ref{satz:integr-kriterium-1} bereits impliziert.\\[10pt]
-            \anf{$\impl$} Sei $f\in R\of{I}$ und $\varepsilon > 0$. Dann gilt nach Satz~\ref{satz:integr-kriterium-1}, dass eine Zerlegung $Z'=\pair{x_0', x_1', \dots, x_l' = b}$ von $I$ mit
+            \anf{$\impl$} Sei $f\in \mR\of{I}$ und $\varepsilon > 0$. Dann gilt nach Satz~\ref{satz:integr-kriterium-1}, dass eine Zerlegung $Z'=\pair{x_0', x_1', \dots, x_l' = b}$ von $I$ mit
             \begin{align*}
                 \overline{S}_Z\of{f} - \underline{S}_Z\of{f} &< \frac{\varepsilon}{2}
                 \intertext{existiert. Wähle eine andere Zerlegung $Z$ von $I$ mit $\Delta\of{Z} < \delta$, wobei $\delta > 0$ noch später gewählt wird. Setze $Z^{*} = Z'\lor Z$. Nach Lemma~\ref{lemma:verfeinerung-ober-unter-summe} und Satz~\ref{satz:integr-kriterium-1} gilt}
@@ -463,7 +468,7 @@
         \begin{align*}
             S_{z_n}\of{f, \xi_n} &= \sum_{j=1}^{k_n} f\of{\xi_j^n}\cdot\abs{I_j^n}
         \end{align*}
-        konvergiert gegen $J(f)$ falls $f\in R\of{I}$.
+        konvergiert gegen $J(f)$ falls $f\in \mR\of{I}$.
     \end{anwendung}
 
     \begin{bemerkung}
@@ -479,13 +484,13 @@
 
     \begin{korollar} % Korollar 10
         \label{korollar:temp-10}
-        Sei $f\in B\of{I}$. Dann gilt $f\in R\of{I}$ genau dann, wenn für jede Folge $(Z_n)_n$ von Zerlegungen $Z_n$ von $I$ mit Feinheit $\Delta\of{z_n}\fromto 0$ für $\ntoinf$ und jede Folge $(\xi_n)_n$ von Zwischenpunkten $\xi_n$ zugehörig zu $Z_n$ ein Grenzwert $\biglim{\ntoinf} S_{Z_n}\of{f, \xi_n}$ existiert.\\
+        Sei $f\in \mB\of{I}$. Dann gilt $f\in \mR\of{I}$ genau dann, wenn für jede Folge $(Z_n)_n$ von Zerlegungen $Z_n$ von $I$ mit Feinheit $\Delta\of{z_n}\fromto 0$ für $\ntoinf$ und jede Folge $(\xi_n)_n$ von Zwischenpunkten $\xi_n$ zugehörig zu $Z_n$ ein Grenzwert $\biglim{\ntoinf} S_{Z_n}\of{f, \xi_n}$ existiert.\\
         Darüber hinaus ist in diesem Fall obiger Grenzwert unabhängig von der Wahl der Zerlegung $Z_n$ und der Zwischenpunkten $\xi_n$ und es gilt
         \begin{align*}
             \int_{a}^{b} f\of{x} \dif x &= \lim_{\ntoinf} S_{Z_n}\of{f, \xi_n}
         \end{align*}
         \begin{proof}
-            \anf{$\impl$} Sei $f\in R\of{I}$ zu $\varepsilon > 0\ex\delta > 0\colon \overline{S}_Z\of{f} - \underline{S}_Z\of{f} < \varepsilon\fa\text{Zerlegungen } Z \text{ von } I \text{ mit } \Delta\of{z} < \delta$. Da $\Delta\of{z_n}\fromto 0$ für $\ntoinf$
+            \anf{$\impl$} Sei $f\in \mR\of{I}$ zu $\varepsilon > 0\ex\delta > 0\colon \overline{S}_Z\of{f} - \underline{S}_Z\of{f} < \varepsilon\fa\text{Zerlegungen } Z \text{ von } I \text{ mit } \Delta\of{z} < \delta$. Da $\Delta\of{z_n}\fromto 0$ für $\ntoinf$
             \begin{align*}
                 \impl \ex N\in\N_0\colon \Delta\of{Z_n} &< \delta\quad\forall n\geq N
                 \intertext{und}
@@ -511,8 +516,8 @@
 
     \begin{satz} % Satz 11
         \label{satz:temp-11}
-        Der Raum $R\of{I}$ auf einem kompakten Intervall $I=\interv{a,b}$ ist ein Vektorraum und $J: R\of{I}\fromto\R~~f\mapsto J\of{f} = \int_{a}^{b} f \dif x$ ist eine lineare Abbildung.\\
-        Für $f,g\in R\of{I}$ und $\alpha,\beta\in\R$ folgt $\alpha f + \beta g \in R\of{I}$ und $J\of{\alpha f + \beta g} = \alpha J\of{f} + \beta J\of{g}$.
+        Der Raum $\mR\of{I}$ auf einem kompakten Intervall $I=\interv{a,b}$ ist ein Vektorraum und $J: \mR\of{I}\fromto\R~~f\mapsto J\of{f} = \int_{a}^{b} f \dif x$ ist eine lineare Abbildung.\\
+        Für $f,g\in \mR\of{I}$ und $\alpha,\beta\in\R$ folgt $\alpha f + \beta g \in \mR\of{I}$ und $J\of{\alpha f + \beta g} = \alpha J\of{f} + \beta J\of{g}$.
         \begin{proof}
             \textsc{Schritt 1:} Sei $h: I\fromto\R$ und Zerlegung $Z$ von $I$ mit zugehörigen Intervallen $Ij$. Dann gilt
             \begin{align*}
@@ -523,7 +528,7 @@
                 &= \sup_{x,y\in I_j}\pair{h(y) - h(x)}\tag{Vertauschen von $x,y$}\\
                 &= \sup_{x,y\in I_j}\pair{\abs{h(x)-h(y)}}\\
                 \overline{m}_j\of{h} - \underline{m}_j\of{h} &= \sup_{x,y\in I_j}\pair{\abs{h(x)-h(y)}}\tag{1}
-                \intertext{Nehmen $h=\alpha f + \beta g$; $f,g\in R\of{I}$; $\alpha, \beta\in\R$}
+                \intertext{Nehmen $h=\alpha f + \beta g$; $f,g\in \mR\of{I}$; $\alpha, \beta\in\R$}
                 h(x) - h(y) &= \alpha\pair{f(x)-f(y)} + \beta\pair{g(x)-g(y)}\\
                 \abs{h(x)-h(y)} &\leq \abs{\alpha}\abs{f(x)-f(y)}+ \abs{\beta}\abs{g(x)-g(y)}\\
                 \impl \overline{m}_j\of{h} - \underline{m}_j\of{h} &= \sup_{x\in I_j} h(x) - \inf_{y\in I_j} h(y)\\
@@ -545,7 +550,7 @@
                 &= \alpha S_Z\of{f, \xi} + \beta S_Z\of{g, \xi}
             \end{align*}
             haben wir Linearität!\\
-            Für $h,f,g\in R\of{I}$ gilt nach Korollar~\ref{korollar:temp-10}
+            Für $h,f,g\in \mR\of{I}$ gilt nach Korollar~\ref{korollar:temp-10}
             \begin{align*}
                 J\of{h} &= \lim_{n\toinf} S_{Z_n}\of{h, \xi_n}\\
                 &= \lim_{n\toinf}\pair{\alpha S_{Z_n}\of{f, \xi_n} + \beta S_{Z_n}\of{g, \xi_n}}\tag{$\Delta\of{Z_n}\fromto 0$}\\
@@ -556,7 +561,7 @@
     \end{satz}
 
     \begin{satz} % Satz 12
-        Seien $f, g\in R\of{I}$. Dann folgt $f\cdot g\in R\of{I}$ sowie $\abs{f} \in R\of{I}$. Ist außerdem $\abs{g} \geq c > 0$ auf $I$ für ein konstantes $c>0$, so ist auch $\frac{f}{g}\in R\of{I}$.
+        Seien $f, g\in \mR\of{I}$. Dann folgt $f\cdot g\in \mR\of{I}$ sowie $\abs{f} \in \mR\of{I}$. Ist außerdem $\abs{g} \geq c > 0$ auf $I$ für ein konstantes $c>0$, so ist auch $\frac{f}{g}\in \mR\of{I}$.
         \begin{proof}
             Es sei $h(x) = f(x)\cdot g(x)$ für $x\in I$. Dann gilt
             \begin{align*}
@@ -575,7 +580,7 @@
                 \intertext{Es sei $Z\:= Z_1 \lor Z_2$}
                 \impl \overline{S}_Z\of{h} - \underline{S}_Z\of{h} &\leq \norm{f}_{\infty}\cdot\pair{\overline{S}_Z\of{g} - \underline{S}_Z\of{g}} + \norm{g}_{\infty} \cdot\pair{\overline{S}_Z\of{f} - \underline{S}_Z\of{f}} \leq \frac{\varepsilon}{2} + \frac{\varepsilon}{2} = \varepsilon
             \end{align*}
-            Das heißt $h=f\cdot g\in R\of{I}$ nach Satz~\ref{satz:integr-kriterium-1}.\\
+            Das heißt $h=f\cdot g\in \mR\of{I}$ nach Satz~\ref{satz:integr-kriterium-1}.\\
             Für $\abs{f}$ verwende
             \begin{align*}
                 \abs{\abs{f(x)}- \abs{f(y)}} &\leq \abs{f(x) - f(y)}\\
@@ -583,7 +588,7 @@
                 &\leq \sup_{x,y\in I_j} \pair{\abs{f(x)-f(y)}}\\
                 &= \overline{m}_j\of{f} - \underline{m}_j\of{f}
             \end{align*}
-            wie vorher folgt also $\abs{f} \in R\of{I}$.\\
+            wie vorher folgt also $\abs{f} \in \mR\of{I}$.\\
             Für $\frac{f}{g}$ muss nur $\frac{1}{g}$ betrachtet und die Multiplikationsregel angewendet werden. Es gilt
             \begin{align*}
                 \abs{\frac{1}{g(x)}- \frac{1}{g(y)}} &= \frac{\abs{g(x)-g(y)}}{\abs{g(x)}\abs{g(y)}}\\
@@ -612,13 +617,13 @@
             &= h\cdot e^{\alpha a}\cdot \sum_{j=1}^{n} \pair{e^{\alpha h}}^{j-1} = h\cdot e^{\alpha a} \sum_{j=0}^{n-1} \pair{e^{\alpha h}}^j\\
             &= h\cdot e^{\alpha a} \frac{\pair{e^{\alpha h}}^n - 1}{e^{\alpha h} - 1}\\
             &= \frac{h}{e^{\alpha h} - 1}\cdot e^{\alpha a}\cdot\pair{e^{\alpha\pair{b-a}} - 1} \fromto \frac{1}{\alpha} \pair{e^{\alpha b} - e^{\alpha a}}\\
-            \impl &f\in R\of{I}\\
+            \impl &f\in \mR\of{I}\\
             \int_{a}^{b} e^{\alpha x} \dif x &= \frac{1}{\alpha} \pair{e^{\alpha b} - e^{\alpha a}}
         \end{align*}
     \end{beispiel}
 
     \begin{beispiel}[]
-        Es sei $f: \linterv{0, \infty}\fromto \pair{0, \infty}$, $x\mapsto x^{\alpha}$ $\pair{\alpha\neq 1}$. Dann ist $f\in R\of{I}$ und es gilt
+        Es sei $f: \linterv{0, \infty}\fromto \pair{0, \infty}$, $x\mapsto x^{\alpha}$ $\pair{\alpha\neq 1}$. Dann ist $f\in \mR\of{I}$ und es gilt
         \begin{align*}
             \int_{a}^{b} x^{\alpha} \dif x &= \frac{1}{\alpha+1}\pair{b^{\alpha +1} - a^{\alpha +1}}
             \intertext{Wir wählen eine geometrische Zerlegung}
@@ -635,7 +640,7 @@
     \end{beispiel}
 
     \begin{satz}[Monotonie des Integrals] % Satz 13
-        Seien $f, g\in R\of{I}$, $I=\interv{a,b}$. Aus $f\leq g$ folgt $J\of{f} \leq J\of{g}$, das heißt
+        Seien $f, g\in \mR\of{I}$, $I=\interv{a,b}$. Aus $f\leq g$ folgt $J\of{f} \leq J\of{g}$, das heißt
         \begin{align*}
             \int_{a}^{b} f\of{x} \dif x &\leq \int_{a}^{b} g\of{x} \dif x\tag{1}
             \intertext{insbesondere}
@@ -643,7 +648,7 @@
             \abs{\int_{a}^{b} fg \dif x} &\leq \sup_{I} \abs{f} \cdot \int_{a}^{b} \abs{g} \dif x\tag{3}
         \end{align*}
         \begin{proof}
-            Sei $h=g-f\geq 0$. Dann gilt nach Satz~\ref{satz:temp-11} $h\in R\of{I}$ und damit
+            Sei $h=g-f\geq 0$. Dann gilt nach Satz~\ref{satz:temp-11} $h\in \mR\of{I}$ und damit
             \begin{align*}
                 \int_{a}^{b} h \dif x &\geq 0\\
                 \impl 0\leq \int_{a}^{b} h \dif x &= \int_{a}^{b} g \dif x + \int_{a}^{b} \pair{-f} \dif x = \int_{a}^{b} g \dif x - \int_{a}^{b} f \dif x
@@ -660,7 +665,7 @@
     \end{satz}
 
     \begin{satz}[Cauchy-Schwarz] % Satz 14
-        Seien $f, g\in R\of{I}$ und $I=\interv{a,b}$. Dann gilt
+        Seien $f, g\in \mR\of{I}$ und $I=\interv{a,b}$. Dann gilt
         \begin{align*}
             \abs{\int_{a}^{b} fg \dif x}^2 &\leq \pair{\int_{a}^{b} \abs{fg} \dif x}^2\\
             &\leq \int_{a}^{b} \abs{f}^2 \dif x \cdot \int_{a}^{b} \abs{g}^2 \dif x
@@ -701,7 +706,7 @@
 
     \begin{satz} % Satz 15
         \label{satz:temp-15}
-        Sei $C\of{I} = C\of{\interv{a,b}}$ der Raum der stetigen reellen Funktionen auf einem $I=\interv{a,b}$. Es gilt $C\of{I} \subseteq R\of{I}$.
+        Sei $\mC\of{I} = \mC\of{\interv{a,b}}$ der Raum der stetigen reellen Funktionen auf einem $I=\interv{a,b}$. Es gilt $\mC\of{I} \subseteq \mR\of{I}$.
         \begin{proof}
             $I=\interv{a,b}$ ist kompakt und $f: \interv{a,b}\fromto\R$ ist stetig und damit auch gleichmäßig stetig. Das heißt
             \begin{align*}
@@ -717,7 +722,7 @@
                 &\leq \varepsilon \sum_{j=1}^{n} \abs{I_j} = \varepsilon \cdot \abs{I} = \varepsilon\cdot\pair{b-a}\\
                 \impl 0 &\leq \overline{J}\of{f} - \underline{J}\of{f}\leq \overline{S}_Z\of{f} - \underline{S}_Z\of{f}\\
                 &\leq \varepsilon\pair{b-a}\quad\forall\varepsilon > 0\\
-                \impl \overline{J}\of{f} &= \underline{J}\of{f} \impl f\in R\of{I}
+                \impl \overline{J}\of{f} &= \underline{J}\of{f} \impl f\in \mR\of{I}
             \end{align*}
         \end{proof}
     \end{satz}
@@ -729,12 +734,12 @@
             f\of{x_j-} &= \lim_{x\fromto x_j-} f\of{x}, f\of{x_j+} = \lim_{x\fromto x_j+} f\of{x}
         \end{align*}
         für $j=1, \dots, k-1$ existieren.\\
-        $f\of{\pair{x_{j-1}, x_j}}$ können zu stetigen Funktionen auf $I_j=\interv{x_{j-1}, x_j}$ fortgesetzt werden. Wir nennen diese Klasse von Funktionen $PC\of{I}$\footnote{Piecewise continuos function in $I$}.
+        $f\of{\pair{x_{j-1}, x_j}}$ können zu stetigen Funktionen auf $I_j=\interv{x_{j-1}, x_j}$ fortgesetzt werden. Wir nennen diese Klasse von Funktionen $\mPC\of{I}$\footnote{Piecewise continuos function in $I$}.
     \end{definition}
 
     \begin{satz} % Satz 17
         \label{satz:temp-17}
-        Es gilt $PC\of{I} \subseteq R\of{I}$. $I=\interv{a,b}$. Ist $Z=\pair{x_0, \dots, x_k}$ eine Zerlegung von $f\in PCI\of{I}$ und $f$ stetig auf $\pair{x_{j-1}, x_j}~\fa j$ und $f_j$ eine stetige Fortsetzung von $f\vert_{\pair{x_{j-1}, x_j}}$ auf $I_j = \interv{x_{j-1}, x_j}$. So gilt
+        Es gilt $P\mC\of{I} \subseteq \mR\of{I}$. $I=\interv{a,b}$. Ist $Z=\pair{x_0, \dots, x_k}$ eine Zerlegung von $f\in \mPC\of{I}$ und $f$ stetig auf $\pair{x_{j-1}, x_j}~\fa j$ und $f_j$ eine stetige Fortsetzung von $f\vert_{\pair{x_{j-1}, x_j}}$ auf $I_j = \interv{x_{j-1}, x_j}$. So gilt
         \begin{align*}
             \int_{a}^{b} f\of{x} \dif x &= \sum_{l=1}^{k} \int_{x_{l-1}}^{x_l} f_l\of{x}\dif x
         \end{align*}
@@ -744,7 +749,7 @@
     \end{satz}
 
     \begin{bemerkung}[Treppenfunktion]
-        Ist $f$ stückweise konstant auf $I$. Das heißt es existiert eine Zerlegung $Z=\pair{x_0, \dots, x_{\nu}}$ von $I$ mit $f$ ist konstant auf $\pair{x_{k-1}, x_k}~\fa k=1, \dots, \nu$. So heißt $f$ Treppenfunktion. Schreiben $J\of{I}$ für die Klasse der Treppenfukntionen.
+        Ist $f$ stückweise konstant auf $I$. Das heißt es existiert eine Zerlegung $Z=\pair{x_0, \dots, x_{\nu}}$ von $I$ mit $f$ ist konstant auf $\pair{x_{k-1}, x_k}~\fa k=1, \dots, \nu$. So heißt $f$ Treppenfunktion. Schreiben $\mJ\of{I}$ für die Klasse der Treppenfunktionen.
     \end{bemerkung}
 
     \begin{satz} % Satz 18
@@ -755,12 +760,12 @@
             \item In jedem Punkt $x\in\pair{a,b}$ existieren die rechts- und linksseitigen Grenzwerte.
             \item In $a$ existiert der rechtsseitige und in $b$ der linksseitige Grenzwert.
         \end{enumerate}
-        Dann gilt $f\in R\of{I}$.\\
+        Dann gilt $f\in \mR\of{I}$.\\
         Zum Beweis dieses Satzes benötigen wir zunächst das folgende Approximationslemma~\ref{lemma:temp-19}.
     \end{satz}
 
     \begin{bemerkung}
-        Insbesondere erfüllt $PC\of{I}$ die Bedingungen a) und b) aus Satz~\ref{satz:temp-18}.
+        Insbesondere erfüllt $P\mC\of{I}$ die Bedingungen a) und b) aus Satz~\ref{satz:temp-18}.
     \end{bemerkung}
 
     \begin{lemma} % Lemma 19
@@ -788,7 +793,7 @@
             \intertext{Damit folgt insgesamt}
             \underline{S}_Z\of{\varphi} - \frac{\varepsilon}{2}\pair{b-a} &\leq \underline{S}_Z\of{f} \leq \un{J}\of{f}\\
             \ov{S}_Z\of{\varphi} + \frac{\varepsilon}{2}\pair{b-a} &\geq \ov{S}_Z\of{f} \leq \ov{J}\of{f}\\
-            \intertext{Da $\varphi$ eine Treppenfunktion ist, ist $\varphi\in PC\of{I}\subseteq R\of{I}$. Also existiert eine Folge $(z_n)_n$ von Zerlegungen von $I$ mit}
+            \intertext{Da $\varphi$ eine Treppenfunktion ist, ist $\varphi\in P\mC\of{I}\subseteq \mR\of{I}$. Also existiert eine Folge $(z_n)_n$ von Zerlegungen von $I$ mit}
             \lim_{\ntoinf} \ov{S}_{Z_n}\of{\varphi} &= \lim_{\ntoinf}\un{S}_{Z_n}\of{\varphi} = \int_{a}^{b} \varphi\of{x} \dif x
             \intertext{(sofern $\Delta\of{Z_n}\fromto 0$ für $\ntoinf$)}
             \impl \ov{J}\of{f} - \un{J}\of{f} &\leq \ov{S}_{Z_n}\of{\varphi} + \frac{\varepsilon}{2}\pair{b-a} - \pair{\un{S}_{Z_n}\of{\varphi} - \frac{\varepsilon}{2}\pair{b-a}}\\
@@ -798,12 +803,12 @@
             \impl \ov{J}\of{f} - \un{J}\of{f} &\leq \varepsilon\pair{b-a}\quad\forall\varepsilon > 0\\
             \impl \ov{J}\of{f} - \un{J}\of{f} &\leq 0\\
             \impl \ov{J}\of{f} &= \un{J}\of{f}\\
-            \impl f&\in R\of{I}\qedhere
+            \impl f&\in \mR\of{I}\qedhere
         \end{align*}
     \end{proof}
 
     \begin{bemerkung}
-        Welche $f\in B\of{I}$ sind genau Riemann-integrierbar?
+        Welche $f\in \mB\of{I}$ sind genau Riemann-integrierbar?
     \end{bemerkung}
 
     \begin{definition}[Nullmenge]
@@ -835,12 +840,12 @@
     \end{definition}
 
     \begin{genv}[Lebesgue'sches Integrabilitätskriterium]
-        $R\of{I} = \set{f\in B\of{I}: f \text{ ist fast überfall stetig auf } I}$
+        $\mR\of{I} = \set{f\in \mB\of{I}: f \text{ ist fast überfall stetig auf } I}$
     \end{genv}
 
     \begin{bemerkung}
         Sei $f$ wie in Satz~\ref{satz:temp-18}. Dann ist die Menge der Unstetigkeitsstelle von $f$ höchstens abzählbar, also eine Nullmenge.\\
-        Ist $f\in PC\of{I}$ so ist die Menge der Unstetigkeitsstellen endlich.
+        Ist $f\in P\mC\of{I}$ so ist die Menge der Unstetigkeitsstellen endlich.
     \end{bemerkung}
 
     \begin{proof}[Beweis von Lemma~\ref{lemma:temp-19}]
@@ -890,21 +895,21 @@
         \end{align*}
         Aber $I_n\subseteq\interv{\xi-\delta, \xi+\delta}$ für fast alle $n\in\N$. Für $n$ groß genug ist (**) im Widerspruch zu (*). Damit folgt die Aussage des Lemmas.
     \end{proof}
-    
+
     \begin{satz} % Satz 20
         \label{satz:temp-20}
-        Seien $f, g\in R\of{I}$ ???.
+        Seien $f, g\in \mR\of{I}$ ???.
     \end{satz}
 
     \begin{lemma} % Lemma 21
         \label{lemma:temp-21}
-        Seien $f,g\in R\of{I}$ und gebe es eine Menge $G\subseteq I$ welche in $I$ dicht liegt und für die $f(x) = g(x)~\fa x\in G$ gilt. Dann folgt $\int_{a}^{b} f(x)\dif x = \int_{a}^{b} g(x)\dif x$
+        Seien $f,g\in \mR\of{I}$ und gebe es eine Menge $G\subseteq I$ welche in $I$ dicht liegt und für die $f(x) = g(x)~\fa x\in G$ gilt. Dann folgt $\int_{a}^{b} f(x)\dif x = \int_{a}^{b} g(x)\dif x$
     \end{lemma}
 
-    \subsection{Mittelwertsätze der Integralrechnung}
+    \subsection{[*] Mittelwertsätze der Integralrechnung}
 
     \begin{definition}
-        Sei $f\in R\of{I}$, $I=\interv{a,b}$. Dann ist
+        Sei $f\in \mR\of{I}$, $I=\interv{a,b}$. Dann ist
         \begin{align*}
             \fint_I f\of{x} \dif x = \fint_a^{b} f(x) \dif x &\coloneqq \frac{1}{b-a} \int_{a}^{b} f(x) \dif x
             \intertext{definiert als der Mittelwert von $f$ über $I$. Wir schreiben auch}
@@ -913,7 +918,7 @@
     \end{definition}
 
     \begin{satz}
-        Es sei $I=\interv{a,b}$, $f\in C\of{I}$. Dann gilt
+        Es sei $I=\interv{a,b}$, $f\in \mC\of{I}$. Dann gilt
         \begin{align*}
             \ex\xi\colon a < \xi < b \text{ mit } f\of{\xi} = \fint_{a}^{b} f(x) \dif x
         \end{align*}
@@ -927,7 +932,7 @@
                 \impl \un{m} &\leq \fint_{a}^{b} f(x) \dif x \leq \ov{m}
                 \intertext{Ist $\un{m} = \ov{m} \impl f$ ist konstant auf $\interv{a,b}$}
                 \impl \un{m} = \ov{m} = \fint_{a}^{b} f(x) \dif x
-                \intertext{und $\forall a < \xi < b$ ist $f\of{x} = \un{m}$. Damit gilt die Behauptung. Sei also $\un{m} < \ov{m}$. Dann folgt aus der Stetigkeit von $f$, dass $x_1$ und $x_2$ in $I$ existieren, sodass $f(x_1) = \un{m}$ und $f(x_2) = \ov{m}$ mit $x_1\neq x_2$. Außerdem folgt aus $\un{m} < \ov{m}$, $f\in C\of{I}$ auch}
+                \intertext{und $\forall a < \xi < b$ ist $f\of{x} = \un{m}$. Damit gilt die Behauptung. Sei also $\un{m} < \ov{m}$. Dann folgt aus der Stetigkeit von $f$, dass $x_1$ und $x_2$ in $I$ existieren, sodass $f(x_1) = \un{m}$ und $f(x_2) = \ov{m}$ mit $x_1\neq x_2$. Außerdem folgt aus $\un{m} < \ov{m}$, $f\in \mC\of{I}$ auch}
                 \un{m} &\leq \fint_{a}^{b} f\of{x} \dif x < \ov{m}
                 \intertext{Nach dem Zwischenwertsatz für stetige Funktionen folgt}
                 \impl \ex\xi \text{ zwischen } x_1, x_2 \text{ mit } f\of{x} &= \fint_{a}^{b} f(x) \dif x\qedhere
