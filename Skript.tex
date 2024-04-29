@@ -587,111 +587,127 @@
         \end{proof}
     \end{satz}
 
-    \newpage
+    \begin{satz}[Kompositionen von integrierbaren Funktionen] % Satz 12
+        Seien $f, g\in \mR\of{I}$. Dann gilt
+        \begin{enumerate}[label=(\roman*)]
+            \item $f\cdot g\in \mR\of{I}$
+            \item $\abs{f} \in \mR\of{I}$
+            \item Ist außerdem $\abs{g} \geq c > 0$ auf $I$ für ein konstantes $c>0$, so ist auch $\frac{f}{g}\in \mR\of{I}$.
+        \end{enumerate}
 
-    \begin{satz} % Satz 12
-        Seien $f, g\in \mR\of{I}$. Dann folgt $f\cdot g\in \mR\of{I}$ sowie $\abs{f} \in \mR\of{I}$. Ist außerdem $\abs{g} \geq c > 0$ auf $I$ für ein konstantes $c>0$, so ist auch $\frac{f}{g}\in \mR\of{I}$.
         \begin{proof}
-            Es sei $h(x) = f(x)\cdot g(x)$ für $x\in I$. Dann gilt
-            \begin{align*}
-                \abs{h(x) - h(y)} &= \abs{f(x)g(x) - f(y)g(y)}\\
-                &= \abs{g(x)\pair{f(x)-f(y)} + f(y)\pair{g(x)-g(y)}}\\
-                &\leq \norm{g}_{\infty}\cdot\abs{f(x)-f(y)} + \norm{f}_{\infty} \cdot \abs{g(x)-g(y)}\\
-                \norm{f}_{\infty} &= \sup_{x\in I}\abs{f(x)} < \infty
-                \intertext{$Z$ Zerlegung von $I$ ist $I_j$; Teilintervalle}
-                \overline{S}_Z\of{h} - \underline{S}_Z\of{h} &= \sum_{j}^{} \pair{\overline{m}_j\of{h} - \underline{m}_j\of{h}}\cdot\abs{I_j}\\
-                \overline{m}_j\of{h} - \underline{m}_j\of{h} &= \sup_{I_j} h - \inf_{I_j} h = \sup_{x,y\in I_j} \abs{h(x)-h(y)}\\
-                &\leq \norm{g}_{\infty} \pair{\overline{m}_j\of{f}- \underline{m}_j\of{f}} + \norm{f}_{\infty} \pair{\overline{m}_j\of{y} - \underline{m}_j\of{g}}\\
-                \overline{S}_Z\of{h} - \underline{S}_Z\of{h} &\leq \norm{f}_{\infty}\cdot\abs{\overline{S}_Z\of{g} - \underline{S}_Z\of{g}} + \norm{g}_{\infty}\pair{\overline{S}_Z\of{f} - \underline{S}_Z\of{f}}
-                \intertext{Zu $\varepsilon > 0$}
-                \exists Z_1\colon \overline{S}_{Z_1}\of{f} - \underline{S}_{Z_1}\of{f} &< \frac{\varepsilon}{2\pair{1+\norm{f}_{\infty}}}\\
-                \exists Z_2\colon \overline{S}_{Z_2}\of{f} - \underline{S}_{Z_2}\of{f} &< \frac{\varepsilon}{2\pair{1+\norm{g}_{\infty}}}
-                \intertext{Es sei $Z\:= Z_1 \lor Z_2$}
-                \impl \overline{S}_Z\of{h} - \underline{S}_Z\of{h} &\leq \norm{f}_{\infty}\cdot\pair{\overline{S}_Z\of{g} - \underline{S}_Z\of{g}} + \norm{g}_{\infty} \cdot\pair{\overline{S}_Z\of{f} - \underline{S}_Z\of{f}} \leq \frac{\varepsilon}{2} + \frac{\varepsilon}{2} = \varepsilon
-            \end{align*}
-            Das heißt $h=f\cdot g\in \mR\of{I}$ nach Satz~\ref{satz:integr-kriterium-1}.\\
-            Für $\abs{f}$ verwende
-            \begin{align*}
-                \abs{\abs{f(x)}- \abs{f(y)}} &\leq \abs{f(x) - f(y)}\\
-                \impl \overline{m}_j\of{\abs{f}} - \underline{m}_j\of{\abs{f}} &= \sup_{x,y\in I_j}\pair{\abs{\abs{f(x)} - \abs{f(y)}}}\\
-                &\leq \sup_{x,y\in I_j} \pair{\abs{f(x)-f(y)}}\\
-                &= \overline{m}_j\of{f} - \underline{m}_j\of{f}
-            \end{align*}
-            wie vorher folgt also $\abs{f} \in \mR\of{I}$.\\
-            Für $\frac{f}{g}$ muss nur $\frac{1}{g}$ betrachtet und die Multiplikationsregel angewendet werden. Es gilt
-            \begin{align*}
-                \abs{\frac{1}{g(x)}- \frac{1}{g(y)}} &= \frac{\abs{g(x)-g(y)}}{\abs{g(x)}\abs{g(y)}}\\
-                &\leq \frac{1}{\varepsilon^2}\abs{g(x) - g(y)}\\
-                \impl \overline{m}_j\of{\frac{1}{y}}  - \underline{m}_j\of{\frac{1}{y}} \leq \frac{1}{\varepsilon^2} \pair{\overline{m}_j\of{y} - \underline{m}_j\of{y}}
-            \end{align*}
-            Dann wie vorher.\qedhere
+            \theoremescape
+            \begin{enumerate}[label=(\roman*)]
+                \item Es sei $h(x) = f(x)\cdot g(x)$ für $x\in I$. Dann gilt
+                \begin{align*}
+                    \abs{h(x) - h(y)} &= \abs{f(x)\cdot g(x) - f(y)\cdot g(y)}\\
+                    &= \abs{g(x)\cdot \pair{f(x)-f(y)} + f(y)\cdot \pair{g(x)-g(y)}}\\
+                    &\leq \norm{g}_{\infty}\cdot\abs{f(x)-f(y)} + \norm{f}_{\infty} \cdot \abs{g(x)-g(y)}\tag{1}
+                    \intertext{Sei $Z$ Zerlegung von $I$ und $I_j$ die entsprechenden Teilintervalle. Dann gilt}
+                    \overline{S}_Z\of{h} - \underline{S}_Z\of{h} &= \sum_{j=1}^{k} \pair{\overline{m}_j\of{h} - \underline{m}_j\of{h}}\cdot\abs{I_j}\\
+                    \overline{m}_j\of{h} - \underline{m}_j\of{h} &= \sup_{I_j} h - \inf_{I_j} h = \sup_{x,y\in I_j} \abs{h(x)-h(y)}\\
+                    \annot[{&}]{\leq}{(1)} \norm{g}_{\infty}\cdot \pair{\overline{m}_j\of{f}- \underline{m}_j\of{f}} + \norm{f}_{\infty}\cdot \pair{\overline{m}_j\of{g} - \underline{m}_j\of{g}}\\
+                    \impl \overline{S}_Z\of{h} - \underline{S}_Z\of{h} &\leq \norm{g}_{\infty}\cdot\pair{\overline{S}_Z\of{f} - \underline{S}_Z\of{f}} + \norm{f}_{\infty}\cdot\pair{\overline{S}_Z\of{g} - \underline{S}_Z\of{g}}
+                    \intertext{Für ein $\varepsilon > 0$ gilt nach Satz~\ref{satz:integr-kriterium-1}}
+                    \exists Z_1\colon \overline{S}_{Z_1}\of{f} - \underline{S}_{Z_1}\of{f} &< \frac{\varepsilon}{2\cdot\pair{1+\norm{g}_{\infty}}}\\
+                    \exists Z_2\colon \overline{S}_{Z_2}\of{g} - \underline{S}_{Z_2}\of{g} &< \frac{\varepsilon}{2\cdot\pair{1+\norm{f}_{\infty}}}
+                    \intertext{Es sei $Z\:= Z_1 \lor Z_2$}
+                    \impl \overline{S}_Z\of{h} - \underline{S}_Z\of{h} &\leq \norm{g}_{\infty} \cdot \frac{\varepsilon}{2\cdot\pair{1+\norm{g}_{\infty}}} +\norm{f}_{\infty}\cdot\frac{\varepsilon}{2\cdot\pair{1+\norm{f}_{\infty}}}\\
+                    &\leq \frac{\varepsilon}{2} + \frac{\varepsilon}{2} = \varepsilon
+                    \intertext{Damit gilt $h=f\cdot g\in \mR\of{I}$ nach Satz~\ref{satz:integr-kriterium-1}.\item Für $\abs{f}$ verwenden wir $\abs{\abs{f(x)}- \abs{f(y)}} \leq \abs{f(x) - f(y)}$}
+                    \impl \overline{m}_j\of{\abs{f}} - \underline{m}_j\of{\abs{f}} &= \sup_{x,y\in I_j}\pair{\abs{\abs{f(x)} - \abs{f(y)}}}\\
+                    &\leq \sup_{x,y\in I_j} \pair{\abs{f(x)-f(y)}}\\
+                    &= \overline{m}_j\of{f} - \underline{m}_j\of{f}
+                    \intertext{wie vorher folgt also $\abs{f} \in \mR\of{I}$. \item Für $\frac{f}{g}$ muss nur $\frac{1}{g}$ betrachtet und die Multiplikationsregel angewendet werden. Es gilt}
+                    \abs{\frac{1}{g(x)}- \frac{1}{g(y)}} &= \frac{\abs{g(x)-g(y)}}{\abs{g(x)}\cdot\abs{g(y)}} \leq \frac{1}{c^2}\cdot\abs{g(x) - g(y)}\\
+                    \impl \overline{m}_j\of{\frac{1}{y}}  - \underline{m}_j\of{\frac{1}{y}} &\leq \frac{1}{c^2}\cdot \pair{\overline{m}_j\of{y} - \underline{m}_j\of{y}}
+                \end{align*}
+                Damit gilt analog zu (ii) die Behauptung.\qedhere
+            \end{enumerate}
         \end{proof}
     \end{satz}
 
     \begin{beispiel}[Exponentialfunktion]
         \marginnote{[23. Apr]}
-        Sei $f: \R\fromto\R$, $x\mapsto e^{\alpha x}$, $n\in\N$ und $I=\interv{a,b}$. Wir betrachte eine äquidistante Zerlegung $Z_n = \pair{x_0^n, x_1^n, \dots, x_n^n}$ und $h_n = \frac{b-a}{n}$. sowie $x_j = x_j^n=a+jh_n$. Wenn $\alpha > 0$ gilt
+        Sei $f: \R\fromto\R~x\mapsto e^{\alpha x}$, $n\in\N$, $I=\interv{a,b}$ und $\alpha\in\R$ mit $\alpha > 0$. Wir betrachten eine äquidistante Zerlegung $Z_n = \pair{x_0^n, x_1^n, \dots, x_k^n}$ mit $x_j^n = a + j\cdot h_n$, wobei $h_n = \frac{b-a}{n} = h = \abs{I_j}$. Da $f$ streng monoton wachsend ist gilt
         \begin{align*}
-            \overline{m}_j &= \sup_{I_j} f = f\of{x_j} = f\of{x_j^n} = e^{\alpha x_j} = e^{\alpha a + \alpha h_j}\\
+            \overline{m}_j &= \sup_{I_j} f = f\of{x_j} = f\of{x_j^n} = e^{\alpha x_j}\\
             \underline{m}_j &= \inf_{I_j} f = f\of{x_{j-1}} = f\of{x_{j-1}^n} = e^{\alpha x_{j-1}}\\
             \impl \overline{S}_Z\of{f} &= \overline{S}_{Z_n}\of{f} = \sum_{j=1}^{n} \overline{m}_j \cdot\abs{I_j} = \sum_{j=1}^{n} e^{\alpha x_j} \cdot h\\
-            &= h\cdot \sum_{j=1}^{n} e^{\alpha\pair{a+jh}} = h\cdot \sum_{j=1}^{h} e^{\alpha a}\cdot e^{\alpha jh}\\
-            &= h\cdot e^{\alpha a}\cdot e^{\alpha h}\cdot \sum_{j=1}^{n} \pair{e^{\alpha h}}^{j-1} = \sum_{j=0}^{n-1} \pair{e^{\alpha h}}^{j}\\
-            &= \frac{\pair{e^{\alpha h}}^h - 1}{e^{\alpha h} - 1}\tag{Geometrische Summe}\\
-            \overline{S}_Z\of{f} &= \frac{h}{e^{\alpha h} - 1}\cdot e^{\alpha h}\cdot e^{\alpha a} \cdot \pair{e^{\alpha h\cdot n} - 1}\\
-            &= \frac{h_n}{e^{\alpha h_n } - 1} e^{\alpha h_n} \pair{e^{\alpha b - e^{\alpha a}}}\\
-            \lim_{n\fromto\infty} \frac{e^{\alpha h_n} - 1}{h_n} &= \lim_{h\fromto0} \frac{e^{\alpha h} - 1}{h} = \alpha\\
-            \impl \lim_{n\fromto\infty} \overline{S}_{Z_n}\of{f} &= \frac{1}{\alpha}\pair{e^{\alpha b} - e^{\alpha a}}\\[10pt]
+            &= h\cdot \sum_{j=1}^{n} e^{\alpha\pair{a+jh}} = h\cdot \sum_{j=1}^{n} e^{\alpha a}\cdot e^{\alpha jh}\\
+            &= h\cdot e^{\alpha a}\cdot e^{\alpha h}\cdot \sum_{j=1}^{n} \pair{e^{\alpha h}}^{j-1}\\
+            &= h\cdot e^{\alpha a}\cdot e^{\alpha h}\cdot\frac{\pair{e^{\alpha h}}^n - 1}{e^{\alpha h} - 1}\tag{Geometr. Summe}\\
+            &= \frac{h}{e^{\alpha h} - 1}\cdot e^{\alpha h}\cdot e^{\alpha a} \cdot \pair{e^{\alpha h\cdot n} - 1}\\
+            &= \frac{h_n}{e^{\alpha h_n } - 1}\cdot e^{\alpha h_n}\cdot \pair{e^{\alpha b} - e^{\alpha a}}
+            \intertext{Es gilt $\biglim{n\fromto\infty} \frac{e^{\alpha h_n} - 1}{h_n} = \biglim{h\fromto 0} \frac{e^{\alpha h} - 1}{h} = \alpha$ sowie $\biglim{\ntoinf} e^{\alpha h_n} = 1$. Damit folgt}
+            \lim_{n\fromto\infty} \overline{S}_{Z_n}\of{f} &= \frac{1}{\alpha}\cdot\pair{e^{\alpha b} - e^{\alpha a}}
+            \intertext{Wir betrachten die Untersumme}
             \underline{S}_Z &= \underline{S}_{Z_n} = \sum_{j=1}^{n} \underline{m}_j \cdot \abs{I_j} = h\cdot \sum_{j=1}^{n} \pair{e^{\alpha x_{j-1}}}\\
             &= h\cdot e^{\alpha a}\cdot \sum_{j=1}^{n} \pair{e^{\alpha h}}^{j-1} = h\cdot e^{\alpha a} \sum_{j=0}^{n-1} \pair{e^{\alpha h}}^j\\
             &= h\cdot e^{\alpha a} \frac{\pair{e^{\alpha h}}^n - 1}{e^{\alpha h} - 1}\\
-            &= \frac{h}{e^{\alpha h} - 1}\cdot e^{\alpha a}\cdot\pair{e^{\alpha\pair{b-a}} - 1} \fromto \frac{1}{\alpha} \pair{e^{\alpha b} - e^{\alpha a}}\\
-            \impl &f\in \mR\of{I}\\
-            \int_{a}^{b} e^{\alpha x} \dif x &= \frac{1}{\alpha} \pair{e^{\alpha b} - e^{\alpha a}}
+            &= \frac{h}{e^{\alpha h} - 1}\cdot e^{\alpha a}\cdot\pair{e^{\alpha\pair{b-a}} - 1} \fromto \frac{1}{\alpha}\cdot \pair{e^{\alpha b} - e^{\alpha a}}
+            \intertext{Also gilt $f\in \mR\of{I}$ sowie}
+            \int_{a}^{b} e^{\alpha x} \dif x &= \frac{1}{\alpha}\cdot \pair{e^{\alpha b} - e^{\alpha a}}
         \end{align*}
     \end{beispiel}
 
-    \begin{beispiel}[]
-        Es sei $f: \linterv{0, \infty}\fromto \pair{0, \infty}$, $x\mapsto x^{\alpha}$ $\pair{\alpha\neq 1}$. Dann ist $f\in \mR\of{I}$ und es gilt
+    \begin{beispiel}[Polynome]
+        \label{beispiel:int-polynom}
+        Es sei $f: \linterv{0, \infty}\fromto \linterv{0, \infty}$, $x\mapsto x^{\alpha}$ $\pair{\alpha\neq -1}$. Dann $f\in \mR\of{I}$ und
         \begin{align*}
             \int_{a}^{b} x^{\alpha} \dif x &= \frac{1}{\alpha+1}\pair{b^{\alpha +1} - a^{\alpha +1}}
-            \intertext{Wir wählen eine geometrische Zerlegung}
-            q &= q_n = \sqrt[n]{\frac{b}{a}}\\
-            z &= z_n = \pair{x_0^n, x_1^n, \dots, x_n^n}\\
-            I_j &= \interv{x_{j-1}, x_j}\\
-            \abs{I_j} &= \Delta x_j = x_j - x_{j-1} = a\cdot q^{j} - -a \cdot q{j-1}\\
-            &= a\cdot q^{j-1}\pair{q-1} \leq b\cdot\pair{q_n - 1}\fromto 0
-            \intertext{Beobachtung: Ober- und Untersumme lassen sich \anf{leicht} mittels geometrischer Summen ausrechnen}
-            \overline{m}_j &= \sup_{i_j} = x_j^{\alpha} = =\pair{q\cdot q^j}^{\alpha}\\
-            \underline{m}_j &= \inf_{I_j} = x_{j-1}^{\alpha} = \pair{a\cdot q^{j-1}}^{\alpha}\\
-            \vdots
         \end{align*}
+        \begin{proof}[Beweisansatz]
+            Wir wählen eine geometrische Zerlegung. Sei $q = q_n = \sqrt[n]{\frac{b}{a}}$, $Z= Z_n = \pair{x_0^n, x_1^n, \dots, x_n^n}$, $I_j = \interv{x_{j-1}, x_j}$, $x_j = x_j^n = a\cdot q^j$
+            \begin{align*}
+                \abs{I_j} &= \Delta x_j = x_j - x_{j-1} = a\cdot q^{j} - a \cdot q^{j-1}\\
+                &= a\cdot q^{j-1}\cdot\pair{q-1} \leq b\cdot\pair{q_n - 1}\fromto 0 \text{ für } \ntoinf
+                \intertext{Beobachtung: Ober- und Untersumme lassen sich \anf{leicht} mittels geometrischer Summen ausrechnen}
+                \overline{m}_j &= \sup_{I_j} f = \pair{x_j}^{\alpha} = \pair{a\cdot q^j}^{\alpha}\tag{Nach Monotonie}\\
+                \underline{m}_j &= \inf_{I_j} f = \pair{x_{j-1}}^{\alpha} = \pair{a\cdot q^{j-1}}^{\alpha}\\
+                \un{S}_Z\of{f} &= \un{S}_{Z_n}\of{f} = \sum_{j=1}^{n} \un{m}_j\cdot\abs{I_j} = \sum_{j=1}^{n} \pair{a\cdot q^{j-1}}^{\alpha}\cdot a\cdot q^{j-1}\cdot\pair{q-1}\\
+                &= \pair{q-1}\cdot a^{\alpha + 1} \cdot \sum_{j=1}^{n} q^{\pair{\alpha +1}\cdot\pair{j-1}}
+            \end{align*}
+            Damit erhalten wir eine geometrische Summe, dessen Grenzwert sich gut ermitteln lässt.
+        \end{proof}
     \end{beispiel}
 
+    \begin{uebung}
+        Bestimmen Sie den Grenzwert der Ober- und Untersummen aus Beispiel~\ref{beispiel:int-polynom}, um die Riemann-Integrierbarkeit der Polynome nachzuweisen.
+    \end{uebung}
+
     \begin{satz}[Monotonie des Integrals] % Satz 13
-        Seien $f, g\in \mR\of{I}$, $I=\interv{a,b}$. Aus $f\leq g$ folgt $J\of{f} \leq J\of{g}$, das heißt
-        \begin{align*}
-            \int_{a}^{b} f\of{x} \dif x &\leq \int_{a}^{b} g\of{x} \dif x\tag{1}
-            \intertext{insbesondere}
-            \abs{\int_{a}^{b} f\of{x} \dif x} &\leq \int_{a}^{b} \pair{\abs{f}}\of{x} \dif x\tag{2}\\
-            \abs{\int_{a}^{b} fg \dif x} &\leq \sup_{I} \abs{f} \cdot \int_{a}^{b} \abs{g} \dif x\tag{3}
-        \end{align*}
-        \begin{proof}
-            Sei $h=g-f\geq 0$. Dann gilt nach Satz~\ref{satz:temp-11} $h\in \mR\of{I}$ und damit
+        \label{satz:temp-13}
+        Seien $f, g\in \mR\of{I}$, $I=\interv{a,b}$. Dann erfüllt das Integral Monotonieeigenschaften. Das heißt konkret
+        \begin{enumerate}[label=(\roman*)]
+            \item Wenn $\fa x\in\R\colon f\of{x}\leq g\of{x}$, dann folgt
             \begin{align*}
-                \int_{a}^{b} h \dif x &\geq 0\\
-                \impl 0\leq \int_{a}^{b} h \dif x &= \int_{a}^{b} g \dif x + \int_{a}^{b} \pair{-f} \dif x = \int_{a}^{b} g \dif x - \int_{a}^{b} f \dif x
-                \intertext{Damit folgt (1).}
-                \pm f &\leq \abs{f}\\
-                \impl \int_{a}^{b} \pair{\pm f} \dif x &\leq \int_{a}^{b} \abs{f} \dif x = \pm \int_{a}^{b} f \dif x\\
-                \impl \abs{\int_{a}^{b} f \dif x} &= \max\pair{\int_{a}^{b} f \dif x, - \int_{a}^{b} f \dif x}\\
-                &\leq \int_{a}^{b} \abs{f} \dif x \impl (2)\\
-                \abs{\int_{a}^{b} fg \dif x} &\leq \int_{a}^{b} \abs{fg} \dif x\\
-                &= \abs{f} \cdot \abs{g} \leq \pair{\sup_I \abs{f}}\cdot\abs{g}\\
-                &\leq \int_{a}^{b} \pair{\sup_I \abs{f}}\abs{g} \dif x = \sup_I\of{\abs{f}}\cdot \int_{a}^{b} \abs{g} \dif x\qedhere
+                \int_{a}^{b} f\of{x} \dif x &\leq \int_{a}^{b} g\of{x} \dif x\numberthis\label{eq:int-monton}
+                \intertext{\item Insbesondere gilt für $f\in\mR\of{I}$ beliebig}
+                \abs{\int_{a}^{b} f\of{x} \dif x} &\leq \int_{a}^{b} \abs{f\of{x}} \dif x\numberthis\label{eq:int-abs-mon}
+                \intertext{\item Sowie}
+                \abs{\int_{a}^{b} f\cdot g \dif x} &\leq \sup_{I} \abs{f} \cdot \int_{a}^{b} \abs{g} \dif x
             \end{align*}
+        \end{enumerate}
+
+        \begin{proof}
+            \theoremescape
+            \begin{enumerate}[label=(\roman*)]
+                \item Sei $h=g-f\geq 0$. Dann gilt nach Satz~\ref{satz:temp-11} $h\in \mR\of{I}$ und $\int_{a}^{b} h \dif x \geq 0$
+                \begin{align*}
+                    \impl 0\leq \int_{a}^{b} h \dif x &= \int_{a}^{b} g \dif x + \int_{a}^{b} \pair{-f} \dif x = \int_{a}^{b} g \dif x - \int_{a}^{b} f \dif x\\
+                    \impl \int_{a}^{b} f \dif x &\leq \int_{a}^{b} g \dif x
+                    \intertext{\item Es gilt $\pm f \leq \abs{f}$. Damit folgt aus (\ref{eq:int-monton})}
+                    \int_{a}^{b} \pair{\pm f} \dif x &\leq \int_{a}^{b} \abs{f} \dif x\\
+                    \impl \abs{\int_{a}^{b} f \dif x} &= \max\pair{\int_{a}^{b} f \dif x, - \int_{a}^{b} f \dif x}\leq \int_{a}^{b} \abs{f} \dif x
+                    \intertext{\item Nach (\ref{eq:int-abs-mon}) gilt}
+                    \abs{\int_{a}^{b} fg \dif x} \leq \int_{a}^{b} \abs{fg} \dif x &\leq \int_{a}^{b} \pair{\sup_I \abs{f}}\abs{g} \dif x = \sup_I\of{\abs{f}}\cdot \int_{a}^{b} \abs{g} \dif x\qedhere
+                \end{align*}
+            \end{enumerate}
         \end{proof}
     \end{satz}
+
+    \newpage
 
     \begin{satz}[Cauchy-Schwarz] % Satz 14
         Seien $f, g\in \mR\of{I}$ und $I=\interv{a,b}$. Dann gilt
