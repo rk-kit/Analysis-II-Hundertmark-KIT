@@ -401,14 +401,14 @@
         \end{align*}
         ist nicht Riemann-integrierbar, weil $\overline{J}\of{f} = 1$ und $\underline{J}\of{f} = 0$.
     \end{beispiel}
-    
+
     \begin{uebung}
         Beweisen Sie die Aussagen aus Beispiel~\ref{beispiel:int-konstant} und \ref{beispiel:int-dirichlet} mittels der formalen Definition von $\un{J}\of{f}$ und $\ov{J}\of{f}$.
     \end{uebung}
 
     \subsection{[*] Integrabilitätskriterien}
 
-    \begin{satz}[1. Kriterium]
+    \begin{satz}[1. Kriterium] % Satz 8
         \label{satz:integr-kriterium-1}
         Es sei $f\in \mB\of{I}$. Dann gilt $f\in \mR\of{I}$ genau dann, wenn
         \begin{align*}
@@ -419,29 +419,30 @@
             \begin{align*}
                 \underline{S}_Z\of{f}\leq \underline{J}\of{f} &\leq \overline{J}\of{f} \leq \overline{S}_Z\of{f}
                 \intertext{Sei $\varepsilon > 0$, dann gilt}
-                0&\leq\overline{J}\of{f}-\underline{J}\of{f}\leq\overline{S}_Z\of{f} - \underline{S}_Z\of{f} < \varepsilon\\
-                \impl 0&\leq \overline{J}\of{f} - \underline{J}\of{f} \leq 0\\
-                \impl f&\in \mR\of{I}
+                0\leq\overline{J}\of{f}-\underline{J}\of{f}&\leq\overline{S}_Z\of{f} - \underline{S}_Z\of{f} < \varepsilon\\
+                \impl 0\leq \overline{J}\of{f} - \underline{J}\of{f} &\leq 0\\
+                \impl f\in \mR\of{I}&
             \end{align*}
             \anf{$\impl$} Angenommen $f\in \mR\of{I}$, das heißt
             \begin{align*}
                 \overline{J}\of{f} &= \underline{J}\of{f}\\
-                \overline{J}\of{f} &= \inf\set{\overline{S}_Z\of{f}: Z \text{ ist eine Zerlegung von } I}\\
-                \underline{J}\of{f} &=\sup\set{\underline{S}_Z\of{f}: Z \text{ ist eine Zerlegung von } I}
+                \overline{J}\of{f} &= \inf\set{\overline{S}_Z\of{f}: Z \text{ Zerlegung von } I}\\
+                \underline{J}\of{f} &=\sup\set{\underline{S}_Z\of{f}: Z \text{ Zerlegung von } I}
                 \intertext{Das heißt zu $\varepsilon > 0$ existieren Zerlegungen $Z_1$, $Z_2$ von $I$ mit}
                 \overline{J}\of{f} + \frac{\varepsilon}{2} &> \overline{S}_{Z_1}\of{f}\\
-                \underline{J}\of{f} - \frac{\varepsilon}{2} &< S_{Z_2}\of{f}
-                \intertext{Da $f\in \mR\of{I}$ gilt $\underline{J}\of{f} = \overline{J}\of{f}$. Wir definieren die gemeinsame Verfeinerung $Z\definedas Z_1 \lor Z_2$. Dann gilt}
+                \underline{J}\of{f} - \frac{\varepsilon}{2} &< \un{S}_{Z_2}\of{f}
+                \intertext{Da $f\in \mR\of{I}$ gilt $\underline{J}\of{f} = \overline{J}\of{f}$. Wir definieren die gemeinsame Verfeinerung $Z\definedas Z_1 \lor Z_2$. Dann gilt nach Lemma~\ref{lemma:temp-3}}
                 \overline{S}_Z\of{f} - \underline{S}_Z\of{f} &< \overline{J}\of{f} + \frac{\varepsilon}{2} - \pair{\underline{J}\of{f} - \frac{\varepsilon}{2}}\\
-                &= \overline{J}\of{f} - \underline{J}\of{f} + \frac{\varepsilon}{2} + \frac{\varepsilon}{2} = \varepsilon\qedhere
+                &= \underbrace{\overline{J}\of{f} - \underline{J}\of{f}}_{=0} + \frac{\varepsilon}{2} + \frac{\varepsilon}{2} = \varepsilon\qedhere
             \end{align*}
         \end{proof}
     \end{satz}
 
-    \begin{satz}[2. Kriterium]
+    \begin{satz}[2. Kriterium] % Satz 9
+        \label{satz:temp-9}
         Sei $f\in \mB\of{I}$. Dann gilt $f\in \mR\of{I}$ genau dann, wenn
         \begin{align*}
-            \fa\varepsilon > 0\ex\delta > 0\fa \text{Zerlegungen }Z \text{ von } I \text{ mit Feinheit } \Delta\of{Z} < \delta\colon \overline{S}_Z\of{f} - \underline{S}\of{f} < \varepsilon
+            \fa\varepsilon > 0\ex\delta > 0\fa \text{Zerlegungen }Z \text{ von } I \text{ mit Feinheit } \Delta\of{Z} < \delta\colon \overline{S}_Z\of{f} - \underline{S}_Z\of{f} < \varepsilon
         \end{align*}
         \begin{proof}
             \anf{$\Leftarrow$} wird von Satz~\ref{satz:integr-kriterium-1} bereits impliziert.\\[10pt]
@@ -485,38 +486,42 @@
     \end{satz}
 
     \begin{anwendung}
-        Zerlegung $Z_n$ von $I$ mit Feinheit $\Delta\of{Z_n}\fromto 0$ für $\ntoinf$. $\xi_n$ Zwischenpunkt von Zerlegung $Z_n$. Die Riemannnsumme
+        Es sei $(Z_n)_n$ eine Folge von Zerlegungen von $I$ mit Feinheit $\Delta\of{Z_n}\fromto 0$ für $\ntoinf$. $\xi_n$ seien die Zwischenpunkt von Zerlegung $Z_n = \pair{x_0^n, x_1^n, \dots, x_{k_n}^n}$. Die Riemannnsumme
         \begin{align*}
-            S_{z_n}\of{f, \xi_n} &= \sum_{j=1}^{k_n} f\of{\xi_j^n}\cdot\abs{I_j^n}
+            S_{Z_n}\of{f, \xi_n} &= \sum_{j=1}^{k_n} f\of{\xi_j^n}\cdot\abs{I_j^n}
         \end{align*}
-        konvergiert gegen $J(f)$ falls $f\in \mR\of{I}$.
+        konvergiert nach Satz~\ref{satz:temp-9} gegen $J(f)$ falls $f\in \mR\of{I}$.
     \end{anwendung}
 
-    \begin{bemerkung}
+    \begin{bemerkung}[Linearität der Riemannschen Zwischensumme]
         \marginnote{[19. Apr]}
-        Sei $z=\pair{x_0, x_1, \dots, x_k}$ Zerlegung von $I=\interv{a,b}$ und $\zeta = \pair{\zeta_1, \zeta_2, \dots, \zeta_k}$ Zwischenpunkt zur Zerlegung $Z$, sodass
+        Seien $Z=\pair{x_0, x_1, \dots, x_k}$ Zerlegung von $I=\interv{a,b}$ und $\xi = \pair{\xi_1, \xi_2, \dots, \xi_k}$ Zwischenpunkt zur Zerlegung $Z$, sodass
         \begin{align*}
-            x_{j-1}&\leq \zeta_j \leq x_j\quad\fa j=1,\dots, k
+            x_{j-1}&\leq \xi_j \leq x_j\quad\fa j=1,\dots, k
             \intertext{Dann ist die Riemannsche Zwischensumme}
-            S_Z\of{f} &= \sum_{j=1}^{k} f\of{\zeta_j}\cdot\abs{I_j}
+            S_Z\of{f}= S_Z\of{f,\xi} &\coloneqq \sum_{j=1}^{k} f\of{\xi_j}\cdot\abs{I_j}\tag{$I_j = \interv{x_j-1, x_j}$}
         \end{align*}
-        linear in $f$.
+        linear in Bezug zu $f$. Wir werden diese Aussage und weitere interessante Vektorraumeigenschaften des $\mR\of{I}$ später in Satz~\ref{satz:temp-11} noch beweisen.
     \end{bemerkung}
+
+    \newpage
 
     \begin{korollar} % Korollar 10
         \label{korollar:temp-10}
-        Sei $f\in \mB\of{I}$. Dann gilt $f\in \mR\of{I}$ genau dann, wenn für jede Folge $(Z_n)_n$ von Zerlegungen $Z_n$ von $I$ mit Feinheit $\Delta\of{z_n}\fromto 0$ für $\ntoinf$ und jede Folge $(\xi_n)_n$ von Zwischenpunkten $\xi_n$ zugehörig zu $Z_n$ ein Grenzwert $\biglim{\ntoinf} S_{Z_n}\of{f, \xi_n}$ existiert.\\
+        Sei $f\in \mB\of{I}$. Dann gilt $f\in \mR\of{I}$ genau dann, wenn für jede Folge $(Z_n)_n$ von Zerlegungen $Z_n$ von $I$ mit Feinheit $\Delta\of{Z_n}\fromto 0$ für $\ntoinf$ und jede Folge $(\xi_n)_n$ von Zwischenpunkten $\xi_n$ zugehörig zu $Z_n$ der Grenzwert $\biglim{\ntoinf} S_{Z_n}\of{f, \xi_n}$ existiert.\\[4pt]
         Darüber hinaus ist in diesem Fall obiger Grenzwert unabhängig von der Wahl der Zerlegung $Z_n$ und der Zwischenpunkten $\xi_n$ und es gilt
         \begin{align*}
-            \int_{a}^{b} f\of{x} \dif x &= \lim_{\ntoinf} S_{Z_n}\of{f, \xi_n}
+            \int_{a}^{b} f\of{x} \dif x &= \lim_{\ntoinf} S_{Z_n}\of{f, \xi_n}\tag{$I=\interv{a,b}$}
         \end{align*}
         \begin{proof}
-            \anf{$\impl$} Sei $f\in \mR\of{I}$ zu $\varepsilon > 0\ex\delta > 0\colon \overline{S}_Z\of{f} - \underline{S}_Z\of{f} < \varepsilon\fa\text{Zerlegungen } Z \text{ von } I \text{ mit } \Delta\of{z} < \delta$. Da $\Delta\of{z_n}\fromto 0$ für $\ntoinf$
+            \anf{$\impl$} Sei $f\in \mR\of{I}$. Dann gilt nach Satz~\ref{satz:integr-kriterium-1}
             \begin{align*}
-                \impl \ex N\in\N_0\colon \Delta\of{Z_n} &< \delta\quad\forall n\geq N
-                \intertext{und}
-                \underline{S}_Z\of{f} \leq \underline{J}\of{f} &= J\of{f} \leq \overline{S}_Z\of{f}\\
-                \underline{S}_Z\of{f} \leq S_{Z_n}\of{f,\xi_n} &\leq \overline{S}_{Z_n}\of{f}\\
+                \fa\varepsilon > 0\ex\delta > 0\colon \overline{S}_Z\of{f} - \underline{S}_Z\of{f} &< \varepsilon\quad\fa\text{Zerlegungen } Z \text{ mit } \Delta\of{Z} < \delta
+                \intertext{Da $\Delta\of{Z_n}\fromto 0$ für $\ntoinf$ gilt außerdem}
+                \impl \ex N\in\N\colon \Delta\of{Z_n} &< \delta\quad\forall n\geq N
+                \intertext{und für alle $n\in\N$ gilt}
+                \underline{S}_{Z_n}\of{f} \leq \underline{J}\of{f} &= \ov{J}\of{f} \leq \overline{S}_{Z_n}\of{f}\\
+                \underline{S}_{Z_n}\of{f} \leq S_{Z_n}\of{f,\xi_n} &\leq \overline{S}_{Z_n}\of{f}\\
                 \impl \abs{J\of{f} - S_{Z_n}\of{f, \xi_n}} &< \varepsilon\quad\forall n\geq N
                 \intertext{das heißt}
                 \lim_{\ntoinf} S_{Z_n}\of{f, \xi_n} &= J\of{f} = \int_{a}^{b} f \dif x
@@ -535,12 +540,13 @@
         \end{proof}
     \end{korollar}
 
-    \begin{satz} % Satz 11
+    \newpage
+
+    \begin{satz}[$\mR\of{I}$ als Vektorraum] % Satz 11
         \label{satz:temp-11}
-        Der Raum $\mR\of{I}$ auf einem kompakten Intervall $I=\interv{a,b}$ ist ein Vektorraum und $J: \mR\of{I}\fromto\R~~f\mapsto J\of{f} = \int_{a}^{b} f \dif x$ ist eine lineare Abbildung.\\
-        Für $f,g\in \mR\of{I}$ und $\alpha,\beta\in\R$ folgt $\alpha f + \beta g \in \mR\of{I}$ und $J\of{\alpha f + \beta g} = \alpha J\of{f} + \beta J\of{g}$.
+        Der Raum $\mR\of{I}$ auf einem kompakten Intervall $I=\interv{a,b}$ ist ein Vektorraum und $J: \mR\of{I}\fromto\R~~f\mapsto J\of{f} = \int_{a}^{b} f \dif x$ ist eine lineare Abbildung. Für $f,g\in \mR\of{I}$ und $\alpha,\beta\in\R$ folgt also $\alpha f + \beta g \in \mR\of{I}$ und $J\of{\alpha f + \beta g} = \alpha J\of{f} + \beta J\of{g}$.
         \begin{proof}
-            \textsc{Schritt 1:} Sei $h: I\fromto\R$ und Zerlegung $Z$ von $I$ mit zugehörigen Intervallen $Ij$. Dann gilt
+            \textsc{Teil 1:} Sei $h: I\fromto\R$ eine zusätzliche Funktion auf dem Intervall und $Z$ eine Zerlegung von $I$ mit zugehörigen Intervallen $Ij$. Dann gilt
             \begin{align*}
                 \overline{m}_j = \sup_{x\in I_j}h(x)&\quad \underline{m}_j = \inf_{y\in I_j} h(y)\\
                 \impl \overline{m}_j - \underline{m}_j &= \sup_{x\in I_j}h(x) - \inf_{y\in I_j} h(y)\\
@@ -548,38 +554,40 @@
                 &= \sup_{x,y\in I_j}\pair{h\of{x}-h\of{y}}\\
                 &= \sup_{x,y\in I_j}\pair{h(y) - h(x)}\tag{Vertauschen von $x,y$}\\
                 &= \sup_{x,y\in I_j}\pair{\abs{h(x)-h(y)}}\\
-                \overline{m}_j\of{h} - \underline{m}_j\of{h} &= \sup_{x,y\in I_j}\pair{\abs{h(x)-h(y)}}\tag{1}
-                \intertext{Nehmen $h=\alpha f + \beta g$; $f,g\in \mR\of{I}$; $\alpha, \beta\in\R$}
-                h(x) - h(y) &= \alpha\pair{f(x)-f(y)} + \beta\pair{g(x)-g(y)}\\
-                \abs{h(x)-h(y)} &\leq \abs{\alpha}\abs{f(x)-f(y)}+ \abs{\beta}\abs{g(x)-g(y)}\\
-                \impl \overline{m}_j\of{h} - \underline{m}_j\of{h} &= \sup_{x\in I_j} h(x) - \inf_{y\in I_j} h(y)\\
+                \impl \overline{m}_j\of{h} - \underline{m}_j\of{h} &= \sup_{x,y\in I_j}\pair{\abs{h(x)-h(y)}}\tag{1}
+                \intertext{Wir wählen $h=\alpha f + \beta g$, wobei $f,g\in \mR\of{I}$ und $\alpha, \beta\in\R$}
+                h(x) - h(y) &= \alpha\cdot\pair{f(x)-f(y)} + \beta\cdot\pair{g(x)-g(y)}\\
+                \impl \abs{h(x)-h(y)} &\leq \abs{\alpha}\cdot\abs{f(x)-f(y)}+ \abs{\beta}\cdot\abs{g(x)-g(y)}\tag{2}\\
+                \overline{m}_j\of{h} - \underline{m}_j\of{h} &= \sup_{x\in I_j} h(x) - \inf_{y\in I_j} h(y)\\
                 \annot[{&}]{=}{(1)} \sup_{x,y\in I_j} \pair{\abs{h(x)-h(y)}}\\
-                &\leq \abs{\alpha}\cdot \sup_{x,y\in I_j}\abs{f(x)-f(y)} + \abs{\beta}\cdot\sup_{x,y\in I_j} \abs{g(x)-g(y)}\\
-                \impl \overline{S}_Z\of{h} - \underline{S}_{Z}\of{h} &= \sum_{j}^{} \pair{\overline{m}_j\of{h} - \underline{m}_j\of{h}]}\abs{I_j}\\
-                &\leq \abs{\alpha}\sum_{j}^{} \pair{\overline{m}_j\of{f} - \underline{m}_j\of{f}}\abs{I_j} + \abs{\beta} \sum_{j}^{} \pair{\overline{m}_j\of{g} - \underline{m}_j\of{g}}\abs{I_j}\\
-                \impl \overline{S}_Z\of{h} - \underline{S}_Z\of{h} &\leq \abs{\alpha}\pair{\overline{S}_Z\of{f} - \underline{S}_Z\of{f}} + \abs{\beta}\pair{\overline{S}_Z\of{g} - \underline{S}_Z\of{g}}\\
-                \impl \fa\varepsilon > 0\ex Z_1\colon \overline{S}_{Z_1}\of{f} - \underline{S}_{Z_1}\of{f} &< \frac{\varepsilon}{2\pair{1+\abs{\alpha} + \abs{\beta}}}\\
-                \fa\varepsilon > 0\ex Z_2\colon \overline{S}_{Z_2}\of{g} - \underline{S}_{Z_2}\of{g} &< \frac{\varepsilon}{2\pair{1+\abs{\alpha} + \abs{\beta}}}\\
-                \intertext{Wähle $Z=Z_1\lor Z_2$}
-                \impl \overline{S}_Z\of{h} - \underline{S}_Z\of{h} &< \abs{\alpha}\frac{\varepsilon}{2\pair{1+\abs{\alpha}+\abs{\beta}}} + \abs{\beta}\frac{\varepsilon}{2\pair{1+\abs{\alpha}+\abs{\beta}}}\\
+                \annot[{&}]{\leq}{(2)} \abs{\alpha}\cdot \sup_{x,y\in I_j}\abs{f(x)-f(y)} + \abs{\beta}\cdot\sup_{x,y\in I_j} \abs{g(x)-g(y)}\\
+                &= \abs{\alpha}\cdot\pair{\ov{m}_j\of{f} - \un{m}_j\of{f}} + \abs{\beta}\cdot\pair{\ov{m}_j\of{g} - \un{m}_j\of{g}}\\
+                \impl \overline{S}_Z\of{h} - \underline{S}_{Z}\of{h} &= \sum_{j=1}^{k} \pair{\overline{m}_j\of{h} - \underline{m}_j\of{h}]}\cdot\abs{I_j}\\
+                &\leq \abs{\alpha}\cdot\sum_{j=1}^{k} \pair{\overline{m}_j\of{f} - \underline{m}_j\of{f}}\cdot\abs{I_j} + \abs{\beta}\cdot\sum_{j=1}^{k} \pair{\overline{m}_j\of{g} - \underline{m}_j\of{g}}\cdot\abs{I_j}\\
+                \impl \overline{S}_Z\of{h} - \underline{S}_Z\of{h} &\leq \abs{\alpha}\cdot\pair{\overline{S}_Z\of{f} - \underline{S}_Z\of{f}} + \abs{\beta}\cdot\pair{\overline{S}_Z\of{g} - \underline{S}_Z\of{g}}\tag{3}
+                \intertext{Nach Satz~\ref{satz:integr-kriterium-1} und der Riemann-Integrierbarkeit von $f$ und $g$ gilt}
+                \impl \fa\varepsilon > 0\ex Z_1\colon \overline{S}_{Z_1}\of{f} - \underline{S}_{Z_1}\of{f} &< \frac{\varepsilon}{2\cdot\pair{1+\abs{\alpha} + \abs{\beta}}}\\
+                \fa\varepsilon > 0\ex Z_2\colon \overline{S}_{Z_2}\of{g} - \underline{S}_{Z_2}\of{g} &< \frac{\varepsilon}{2\cdot\pair{1+\abs{\alpha} + \abs{\beta}}}\\
+                \intertext{Wähle $Z=Z_1\lor Z_2$ und verwende (3)}
+                \impl \overline{S}_Z\of{h} - \underline{S}_Z\of{h} &< \abs{\alpha}\frac{\varepsilon}{2\cdot\pair{1+\abs{\alpha}+\abs{\beta}}} + \abs{\beta}\frac{\varepsilon}{2\cdot\pair{1+\abs{\alpha}+\abs{\beta}}}\\
                 &\leq \frac{\varepsilon}{2} +\frac{\varepsilon}{2} = \varepsilon
             \end{align*}
-            nach Satz~\ref{satz:integr-kriterium-1} ist $h=\alpha f + \beta g$ Riemann-integrierbar.\\
-            \textsc{Schritt 2:} Für Zwischensummen
+            Nach Satz~\ref{satz:integr-kriterium-1} ist $h=\alpha f + \beta g$ damit Riemann-integrierbar.\\[5pt]
+            \textsc{Teil 2:} Für Zwischensummen
             \begin{align*}
-                S_Z\of{h, \xi} &= \sum_{j}^{} h\of{\xi_j}\abs{I_j}\\
-                &= \alpha S_Z\of{f, \xi} + \beta S_Z\of{g, \xi}
+                S_Z\of{h, \xi} &= \sum_{j=1}^{k} h\of{\xi_j}\cdot\abs{I_j} =\alpha\cdot S_Z\of{f, \xi} + \beta\cdot S_Z\of{g, \xi}
             \end{align*}
-            haben wir Linearität!\\
-            Für $h,f,g\in \mR\of{I}$ gilt nach Korollar~\ref{korollar:temp-10}
+            haben wir bereits Linearität. Für $h,f,g\in \mR\of{I}$ gilt nach Korollar~\ref{korollar:temp-10}
             \begin{align*}
-                J\of{h} &= \lim_{n\toinf} S_{Z_n}\of{h, \xi_n}\\
-                &= \lim_{n\toinf}\pair{\alpha S_{Z_n}\of{f, \xi_n} + \beta S_{Z_n}\of{g, \xi_n}}\tag{$\Delta\of{Z_n}\fromto 0$}\\
-                \annot[{&}]{=}{\ref{korollar:temp-10}}] \alpha \lim S_{Z_n}\of{f, \xi_n} + \beta \lim_{\ntoinf} S_{Z_n}\of{g, \xi_n}\\
-                &= \alpha J\of{f} + \beta J\of{g}\qedhere
+                J\of{h} &= \lim_{n\toinf} S_{Z_n}\of{h, \xi_n}\tag{$\Delta\of{Z_n}\fromto 0$}\\
+                &= \lim_{n\toinf}\pair{\alpha\cdot S_{Z_n}\of{f, \xi_n} + \beta\cdot S_{Z_n}\of{g, \xi_n}}\\
+                &= \alpha\cdot \lim_{\ntoinf} S_{Z_n}\of{f, \xi_n} + \beta\cdot \lim_{\ntoinf} S_{Z_n}\of{g, \xi_n}\\
+                &= \alpha\cdot J\of{f} + \beta\cdot J\of{g}\qedhere
             \end{align*}
         \end{proof}
     \end{satz}
+
+    \newpage
 
     \begin{satz} % Satz 12
         Seien $f, g\in \mR\of{I}$. Dann folgt $f\cdot g\in \mR\of{I}$ sowie $\abs{f} \in \mR\of{I}$. Ist außerdem $\abs{g} \geq c > 0$ auf $I$ für ein konstantes $c>0$, so ist auch $\frac{f}{g}\in \mR\of{I}$.
@@ -861,7 +869,7 @@
     \end{definition}
 
     \begin{genv}[Lebesgue'sches Integrabilitätskriterium]
-        $\mR\of{I} = \set{f\in \mB\of{I}: f \text{ ist fast überfall stetig auf } I}$
+        $\mR\of{I} = \set{f\in \mB\of{I}: f \text{ ist fast überall stetig auf } I}$
     \end{genv}
 
     \begin{bemerkung}
