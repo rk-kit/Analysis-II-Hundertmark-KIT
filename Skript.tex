@@ -962,7 +962,8 @@
         \end{align*}
     \end{definition}
 
-    \begin{satz}
+    \begin{satz} % Satz 22
+        \label{satz:temp-22}
         Es sei $I=\interv{a,b}$, $f\in \mC\of{I}$. Dann gilt
         \begin{align*}
             \ex\xi\colon a < \xi < b \text{ mit } f\of{\xi} = \fint_{a}^{b} f(x) \dif x
@@ -984,5 +985,203 @@
             \end{align*}
         \end{proof}
     \end{satz}
+
+    \begin{satz}[Verallgemeinerung des vorherigen Satzes] % Satz 23
+        \label{satz:temp-23}
+        \marginnote{[30. Apr]}
+        Es sei $I=\interv{a,b}$, $f\in\mC\of{I}$, $p\in\mR\of{I}$. Falls $p\geq 0$ folgt $\exists\xi$ mit $a<\xi<b$ und
+        \begin{align*}
+            \int_{a}^{b} f\of{x}p\of{x} \dif x &= f\of{\xi}\cdot \int_{a}^{b} p\of{x} \dif x\numberthis\label{eq:mittelwertsatz-2}
+        \end{align*}
+        \begin{proof}
+            Angenommen $ \int_{a}^{b} p\of{x} \dif x = 0$
+            \begin{align*}
+                \impl \abs{\int_{a}^{b} f\of{x}p\of{x} \dif x} &\leq \sup_{x\in I} \int_{a}^{b} \abs{p\of{x}} \dif x = 0
+            \end{align*}
+            Damit gilt (\ref{eq:mittelwertsatz-2}) für alle $a < \xi< b$.\\
+            Ist $ \int_{a}^{b} p\of{x} \dif x > 0$, dann definieren wir ein neues Mittel:
+            \begin{align*}
+                \text{Mittel}\of{f} &\coloneqq \frac{1}{\int_{a}^{b} p\of{x}\dif x} \cdot \int_{a}^{b} f\of{x}p\of{x} \dif x
+            \end{align*}
+            Durch scharfes Hinschauen folgt dann die Aussage aus dem Beweis des vorherigen Satzes.
+        \end{proof}
+    \end{satz}
+
+    \newpage
+
+
+    \section{[*] Das orientierte Riemann-Integral}
+    \thispagestyle{pagenumberonly}
+    \imaginarysubsection{Das orientierte Riemann-Integral}
+
+    Sei $I=\interv{a,b}$ und $a', b'\in I$ mit $a'< b'$ und $I'=\interv{a', b'}$. Wenn $f\in\mR\of{I}$, ist dann auch $f\in\mR\of{I'}$?\\
+    Ist also die Einschränkung $\varphi\coloneqq f\vert_{I'}: I'\fromto\R~x\mapsto f\of{x}$ Riemann-integrierbar?
+
+    \begin{satz} % Satz 1
+        Ist $f\in\mR\of{I}$ und $I'=\interv{a', b'}\subseteq I = \interv{a,b}$, so ist $f\vert_I' \in\mR\of{I}$:
+        \begin{proof}
+            \textsc{Schritt 1}: Angenomen $I' = \interv{a, b'}$ (also $a' = a$). Dann folgt aus der Riemann-Integrierbarkeit von $f$ und Satz~\ref{satz:temp-18}, dass
+            \begin{align*}
+                \forall\varepsilon > 0\ex \text{Zerlegung } &Z \text{ von } I\colon \ov{S}_Z\of{f} - \un{S}_Z\of{f} < \varepsilon\tag{1}
+                \intertext{Sei $Z_0\coloneqq\pair{a, b', b'}$ eine Zerlegung und $Z_1 = Z_0\lor Z$ die gemeinsame Verfeinerung mit $Z_1 = \pair{x_0, x_1, \dots, x_k}$. Dann gilt $x_0 = a$, $x_k = b$ und $\exists l\in\set{1, \dots, k-1}\colon x_l = b'$. Dann ist $Z' = \pair{x_0, x_1, \dots, x_l}$ eine Zerlegung von $I'$ mit zugehörigen Intervallen $I_j = \interv{x_{j-1}, x_j}$ für ($j=1,\dots, l$). Wir definieren $\varphi = f\vert_{I'}$. Dann folgt}
+                \ov{m}_j\of{f} &= \sup_I f = \sup_{I_j} \varphi\quad\forall 1 \leq j \leq l\\
+                \un{m}_j\of{f} &= \inf_I f = \inf_{I_j} \varphi\quad\forall 1 \leq j \leq l\\
+                \ov{S}_Z\of{\varphi} &= \un{S}_Z\of{\varphi} = \sum_{j=1}^{l} \pair{\ov{m}_j\of{\varphi} - \un{m}_j\of{\varphi}}\cdot\abs{I_j}\\
+                &\leq \sum_{j=1}^{k} \pair{\ov{m}_j\of{f} - \un{m}_j\of{f}}\cdot\abs{I_j} = \ov{S}_Z\of{f} - \un{S}_Z\of{f} < \varepsilon
+            \end{align*}
+            Damit gilt die Aussage für $I' = \interv{a, b'}$.\\[5pt]
+            \textsc{Schritt 2:} Sei $b' = b$, $a < a' < b$. Dann kopiere den Beweis von \textsc{Schritt 1}.\\[5pt]
+            \textsc{Schritt 3:} Sei $a < a' < b' < b : f\in\mR\of{\interv{a,b}}$. Dann folgt aus \textsc{Schritt 1}, dass $\varphi_1\coloneqq f\vert_{\interv{a,b'}} \in\mR\of{\interv{a, b'}}$. Außerdem gilt nach \textsc{Schritt 2}, dass $\varphi_2\coloneqq \varphi_1\vert_{\interv{a', b'}} \in\mR\of{\interv{a', b'}}$. Damit gilt $f\vert_{I'}\in \mR\of{I}$.
+        \end{proof}
+    \end{satz}
+
+    \begin{bemerkung}
+        Sei $f\in\mR\of{I}$ mit $I=\interv{a,b}$ und $I'=\interv{a', b'}\subseteq I$. Dann folgt $f\vert_{I'}\in\mR\of{I}$. Und wir definieren
+        \begin{align*}
+            \int_{a}^{b'} f\of{x} \dif x \coloneqq \int_{a'}^{b'} \varphi\of{x} \dif x
+        \end{align*}
+        mit $\varphi\coloneqq f\vert_{\interv{a', b'}}$.
+    \end{bemerkung}
+
+    \begin{satz} % Satz 2
+        \label{satz:temp-2.2}
+        Sei $I=\interv{a, b}$ zerlegt in endlich viele Intervalle $I_j$~$j=1,\dots, m$, die höchstens die Randpunkt gemeinsam haben. Also
+        \begin{align*}
+            I &= \bigcup_{j=1}^{m} I_j\quad I_j = \interv{a_j, b_j}
+        \end{align*}
+        also $\text{Int}\of{I_j} \cap \text{Int}\of{I_k} = \pair{a_j, b_j}\cap\pair{a_k, b_k} = \emptyset$ für $j\neq k$. Dann gilt
+        \begin{align*}
+            \int_{I}^{} f\of{x} \dif x &= \sum_{j=1}^{m} \int_{I_j}^{} f\of{x} \dif x
+        \end{align*}
+        \begin{proof}
+            Sei $\pair{Z'_n}_n$ eine Folge von Zerlegungen von $I$ mit $\Delta\of{Z'_n}\fromto 0$ für $\ntoinf$ sowie $Z_0 = \bigcup_j \interv{a_j, b_j}$. Wir betrachten die Verfeinerung $Z_n\coloneqq Z_n' \lor Z_n$ mit $\Delta\of{Z_n}\fromto 0$. Wir haben Zwischenpunkte $\xi_n$ zu $Z_n$.\\
+            $Z_n$ lässt sich in Zerlegung $Z_n^j$ von $I_j$ aufteilen. Dann gilt auch, dass $\Delta\of{Z_n^j}\fromto 0~\forall j=1, \dots, m$. Die Zwischenpunkte $\xi_n$ lassen sich aufteilen in $\xi_n$ von $Z_n^j$.
+            \begin{align*}
+                \impl S_{Z_n}\of{f, \xi_n} &= \sum_{j=1}^{k} f\of{\xi_n^j}\cdot\abs{I_j^n}\\
+                &= \sum_{j=1}^{m} S_{Z_n}\of{f, \xi_j}\qedhere
+            \end{align*}
+        \end{proof}
+    \end{satz}
+
+    \begin{definition}[Orientiertes Riemann-Integral]
+        Sei $\alpha, \beta\in I = \interv{a,b}$, $f\in\mR\of{I}$. Dann definieren wir
+        \begin{alignat*}{2}
+            \int_{\alpha}^{\beta} f\of{x} \dif x&\coloneqq \int_{\alpha}^{\beta} \varphi\of{x}\dif x  &\quad \varphi \coloneqq f\vert_{\interv{\alpha, \beta}} \\
+            \int_{\alpha}^{\beta} f\of{x} \dif x&\coloneqq -\int_{\beta}^{\alpha} f\of{x} \dif x &\quad\text{ falls } \alpha \neq \beta\\
+            \int_{\alpha}^{\beta} f\of{x} \dif x&\coloneqq 0 &\quad\text{ falls } \alpha = \beta\\
+        \end{alignat*}
+    \end{definition}
+
+    \begin{satz} % Satz 4
+        Sei $f\in\mR\of{I}$ und $\alpha, \beta, \gamma\in I=\interv{a,b}$. Dann gilt
+        \begin{align*}
+            \int_{\alpha}^{\beta} f\of{x} \dif x + \int_{\beta}^{\gamma} f\of{x} \dif x &= \int_{\alpha}^{\gamma} f\of{x} \dif x\numberthis\label{eq:int-add}
+        \end{align*}
+        \begin{proof}
+            Sind mindestens 2 Punkte $\alpha, \beta, \gamma$ gleich, so stimmt die Aussage. Also seien \OBDA $\alpha, \beta, \gamma$ paarweise verschieden. Dann ist (\ref{eq:int-add}) äquivalent zu
+            \begin{align*}
+                \int_{\alpha}^{\beta} f\of{x} \dif x + \int_{\beta}^{\gamma} f\of{x} \dif x + \int_{\gamma}^{\alpha} f\of{x} \dif x = 0
+            \end{align*}
+            Diese Gleichung ist invariant unter zyklischem Vertauschen von $\alpha, \beta, \gamma$. (Also zum Beispiel $\gamma, \alpha, \beta$ oder $\beta, \gamma, \alpha$).\\
+            \textsc{Fall 1}: Sei $\alpha < \beta < \gamma$. Dann folgt die Aussage aus Satz~\ref{satz:temp-2.2}.\\[5pt]
+            \textsc{Fall 2}: Sei $\beta < \alpha < \gamma$. Dann folgt aus Fall 1, dass
+            \begin{align*}
+                \int_{\beta}^{\alpha} f\of{x} \dif x + \int_{\alpha}^{\gamma} f\of{x} \dif x &= \int_{\beta}^{\gamma} f\of{x} \dif x\\
+                = -\int_{\alpha}^{\beta} f\of{x}\dif x + \int_{\alpha}^{\gamma} f\of{x} \dif x
+            \end{align*}
+            Die restlichen Fälle ergeben sich durch zyklisches Vertauschen von \textsc{Fall 1} oder zyklischem Vertauschen von \textsc{Fall 2}. Damit gilt die Gleichung für alle Fälle.
+        \end{proof}
+    \end{satz}
+
+    \subsection{Riemann-Integral für vektorraumwertige Funktionen}
+    Sei $I=\interv{a,b}$, $f: I\fromto\R^d$.
+    \begin{align*}
+        x\mapsto f\of{x} &= \pair{f_1\of{x}, f_2\of{x}, \dots, f_d\of{x}}\\
+        &= \begin{pmatrix}
+               \tag{Komponentenfunktionen}
+               f_1\of{x} \\
+               \vdots    \\
+               f_j\of{x}
+        \end{pmatrix}
+    \end{align*}
+
+    \noindent
+    \begin{definition}
+        \begin{enumerate}[label=(\alph*)]
+            \theoremescape
+            \item Sei $f: I\fromto\C~x\mapsto f\of{x} = \Re\of{f\of{x}} + \Im\of{f\of{x}}$. Dann definieren wir
+            \begin{align*}
+                f\in\mB\of{I, \C} &\coloneqq\set{f: I\fromto\C~\middle|~\Re\of{f}, \Im\of{f} \in \mB\of{I}}\\
+                \mR\of{I, \C} &\coloneqq\set{f\in\mB\of{I, \C}: \Re\of{f}, \Im\of{f}\in R\of{I}}\\
+                \int_{a}^{b} f\of{x} \dif x &\coloneqq \int_{a}^{b} \Re\of{f\of{x}} \dif x + i\cdot \int_{a}^{b} \Im\of{f\of{x]}} \dif x
+            \end{align*}
+            \item Sei $\K= \R$ oder $\C$ und $\K^d = \R^d$ oder $C^d$. Dann ist eine Funktion $f\in\mB\of{I, \K^d}$ Riemann-integrierbar, falls alle Komponentenfunktionen $f_1, f_2, \dots, f_d$ R-integrierbar auf $I$ sind.
+            \begin{align*}
+                \int_{a}^{b} f\of{x} \dif x\coloneqq \begin{pmatrix}
+                                                         \int_{a}^{b} f_1\of{x} \dif x \\
+                                                         \int_{a}^{b} f_2\of{x} \dif x \\
+                                                         \vdots                        \\
+                                                         \int_{a}^{b} f_d\of{x} \dif x \\
+                \end{pmatrix}
+            \end{align*}
+        \end{enumerate}
+    \end{definition}
+
+    \begin{bemerkung}
+        Das Konzept lässt sich auch auf Matrizen übertragen. Eine Funktion $f: I\fromto \K^{n\times m}$ ist R-integrierbar, falls jede Komponentenfunktoin R-integrierbar ist. Das Integral wird analog zu Vektoren definiert.
+    \end{bemerkung}
+    
+    \begin{bemerkung}
+        Außerdem ist auch $\mR\of{I, \R^d}$ ein reeller Vektorraum und $\mR\of{I, \C^d}$ ein komplexer Vektorraum und
+        \begin{align*}
+            \int_{a}^{b} \alpha f\of{x} + \beta g\of{x} \dif x &= \alpha \int_{a}^{b} f\of{x} \dif x + \beta \int_{a}^{b} g\of{x} \dif x
+        \end{align*}
+        alle Rechenregeln und Sätze gelten entsprechend!
+    \end{bemerkung}
+
+    \newpage
+
+
+    \section{Der Hauptsatz der Integral- und Differentialrechnung}
+    \imaginarysubsection{Hauptsatz der Integralrechnung}
+    \thispagestyle{pagenumberonly}
+
+    Sei $I=\interv{a,b}$, $f\in\mC\of{I}$. Wie rechnet man das Integral dann praktisch aus?\\
+    Erinnerung: $F$ ist eine Stammfunkton von $f$, falls $F$ differenzierbar ist und $F'=f$.
+
+    \begin{satz} % Satz 1
+        \label{satz:temp-31}
+        Sei $f\in\mC\of{I}$. Dann ist für jedes $c\in\interv{a,b}$ die Funktion
+        \begin{align*}
+            F\of{x} \coloneqq \int_{c}^{x} f\of{t} \dif t\tag{$x\in I$}
+        \end{align*}
+        stetig differenzierbar und $F' = f$. Das heißt $F'\of{x} = f\of{x}~\fa x\in I$.
+        \begin{proof}
+        (Später)
+        \end{proof}
+    \end{satz}
+
+    \begin{korollar}
+        Sei $G\in \mC^{1}\of{I}$ (stetig differenzierbaren Funktionen auf $I$) eine Stammfunktion von $f\in\mC\of{I}$. Dann gilt
+        \begin{align*}
+            \int_{a}^{b} f\of{x} \dif x = G\of{b} - G\of{a} \eqqcolon G\vert_a^b \coloneqq \interv{G}_a^b = \interv{G\of{x}}_{x=a}^{x=b}
+        \end{align*}
+        \begin{proof}
+            Wir nehmen $c= a$ aus Satz~\ref{satz:temp-31} und $F: I\fromto\R~x\mapsto F\of{x} = \int_{a}^{x} f\of{t} \dif t$ erfüllt $F' = f$ auf $I$ nach Satz~\ref{satz:temp-31}.
+            \begin{align*}
+                F\of{b} &= \int_{a}^{b} f\of{t} \dif t\\
+                h\of{t} &\coloneqq F\of{t} - G\of{t}\\
+                h' &= F' - G = f-f = 0 \text{ auf } I
+                \intertext{Damit ist $h$ konstant, d.h. $h\of{x} = k$ für alle $x\in I$}
+                \impl F\of{x} - G\of{x} &= k\\
+                k &= F\of{a} - G\of{a} = -G\of{a}\\
+                F\of{x} - G\of{x} &= -G\of{a}\\
+                F\of{x} &= G\of{x} - G\of{a}\\
+                \impl F\of{b} &= G\of{b} - G\of{a}
+            \end{align*}
+
+        \end{proof}
+    \end{korollar}
+
 
 \end{document}
