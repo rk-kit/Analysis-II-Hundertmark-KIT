@@ -1130,7 +1130,7 @@
     \begin{bemerkung}
         Das Konzept lässt sich auch auf Matrizen übertragen. Eine Funktion $f: I\fromto \K^{n\times m}$ ist R-integrierbar, falls jede Komponentenfunktoin R-integrierbar ist. Das Integral wird analog zu Vektoren definiert.
     \end{bemerkung}
-    
+
     \begin{bemerkung}
         Außerdem ist auch $\mR\of{I, \R^d}$ ein reeller Vektorraum und $\mR\of{I, \C^d}$ ein komplexer Vektorraum und
         \begin{align*}
@@ -1142,14 +1142,15 @@
     \newpage
 
 
-    \section{Der Hauptsatz der Integral- und Differentialrechnung}
-    \imaginarysubsection{Hauptsatz der Integralrechnung}
+    \section{[*] Der Hauptsatz der Integral- und Differentialrechnung}
+
+    \subsection{Hauptsatz der Integralrechnung}
     \thispagestyle{pagenumberonly}
 
     Sei $I=\interv{a,b}$, $f\in\mC\of{I}$. Wie rechnet man das Integral dann praktisch aus?\\
     Erinnerung: $F$ ist eine Stammfunkton von $f$, falls $F$ differenzierbar ist und $F'=f$.
 
-    \begin{satz} % Satz 1
+    \begin{satz}[Hauptsatz der Differential und Integralrechnung] % Satz 1
         \label{satz:temp-31}
         Sei $f\in\mC\of{I}$. Dann ist für jedes $c\in\interv{a,b}$ die Funktion
         \begin{align*}
@@ -1171,17 +1172,163 @@
             \begin{align*}
                 F\of{b} &= \int_{a}^{b} f\of{t} \dif t\\
                 h\of{t} &\coloneqq F\of{t} - G\of{t}\\
-                h' &= F' - G = f-f = 0 \text{ auf } I
+                h' &= F' - G' = f-f = 0 \text{ auf } I
                 \intertext{Damit ist $h$ konstant, d.h. $h\of{x} = k$ für alle $x\in I$}
                 \impl F\of{x} - G\of{x} &= k\\
                 k &= F\of{a} - G\of{a} = -G\of{a}\\
                 F\of{x} - G\of{x} &= -G\of{a}\\
                 F\of{x} &= G\of{x} - G\of{a}\\
-                \impl F\of{b} &= G\of{b} - G\of{a}
+                \impl F\of{b} &= G\of{b} - G\of{a}\qedhere
             \end{align*}
-
         \end{proof}
     \end{korollar}
 
+    \begin{proof}[Beweis von Satz~\ref{satz:temp-31}]
+        \marginnote{[3. Mai]}
+        Sei $F(x) = \int_{c}^{x} f\of{t} \dif t$ und $h \neq 0$. Wir wollen über den Differenzenquotient zeigen, dass $F' = f$. Wir berechnen zuerst den Zähler
+        \begin{align*}
+            F(x+h) - F(x) &= \int_{c}^{x+h} f\of{t} \dif t - \int_{c}^{x} f\of{t} \dif t = \int_{x}^{x+h} f\of{t} \dif t
+            \intertext{Das können wir in den Differenzenquotienten einsetzen}
+            \frac{F\of{x+h} - F\of{x}}{h} &= \frac{1}{h}\cdot \int_{x}^{x+h} f\of{t} \dif t\\
+            \impl \frac{F\of{x+h} - F\of{x}}{h} - f\of{x} &= \frac{1}{h}\cdot \int_{x}^{x+h} f\of{t} \dif t - f\of{x}\\
+            &= \frac{1}{h} \int_{x}^{x+h} f\of{t} \dif t - \frac{1}{h} \int_{x}^{x+h} f\of{x} \dif t\\
+            &= \frac{1}{h} \int_{x}^{x+h} \pair{f\of{t} - f\of{x}} \dif t\\
+            \impl \abs{\frac{F\of{x+h} - F\of{x}}{h} - f\of{x}} &\leq \begin{cases}
+                                                                          \frac{1}{h} \int_{x}^{x+h} \pair{f\of{t} - f\of{x}} \dif t &h>0\\
+                                                                          \frac{1}{-h} \int_{x}^{x+h} \pair{f\of{t} - f\of{x}} \dif t &h<0
+            \end{cases}\\
+            &\leq \frac{1}{\abs{h}} \cdot \sup_{x \leq t \leq x +h} \abs{f\of{t} - f\of{x}} \cdot \abs{h}
+            \intertext{Wir definieren $I_h\of{x} = \interv{x, x+h}$, falls $h> 0$ und ansonsten $I_h\of{x} = \interv{x+h, x}$}
+            &\leq \sup_{t\in I_h\of{x}} \abs{f\of{t} - f\of{x}}
+            \intertext{Da $f$ stetig in $x$ ist, folgt}
+            \sup_{t\in I_h\of{x}} \abs{f\of{x} - f\of{x}} &\fromto 0 \text{ für } h\fromto 0\\
+            \impl \lim_{h\fromto 0} \abs{\frac{F\of{x+h} - F\of{x}}{h} - f\of{x}} &= 0\\
+            \equivalent \lim_{h\fromto 0} \frac{F\of{x+h} - F\of{x}}{h} &= f\of{x}\qedhere
+        \end{align*}
+    \end{proof}
+
+    \begin{beispiel}
+        Sei $p\in\N$ und $f\of{x} = x^{p}$, $x\in\R$. Dann hat $f$ die Stammfunktion $F\of{x} = \frac{1}{p+1}\cdot x^{p+1}$. Damit folgt
+        \begin{align*}
+            \int_{a}^{b} x^p \dif x &= \frac{1}{p+1} \cdot \interv{b^{p+1} - a^{p+1}}\quad\forall a, b\in\R
+        \end{align*}
+    \end{beispiel}
+    \begin{beispiel}
+        Sei $p\in\N$, $p\geq 2$ und $f\of{x} = x^{-p}$, $x\neq 0$. Dann ist die Stammfunktion $F\of{x} = \frac{1}{1-p}\cdot x^{1-p}$. Damit folgt
+        \begin{align*}
+            \int_{a}^{b} x^{-p} \dif x &= \frac{1}{1-p}\cdot\interv{b^{1-p} - a^{1-p}}\quad \fa a,b < 0 \text{ oder } a,b > 0
+        \end{align*}
+    \end{beispiel}
+    \begin{beispiel}
+        Sei $\alpha\in\R\exclude\set{-1}$, $f\of{x} = x^{\alpha} = e^{\alpha\cdot\ln\of{x}}$, $x > 0$. Dann ist die Stammfunktion $F\of{x} = \frac{1}{\alpha + 1}\cdot x^{\alpha + 1}$. Damit gilt
+        \begin{align*}
+            \int_{a}^{b} x^{\alpha} \dif x &= \frac{1}{\alpha +1}\cdot\interv{b^{\alpha+1} - a^{\alpha+1}}\quad\forall a,b > 0
+        \end{align*}
+    \end{beispiel}
+    \begin{beispiel}
+        Sei $f\of{x} = \frac{1}{x}$, $x\neq 0$. Dann ist die Stammfunktion $F\of{x} = \ln \abs{x}$.
+        \begin{proof}
+            Falls $x > 0$. Dann ist $F\of{x} = \ln x$ und $F'\of{x} = \frac{1}{x}$.\\
+            Falls $x < 0$. Dann ist $F\of{x} = \ln -x$ und $F'\of{x} = \frac{1}{-x}\cdot\pair{-1} = \frac{1}{x}$.
+        \end{proof}
+        \noindent Damit gilt
+        \begin{align*}
+            \int_{a}^{b} \frac{1}{x} \dif x &= \ln\abs{b} - \ln\abs{a} = \ln\abs{\frac{b}{a}}\quad\forall a,b < 0 \text{ oder } a,b > 0
+        \end{align*}
+    \end{beispiel}
+
+    \begin{beispiel}
+        Es gilt $\pair{\sin x}' = \cos x$ und $\pair{\cos x}' = -\sin x$. Damit gilt
+        \begin{align*}
+            \int_{a}^{b} \cos x \dif x &= \sin b - \sin a\\
+            \int_{a}^{b} \sin x \dif x &= \interv{-\cos x}_a^b -\cos b + \cos a\\
+        \end{align*}
+    \end{beispiel}
+
+    \begin{beispiel}
+        Es gilt $\tan x = \frac{\sin x}{\cos x}$. ($\abs{x} < \frac{\pi}{2}$). Damit folgt $\pair{\tan x}' = \frac{1}{\cos^2 x}$. Das heißt
+        \begin{align*}
+            \int_{0}^{\varphi} \frac{1}{\cos^2 x} \dif x &= \interv{\tan x}_0^{\varphi} = \tan\of{\varphi}\quad\forall\abs{\varphi} < \frac{\pi}{2}
+        \end{align*}
+    \end{beispiel}
+
+    \begin{beispiel}
+        Wir wollen das Integral $ \int_{a}^{b} \sqrt{1-x^2} \dif x$ berechnen. $\sqrt{1-x^2}$ hat die Stammfunktion $\phi\of{x} = \frac{1}{2}\pair{\arcsin x + x\cdot\sqrt{1-x^2}}$, weil
+        \begin{align*}
+            \phi'\of{x} &= \frac{1}{2}\pair{\frac{1}{\sqrt{1-x^2}} + \sqrt{1-x^2} + x\cdot \frac{1}{2\sqrt{1-x^2}}\pair{-2x}}\tag{$\pair{\arcsin\of{x}}' = \frac{1}{\sqrt{1-x^2}}$}\\
+            &= \frac{1}{2}\pair{\frac{1}{\sqrt{1-x^2}} + \sqrt{1-x^2} - \frac{x^2}{\sqrt{1-x^2}}}\\
+            &= \frac{1}{2}\pair{\frac{1-x^2}{\sqrt{1-x^2}} + \sqrt{1-x^2}} = \frac{1}{2}\pair{\sqrt{1-x^2} + \sqrt{1-x^2}} = \sqrt{1-x^2}\\
+            \impl \int_{a}^{b} \sqrt{1-x^2} \dif x &= \interv{\frac{1}{2}\pair{\arcsin x + x\cdot\sqrt{1-x^2}}}_a^b\quad -1\leq a,b\leq 1
+            \intertext{Geometrisch gesehen können wir damit auch die Fläche der oberen Hälfte des Einheitskreises berechnen}
+            \int_{-1}^{1} \sqrt{1-x^2} \dif x &= \frac{1}{2} \cdot\pair{\arcsin 1 + 0 - \arcsin -1 -0} = \arcsin 1 = \frac{\pi}{2}
+        \end{align*}
+    \end{beispiel}
+
+    \begin{bemerkung}
+        Satz~\ref{satz:temp-31} gilt auch für Funktionen in $\C$ oder $\R^d$ bwz. $\C^d$. Wir nennen
+        \begin{align*}
+            \int_{}^{} f\of{x} \dif x
+            \intertext{die Gesamtheit aller Stammfunktionen zu $f$ oder das unbestimmte Integral. Genauer gilt, wenn $\Phi$ eine Stammfunktion von $f$ ist}
+            \int_{}^{} f\of{x} \dif x &= \set{\Phi + k: k \text{ Konstante} }
+        \end{align*}
+
+    \end{bemerkung}
+
+    \subsection{Integrationstechniken}
+    \begin{satz}[Partielle Integration] % Satz 3
+        \label{satz:temp-33}
+        Seien $f, g\in \mC^1\of{I}$ (oder $\mC^1\of{I, \C}$). Dann gilt
+        \begin{align*}
+            \int_{a}^{b} f'\of{x}g\of{x} \dif x &= \interv{f\of{x}\cdot g\of{x}}_a^b - \int_{a}^{b} f\of{x}g'\of{x} \dif x\\
+            &= f\of{b}g\of{b} - f\of{a}g\of{a} - \int_{a}^{b} f\of{x}g'\of{x} \dif x
+        \end{align*}
+        \begin{proof}
+            Wir wenden die Produktregel der Ableitung an. Es gilt $\pair{fg}' = f'g + fg'$.
+            \begin{align*}
+                \int_{a}^{b} \pair{fg}' \dif x &= \int_{a}^{b} f'g \dif x + \int_{a}^{b} fg' \dif x\tag{1}
+                \intertext{Außerdem gilt}
+                \int_{a}^{b} \pair{fg}' \dif x &= \interv{fg}_a^b = \interv{f\of{x}g\of{x}}_{a}^b = f\of{b}g\of{b} - f\of{a}g\of{a}\tag{2}
+                \intertext{Wir setzen (1) und (2) gleich}
+                \int_{a}^{b} f'g \dif x + \int_{a}^{b} fg' \dif x &= f\of{b}g\of{b} - f\of{a}g\of{a}\qedhere
+            \end{align*}
+        \end{proof}
+    \end{satz}
+
+    \begin{beispiel}[Anwendung von partieller Integration]
+        \begin{align*}
+            \int_{}^{} \ln x \dif x &= \int_{}^{} 1\cdot\ln x \dif x = x\cdot\ln x - \int_{}^{} x\cdot \frac{1}{x} \dif x\\
+            &= x\cdot\ln x - x\\[5pt]
+            \int_{}^{} \sqrt{1-x^2} \dif x &= \int_{}^{} 1\cdot\sqrt{1-x^2} \dif x\\
+            &= x\cdot\sqrt{1-x^2} - \int_{}^{} x\cdot\frac{1}{\sqrt{1-x^2}}\cdot\pair{-2x} \dif x\\
+            &= x\cdot\sqrt{1-x^2} + \int_{}^{} \frac{x^2}{\sqrt{1-x^2}} \dif x\\
+            &= x\cdot\sqrt{1-x^2} + \int_{}^{} \frac{1}{\sqrt{1-x^2}} \dif x - \int_{}^{} \frac{1-x^2}{\sqrt{1-x^2}} \dif x\\
+            \impl 2 \int_{}^{} \sqrt{1-x^2} \dif x &= x\cdot\sqrt{1-x^2} + \int_{}^{} \frac{1}{\sqrt{1-x^2}} \dif x\\
+            &= x\cdot\sqrt{1-x^2} + \arcsin x\\
+            \impl \int_{}^{} \sqrt{1-x^2} \dif x &= \frac{1}{2}\pair{x\sqrt{1-x^2} + \arcsin x}
+        \end{align*}
+    \end{beispiel}
+
+    \begin{uebung}
+        % Beweisen Sie analog zum vorherigen Beispiel mittels partieller Integration, dass $ \int_{}^{} \sqrt{1+x^2} \dif x = \frac{1}{2}\pair{x\sqrt{1+x^2} + \arcsinh x}$ und $ \int_{}^{} \sqrt{x^2-1} \dif x = \frac{1}{2}\pair{x\sqrt{1+x^2} + \arccosh x}$
+    \end{uebung}
+    \begin{beispiel}
+        \begin{align*}
+            \int_{}^{} e^{ax}\cdot \sin\of{bx} \dif x &= e^{ax}\cdot\pair{-\frac{1}{b}\cos\of{bx}} - \int_{}^{} \frac{a}{b} e^{ax} \cos\of{bx} \dif x
+            \intertext{Wir wenden nochmal partielle Integration an und erahlten}
+            &= -\frac{1}{b}e^{ax} \cos\of{bx} + \frac{a}{b}\set{\int_{}^{} e^{4x} \cos\of{bx} \dif x}\\
+            &= -\frac{1}{b}e^{ax} \cos\of{bx} + \frac{a}{b}\set{\frac{1}{b} e^{ax} \sin\of{bx} - \frac{a}{b}\int_{}^{} e^{ax}\sin\of{bx} \dif x}\\
+            \impl \pair{1+\frac{a^2}{b^2}} \int_{}^{} e^{ax}\sin\of{bx} \dif x &= -\frac{1}{b} e^{ax}\cos\of{bx} + \frac{a}{b}e^{ax}\sin\of{bx}\\
+            \impl \int_{}^{} e^{ax}\sin\of{bx} \dif x &= \frac{1}{a^2+b^2}\pair{e^{ax}\pair{a\sin\of{bx} - b\cos\of{bx}}} + const.
+        \end{align*}
+    \end{beispiel}
+    
+    \begin{beispiel}[Noch nicht vollständig; nächsten Dienstag]
+        \begin{align*}
+            \int_{}^{} \cos^{n} x \dif x &= \int_{}^{} \cos x \cdot \cos^{n-1} x \dif x\\
+            &= \sin x + \cos^{n-1} x - \int_{}^{} \sin x \pair{n-1} cos^{n-2} x \sin x \dif x\\
+            &= \sin x + \cos^{n-1} x - \pair{n-1} \int_{}^{} \sin^2 x \cos^{n-2} x \dif x\\
+            &= \sin x \cos^{n-1} x - \pair{n-1} \int_{}^{} \cos^{n-2} x \dif x + \pair{n-1} \int_{}^{} \cos^n x \dif x
+        \end{align*}
+    \end{beispiel}
 
 \end{document}
