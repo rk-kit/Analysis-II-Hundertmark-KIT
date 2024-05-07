@@ -1324,14 +1324,123 @@
             \impl \int_{}^{} e^{ax}\sin\of{bx} \dif x &= \frac{1}{a^2+b^2}\pair{e^{ax}\pair{a\sin\of{bx} - b\cos\of{bx}}} + const.
         \end{align*}
     \end{beispiel}
-    
-    \begin{beispiel}[Noch nicht vollständig; nächsten Dienstag]
+
+    \begin{beispiel}
+        \marginnote{[07. Mai]}
         \begin{align*}
-            \int_{}^{} \cos^{n} x \dif x &= \int_{}^{} \cos x \cdot \cos^{n-1} x \dif x\\
-            &= \sin x + \cos^{n-1} x - \int_{}^{} \sin x \pair{n-1} cos^{n-2} x \sin x \dif x\\
-            &= \sin x + \cos^{n-1} x - \pair{n-1} \int_{}^{} \sin^2 x \cos^{n-2} x \dif x\\
-            &= \sin x \cos^{n-1} x - \pair{n-1} \int_{}^{} \cos^{n-2} x \dif x + \pair{n-1} \int_{}^{} \cos^n x \dif x
+            \int_{0}^{\frac{\pi}{2}} \cos^2\of{x} \dif x &= \int_{0}^{\frac{\pi}{2}} \sin^2\of{x} \dif x = \frac{\pi}{4}\\
+            \int_{0}^{\frac{\pi}{2}} \sin^2\of{x} \dif x &= \int_{0}^{\frac{\pi}{2}} \sin\of{x}\sin\of{x} \dif x\\
+            &= \interv{-\cos\of{x}\sin\of{x}}_{0}^{\frac{\pi}{2}} + \int_{0}^{\frac{\pi}{2}} \cos\of{x}\cos\of{x} \dif x\\
+            &= 0 - 0 + \int_{0}^{\frac{\pi}{2}} \cos^2\of{x} \dif x
+            \intertext{Mit dem trigonometrischen Pythagoras wissen wir außerdem, dass}
+            \frac{\pi}{2} &= \int_{0}^{\frac{\pi}{2}}  \dif x = \int_{0}^{\frac{\pi}{2}} 1 \dif x = \int_{0}^{\frac{\pi}{2}} \pair{\cos^2\of{x} + \sin^2\of{x}} \dif x\\
+            &= \int_{0}^{\frac{\pi}{2}} \cos^2\of{x} \dif x + \int_{0}^{\frac{\pi}{2}} \sin^2\of{x} \dif x\\
+            &= 2 \int_{0}^{\frac{\pi}{2}} \cos^2\of{x} \dif x\\
+            \impl \int_{0}^{\frac{\pi}{2}} \cos^2\of{x} \dif x &= \frac{\pi}{4}
         \end{align*}
     \end{beispiel}
 
+    \begin{beispiel}
+        Sei $n\in\N$ mit $n\geq 2$
+        \begin{align*}
+            \int_{}^{} \cos^{n}\of{x} \dif x &= \int_{}^{} \cos\of{x}\cos^{n-1}\of{x} \dif x\\
+            &= \sin\of{x}\cos^{n-1}\of{x} + \int_{}^{} \sin\of{x}\pair{n-1}\cos^{n-2}\of{x}\sin\of{x} \dif x\\
+            &= \sin\of{x}\cos^{n-1}\of{x} + \pair{n-1} \int_{}^{} \sin^2\of{x}\cos^{n-2}x \dif x\\
+            &= \sin\of{x}\cos^{n-1}\of{x} + \pair{n-1} \int_{}^{} \cos^{n-2}x \dif x - \pair{n-1} \int_{}^{} \cos^{n}\of{x}\dif x\\
+            \int_{}^{} \cos^{n}x \dif x &= \frac{1}{n} \sin\of{x}\cos^{n-1}\of{x} + \frac{n-1}{n} \int_{}^{} \cos^{n-2}\of{x}\dif x\tag{Rekursionsformel}
+            \intertext{Analog lässt sich zeigen, dass $ \int_{}^{} \sin^{n}\of{x}x \dif x = \frac{1}{n}\cos\of{x}\sin^{n-1}\of{x} + \frac{n-1}{n} \int_{}^{} \sin^{n-2}\of{x} \dif x$. Wir nutzen nun die Rekursionsformel, um einen Wert für alle $n$ zu ermitteln}
+            c_n &\coloneqq \int_{0}^{\frac{\pi}{2}} \cos^{n}\of{x} \dif x\\
+            &= \interv{\frac{1}{n}\sin\of{x}\cos^{n-1}\of{x}}_0^{\frac{\pi}{2}} + \frac{n-1}{n} \int_{0}^{\frac{\pi}{2}} \cos^{n-2}\of{x} \dif x\\
+            &= \frac{n-1}{n} \underbrace{\int_{0}^{\frac{\pi}{2}} \cos^{n-2}\of{x} \dif x}_{= c_{n-2}}\\
+            \impl c_n &= \frac{n-1}{n} c_{n-2}\quad\forall n\geq 2\\
+            c_0 &= \frac{\pi}{2}\\
+            c_1 &= \int_{0}^{\frac{\pi}{2}} \cos\of{x} \dif x = \interv{\sin\of{x}}_0^{\frac{\pi}{2}} = 1-0 = 1\\
+            c_n &= \frac{n-1}{n}\cdot c_{n-2} = \frac{n-1}{n}\cdot\frac{n-3}{n-2}\cdot c_{n-4}\\
+            &= \frac{n-1}{n}\cdot\ldots\cdot\frac{n-j-1}{n-j}\cdot c_{n-2j-2}\qquad\forall j: n-2j-2 \geq 1
+            \intertext{Damit folgt für $k\in\N$}
+            c_{2k} &= \frac{2k-1}{2k} \cdot\frac{2k-3}{2k-2}\cdot \ldots\cdot\frac{3}{4}\cdot \int_{0}^{\frac{\pi}{2}} \cos^2\of{x} \dif x\\
+            &= \frac{2k-1}{2k} \cdot\frac{2k-3}{2k-2}\cdot \ldots\cdot\frac{3}{4}\cdot\frac{1}{2}\cdot\frac{\pi}{2}\\
+            c_{2k+1} &= \frac{2k}{2k+1}\cdot\frac{2k-3}{2k-2}\cdot\ldots\cdot\frac{2\cdot 2}{5}\cdot \int_{0}^{\frac{\pi}{2}} \cos^3\of{x} \dif x\\
+            &= \frac{2k}{2k+1}\cdot\frac{2k-3}{2k-2}\cdot\ldots\cdot\frac{2\cdot 2}{5}\cdot \frac{2}{3}
+        \end{align*}
+    \end{beispiel}
+    
+    \begin{satz}[Walli'sche Produkt] % Satz 3
+        Sei $n\in\N$ und
+        \begin{align*}
+            W_n &\coloneqq \frac{2\cdot 2}{1\cdot 3}\cdot \frac{4\cdot 4}{3\cdot 5}\cdot \ldots\cdot\frac{2n\cdot 2n}{\pair{2n-1}\cdot\pair{2n+1}}
+            \intertext{Dann gilt}
+            \lim_{\ntoinf} W_n &= \frac{\pi}{2}
+        \end{align*}
+        \begin{proof}
+            Aus der Definition von $c_n$ aus dem vorherigen Beispiel ergibt sich
+            \begin{align*}
+                W_n &= \frac{\pi}{2} \cdot \frac{c_{2n+1}}{c_{2n}}
+                \intertext{Für $x\in\interv{0, \frac{\pi}{2}}$ ist $0\leq\cos\of{x}\leq 1$. Damit folgt $\cos^{2n}\of{x} \leq \cos^{2n-1}\of{x}\leq \cos^{2n-}2\of{x}$. Also gilt}
+                c_{2n} &= \int_{0}^{\frac{\pi}{2}} \cos^{2n}\of{x} \dif x \leq \int_{0}^{\frac{\pi}{2}} \cos^{2n-1}\of{x} \dif x \leq \int_{0}^{\frac{\pi}{2}} \cos^{2n-2} \dif x\\
+                \impl c_{2n} &\leq c_{2n-1} \leq c_{2n-2}\qquad\forall n\in\N
+                \intertext{Nach Def. gilt}
+                c_{2n} &= \frac{\pi}{2}\cdot\prod_{j=1}^{k} \frac{2j-1}{2j}\\
+                \impl \frac{c_{2n+2}}{c_{2n}} &= \frac{\frac{\pi}{2}\cdot \prod_{j=1}^{n+1} \frac{2j-1}{2j}}{\frac{\pi}{2}\cdot \prod_{j=1}^{n} \frac{2j-1}{2j}} = \frac{2\pair{n+1}-1}{2\pair{n+1}} = \frac{2n+1}{2n+2}\fromto 1 \text{ für } \ntoinf
+                \intertext{Auch}
+                1 &= \frac{c_{2n}}{c_{2n}} \geq \abs{\frac{c_{2n+1}}{c_2n}} \geq \frac{c_{2n+2}}{c_{2n}} = \frac{2n+1}{2n+2}\\
+                &\impl \lim_{\ntoinf} \frac{c_{2n+1}}{c_n} = 1\qedhere
+            \end{align*}
+        \end{proof}
+        Außerdem
+        \begin{align*}
+            W_n &= \frac{2^2\cdot 4^2\cdot 6^2\cdot\ldots\cdot \pair{2n-2}^2}{3^2\cdot 5^2\cdot 7^2\cdot\dots\cdot\pair{2n-1}^2} \cdot 2n \cdot \frac{2n}{2n+1}\\
+            \impl \sqrt{W_n} &= \frac{2\cdot 4 \cdot \ldots \pair{2n-2}}{3\cdot 5 \cdot\ldots\cdot \pair{2n-1}}\cdot\sqrt{2n}\cdot\sqrt{\frac{2n}{2n+1}}\\
+            \impl \sqrt{\frac{\pi}{2}} &= \lim_{\ntoinf} \frac{2\cdot 4\cdot\ldots\cdot\pair{2n-2}}{3\cdot 5 \cdot\ldots \cdot\pair{2n-1}}\cdot\sqrt{2n}\\
+            &= \lim_{\ntoinf} \frac{2^2 \cdot 4^2\cdot \ldots \cdot \pair{2n-2}^2}{2\cdot 3 \cdot \ldots \cdot \pair{2n-2}\cdot\pair{2n-1}}\cdot\sqrt{2n}\\
+            &= \frac{2^2\cdot 4^2\cdot\ldots \cdot \pair{2n-2}^2\cdot\pair{2n}^2}{\pair{2n-1}!\cdot 2n\cdot\sqrt{2n}}\\
+            &= \frac{2^{2n}\cdot\pair{n!}^2}{\pair{2n}!\cdot\sqrt{2n}} = \frac{2^{2n}}{\binom{2n}{n}\sqrt{n}} \frac{1}{\sqrt{2}}\\
+            \impl \sqrt{\pi} &= \lim_{\ntoinf} \frac{2^{2n}}{\binom{2n}{n}\sqrt{n}}
+        \end{align*}
+    \end{satz}
+
+    \begin{satz}[Substitutionsregel] % Satz 4
+        Seien $I=\interv{a,b}$ und $I^{*}$ kompakte Intervalle und $f\in\mC\of{I, \C}$, $\varphi\in\mC^{1}\of{I^{*}, \R}$ sowie $\varphi\of{I^{*}}\subseteq I$. Dann gilt für $\alpha, \beta \in I^{*}$
+        \begin{align*}
+            \int_{\varphi\of{\alpha}}^{\varphi\of{\beta}} f\of{x} \dif x &= \int_{\alpha}^{\beta} f\of{\varphi\of{t}}\cdot\varphi'\of{t} \dif t
+        \end{align*}
+        \begin{proof}
+            Sei $F$ die Stammfunktion von $f$ ($F'\of{x} = f\of{x}~\forall x\in I$). Wir definieren $h\of{t}\coloneqq F\of{\varphi\of{t}} \impl h\in\mC^{1}\of{I^{*}, \C}$ (Kettenregel).
+            \begin{align*}
+                h'\of{t} &= \frac{\dif}{\dif t} h\of{t} = F'\of{\varphi\of{t}}\cdot\varphi'\of{t} = f\of{\varphi\of{t}}\cdot\varphi'\of{t}\\
+                \int_{\alpha}^{\beta} h'\of{t} \dif t &= \interv{h\of{t}}_{\alpha}^{\beta} = h\of{\beta}-h\of{\alpha} = F\of{\varphi\of{\beta}} - F\of{\varphi\of{\alpha}}\\
+                &= \int_{\varphi\of{\alpha}}^{\varphi\of{\beta}} F'\of{x} \dif x = \int_{\varphi\of{\alpha}}^{\varphi\of{\beta}} f\of{x} \dif x\qedhere
+            \end{align*}
+        \end{proof}
+        \noindent \textsc{Erste Lesart:} $ \int_{\alpha}^{\beta} g\of{t} \dif t$ ausrechnen. Annahme: Es existiert eine Substitution $x=\varphi\of{t}$ und $f\of{x}$, sodass $g\of{t} = f\of{\varphi\of{t}}\cdot\varphi'\of{t}$ ist.
+        \begin{align*}
+            \impl \int_{\alpha}^{\beta} g\of{t} \dif t &= \int_{a}^{b} f\of{x} \dif x\tag{$b=\varphi\of{\beta}$, $a = \varphi\of{\alpha}$}
+        \end{align*}
+    \end{satz}
+
+    \begin{beispiel}
+        Wir betrachten des Integral $\int_{\alpha}^{\beta} g\of{t+c} \dif t$. Wir definieren $\varphi\of{t} = t+c$ und $f\of{x} = g\of{x}$. Dann gilt $\varphi'\of{t} = 1$
+        \begin{align*}
+            \impl \int_{\alpha}^{\beta} g\of{t+c} \dif t &= \int_{\alpha}^{\beta} g\of{\varphi\of{t}}\cdot\varphi'\of{t} \dif t\\
+            &= \int_{\varphi\of{\alpha}}^{\varphi\of{\beta}} g\of{x} \dif x\\
+            &= \int_{a+c}^{b+c} g\of{x} \dif x\tag{Translation}
+        \end{align*}
+    \end{beispiel}
+
+    \begin{beispiel}
+        Wir betrachten $\int_{a}^{b} g\of{t} \frac{\dif t}{t}$ mit $a,b > 0$ und definieren $\varphi\of{t} = \ln\of{t}$, $\varphi'\of{t} = \frac{1}{t}$.
+        \begin{align*}
+            g\of{t}\cdot \frac{1}{t} &= g\of{t}\cdot\varphi'\of{t}\\
+            &= g\of{e^{\varphi\of{t}}}\cdot\varphi'\of{t}\\
+            f'\of{x} &= g\of{e^x}\\
+            \impl \int_{a}^{b} g\of{t} \frac{\dif t}{t} &= \int_{a}^{b} f\of{\varphi\of{t}}\cdot\varphi'\of{t} \dif t\\
+            &= \int_{\varphi\of{\alpha}}^{\varphi\of{beta}} f\of{x} \dif x = \int_{\ln a}^{\ln b} f\of{x} \dif x\\
+            &= \int_{\ln a}^{\ln b} g\of{e^x} \dif x
+        \end{align*}
+    \end{beispiel}
+
+%    \begin{beispiel}
+%        Wir betrachten $ \int_{0}^{1} \pair{1+t^2}^{n}\cdot t \dif x$. $t = \frac{1}{2}\frac{\dif}{\dif t}\pair{1+t^2}$. $\pair{1+t^2}^n = \frac{1}{2}\pair{1+t^2}^n \frac{\dif}{\dif t}\pair{1+t^2}$. $\varphi\of{t} = 1+t^2$, $f\of{x} = \frac{1}{2}x^n$.\\
+%        Dann gilt $\pair{1+t^2}^n = \frac{1}{2}f\of{\varphi\of{t}}\cdot\varphi'\of{t}$.
+%    \end{beispiel}
 \end{document}
