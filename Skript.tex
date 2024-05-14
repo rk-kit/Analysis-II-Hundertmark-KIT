@@ -1468,7 +1468,7 @@
     \newpage
 
 
-    \section{Uneigentliche Integrale}
+    \section{[*] Uneigentliche Integrale}
     \thispagestyle{pagenumberonly}
     Bisher haben wir immer nur Integrale auf kompakten Intervalle $I$ berechnet und dabei waren alle Funktionen $f\in\mR\of{I}$ insbesondere beschränkt.\\
     Frage: Was ist $ \int_{0}^{1} \frac{1}{\sqrt{x}} \dif x$? Was ist $ \int_{0}^{\infty} e^{-t} \dif t$?
@@ -1630,5 +1630,182 @@
             \int_{0}^{1} \frac{1}{\sqrt{x}} \dif x &= \interv{2\sqrt{x}}_c^1 = 2-2\sqrt{c}\fromto 2
         \end{align*}
     \end{beispiel}
+
+    \subsection{Uneigentliche Integrale Fall III}
+    \marginnote{[14. Mai]}
+    $f$ hat eine Singularität in $\xi$ im Inneren von $\interv{a,b}$.
+    \begin{beispiel}
+        $f\of{x} = \frac{1}{\abs{\sqrt{x}}}$ auf $\linterv{-1, 0} \cup \rinterv{0, 1}$.
+    \end{beispiel}
+
+    \begin{definition}
+        Wir sagen, dass
+        \begin{align*}
+            \int_{a}^{b} f\of{x} \dif x
+            \intertext{existiert/konvergiert, falls die uneigentlichen Integrale}
+            \int_{\xi}^{b} f\of{x} \dif x &\text{ und } \int_{a}^{\xi} f\of{x} \dif x
+            \intertext{konvergieren. Wir setzen}
+            \int_{a}^{b} f\of{x} \dif x &\coloneqq \int_{a}^{\xi} f\of{x} \dif x + \int_{\xi}^{b} f\of{x} \dif x\numberthis\label{eq:un-iii}
+        \end{align*}
+    \end{definition}
+
+    \begin{bemerkung}
+    (\ref{eq:un-iii})
+        ist stärker als die Existenz von
+        \begin{align*}
+            \lim_{\varepsilon\searrow} \int_{I_{\varepsilon}}^{} f\of{x} \dif x
+        \end{align*}
+        mit $I=\interv{a,b}$ und $I_{\varepsilon}\coloneqq I\exclude\pair{\xi-\varepsilon, \xi+\varepsilon} = \interv{a, \xi-\varepsilon} \cup \interv{\xi+\varepsilon, b}$. (Cauchyscher Hauptwert).
+    \end{bemerkung}
+
+    \begin{beispiel}
+        Sei $f\of{x} = \frac{1}{x^2}$, $I=\interv{-1, 1}$. Dann existiert der Cauchysche Hauptwert, aber nicht (\ref{eq:un-iii}).
+    \end{beispiel}
+
+    \subsection{Uneigentliche Integrale Fall IV}
+
+    \begin{definition}
+        Man hat Singularitäten in $\R$ für $f$ oder/und $b=+\infty$, $a=-\infty$. Dann zerlege $\linterv{a, \infty}$ oder $\rinterv{-\infty, b}$ oder $\pair{-\infty, \infty}$ in endlich viele Intervalle, wobei die Singularitäten die Randpunkte sind (oder $-\infty$, $\infty$). Dann existiert das Integral, falls die endlich vielen uneigentlichen Integrale existieren. Dann nehme Summe aller dieser uneigentlichen Integrale
+    \end{definition}
+
+    \begin{satz}[Integralvergleichskriterium] % Satz 10
+        \label{satz:integral-vergleich}
+        Sei $f: \linterv{1, \infty} \fromto\R$ monoton fallend. Das gilt
+        \begin{align*}
+            \sum_{n=1}^{\infty}  f\of{n} \text{ konvergiert } \equivalent \int_{1}^{\infty} f\of{x} \dif x \text{ existiert }
+        \end{align*}
+        \begin{proof}
+            Siehe Saalübung.
+        \end{proof}
+    \end{satz}
+
+    \begin{beispiel}
+        Es sei $f\of{x} = x^{-p}$ mit $p\neq 1$. Dann ist $F\of{x} = \frac{1}{1-p}x^{1-p}$ für $F'=f$.
+        \begin{align*}
+            \int_{1}^{\infty} \frac{1}{x^p} \dif x &= \lim_{R\toinf} \interv{\frac{1}{1-p}x^{1-p}}_1^R
+        \end{align*}
+        existiert nach Satz~\ref{satz:integral-vergleich} für $p>1$.
+    \end{beispiel}
+
+    \begin{beispiel}
+        $f\of{x} = \log_2\of{x} = \log\of{\log\of{x}}$, $x > 1$
+        \begin{align*}
+            \frac{\dif}{\dif x} \log_2\of{x} &= \frac{1}{\log\of{x}}\cdot\frac{1}{x}\\
+            \frac{\dif}{\dif x}\pair{\log_2\of{x}}^{1-s} &= \frac{1-s}{\pair{\log x}^s}\cdot \frac{1}{x}\\
+            \impl \sum_{n=2}^{\infty} \frac{1}{n\pair{\log^s n}^s} \text{ konvergiert } &\equivalent s > 1
+        \end{align*}
+    \end{beispiel}
+
+    \begin{beispiel}[Gamma-Funktion]
+        \begin{align*}
+            \Gamma\of{x} &\coloneqq \int_{a}^{\infty} t^{x-1} e^{-t} \dif t\tag{$x > 0$}
+        \end{align*}
+        \begin{enumerate}[label=(\alph*)]
+            \item
+            \begin{align*}
+                t^{x-1}e^{-t} &\leq t^{x-1}\quad\forall t > 0
+                \intertext{\item~}
+                t^{x-1}e^{-t} &= t^{x-1}e^{-\frac{t}{2}}e^{-\frac{t}{2}}\\
+                &\leq c_x e^{-\frac{t}{2}}\quad\forall t\geq 1\tag{$c_x\coloneqq \sup_{t\geq 1} t^{x-1}e^{-\frac{t}{2}}$}
+                \intertext{$t^{x-1}e^{-\frac{t}{2}}$ ist beschränkt auf $\linterv{1, \infty}$}
+                \int_{0}^{1} t^{x-1}e^{-t} \dif t &\leq \int_{0}^{1} t^{x-1} \dif t\\
+                &= \lim_{c\toinf} \interv{\frac{1}{x}t^{x}}_c^1\\
+                &= \lim_{c\fromto 0^{+}} \frac{1}{x}\pair{1-e^{x}}\\
+                0 &\leq \int_{1}^{\infty} t^{x-1}e^{-t} \dif t\\
+                &= \lim_{b\toinf} \int_{a}^{b} t^{x-1}e^{-t} \dif t\\
+                &\leq c_x e^{-\frac{t}{2}}\\
+                &\leq \lim_{b\toinf} c_x \int_{a}^{b} e^{-\frac{t}{2}} \dif t < \infty\\
+                \int_{a}^{b} e^{-\frac{t}{2}} &= \interv{-2e^{-\frac{t}{2}}}_1^b = 2\pair{e^{-\frac{1}{2}} - e^{-\frac{b}{2}}}\fromto 2e^{-\frac{1}{2}}
+            \end{align*}
+        \end{enumerate}
+    \end{beispiel}
+
+    \begin{satz}[Funktionalgleichung der $\Gamma$-Funktion] % Satz 12
+        Es gilt $\Gamma\of{n+1} = n!$ und $x\Gamma\of{x} = \Gamma\of{x+1}$ für alle $x>0$.
+        \begin{proof}
+            \begin{align*}
+                \Gamma\of{x+1} &= \int_{0}^{\infty} t^{(x+1)-1}e^{-t} \dif t\\
+                &= \int_{0}^{\infty} t^{x}e^{-t} \dif t\\
+                \intertext{Wir integrieren partiell. Sei $0 < a < b < \infty$}
+                \int_{a}^{b} t^{x}e^{-t} \dif t &= \interv{-t^x e^{-t}}_a^b + \int_{a}^{b} xt^{x-1}e^{-t} \dif t\\
+                &= a^{x}e^{-b} - b^{x}e^{-b} + x \int_{a}^{b} t^{x-1}e^{-t} \dif t\\
+                \impl \int_{a}^{\infty} t^x e^{-t} \dif t &= \lim_{b\toinf} \int_{a}^{b} t^x e^{-t} \dif t\\
+                &= a^x e^{-a} + x \int_{a}^{\infty} t^{x-1} e^{-t} \dif t\\
+                \impl \Gamma\of{x+1} &= \int_{0}^{\infty} t^x e^{-t} \dif x = x\Gamma\of{x}
+                \intertext{Damit folgt die zweite Behauptung. Wir betrachten außerdem}
+                \Gamma\of{n+1} &= n\Gamma\of{n} = n\Gamma\of{n-1+1}\\
+                &= n\pair{n-1}\Gamma\of{n-1} = n\cdot \pair{n-1}\cdot\ldots\cdot 2 \cdot 1 \cdot \Gamma\of{1}\\
+                &= n!\qedhere
+            \end{align*}
+        \end{proof}
+    \end{satz}
+
+    \begin{anwendung}
+        Nach Substitution mit $t^2 = x$ gilt $\frac{\dif t}{\dif x} = \frac{1}{2\sqrt{x}}$
+        \begin{align*}
+            \int_{a}^{\xi} e^{-t^2} \dif t &= \int_{}^{} e^{-x}\frac{1}{2}\sqrt{x} \dif x\\
+            &= \frac{1}{2} \int_{0}^{\infty} \frac{1}{\sqrt{x}}e^{-x} \dif x\\
+            &= \frac{1}{2} \int_{?}^{b} s^{-\frac{1}{2}} e^{-s} \dif s\\
+            \intertext{für $b\toinf$ und $a\searrow 0$}
+            \impl 2 \int_{0}^{\infty} e^{-t^2} \dif x &= \int_{0}^{\infty} s^{-\frac{1}{2}} e^{-s} \dif s\\
+            &= \Gamma\of{\frac{1}{2}}
+        \end{align*}
+        Berechnung von $\Gamma\of{\frac{1}{2}}$ später.
+    \end{anwendung}
+
+    \newpage
+
+    \section{[*] Integrale und gleichmäßige Konvergenz}
+    \imaginarysubsection{Gleichmäßige Konvergenz}
+    \thispagestyle{pagenumberonly}
+
+    $I=\interv{a,b}$ und $f: I\fromto\R$, $f_n: I\fromto \R$. $f_n$ konvergiert gegen $f$ \anf{irgendwie}. Wann gilt
+    \begin{align*}
+        \int_{a}^{b} f_n\of{x} \dif x \fromto \int_{a}^{b} f\of{x} \dif x
+    \end{align*}
+    Punktweise Konvergenz ist nicht genug.
+    \begin{beispiel}
+        Sei $f_n: \interv{0, 1}\fromto\R$ mit
+        \begin{align*}
+            f_n\of{x} &\coloneqq \begin{cases}
+                                     n &0 < x < \frac{1}{n}\\
+                                     0 &x = 0 \text{ oder } \frac{1}{n} \leq x \leq 1
+            \end{cases}\\
+            \int_{0}^{1} f_n\of{x} \dif x &= \int_{0}^{\frac{1}{n}} n \dif x = \frac{n}{n} = 1
+        \end{align*}
+        das heißt $f_n\of{x}\fromto 0$ für $n\toinf~\forall x\in\interv{0,1}$.
+    \end{beispiel}
+
+    \begin{satz} % Satz 1
+        Seien $f, f_n: \interv{a,b}\fromto\R \pair{\C, \dots}$ und $n\in\N$. $(f_n)_n$ konvergiert gleichmäßig gegen $f$ auf $\interv{a,b}$ und $f_n\in\mR\of{\interv{a,b}}$. Dann gilt $f\in\mR\of{I}$ und
+        \begin{align*}
+            \int_{a}^{b} f\of{x} \dif x &= \lim_{\ntoinf} \int_{a}^{b} f_n\of{x} \dif x
+        \end{align*}
+
+        \begin{proof}
+            Sei $\varepsilon > 0$ und $N\in\N$. Dann gilt
+            \begin{align*}
+                \norm{f-f_n}_{\infty} &= \sup_{a < x < b} \abs{f\of{x} - f_n\of{x}} < \frac{\varepsilon}{4\pair{b-a}}\\
+                \impl f_n\of{x} - \frac{\varepsilon}{4\pair{b-a}} &\leq f\of{x} \leq f_n\of{x} + \frac{\varepsilon}{4\pair{b-a}}\quad\forall n\geq N
+                \intertext{Halte $N$ fest und nehme Zerlegung $Z$ von $I=\interv{a,b}$ mit}
+                \ov{S}_Z\of{f_N} - \un{S}_Z\of{f_N} &< \frac{\varepsilon}{2}\\
+                \ov{S}_Z\of{f_N - \frac{\varepsilon}{4\pair{b-a}}} &\leq \ov{S}_Z\of{f}\\
+                \ov{S}_Z\of{f_N - \frac{\varepsilon}{4\pair{b-a}}} &= \ov{S}_Z\of{f_N} + \ov{S}_Z\of{\frac{\varepsilon}{4\pair{b-a}}}\\
+                &= \ov{S}_Z\of{f_N} + \frac{\varepsilon}{4}\\[5pt]
+                \un{S}_Z\of{f_N - \frac{\varepsilon}{4\pair{b-a}}} &\leq \un{S}_Z\of{f}\\
+                \un{S}_Z\of{f_N - \frac{\varepsilon}{4\pair{b-a}}} &= \un{S}_Z\of{f_N} - \frac{\varepsilon}{4}\\
+                \impl \ov{S}_Z\of{f} - \un{S}_Z\of{f} &\leq \ov{S}_Z\of{f_N} + \frac{\varepsilon}{4} - \pair{\un{S}_Z\of{f_N} - \frac{\varepsilon}{4}}\\
+                &= \ov{S}_Z\of{f_N} - \un{S}_Z\of{f_N} + \frac{\varepsilon}{2} < \frac{\varepsilon}{2} + \frac{\varepsilon}{2} = \varepsilon
+            \end{align*}
+            Damit folgt $f\in\mR\of{I}$.
+            \begin{align*}
+                \int_{a}^{b} f_n\of{x} \dif x - \frac{\varepsilon}{4} &= \int_{a}^{b} \pair{f_n\of{x} - \frac{\varepsilon}{4\pair{b-a}}} \dif x\\
+                &= \int_{a}^{b} f\of{x} \dif x \leq \int_{a}^{b} \pair{f_n\of{x} + \frac{\varepsilon}{4\pair{b-a}}} \dif x\\
+                &= \int_{a}^{b} f_n\of{x} \dif x + \frac{\varepsilon}{4}\\
+                \impl \limsup_{\ntoinf} \int_{a}^{b} f_n\of{x} \dif x - \frac{\varepsilon}{4} &\leq \int_{a}^{b} f\of{x} \dif x \leq \liminf_{\ntoinf} \int_{a}^{b} f_n\of{x} \dif x + \frac{\varepsilon}{4}\quad\forall\varepsilon > 0\\
+                \impl \limsup_{\ntoinf} \int_{a}^{b} f_n\of{x} \dif x &\leq \int_{a}^{b} f\of{x} \dif x \leq \liminf \int_{a}^{b} f_n\of{x} \dif x\qedhere
+            \end{align*}
+        \end{proof}
+    \end{satz}
 
 \end{document}
