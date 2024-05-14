@@ -1345,7 +1345,7 @@
         \begin{align*}
             \int_{}^{} \cos^{n}\of{x} \dif x &= \int_{}^{} \cos\of{x}\cos^{n-1}\of{x} \dif x\\
             &= \sin\of{x}\cos^{n-1}\of{x} + \int_{}^{} \sin\of{x}\pair{n-1}\cos^{n-2}\of{x}\sin\of{x} \dif x\\
-            &= \sin\of{x}\cos^{n-1}\of{x} + \pair{n-1} \int_{}^{} \sin^2\of{x}\cos^{n-2}x \dif x\\
+            &= \sin\of{x}\cos^{n-1}\of{x} + \pair{n-1} \int_{}^{} \underbrace{\sin^2\of{x}}_{= 1- \cos^2\of{x}}\cos^{n-2}x \dif x\\
             &= \sin\of{x}\cos^{n-1}\of{x} + \pair{n-1} \int_{}^{} \cos^{n-2}x \dif x - \pair{n-1} \int_{}^{} \cos^{n}\of{x}\dif x\\
             \int_{}^{} \cos^{n}x \dif x &= \frac{1}{n} \sin\of{x}\cos^{n-1}\of{x} + \frac{n-1}{n} \int_{}^{} \cos^{n-2}\of{x}\dif x\tag{Rekursionsformel}
             \intertext{Analog lässt sich zeigen, dass $ \int_{}^{} \sin^{n}\of{x}x \dif x = \frac{1}{n}\cos\of{x}\sin^{n-1}\of{x} + \frac{n-1}{n} \int_{}^{} \sin^{n-2}\of{x} \dif x$. Wir nutzen nun die Rekursionsformel, um einen Wert für alle $n$ zu ermitteln}
