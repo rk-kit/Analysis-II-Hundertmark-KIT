@@ -1,0 +1,799 @@
+\section{[*] Das eindimensionale Riemann-Integral}
+\thispagestyle{pagenumberonly}
+
+\marginnote{[16. Apr]}
+Frage: Was ist die Fläche unter einem Graphen?
+
+% Vis
+
+\subsection{Der Integralbegriff nach Riemann}
+
+\begin{definition}[Zerlegung]
+    Eine Zerlegung $Z$ eines kompakten Intervalls $I=\interv{a,b}$ in Teilintervalle $I_j$ ($j=1,\dots, k$) der Längen $\abs{I_j}$ ist eine Menge von Punkten $x_0$, $x_1$,$\dots$, $x_k\in I$ (Teilpunkte von $Z$) mit
+    \begin{align*}
+        a=x_0 < x_1 < x_2 < \dots < x_k = b
+    \end{align*}
+    und $I_j = \interv{x_{j-1}, x_j}$. Wir setzen $\varDelta x_j \definedas x_j - x_{j-1} \definedasbackwards\abs{I_j}$.
+\end{definition}
+
+\begin{definition}[Feinheit einer Zerlegung]
+    Die Feinheit der Zerlegung $Z$ ist definiert als die Länge des längsten Teilintervalls von $Z$:
+    \begin{align*}
+        \varDelta\of{Z}\definedas \max\of{\abs{I_1}, \abs{I_2}, \dots, \abs{I_k}} = \max\of{\varDelta x_1, \varDelta x_2, \dots, \varDelta x_k}
+    \end{align*}
+\end{definition}
+
+\begin{notation}
+    Wir setzen
+    \begin{align*}
+        \mB\of{I} = \set{f: I\fromto \R~\middle\vert~\sup_{x\in I} \abs{f(x)} < \infty}
+    \end{align*}
+    als die Menge aller beschränkten reellwertigen Funktionen auf $I$.
+\end{notation}
+
+\begin{definition}[Riemannsche Zwischensumme]
+    In jedem $I_j$ wählen wir ein $\xi_j\in I_j$ als Stützstelle und setzen $\xi=\pair{\xi_1, \xi_2, \dots, \xi_k}$. Für eine Funktion $f\in \mB\of{I}$ setzen wir die Riemannsche Zwischensumme
+    \begin{align*}
+        S_Z\of{f} &= S_Z\of{f, \xi} \definedas \sum_{j=1}^{k} f\of{\xi_j}\cdot\varDelta x_j = \sum_{j=1}^{k} f\of{\xi_j}\cdot\abs{I_j}
+    \end{align*}
+\end{definition}
+
+\begin{definition}[Ober- und Untersumme]
+    Für $f\in \mB\of{I}$ setzen wir außerdem
+    \begin{align*}
+        \underline{m}_j &\definedas \inf_{I_j} f = \inf\set{f(x): x\in I_j}\\
+        \overline{m}_j &\definedas \sup_{I_j} f = \sup\set{f(x): x\in I_j}\\
+        \overline{S}_Z\of{f}&\definedas \sum_{j=1}^{k} \overline{m}_j\cdot \varDelta x_j\tag{Obersumme}\\
+        \underline{S}_Z\of{f}&\definedas \sum_{j=1}^{k} \underline{m}_j\cdot \varDelta x_j\tag{Untersumme}
+        \intertext{Damit gilt für $x \in I_j$}
+        \underline{m}_j &\leq f\of{x} \leq \overline{m}_j\\
+        \impl \underline{m}_j &\leq f\of{\xi_j} \leq \overline{m}_j\\
+        \impl \underline{S}_Z\of{f} &\leq S_Z\of{f, \xi} \leq \overline{S}_Z\of{f}\numberthis\label{eq:7}
+    \end{align*}
+    Wir wollen die Zerlegung $Z$ nun systematisch verfeinern.
+\end{definition}
+
+\begin{definition}[Verfeinerung einer Zerlegung]
+    \theoremescape
+    \begin{enumerate}[label=(\alph*)]
+        \item Eine Zerlegung $Z^{*}$ von $I$ ist eine Verfeinerung der Zerlegung $Z$ von $I$, falls alle Teilpunkte von $Z$ auch Teilpunkte von $Z^{*}$ sind.
+        \item Die gemeinsame Verfeinerung $Z_1 \lor Z_2$ zweier Zerlegungen $Z_1, Z_2$ von $I$ ist die Zerlegung von $I$, deren Teilpunkte gerade die Teilpunkte von $Z_1$ und $Z_2$ sind.
+    \end{enumerate}
+\end{definition}
+
+% Vis
+
+% Vis
+
+\begin{lemma} % Lemma 3
+    \label{lemma:temp-3}
+    Ist $Z^{*}$ eine Verfeinerung der Zerlegung $Z$ von $I$ und $f\in \mB\of{I}$. Dann gilt
+    \begin{align*}
+        \underline{S}_Z\of{f} \leq \underline{S}_{Z^{*}}\of{f} \leq \overline{S}_{Z^{*}}\of{f} \leq \overline{S}_Z\of{f}
+    \end{align*}
+    \begin{proof}
+        $Z^{*}$ enthält alle Teilpunkte von $Z$, nur mehr.\\[10pt]
+        \textsc{Schritt 1:} Wir nehmen an $Z^{*}$ enthielte genau einen Teilpunkt ($y_{l+1}$) mehr als $Z$. Das heißt
+        \begin{alignat*}{3}
+            y_j &= x_j\quad &&\fa 0\leq j \leq l\\
+            x_l < y_{l+1} &< x_{l+1}\quad &&\\
+            y_{j+1} &= x_j\quad &&\fa l+ 1 \leq j \leq k
+        \end{alignat*}
+        Dann gilt
+        \begin{align*}
+            \underline{S}_Z\of{f} &= \sum_{j=1}^{k} \underline{m}_j\varDelta x_j = \sum_{j=1}^{l} \underline{m}_j \varDelta x_j + \underline{m}_{l+1}\varDelta x_{l+1} + \sum_{j=l+2}^{k} \underline{m}_j \varDelta x_j\\
+            \underline{m}_j &= \inf_{I_j} f = \inf_{I_j^{*}} f = \underline{m}_j^{*}\quad \fa 1 \leq j \leq l\\
+            \underline{m}_j &= \inf_{I_j} f = \inf_{I_{j+1}^{*}}f = \underline{m}_{j+1}^{*}\quad \fa j\geq l+2\\
+            I_j &= \interv{x_j, x_{j-1}} = \interv{y_{j+1}, y_j} = I_{j+1}^{*}\quad\fa j \geq l+2\\
+            \impl \sum_{j=l+2}^{k} \underline{m}_j \varDelta x_j &= \sum_{j=l+2}^{k} \underline{m}_{j+1}^{*} \varDelta y_{j+1} = \sum_{j=l+3}^{k+1} \underline{m}_j^{*} \varDelta y_{j}\\
+            \underline{m}_{l+1} \varDelta x_{l+1} &= \underline{m}_{l+1}\of{x_{l+1} - x_l} = \underline{m}_{l+1}\of{y_{l+2}-y_l}\\
+            &= \underline{m}_{l+1}\of{y_{l+2} - y_{l+1} + y_{l+1} - y_l}\\
+            &= \underline{m}_{l+1} \varDelta y_{l+2} + \underline{m}_{l+1}\varDelta y_{l+1}\\
+            &\leq \underline{m}_{l+2}^{*}\varDelta y_{l+2} + \underline{m}_{l+1}^{*}\varDelta y_{l+1}
+            \intertext{Insgesamt ergibt sich}
+            \underline{S}_{Z}\of{f} &\leq \sum_{j=1}^{l} \underline{m}_j^{*} \varDelta y_j + \underline{m}_{l+1}^{*} \varDelta y_{l+1} + \underline{m}_{l+2}^{*}\varDelta y_{l+2} + \sum_{j=l+3}^{k+1} \underline{m}_j^{*}\varDelta y_j = \underline{S}_{Z^{*}}\of{f}
+        \end{align*}
+        ähnlich zeigt man $\overline{S}_Z\of{f} \geq \overline{S}_{Z^{*}}\of{f}$.\\[10pt]
+        \textsc{Schritt 2:} Sei $Z^{*}$ eine beliebige Verfeinerung von $Z$. Wir nehmen eine endliche Folge von Einpunkt-Verfeinerungen $Z=Z_0, Z_1, Z_2, \dots, Z_r = Z^{*}$. Dabei hat $Z_{s+1}$ genau einen Punkt mehr als $Z_{s}$. Dann gilt nach \textsc{Schritt 1}, dass $\underline{S}_{Z}\of{f} \leq \underline{S}_{Z_1}\of{f} \leq \dots \leq \underline{S}_{Z^{*}}\of{f}$ und $\overline{S}_{Z}\of{f} \geq \overline{S}_{Z_1}\of{f} \geq \dots \geq \overline{S}_{Z^{*}}\of{f}$.\\[10pt]
+        \textsc{Schritt 3:} Sei $\xi^{*} = \pair{\xi_1^{*}, \xi_2^{*}, \dots, \xi_l^{*}}$ der Zwischenpunkt zur Zerlegung $Z^{*}$. Dann gilt nach (\ref{eq:7})
+        \begin{align*}
+            \un{S}_{Z^{*}}\of{f} \leq S_{Z^*}\of{f, \xi^{*}} &\leq \overline{S}_{Z^*}\of{f}\qedhere
+        \end{align*}
+    \end{proof}
+\end{lemma}
+
+\begin{lemma} % Lemma 4
+    \label{lemma:temp-4}
+    Seien $Z_1$, $Z_2$ Zerlegungen von $I$. Dann gilt
+    \begin{align*}
+        \underline{S}_{Z_1}\of{f} \leq \overline{S}_{Z_2}\of{f}\qquad\forall f\in \mB\of{I}
+    \end{align*}
+    \begin{proof}
+        Es gilt nach Lemma~\ref{lemma:temp-3}, dass
+        \begin{align*}
+            \underline{S}_{Z_1}\of{f} &\leq \underline{S}_{Z_1\lor Z_2}\of{f}\leq \overline{S}_{Z_1\lor Z_2}\of{f} \leq \overline{S}_{Z_2}\of{f}\qedhere
+        \end{align*}
+    \end{proof}
+\end{lemma}
+
+\begin{bemerkung}
+    Für $I=\interv{a,b}$ und $f\in \mB\of{I}$ gilt immer
+    \begin{align*}
+        \abs{I}\cdot \inf_{I} f \leq \underline{S}_Z\of{f} \leq \overline{S}_Z\of{f} \leq \abs{I}\cdot \sup_{I} f
+    \end{align*}
+    für alle Zerlegungen $Z$ von $I$. Somit sind
+    \begin{align*}
+        \set{\overline{S}_Z\of{f} : Z \text{ ist eine Zerlegung von } I}
+        \intertext{und}
+        \set{\underline{S}_Z\of{f} : Z \text{ ist eine Zerlegung von } I}
+    \end{align*}
+    beschränkte, nicht-leere Teilmengen von $\R$. Das erlaubt uns die folgende Definition, mit der wir nun mithilfe der bereits definierten Summen einem tatsächlichen Integralbegriff nähern wollen.
+\end{bemerkung}
+
+\begin{definition}[Ober- und Unterintegral]
+    Es sei $I=\interv{a,b}$ und $f\in \mB\of{I}$. Wir definieren
+    \begin{align*}
+        \overline{J}\of{f} \definedas \inf\set{\overline{S}_Z\of{f} : Z\text{ ist Zerlegung von $I$ } }\tag{Oberintegral}\\
+        \underline{J}\of{f} \definedas \sup\set{\underline{S}_Z\of{f} : Z\text{ ist Zerlegung von $I$ } }\tag{Unterintegral}
+    \end{align*}
+\end{definition}
+
+\begin{lemma} % Lemma 6
+    \label{lemma:temp-6}
+    Es sei $Z$ eine Zerlegung von $I$. Dann gilt
+    \begin{align*}
+        \underline{S}_{Z}\of{f} \leq \underline{J}\of{f} \leq \overline{J}\of{f} \leq \overline{S}_{Z}\of{f}
+    \end{align*}
+    \begin{proof}
+        Nach Lemma~\ref{lemma:temp-4} gilt für zwei beliebige Zerlegungen $Z_1$, $Z_2$
+        \begin{align*}
+            \underline{S}_{Z_1}\of{f} &\leq \overline{S}_{Z_2}\of{f}
+            \intertext{Wir fixieren $Z_2$ und erhalten}
+            \impl \sup\set{\underline{S}_{Z_1}\of{f}: Z_1 \text{ Zerlegung von } I} &\leq \overline{S}_{Z_2}\of{f}\\
+            \impl \underline{J}\of{f} &\leq \overline{S}_{Z_2}\of{f}\\
+            \impl \underline{J}\of{f} &\leq \inf\set{\overline{S}_{Z_2}\of{f}: Z_2 \text{ Zerlegung von } I}\\
+            \impl \underline{J}\of{f} &\leq \overline{J}\of{f}\\
+            \impl\underline{S}_{Z}\of{f} \leq \underline{J}\of{f}&\leq \overline{J}\of{f} \leq \overline{S}_Z\of{f}\qedhere
+        \end{align*}
+    \end{proof}
+\end{lemma}
+
+\begin{definition}[Integral]
+    Es sei $I=\interv{a,b}$. $f\in \mB\of{I}$ heißt (Riemann-)integrierbar, falls
+    \begin{align*}
+        \underline{J}\of{f} = \overline{J}\of{f}
+    \end{align*}
+    In diese Fall nennen wir $J(f) \definedas \underline{J}\of{f} = \overline{J}\of{f}$ das (bestimmte) Integral von $f$ über $\interv{a,b}$ und schreiben
+    \begin{align*}
+        \int_{a}^{b} f(x) \dif x = \int_{a}^{b} f\dif x = \int_{I} f(x)\dif x = \int_{I} f\dif x \definedasbackwards J(f)
+    \end{align*}
+    Die Klasse der Riemann-integrierbaren Funktionen $f\in \mB\of{I}$ nennen wir $\mR\of{I}$.
+\end{definition}
+
+\begin{beispiel}[Konstante Funktion]
+    \marginnote{[18. Apr]}
+    \label{beispiel:int-konstant}
+    $f(x) \definedas c$ auf $\interv{a,b}$ für eine Konstante $c\in\R$. Dann gilt
+    \begin{align*}
+        \int_{a}^{b} f\of{x} \dif x &= c\cdot\pair{b-a}
+    \end{align*}
+\end{beispiel}
+
+\begin{beispiel}[Dirichlet-Funktion]
+    \label{beispiel:int-dirichlet}
+    Die Funktion $f: \interv{0,1}\fromto\R$
+    \begin{align*}
+        f(x) \definedas \begin{cases}
+                            1 &x\in \Q\\
+                            0 &\text{sonst}
+        \end{cases}
+    \end{align*}
+    ist nicht Riemann-integrierbar, weil $\overline{J}\of{f} = 1$ und $\underline{J}\of{f} = 0$.
+\end{beispiel}
+
+\begin{uebung}
+    Beweisen Sie die Aussagen aus Beispiel~\ref{beispiel:int-konstant} und \ref{beispiel:int-dirichlet} mittels der formalen Definition von $\un{J}\of{f}$ und $\ov{J}\of{f}$.
+\end{uebung}
+
+\subsection{[*] Integrabilitätskriterien}
+
+\begin{satz}[1. Kriterium] % Satz 8
+    \label{satz:integr-kriterium-1}
+    Es sei $f\in \mB\of{I}$. Dann gilt $f\in \mR\of{I}$ genau dann, wenn
+    \begin{align*}
+        \fa\varepsilon > 0\ex\text{Zerlegung } Z\text{ von } I\text{ mit } \overline{S}_{Z}\of{f}-\underline{S}_{Z}\of{f} < \varepsilon
+    \end{align*}
+    \begin{proof}
+        \anf{$\Leftarrow$} Nach Lemma~\ref{lemma:temp-6} gilt
+        \begin{align*}
+            \underline{S}_Z\of{f}\leq \underline{J}\of{f} &\leq \overline{J}\of{f} \leq \overline{S}_Z\of{f}
+            \intertext{Sei $\varepsilon > 0$, dann gilt}
+            0\leq\overline{J}\of{f}-\underline{J}\of{f}&\leq\overline{S}_Z\of{f} - \underline{S}_Z\of{f} < \varepsilon\\
+            \impl 0\leq \overline{J}\of{f} - \underline{J}\of{f} &\leq 0\\
+            \impl f\in \mR\of{I}&
+        \end{align*}
+        \anf{$\impl$} Angenommen $f\in \mR\of{I}$, das heißt
+        \begin{align*}
+            \overline{J}\of{f} &= \underline{J}\of{f}\\
+            \overline{J}\of{f} &= \inf\set{\overline{S}_Z\of{f}: Z \text{ Zerlegung von } I}\\
+            \underline{J}\of{f} &=\sup\set{\underline{S}_Z\of{f}: Z \text{ Zerlegung von } I}
+            \intertext{Das heißt zu $\varepsilon > 0$ existieren Zerlegungen $Z_1$, $Z_2$ von $I$ mit}
+            \overline{J}\of{f} + \frac{\varepsilon}{2} &> \overline{S}_{Z_1}\of{f}\\
+            \underline{J}\of{f} - \frac{\varepsilon}{2} &< \un{S}_{Z_2}\of{f}
+            \intertext{Da $f\in \mR\of{I}$ gilt $\underline{J}\of{f} = \overline{J}\of{f}$. Wir definieren die gemeinsame Verfeinerung $Z\definedas Z_1 \lor Z_2$. Dann gilt nach Lemma~\ref{lemma:temp-3}}
+            \overline{S}_Z\of{f} - \underline{S}_Z\of{f} &< \overline{J}\of{f} + \frac{\varepsilon}{2} - \pair{\underline{J}\of{f} - \frac{\varepsilon}{2}}\\
+            &= \underbrace{\overline{J}\of{f} - \underline{J}\of{f}}_{=0} + \frac{\varepsilon}{2} + \frac{\varepsilon}{2} = \varepsilon\qedhere
+        \end{align*}
+    \end{proof}
+\end{satz}
+
+\begin{satz}[2. Kriterium] % Satz 9
+    \label{satz:temp-9}
+    Sei $f\in \mB\of{I}$. Dann gilt $f\in \mR\of{I}$ genau dann, wenn
+    \begin{align*}
+        \fa\varepsilon > 0\ex\delta > 0\fa \text{Zerlegungen }Z \text{ von } I \text{ mit Feinheit } \Delta\of{Z} < \delta\colon \overline{S}_Z\of{f} - \underline{S}_Z\of{f} < \varepsilon
+    \end{align*}
+    \begin{proof}
+        \anf{$\Leftarrow$} wird von Satz~\ref{satz:integr-kriterium-1} bereits impliziert.\\[10pt]
+        \anf{$\impl$} Sei $f\in \mR\of{I}$ und $\varepsilon > 0$. Dann gilt nach Satz~\ref{satz:integr-kriterium-1}, dass eine Zerlegung $Z'=\pair{x_0', x_1', \dots, x_l' = b}$ von $I$ mit
+        \begin{align*}
+            \overline{S}_Z\of{f} - \underline{S}_Z\of{f} &< \frac{\varepsilon}{2}
+            \intertext{existiert. Wähle eine andere Zerlegung $Z$ von $I$ mit $\Delta\of{Z} < \delta$, wobei $\delta > 0$ noch später gewählt wird. Setze $Z^{*} = Z'\lor Z$. Nach Lemma~\ref{lemma:temp-3} und Satz~\ref{satz:integr-kriterium-1} gilt}
+            \overline{S}_{Z^{*}}\of{f} - \underline{S}_{Z^{*}}\of{f} &< \frac{\varepsilon}{2}
+            \intertext{Wir wollen die Ober- und Untersumme von $Z^{*}$ mit denen in $Z$ vergleichen.}
+            \overline{S}_Z\of{f} - \underline{S}_{Z^{*}}\of{f} &= \sum_{j} \overline{m}_j\cdot\abs{I_j} - \sum_{t}^{} \overline{m}_t\cdot\abs{I_t}
+            \intertext{wobei $I_j = \interv{x_{j-1}, x_j}$. Da $Z^*$ eine Verfeinerung von $Z$ ist, sind alle Teilpunkte von $Z$ auch Teilpunkte von $Z^*$. Das heißt die Intervalle $I_j$ (zu $Z$) unterscheiden sich von den Intervallen $I_j^*$ (zu $Z^*$) sofern Punkte $x_{\nu}'$ (Teilpunkte von $Z^*$) im Inneren von $I_j$ liegen. Also gilt}
+            I_Z^{*} \cap I_j &\neq \emptyset \impl I_Z^{*} \subseteq I_j
+            \intertext{Frage: Wie viele Intervalle $I_j$ existieren maximal, für die $I_j$ eine Verfeinerung von $Z$ oder ? hinter reellen $I_j^*$ ist? Dann muss mindestens ein Punkt von der Zerlegung $Z'$ unterhalb von $I_j$ liegen. Wir haben $l$ Punkte in Zerlegung $Z'$. Das heißt die Anzahl solcher Intervalle $I_j$ ist maximal $l$.}
+            \overline{S}_Z\of{f} - \overline{S}_{Z^{*}}\of{f} &= \sum_{j}^{} \overline{m}_j\cdot\abs{I_j} - \sum_{t}^{} \overline{m}_t^{*} \cdot\abs{I_j^{*}}\\
+            &= \sum_{j}^{} \pair{\overline{m}_j \cdot\abs{I_j} - \sum_{t: I_{Z}^{*} \subseteq I_j}^{} \overline{m}_t^{*} \cdot\abs{I_t^{*}}}\\
+            &= \sum_{j}^{} \sum_{t: I_t^{*}}^{} \pair{\overline{m}_j - \overline{m}_t^{*}}\cdot\abs{I_t^{*}}\\
+            \overline{S}_Z\of{f} - \overline{S}_Z\of{f} &= \sum_{j}^{} \sum_{t: I_t^{*}}^{} \pair{\underbrace{\overline{m}_j - \overline{m}_t^{*}}_{= 0 \text{ falls } I_t^{*} = I_j}}\cdot\abs{I_t^{*}}\\
+            &= \sum_{j}^{} \sum_{t: I_t^{*}}^{} \pair{\overline{m}_j - \overline{m}_t^{*}}\cdot\abs{I_Z^{*}}\\
+            f(x) &= f(y) + f(x) - f(y)\\
+            &\leq f(y) + \sup_{s_1, s_2\in I}\set{f(s_1) - f(s_2)}\\
+            f(x) &\leq f(y) + 2\norm{f}_{\infty}
+            \intertext{genauso}
+            f(x) &= f(y) + f(x) - f(y)\\
+            &\geq f(y) + \inf_{s_1, s_2\in I}\set{f(s_1) - f(s_2)}\\
+            &\geq f(y) - 2\norm{f}_{\infty}\\[10pt]
+            \impl \overline{m}_j &= \sup_{s\in I_j}f(x) \leq 2\norm{f}_{\infty} + f(y)\quad\forall y\in I_t^{*}\\
+            \impl \overline{m}_j &\leq 2\norm{f}_{\infty} + \sup_{?} f = 2\norm{f}_{\infty} + \overline{m}_z^{*}\\
+            \vdots \quad &???
+            \intertext{Genauso zeigt man}
+            \underline{S}_Z\of{f} - \underline{S}_{Z^{*}}\of{f} &\geq -2\norm{f}_{\infty} l\cdot\delta\\
+            \impl \overline{S}_Z\of{f} &\leq \overline{S}_{Z^{*}} + 2\norm{f}_{\infty} l \cdot \delta\\
+            \underline{S}_Z\of{f} &\geq \underline{S}_{Z^{*}} - 2 \norm{f}_{\infty} l \cdot \delta\\
+            \impl \overline{S}_Z\of{f} - \underline{S}_Z\of{f} &\leq \overline{S}_{Z^{*}}\of{f} + 2\norm{f}_{\infty} l\delta - \pair{\underline{S}_{Z^{*}}\of{f} - 2 \norm{f}_{\infty} l \cdot\delta}\\
+            &= ?\\
+            &< \frac{\varepsilon}{2} + 4\norm{f}_{\infty} l \cdot\delta
+            \intertext{Jetzt wähle $\delta = \frac{\varepsilon}{\delta\pair{\norm{f}_{\infty} + 1}\cdot l}$}
+            \impl &\leq \frac{\varepsilon}{2} + 4\norm{f}_{\infty} \cdot \frac{\varepsilon}{\delta\pair{\norm{f}+1}\cdot l} < \frac{\varepsilon}{2} + \frac{\varepsilon}{2} = \varepsilon
+        \end{align*}
+        sofern um $\Delta\of{z} < \delta$ ist.
+    \end{proof}
+\end{satz}
+
+\begin{anwendung}
+    Es sei $(Z_n)_n$ eine Folge von Zerlegungen von $I$ mit Feinheit $\Delta\of{Z_n}\fromto 0$ für $\ntoinf$. $\xi_n$ seien die Zwischenpunkt von Zerlegung $Z_n = \pair{x_0^n, x_1^n, \dots, x_{k_n}^n}$. Die Riemannnsumme
+    \begin{align*}
+        S_{Z_n}\of{f, \xi_n} &= \sum_{j=1}^{k_n} f\of{\xi_j^n}\cdot\abs{I_j^n}
+    \end{align*}
+    konvergiert nach Satz~\ref{satz:temp-9} gegen $J(f)$ falls $f\in \mR\of{I}$.
+\end{anwendung}
+
+\begin{bemerkung}[Linearität der Riemannschen Zwischensumme]
+    \marginnote{[19. Apr]}
+    Seien $Z=\pair{x_0, x_1, \dots, x_k}$ Zerlegung von $I=\interv{a,b}$ und $\xi = \pair{\xi_1, \xi_2, \dots, \xi_k}$ Zwischenpunkt zur Zerlegung $Z$, sodass
+    \begin{align*}
+        x_{j-1}&\leq \xi_j \leq x_j\quad\fa j=1,\dots, k
+        \intertext{Dann ist die Riemannsche Zwischensumme}
+        S_Z\of{f}= S_Z\of{f,\xi} &\coloneqq \sum_{j=1}^{k} f\of{\xi_j}\cdot\abs{I_j}\tag{$I_j = \interv{x_j-1, x_j}$}
+    \end{align*}
+    linear in Bezug zu $f$. Wir werden diese Aussage und weitere interessante Vektorraumeigenschaften des $\mR\of{I}$ später in Satz~\ref{satz:temp-11} noch beweisen.
+\end{bemerkung}
+
+\newpage
+
+\begin{korollar} % Korollar 10
+    \label{korollar:temp-10}
+    Sei $f\in \mB\of{I}$. Dann gilt $f\in \mR\of{I}$ genau dann, wenn für jede Folge $(Z_n)_n$ von Zerlegungen $Z_n$ von $I$ mit Feinheit $\Delta\of{Z_n}\fromto 0$ für $\ntoinf$ und jede Folge $(\xi_n)_n$ von Zwischenpunkten $\xi_n$ zugehörig zu $Z_n$ der Grenzwert $\biglim{\ntoinf} S_{Z_n}\of{f, \xi_n}$ existiert.\\[4pt]
+    Darüber hinaus ist in diesem Fall obiger Grenzwert unabhängig von der Wahl der Zerlegung $Z_n$ und der Zwischenpunkten $\xi_n$ und es gilt
+    \begin{align*}
+        \int_{a}^{b} f\of{x} \dif x &= \lim_{\ntoinf} S_{Z_n}\of{f, \xi_n}\tag{$I=\interv{a,b}$}
+    \end{align*}
+    \begin{proof}
+        \anf{$\impl$} Sei $f\in \mR\of{I}$. Dann gilt nach Satz~\ref{satz:integr-kriterium-1}
+        \begin{align*}
+            \fa\varepsilon > 0\ex\delta > 0\colon \overline{S}_Z\of{f} - \underline{S}_Z\of{f} &< \varepsilon\quad\fa\text{Zerlegungen } Z \text{ mit } \Delta\of{Z} < \delta
+            \intertext{Da $\Delta\of{Z_n}\fromto 0$ für $\ntoinf$ gilt außerdem}
+            \impl \ex N\in\N\colon \Delta\of{Z_n} &< \delta\quad\forall n\geq N
+            \intertext{und für alle $n\in\N$ gilt}
+            \underline{S}_{Z_n}\of{f} \leq \underline{J}\of{f} &= \ov{J}\of{f} \leq \overline{S}_{Z_n}\of{f}\\
+            \underline{S}_{Z_n}\of{f} \leq S_{Z_n}\of{f,\xi_n} &\leq \overline{S}_{Z_n}\of{f}\\
+            \impl \abs{J\of{f} - S_{Z_n}\of{f, \xi_n}} &< \varepsilon\quad\forall n\geq N
+            \intertext{das heißt}
+            \lim_{\ntoinf} S_{Z_n}\of{f, \xi_n} &= J\of{f} = \int_{a}^{b} f \dif x
+        \end{align*}
+        \anf{$\Leftarrow$} \textsc{Schritt 1:} Angenommen $\biglim{\ntoinf} S_{Z_n}\of{f, \xi_n}$ existiert für jede Folge $\pair{Z_n}_n$ von Zerlegungen von $I$ mit $\Delta\of{Z_n}\fromto 0$ und jede Wahl von Zwischenpunkten $\pair{\xi_n}_n$ zu $Z_n$.\\
+        Seien $\pair{Z_n^{1}}_n$, $\pair{Z_n^{2}}_n$ zwei solche Folgen von Zerlegungen mit $\pair{\xi_n^1}_n$, $\pair{\xi_n^2}_n$ zugehörigen Folgen von Zwischenpunkten. Sei $\pair{Z_n}_n$ eine neue Folge von Zerlegungen von $I$, wobei $Z_{2k} = Z_k^2$ und $Z_{2k-1} = Z^1_k$, außerdem sei $\xi_{2k} = \xi^2_k$ und $\xi_{2k-1}=\xi^1_k$. Dann wissen wir, dass
+        \begin{align*}
+            \lim_{\ntoinf} &S_{Z_n}\of{f, \xi_n}
+            \intertext{existiert und gilt}
+            \lim_{\ntoinf} S_{Z_n}\of{f, \xi_n} &= \lim_{\ntoinf} S_{Z_{2n}}\of{f, \xi_{2n}}\\
+            &= \lim_{\ntoinf} S_{Z_{2n-1}}\of{f, \xi_{2n-1}}\\
+            &= \lim_{\ntoinf} S_{Z_n^2}\of{f, \xi_n^2}\\
+            &= \lim_{\ntoinf} S_{Z_n^1}\of{f, \xi_n^1}
+        \end{align*}
+        \textsc{Schritt 2:} (Später)
+    \end{proof}
+\end{korollar}
+
+\newpage
+
+\begin{satz}[$\mR\of{I}$ als Vektorraum] % Satz 11
+    \label{satz:temp-11}
+    Der Raum $\mR\of{I}$ auf einem kompakten Intervall $I=\interv{a,b}$ ist ein Vektorraum und $J: \mR\of{I}\fromto\R~~f\mapsto J\of{f} = \int_{a}^{b} f \dif x$ ist eine lineare Abbildung. Für $f,g\in \mR\of{I}$ und $\alpha,\beta\in\R$ folgt also $\alpha f + \beta g \in \mR\of{I}$ und $J\of{\alpha f + \beta g} = \alpha J\of{f} + \beta J\of{g}$.
+    \begin{proof}
+        \textsc{Teil 1:} Sei $h: I\fromto\R$ eine zusätzliche Funktion auf dem Intervall und $Z$ eine Zerlegung von $I$ mit zugehörigen Intervallen $Ij$. Dann gilt
+        \begin{align*}
+            \overline{m}_j = \sup_{x\in I_j}h(x)&\quad \underline{m}_j = \inf_{y\in I_j} h(y)\\
+            \impl \overline{m}_j - \underline{m}_j &= \sup_{x\in I_j}h(x) - \inf_{y\in I_j} h(y)\\
+            &= \sup_{x\in I_j} h(x) + \sup_{y\in I_j}\pair{-h\of{y}}\\
+            &= \sup_{x,y\in I_j}\pair{h\of{x}-h\of{y}}\\
+            &= \sup_{x,y\in I_j}\pair{h(y) - h(x)}\tag{Vertauschen von $x,y$}\\
+            &= \sup_{x,y\in I_j}\pair{\abs{h(x)-h(y)}}\\
+            \impl \overline{m}_j\of{h} - \underline{m}_j\of{h} &= \sup_{x,y\in I_j}\pair{\abs{h(x)-h(y)}}\tag{1}
+            \intertext{Wir wählen $h=\alpha f + \beta g$, wobei $f,g\in \mR\of{I}$ und $\alpha, \beta\in\R$}
+            h(x) - h(y) &= \alpha\cdot\pair{f(x)-f(y)} + \beta\cdot\pair{g(x)-g(y)}\\
+            \impl \abs{h(x)-h(y)} &\leq \abs{\alpha}\cdot\abs{f(x)-f(y)}+ \abs{\beta}\cdot\abs{g(x)-g(y)}\tag{2}\\
+            \overline{m}_j\of{h} - \underline{m}_j\of{h} &= \sup_{x\in I_j} h(x) - \inf_{y\in I_j} h(y)\\
+            \annot[{&}]{=}{(1)} \sup_{x,y\in I_j} \pair{\abs{h(x)-h(y)}}\\
+            \annot[{&}]{\leq}{(2)} \abs{\alpha}\cdot \sup_{x,y\in I_j}\abs{f(x)-f(y)} + \abs{\beta}\cdot\sup_{x,y\in I_j} \abs{g(x)-g(y)}\\
+            &= \abs{\alpha}\cdot\pair{\ov{m}_j\of{f} - \un{m}_j\of{f}} + \abs{\beta}\cdot\pair{\ov{m}_j\of{g} - \un{m}_j\of{g}}\\
+            \impl \overline{S}_Z\of{h} - \underline{S}_{Z}\of{h} &= \sum_{j=1}^{k} \pair{\overline{m}_j\of{h} - \underline{m}_j\of{h}]}\cdot\abs{I_j}\\
+            &\leq \abs{\alpha}\cdot\sum_{j=1}^{k} \pair{\overline{m}_j\of{f} - \underline{m}_j\of{f}}\cdot\abs{I_j} + \abs{\beta}\cdot\sum_{j=1}^{k} \pair{\overline{m}_j\of{g} - \underline{m}_j\of{g}}\cdot\abs{I_j}\\
+            \impl \overline{S}_Z\of{h} - \underline{S}_Z\of{h} &\leq \abs{\alpha}\cdot\pair{\overline{S}_Z\of{f} - \underline{S}_Z\of{f}} + \abs{\beta}\cdot\pair{\overline{S}_Z\of{g} - \underline{S}_Z\of{g}}\tag{3}
+            \intertext{Nach Satz~\ref{satz:integr-kriterium-1} und der Riemann-Integrierbarkeit von $f$ und $g$ gilt}
+            \impl \fa\varepsilon > 0\ex Z_1\colon \overline{S}_{Z_1}\of{f} - \underline{S}_{Z_1}\of{f} &< \frac{\varepsilon}{2\cdot\pair{1+\abs{\alpha} + \abs{\beta}}}\\
+            \fa\varepsilon > 0\ex Z_2\colon \overline{S}_{Z_2}\of{g} - \underline{S}_{Z_2}\of{g} &< \frac{\varepsilon}{2\cdot\pair{1+\abs{\alpha} + \abs{\beta}}}\\
+            \intertext{Wähle $Z=Z_1\lor Z_2$ und verwende (3)}
+            \impl \overline{S}_Z\of{h} - \underline{S}_Z\of{h} &< \abs{\alpha}\frac{\varepsilon}{2\cdot\pair{1+\abs{\alpha}+\abs{\beta}}} + \abs{\beta}\frac{\varepsilon}{2\cdot\pair{1+\abs{\alpha}+\abs{\beta}}}\\
+            &\leq \frac{\varepsilon}{2} +\frac{\varepsilon}{2} = \varepsilon
+        \end{align*}
+        Nach Satz~\ref{satz:integr-kriterium-1} ist $h=\alpha f + \beta g$ damit Riemann-integrierbar.\\[5pt]
+        \textsc{Teil 2:} Für Zwischensummen
+        \begin{align*}
+            S_Z\of{h, \xi} &= \sum_{j=1}^{k} h\of{\xi_j}\cdot\abs{I_j} =\alpha\cdot S_Z\of{f, \xi} + \beta\cdot S_Z\of{g, \xi}
+        \end{align*}
+        haben wir bereits Linearität. Für $h,f,g\in \mR\of{I}$ gilt nach Korollar~\ref{korollar:temp-10}
+        \begin{align*}
+            J\of{h} &= \lim_{n\toinf} S_{Z_n}\of{h, \xi_n}\tag{$\Delta\of{Z_n}\fromto 0$}\\
+            &= \lim_{n\toinf}\pair{\alpha\cdot S_{Z_n}\of{f, \xi_n} + \beta\cdot S_{Z_n}\of{g, \xi_n}}\\
+            &= \alpha\cdot \lim_{\ntoinf} S_{Z_n}\of{f, \xi_n} + \beta\cdot \lim_{\ntoinf} S_{Z_n}\of{g, \xi_n}\\
+            &= \alpha\cdot J\of{f} + \beta\cdot J\of{g}\qedhere
+        \end{align*}
+    \end{proof}
+\end{satz}
+
+\begin{satz}[Kompositionen von integrierbaren Funktionen] % Satz 12
+    Seien $f, g\in \mR\of{I}$. Dann gilt
+    \begin{enumerate}[label=(\roman*)]
+        \item $f\cdot g\in \mR\of{I}$
+        \item $\abs{f} \in \mR\of{I}$
+        \item Ist außerdem $\abs{g} \geq c > 0$ auf $I$ für ein konstantes $c>0$, so ist auch $\frac{f}{g}\in \mR\of{I}$.
+    \end{enumerate}
+
+    \begin{proof}
+        \theoremescape
+        \begin{enumerate}[label=(\roman*)]
+            \item Es sei $h(x) = f(x)\cdot g(x)$ für $x\in I$. Dann gilt
+            \begin{align*}
+                \abs{h(x) - h(y)} &= \abs{f(x)\cdot g(x) - f(y)\cdot g(y)}\\
+                &= \abs{g(x)\cdot \pair{f(x)-f(y)} + f(y)\cdot \pair{g(x)-g(y)}}\\
+                &\leq \norm{g}_{\infty}\cdot\abs{f(x)-f(y)} + \norm{f}_{\infty} \cdot \abs{g(x)-g(y)}\tag{1}
+                \intertext{Sei $Z$ Zerlegung von $I$ und $I_j$ die entsprechenden Teilintervalle. Dann gilt}
+                \overline{S}_Z\of{h} - \underline{S}_Z\of{h} &= \sum_{j=1}^{k} \pair{\overline{m}_j\of{h} - \underline{m}_j\of{h}}\cdot\abs{I_j}\\
+                \overline{m}_j\of{h} - \underline{m}_j\of{h} &= \sup_{I_j} h - \inf_{I_j} h = \sup_{x,y\in I_j} \abs{h(x)-h(y)}\\
+                \annot[{&}]{\leq}{(1)} \norm{g}_{\infty}\cdot \pair{\overline{m}_j\of{f}- \underline{m}_j\of{f}} + \norm{f}_{\infty}\cdot \pair{\overline{m}_j\of{g} - \underline{m}_j\of{g}}\\
+                \impl \overline{S}_Z\of{h} - \underline{S}_Z\of{h} &\leq \norm{g}_{\infty}\cdot\pair{\overline{S}_Z\of{f} - \underline{S}_Z\of{f}} + \norm{f}_{\infty}\cdot\pair{\overline{S}_Z\of{g} - \underline{S}_Z\of{g}}
+                \intertext{Für ein $\varepsilon > 0$ gilt nach Satz~\ref{satz:integr-kriterium-1}}
+                \exists Z_1\colon \overline{S}_{Z_1}\of{f} - \underline{S}_{Z_1}\of{f} &< \frac{\varepsilon}{2\cdot\pair{1+\norm{g}_{\infty}}}\\
+                \exists Z_2\colon \overline{S}_{Z_2}\of{g} - \underline{S}_{Z_2}\of{g} &< \frac{\varepsilon}{2\cdot\pair{1+\norm{f}_{\infty}}}
+                \intertext{Es sei $Z\:= Z_1 \lor Z_2$}
+                \impl \overline{S}_Z\of{h} - \underline{S}_Z\of{h} &\leq \norm{g}_{\infty} \cdot \frac{\varepsilon}{2\cdot\pair{1+\norm{g}_{\infty}}} +\norm{f}_{\infty}\cdot\frac{\varepsilon}{2\cdot\pair{1+\norm{f}_{\infty}}}\\
+                &\leq \frac{\varepsilon}{2} + \frac{\varepsilon}{2} = \varepsilon
+                \intertext{Damit gilt $h=f\cdot g\in \mR\of{I}$ nach Satz~\ref{satz:integr-kriterium-1}.\item Für $\abs{f}$ verwenden wir $\abs{\abs{f(x)}- \abs{f(y)}} \leq \abs{f(x) - f(y)}$}
+                \impl \overline{m}_j\of{\abs{f}} - \underline{m}_j\of{\abs{f}} &= \sup_{x,y\in I_j}\pair{\abs{\abs{f(x)} - \abs{f(y)}}}\\
+                &\leq \sup_{x,y\in I_j} \pair{\abs{f(x)-f(y)}}\\
+                &= \overline{m}_j\of{f} - \underline{m}_j\of{f}
+                \intertext{wie vorher folgt also $\abs{f} \in \mR\of{I}$. \item Für $\frac{f}{g}$ muss nur $\frac{1}{g}$ betrachtet und die Multiplikationsregel angewendet werden. Es gilt}
+                \abs{\frac{1}{g(x)}- \frac{1}{g(y)}} &= \frac{\abs{g(x)-g(y)}}{\abs{g(x)}\cdot\abs{g(y)}} \leq \frac{1}{c^2}\cdot\abs{g(x) - g(y)}\\
+                \impl \overline{m}_j\of{\frac{1}{y}}  - \underline{m}_j\of{\frac{1}{y}} &\leq \frac{1}{c^2}\cdot \pair{\overline{m}_j\of{y} - \underline{m}_j\of{y}}
+            \end{align*}
+            Damit gilt analog zu (ii) die Behauptung.\qedhere
+        \end{enumerate}
+    \end{proof}
+\end{satz}
+
+\begin{beispiel}[Exponentialfunktion]
+    \marginnote{[23. Apr]}
+    Sei $f: \R\fromto\R~x\mapsto e^{\alpha x}$, $n\in\N$, $I=\interv{a,b}$ und $\alpha\in\R$ mit $\alpha > 0$. Wir betrachten eine äquidistante Zerlegung $Z_n = \pair{x_0^n, x_1^n, \dots, x_k^n}$ mit $x_j^n = a + j\cdot h_n$, wobei $h_n = \frac{b-a}{n} = h = \abs{I_j}$. Da $f$ streng monoton wachsend ist gilt
+    \begin{align*}
+        \overline{m}_j &= \sup_{I_j} f = f\of{x_j} = f\of{x_j^n} = e^{\alpha x_j}\\
+        \underline{m}_j &= \inf_{I_j} f = f\of{x_{j-1}} = f\of{x_{j-1}^n} = e^{\alpha x_{j-1}}\\
+        \impl \overline{S}_Z\of{f} &= \overline{S}_{Z_n}\of{f} = \sum_{j=1}^{n} \overline{m}_j \cdot\abs{I_j} = \sum_{j=1}^{n} e^{\alpha x_j} \cdot h\\
+        &= h\cdot \sum_{j=1}^{n} e^{\alpha\pair{a+jh}} = h\cdot \sum_{j=1}^{n} e^{\alpha a}\cdot e^{\alpha jh}\\
+        &= h\cdot e^{\alpha a}\cdot e^{\alpha h}\cdot \sum_{j=1}^{n} \pair{e^{\alpha h}}^{j-1}\\
+        &= h\cdot e^{\alpha a}\cdot e^{\alpha h}\cdot\frac{\pair{e^{\alpha h}}^n - 1}{e^{\alpha h} - 1}\tag{Geometr. Summe}\\
+        &= \frac{h}{e^{\alpha h} - 1}\cdot e^{\alpha h}\cdot e^{\alpha a} \cdot \pair{e^{\alpha h\cdot n} - 1}\\
+        &= \frac{h_n}{e^{\alpha h_n } - 1}\cdot e^{\alpha h_n}\cdot \pair{e^{\alpha b} - e^{\alpha a}}
+        \intertext{Es gilt $\biglim{n\fromto\infty} \frac{e^{\alpha h_n} - 1}{h_n} = \biglim{h\fromto 0} \frac{e^{\alpha h} - 1}{h} = \alpha$ sowie $\biglim{\ntoinf} e^{\alpha h_n} = 1$. Damit folgt}
+        \lim_{n\fromto\infty} \overline{S}_{Z_n}\of{f} &= \frac{1}{\alpha}\cdot\pair{e^{\alpha b} - e^{\alpha a}}
+        \intertext{Wir betrachten die Untersumme}
+        \underline{S}_Z &= \underline{S}_{Z_n} = \sum_{j=1}^{n} \underline{m}_j \cdot \abs{I_j} = h\cdot \sum_{j=1}^{n} \pair{e^{\alpha x_{j-1}}}\\
+        &= h\cdot e^{\alpha a}\cdot \sum_{j=1}^{n} \pair{e^{\alpha h}}^{j-1} = h\cdot e^{\alpha a} \sum_{j=0}^{n-1} \pair{e^{\alpha h}}^j\\
+        &= h\cdot e^{\alpha a} \frac{\pair{e^{\alpha h}}^n - 1}{e^{\alpha h} - 1}\\
+        &= \frac{h}{e^{\alpha h} - 1}\cdot e^{\alpha a}\cdot\pair{e^{\alpha\pair{b-a}} - 1} \fromto \frac{1}{\alpha}\cdot \pair{e^{\alpha b} - e^{\alpha a}}
+        \intertext{Also gilt $f\in \mR\of{I}$ sowie}
+        \int_{a}^{b} e^{\alpha x} \dif x &= \frac{1}{\alpha}\cdot \pair{e^{\alpha b} - e^{\alpha a}}
+    \end{align*}
+\end{beispiel}
+
+\begin{beispiel}[Polynome]
+    \label{beispiel:int-polynom}
+    Es sei $f: \linterv{0, \infty}\fromto \linterv{0, \infty}$, $x\mapsto x^{\alpha}$ $\pair{\alpha\neq -1}$. Dann $f\in \mR\of{I}$ und
+    \begin{align*}
+        \int_{a}^{b} x^{\alpha} \dif x &= \frac{1}{\alpha+1}\pair{b^{\alpha +1} - a^{\alpha +1}}
+    \end{align*}
+    \begin{proof}[Beweisansatz]
+        Wir wählen eine geometrische Zerlegung. Sei $q = q_n = \sqrt[n]{\frac{b}{a}}$, $Z= Z_n = \pair{x_0^n, x_1^n, \dots, x_n^n}$, $I_j = \interv{x_{j-1}, x_j}$, $x_j = x_j^n = a\cdot q^j$
+        \begin{align*}
+            \abs{I_j} &= \Delta x_j = x_j - x_{j-1} = a\cdot q^{j} - a \cdot q^{j-1}\\
+            &= a\cdot q^{j-1}\cdot\pair{q-1} \leq b\cdot\pair{q_n - 1}\fromto 0 \text{ für } \ntoinf
+            \intertext{Beobachtung: Ober- und Untersumme lassen sich \anf{leicht} mittels geometrischer Summen ausrechnen}
+            \overline{m}_j &= \sup_{I_j} f = \pair{x_j}^{\alpha} = \pair{a\cdot q^j}^{\alpha}\tag{Nach Monotonie}\\
+            \underline{m}_j &= \inf_{I_j} f = \pair{x_{j-1}}^{\alpha} = \pair{a\cdot q^{j-1}}^{\alpha}\\
+            \un{S}_Z\of{f} &= \un{S}_{Z_n}\of{f} = \sum_{j=1}^{n} \un{m}_j\cdot\abs{I_j} = \sum_{j=1}^{n} \pair{a\cdot q^{j-1}}^{\alpha}\cdot a\cdot q^{j-1}\cdot\pair{q-1}\\
+            &= \pair{q-1}\cdot a^{\alpha + 1} \cdot \sum_{j=1}^{n} q^{\pair{\alpha +1}\cdot\pair{j-1}}
+        \end{align*}
+        Damit erhalten wir eine geometrische Summe, dessen Grenzwert sich gut ermitteln lässt.
+    \end{proof}
+\end{beispiel}
+
+\begin{uebung}
+    Bestimmen Sie den Grenzwert der Ober- und Untersummen aus Beispiel~\ref{beispiel:int-polynom}, um die Riemann-Integrierbarkeit der Polynome nachzuweisen.
+\end{uebung}
+
+\begin{satz}[Monotonie des Integrals] % Satz 13
+    \label{satz:temp-13}
+    Seien $f, g\in \mR\of{I}$, $I=\interv{a,b}$. Dann erfüllt das Integral Monotonieeigenschaften. Das heißt konkret
+    \begin{enumerate}[label=(\roman*)]
+        \item Wenn $\fa x\in\R\colon f\of{x}\leq g\of{x}$, dann folgt
+        \begin{align*}
+            \int_{a}^{b} f\of{x} \dif x &\leq \int_{a}^{b} g\of{x} \dif x\numberthis\label{eq:int-monton}
+            \intertext{\item Insbesondere gilt für $f\in\mR\of{I}$ beliebig}
+            \abs{\int_{a}^{b} f\of{x} \dif x} &\leq \int_{a}^{b} \abs{f\of{x}} \dif x\numberthis\label{eq:int-abs-mon}
+            \intertext{\item Sowie}
+            \abs{\int_{a}^{b} f\cdot g \dif x} &\leq \sup_{I} \abs{f} \cdot \int_{a}^{b} \abs{g} \dif x
+        \end{align*}
+    \end{enumerate}
+
+    \begin{proof}
+        \theoremescape
+        \begin{enumerate}[label=(\roman*)]
+            \item Sei $h=g-f\geq 0$. Dann gilt nach Satz~\ref{satz:temp-11} $h\in \mR\of{I}$ und $\int_{a}^{b} h \dif x \geq 0$
+            \begin{align*}
+                \impl 0\leq \int_{a}^{b} h \dif x &= \int_{a}^{b} g \dif x + \int_{a}^{b} \pair{-f} \dif x = \int_{a}^{b} g \dif x - \int_{a}^{b} f \dif x\\
+                \impl \int_{a}^{b} f \dif x &\leq \int_{a}^{b} g \dif x
+                \intertext{\item Es gilt $\pm f \leq \abs{f}$. Damit folgt aus (\ref{eq:int-monton})}
+                \int_{a}^{b} \pair{\pm f} \dif x &\leq \int_{a}^{b} \abs{f} \dif x\\
+                \impl \abs{\int_{a}^{b} f \dif x} &= \max\pair{\int_{a}^{b} f \dif x, - \int_{a}^{b} f \dif x}\leq \int_{a}^{b} \abs{f} \dif x
+                \intertext{\item Nach (\ref{eq:int-abs-mon}) gilt}
+                \abs{\int_{a}^{b} fg \dif x} \leq \int_{a}^{b} \abs{fg} \dif x &\leq \int_{a}^{b} \pair{\sup_I \abs{f}}\abs{g} \dif x = \sup_I\of{\abs{f}}\cdot \int_{a}^{b} \abs{g} \dif x\qedhere
+            \end{align*}
+        \end{enumerate}
+    \end{proof}
+\end{satz}
+
+\newpage
+
+\begin{satz}[Cauchy-Schwarz] % Satz 14
+    Seien $f, g\in \mR\of{I}$ und $I=\interv{a,b}$. Dann gilt
+    \begin{align*}
+        \abs{\int_{a}^{b} fg \dif x}^2 &\leq \pair{\int_{a}^{b} \abs{fg} \dif x}^2\\
+        &\leq \int_{a}^{b} \abs{f}^2 \dif x \cdot \int_{a}^{b} \abs{g}^2 \dif x
+        \intertext{mit}
+        \norm{f} &= \sqrt{\int_{a}^{b} \abs{f}^2 \dif x}\\
+        \impl \abs{\int_{}^{} fg \dif x} &\leq \norm{f}\cdot {g}
+    \end{align*}
+    \begin{proof}
+        \begin{align*}
+            0 &\leq \pair{a\pm b}^2 = a^2\pm 2ab + b^2\\
+            \impl \mp ab \leq \frac{a^2+b^2}{2}\\
+            \impl \abs{ab} &\leq \frac{1}{2}\pair{a^2+b^2}
+            \intertext{$t > 0$}
+            \abs{\alpha\beta} &= \abs{t\alpha - \frac{\beta}{t}} \leq \frac{1}{2}\pair{t\alpha^2 + \frac{1}{t}\beta^2}\\
+            \abs{\int_{a}^{b} fg \dif x} &\leq \int_{a}^{b} \abs{f\of{x}}\abs{g\of{x}} \dif x\\
+            &\leq \frac{1}{2}\pair{t\cdot \underbrace{\int_{a}^{b} \abs{f\of{x}}^2 \dif x}_{A} + \frac{1}{t} \underbrace{\int_{a}^{b} \abs{g}^2 \dif x}_{B}}\\
+            &\leq \frac{1}{2}\pair{t\cdot\abs{f\of{x}}^2+ \frac{1}{t}\abs{g\of{x}}^2} = \frac{1}{2}\pair{tA + \frac{1}{t}B}
+            \intertext{Frage: Welches $t> 0$ maximiert $h$?}
+            A = 0 \impl h\of{t} &= \frac{1}{2t}B \fromto 0 \text{ für } \ntoinf\\
+            B = 0\impl h\of{t} &= \frac{1}{2}A \fromto 0 \text{ für } \ntoinf\\
+            \impl \lim_{t\fromto} h\of{t} &= \infty, \lim_{t\searrow 0} h\of{t} = \infty
+            \intertext{Minimum existiert für ein $t_0 > 0$ und es gilt $0=h'\of{t_0}$}
+            \impl 0 &= \frac{1}{2}\pair{A - \frac{1}{t_0}B}\\
+            \impl \pair{t_0}^2 &= \frac{B}{A}\quad t_0 = \sqrt {\frac{b}{A}}\\
+            \impl \inf_{\pair{0, \infty}} h\of{t} &= \frac{1}{2}t_0\pair{A + \frac{1}{t_0^2}B}\\
+            &= \frac{1}{2}\sqrt {\frac{b}{A}} \pair{A + \frac{A}{B}B} = \sqrt{AB}\qedhere
+        \end{align*}
+    \end{proof}
+\end{satz}
+
+\begin{bemerkung}
+    \begin{align*}
+        \sprod{f,g} &= \int_{a}^{b} f\of{x}g\of{x} \dif x\\
+        \norm{f} &\definedas\sqrt{\int_{a}^{b} \abs{f}^2 \dif x} \text{ ist eine Norm}\\
+        \impl \abs{\sprod{f,g}} &\leq \norm{f}\norm{g}
+    \end{align*}
+\end{bemerkung}
+
+\begin{satz} % Satz 15
+    \label{satz:temp-15}
+    Sei $\mC\of{I} = \mC\of{\interv{a,b}}$ der Raum der stetigen reellen Funktionen auf einem $I=\interv{a,b}$. Es gilt $\mC\of{I} \subseteq \mR\of{I}$.
+    \begin{proof}
+        $I=\interv{a,b}$ ist kompakt und $f: \interv{a,b}\fromto\R$ ist stetig und damit auch gleichmäßig stetig. Das heißt
+        \begin{align*}
+            \fa\varepsilon > 0\ex\delta > 0\colon \abs{f\of{x} - f\of{y}} &<\delta\quad\fa x,y\in I \text{ mit } \abs{x-y} < \delta
+        \end{align*}
+        Sei $Z$ eine Zerlegung von $I$ mit $\Delta\of{Z} < \delta$. $I_j = \interv{x_{j-1}, x_j}$ und $Z=\pair{x_0, x_1, \dots, x_k}$. Dann gilt
+        \begin{align*}
+            \overline{m}_j - \underline{m}_j &= \sup_{x\in I_j} f\of{x} - \inf_{y\in I_j} f\of{y}\\
+            &= \sup_{x,y\in I_j} \abs{f\of{x} - f\of{y}} = \sup_{x,y\in I_j}\pair{f\of{x} - f\of{y}}
+            \intertext{Da $\abs{x-y} \leq \abs{I_j} < \delta$ gilt}
+            \overline{m}_j - \underline{m}_j &\leq \varepsilon\\
+            \impl \overline{S}_Z\of{f} - \underline{S}_{Z}\of{f} &= \sum_{j=1}^{n} \pair{\overline{m}_j - \underline{m}_j}\cdot\abs{I_j}\\
+            &\leq \varepsilon \sum_{j=1}^{n} \abs{I_j} = \varepsilon \cdot \abs{I} = \varepsilon\cdot\pair{b-a}\\
+            \impl 0 &\leq \overline{J}\of{f} - \underline{J}\of{f}\leq \overline{S}_Z\of{f} - \underline{S}_Z\of{f}\\
+            &\leq \varepsilon\pair{b-a}\quad\forall\varepsilon > 0\\
+            \impl \overline{J}\of{f} &= \underline{J}\of{f} \impl f\in \mR\of{I}
+        \end{align*}
+    \end{proof}
+\end{satz}
+
+\begin{definition}
+    Eine Funktion $f: I\fromto\R$ auf $I=\interv{a,b}$ heißt stückweise stetig, falls es eine Zerlegung $Z = \pair{x_0, x_1, \dots, x_k}$ von $I$ gibt so, dass $f$ auf jedem der offenen Intervalle $\pair{x_{j-1}, x_j}$ stetig ist und die einseitigen Grenzwerte
+    \begin{align*}
+        f\of{a+} &= \lim_{x\fromto a+} f\of{x}, f\of{b-} = \lim_{x\fromto b-} f\of{x}\\
+        f\of{x_j-} &= \lim_{x\fromto x_j-} f\of{x}, f\of{x_j+} = \lim_{x\fromto x_j+} f\of{x}
+    \end{align*}
+    für $j=1, \dots, k-1$ existieren.\\
+    $f\of{\pair{x_{j-1}, x_j}}$ können zu stetigen Funktionen auf $I_j=\interv{x_{j-1}, x_j}$ fortgesetzt werden. Wir nennen diese Klasse von Funktionen $\mPC\of{I}$\footnote{Piecewise continuos function in $I$}.
+\end{definition}
+
+\begin{satz} % Satz 17
+    \label{satz:temp-17}
+    Es gilt $P\mC\of{I} \subseteq \mR\of{I}$. $I=\interv{a,b}$. Ist $Z=\pair{x_0, \dots, x_k}$ eine Zerlegung von $f\in \mPC\of{I}$ und $f$ stetig auf $\pair{x_{j-1}, x_j}~\fa j$ und $f_j$ eine stetige Fortsetzung von $f\vert_{\pair{x_{j-1}, x_j}}$ auf $I_j = \interv{x_{j-1}, x_j}$. So gilt
+    \begin{align*}
+        \int_{a}^{b} f\of{x} \dif x &= \sum_{l=1}^{k} \int_{x_{l-1}}^{x_l} f_l\of{x}\dif x
+    \end{align*}
+    \begin{proof}
+        Arbeite auf $I_l = \interv{x_{l-1}, x_{l}}$ dann ist $f_l$ stetig nach Satz~\ref{satz:temp-15} und summiere zusammen. (Details selber machen).
+    \end{proof}
+\end{satz}
+
+\begin{bemerkung}[Treppenfunktion]
+    Ist $f$ stückweise konstant auf $I$. Das heißt es existiert eine Zerlegung $Z=\pair{x_0, \dots, x_{\nu}}$ von $I$ mit $f$ ist konstant auf $\pair{x_{k-1}, x_k}~\fa k=1, \dots, \nu$. So heißt $f$ Treppenfunktion. Schreiben $\mJ\of{I}$ für die Klasse der Treppenfunktionen.
+\end{bemerkung}
+
+\begin{satz} % Satz 18
+    \label{satz:temp-18}
+    \marginnote{[26. Apr]}
+    Sei $I=\interv{a,b}$, $f: I\fromto\R$ mit den folgenden Eigenschaften
+    \begin{enumerate}[label=(\alph*)]
+        \item In jedem Punkt $x\in\pair{a,b}$ existieren die rechts- und linksseitigen Grenzwerte.
+        \item In $a$ existiert der rechtsseitige und in $b$ der linksseitige Grenzwert.
+    \end{enumerate}
+    Dann gilt $f\in \mR\of{I}$.\\
+    Zum Beweis dieses Satzes benötigen wir zunächst das folgende Approximationslemma~\ref{lemma:temp-19}.
+\end{satz}
+
+\begin{bemerkung}
+    Insbesondere erfüllt $P\mC\of{I}$ die Bedingungen a) und b) aus Satz~\ref{satz:temp-18}.
+\end{bemerkung}
+
+\begin{lemma} % Lemma 19
+    \label{lemma:temp-19}
+    Sei $f: I\fromto\R$ eine Funktion, die die Bedingungen aus Satz~\ref{satz:temp-18} erfüllt. Dann gibt es eine Folge $(\varphi_n)_n$ von Treppenfunktionen $\varphi_n: I\fromto\R$, die gleichmäßig gegen $f$ konvergiert. Das heißt
+    \begin{align*}
+        \lim_{\ntoinf} \norm{f-\varphi_n}_{\infty} &= \lim_{\ntoinf} \sup_{x\in\interv{a,b}} \abs{f(x)-\varphi_n(x)} = 0
+        \intertext{Also}
+        \fa\varepsilon > 0\ex\text{Treppenfunktion }&\varphi: I\fromto\R \text{ mit } \norm{f-\varphi}_{\infty} = \sup_{x\in I}\abs{f(x) - \varphi(x)} < \varepsilon
+    \end{align*}
+    \begin{proof}
+    (Später)
+    \end{proof}
+\end{lemma}
+\horizontalline
+Mithilfe dieses Lemmas können wir nun Satz~\ref{satz:temp-18} beweisen.
+\begin{proof}
+    Sei $f: \interv{a,b}\fromto\R$ wie in Satz~\ref{satz:temp-18} verlangt und $\varepsilon > 0$, sowie $\varphi: I\fromto\R$ Treppenfunktion mit $\norm{f-\varphi}_{\infty} < \frac{\varepsilon}{2}$. Wir definieren $\Psi_1\coloneqq \varphi - \frac{\varepsilon}{2}$, $\Psi_2 = \varphi + \frac{\varepsilon}{2}$ auch als Treppenfunktionen.
+    Dann gilt $\Psi_1 = \varphi - \frac{\varepsilon}{2} \leq f$ und $\Psi_2 \geq f$. Für alle Zerlegungen $Z$ von $I$ mit
+    \begin{align*}
+        \un{S}_Z\of{\Psi_1} &\leq \un{S}_Z\of{f}\\
+        \impl \un{S}_Z\of{f} \geq \un{S}_Z\of{\varphi - \frac{\varepsilon}{2}} &= \un{S}_Z\of{\varphi} - \frac{\varepsilon}{2}\cdot\abs{I} = \un{S}_Z\of{\varphi} - \frac{\varepsilon}{2}\pair{b-a}
+        \intertext{Analog gilt}
+        \ov{S}_Z\of{\varphi} + \frac{\varepsilon}{2}\pair{b-a} &\geq \ov{S}_Z\of{f}
+        \intertext{Damit folgt insgesamt}
+        \underline{S}_Z\of{\varphi} - \frac{\varepsilon}{2}\pair{b-a} &\leq \underline{S}_Z\of{f} \leq \un{J}\of{f}\\
+        \ov{S}_Z\of{\varphi} + \frac{\varepsilon}{2}\pair{b-a} &\geq \ov{S}_Z\of{f} \leq \ov{J}\of{f}\\
+        \intertext{Da $\varphi$ eine Treppenfunktion ist, ist $\varphi\in P\mC\of{I}\subseteq \mR\of{I}$. Also existiert eine Folge $(z_n)_n$ von Zerlegungen von $I$ mit}
+        \lim_{\ntoinf} \ov{S}_{Z_n}\of{\varphi} &= \lim_{\ntoinf}\un{S}_{Z_n}\of{\varphi} = \int_{a}^{b} \varphi\of{x} \dif x
+        \intertext{(sofern $\Delta\of{Z_n}\fromto 0$ für $\ntoinf$)}
+        \impl \ov{J}\of{f} - \un{J}\of{f} &\leq \ov{S}_{Z_n}\of{\varphi} + \frac{\varepsilon}{2}\pair{b-a} - \pair{\un{S}_{Z_n}\of{\varphi} - \frac{\varepsilon}{2}\pair{b-a}}\\
+        &= \ov{S}_{Z_n}\of{\varphi} - \un{S}_{Z_n}\of{\varphi} + \varepsilon\pair{b-a}\\
+        &\fromto_{\ntoinf} \int_{a}^{b} \varphi(x) \dif x - \int_{a}^{b} \varphi\of{x} \dif x + \varepsilon\pair{b-a}\\
+        &= \varepsilon\pair{b-a}\\
+        \impl \ov{J}\of{f} - \un{J}\of{f} &\leq \varepsilon\pair{b-a}\quad\forall\varepsilon > 0\\
+        \impl \ov{J}\of{f} - \un{J}\of{f} &\leq 0\\
+        \impl \ov{J}\of{f} &= \un{J}\of{f}\\
+        \impl f&\in \mR\of{I}\qedhere
+    \end{align*}
+\end{proof}
+
+\begin{bemerkung}
+    Welche $f\in \mB\of{I}$ sind genau Riemann-integrierbar?
+\end{bemerkung}
+
+\begin{definition}[Nullmenge]
+    Eine Menge $N\subseteq\R$ heißt Nullmenge, falls zu jedem $\varepsilon > 0$ höchstens abzählbar viele Intervalle $I_1, I_2, \dots$ existieren mit
+    \begin{align*}
+        N \subseteq \bigcup_{j} I_j\tag{$I_j$ überdecken $N$}
+        \intertext{und}
+        \sum_{j}^{} \abs{I_j} < \varepsilon
+    \end{align*}
+\end{definition}
+
+\begin{beispiel}
+    $\Q$ ist eine Nullmenge.
+    \begin{align*}
+        \Q&\subseteq \bigcup_{j\in \N} I_j
+        \intertext{Nehme $\varepsilon > 0$}
+        \mathcal{Q} &= \set{q_j \middle | j\in \N}
+        \intertext{Zu $q_j$ nehme  $I_J= \interv{q_j - \frac{\varepsilon}{2}, q_j + \frac{\varepsilon}{2}}$}
+        q_j \in I_j\quad\abs{I_j} &= \varepsilon 2^{-j}\\
+        \sum_{j\in\N}^{} \abs{I_j} &= \varepsilon \sum_{j=1}^{\infty} 2^{-j}\\
+        &= \varepsilon \cdot \frac{1}{2-1} = \varepsilon
+    \end{align*}
+\end{beispiel}
+
+% Alle abzählbaren Mengen sind Nullmenge
+
+\begin{definition}
+    Eine Funktion $f: I\fromto\R$ heißt fast überall stetig auf $I$, falls die Menge der Unstetigkeitsstellen von $f$ eine Nullmenge ist.
+\end{definition}
+
+\begin{genv}[Lebesgue'sches Integrabilitätskriterium]
+    $\mR\of{I} = \set{f\in \mB\of{I}: f \text{ ist fast überall stetig auf } I}$
+\end{genv}
+
+\begin{bemerkung}
+    Sei $f$ wie in Satz~\ref{satz:temp-18}. Dann ist die Menge der Unstetigkeitsstelle von $f$ höchstens abzählbar, also eine Nullmenge.\\
+    Ist $f\in P\mC\of{I}$ so ist die Menge der Unstetigkeitsstellen endlich.
+\end{bemerkung}
+
+\begin{proof}[Beweis von Lemma~\ref{lemma:temp-19}]
+    Wir führen einen Widerspruchsbeweis. Angenommen die Aussage stimmt nicht, dann existiert ein $\varepsilon_0 > 0$ sowie ein $f: I\fromto\R$ wie in Satz~\ref{satz:temp-18}, sodass
+    \begin{align*}
+        \fa\text{Treppenfunktionen }\varphi: I\fromto\R\colon \norm{f-\varphi}_{\infty} = \sup_{x\in\interv{a,b}} \abs{f(x) - \varphi(x)} \geq \varepsilon_0 > 0
+    \end{align*}
+    \textsc{Schritt 1:} $I_1=\interv{a,b}$, $a_1=a$, $b_1=b$. Dann weiter mit Divide \& Conquer:
+    \begin{align*}
+        \sup_{I_1} \abs{f-\varphi} &\geq\varepsilon_0
+        \intertext{Behauptung: Es existiert eine Folge $(I_n)_n$ von Intervallschachtelungen $I_{n+1}\subseteq I_n$ mit $\abs{I_n} = b-a\fromto 0$ für $\ntoinf$ mit}
+        \sup_{x\in I_n}\abs{f(x) - \varphi(x)} &\geq \varepsilon_0\quad \forall n\in\N \text{ und alle Treppenfunktionen } \varphi \text{ (auf $I_n$)}\tag{*}
+        \intertext{Beweis: Angenommen $I_n = \interv{a_n, b_n}$ ist gegeben und erfüllt die obige Bedingung}
+        M_N &= \frac{b_n+a_n}{2}\\
+        \impl \sup_{x\in\interv{a_n, M_n}} \abs{f(x) - \varphi(x)} &\geq \varepsilon_0 \text{ oder } \sup_{x\in\interv{M_n, b_n}} \abs{f(x) - \varphi(x)} \geq \varepsilon_0\tag{Für alle Treppenfunktionen $\varphi$}
+        \intertext{Im ersten Fall wählen wir die linke Hälfte des Intervalls, also $a_{n+1} = a_n$, $b_{n+1} = M_n$. Im zweiten Fall die rechte Hälfte, also $a_{n+1} = M_n$, $b_{n+1} = b_n$. Damit gilt im Sinne der Intervallhalbierung}
+        \impl I_{n+1} &\subseteq I_{n}
+        \intertext{sowie}
+        b_n - a_n &= \frac{1}{2}\pair{b_{n-1} - a_{n-1}} \leq \frac{1}{2^n}\pair{b-a} \fromto 0
+        \intertext{Nehme $c_n\subseteq I_n$}
+        a = a_1 \leq a_2 \leq \dots \leq a_n &\leq b_n \leq b_{n-1} \leq\dots\leq b_1 = b\\
+        \lim_{\ntoinf} a_n \text{ existiert und } &\lim_{\ntoinf} b_n \text{ texistiert aufgrund der monotonen Konvergenz}
+        \intertext{und}
+        \lim_{\ntoinf} a_n&= \lim_{\ntoinf} b_n \definedasbackwards \xi \tag{da $b_n-a_n\fromto 0$}\\
+        \impl \forall n\in\N\colon a_n &\leq \xi \leq b_n\\
+        \impl a_n &\leq \xi\quad\forall n\in\N
+        \intertext{Analog ergibt sich}
+        b_n &\geq\xi\quad\forall n\in\N\\
+        \impl \xi \in I_n &= \interv{a_n, b_n}\quad\forall n\in\N\\
+        \impl \bigcap_{n\in\N} I_n &= \set{\xi}
+    \end{align*}
+    \textsc{Schritt 2:} Angenommen $a < \xi < b$. Dann ist
+    \begin{align*}
+        c_l &= f\of{\xi-} = \lim_{x\fromto\xi-} f\of{x}\\
+        c_r &= f\of{\xi+} = \lim_{x\fromto\xi+} f\of{x}
+        \intertext{Nehmen $\delta > 0$}
+        \abs{f\of{x} - c_l} &< \varepsilon_0\quad \xi-\delta \leq x \leq \xi\\
+        \abs{f\of{x} - c_r} &< \varepsilon_0\quad \xi < x \leq \xi+\delta
+        \intertext{Wir definieren $\varphi: \interv{\xi-\delta, \xi + \delta}$ durch}
+        \varphi\of{x} &\coloneqq \begin{cases}
+                                     c_r &\xi < x < \xi + \delta\\
+                                     f\of{x} &x = \xi\\
+                                     c_l &\xi - \delta < x < \xi + \delta
+        \end{cases}
+        \intertext{und}
+        \sup_{\xi-\delta < x \leq \xi + \delta} \abs{f(x) - \varphi\of{x}} &< \varepsilon_0 \tag{**}
+    \end{align*}
+    Aber $I_n\subseteq\interv{\xi-\delta, \xi+\delta}$ für fast alle $n\in\N$. Für $n$ groß genug ist (**) im Widerspruch zu (*). Damit folgt die Aussage des Lemmas.
+\end{proof}
+
+\begin{satz} % Satz 20
+    \label{satz:temp-20}
+    Seien $f, g\in \mR\of{I}$ ???.
+\end{satz}
+
+\begin{lemma} % Lemma 21
+    \label{lemma:temp-21}
+    Seien $f,g\in \mR\of{I}$ und gebe es eine Menge $G\subseteq I$ welche in $I$ dicht liegt und für die $f(x) = g(x)~\fa x\in G$ gilt. Dann folgt $\int_{a}^{b} f(x)\dif x = \int_{a}^{b} g(x)\dif x$
+\end{lemma}
+
+\subsection{[*] Mittelwertsätze der Integralrechnung}
+
+\begin{definition}
+    Sei $f\in \mR\of{I}$, $I=\interv{a,b}$. Dann ist
+    \begin{align*}
+        \fint_I f\of{x} \dif x = \fint_a^{b} f(x) \dif x &\coloneqq \frac{1}{b-a} \int_{a}^{b} f(x) \dif x
+        \intertext{definiert als der Mittelwert von $f$ über $I$. Wir schreiben auch}
+        \overline{f}_I &= \fint_{a}^{b} f(x) \dif x
+    \end{align*}
+\end{definition}
+
+\begin{satz} % Satz 22
+    \label{satz:temp-22}
+    Es sei $I=\interv{a,b}$, $f\in \mC\of{I}$. Dann gilt
+    \begin{align*}
+        \ex\xi\colon a < \xi < b \text{ mit } f\of{\xi} = \fint_{a}^{b} f(x) \dif x
+    \end{align*}
+    \begin{proof}
+        \begin{align*}
+            \ov{m} &= \sup_{I} f = \max_{I} f\\
+            \un{m} &= \inf_{I} f = \min_{I} f
+            \intertext{Nach Satz~\ref{satz:temp-13} gilt}
+            \un{m} &\leq f(x) \leq \ov{m}\quad\forall x \in I\\
+            \impl \un{m}\pair{b-a} &= \int_{a}^{b} \underline{m} \dif x \leq \int_{a}^{b} f(x) \dif x\leq \int_{a}^{b} \overline{m} \dif x = \ov{m}\pair{b-a}\\
+            \impl \un{m} &\leq \fint_{a}^{b} f(x) \dif x \leq \ov{m}
+            \intertext{Ist $\un{m} = \ov{m} \impl f$ ist konstant auf $\interv{a,b}$}
+            \impl \un{m} = \ov{m} = \fint_{a}^{b} f(x) \dif x
+            \intertext{und $\forall a < \xi < b$ ist $f\of{x} = \un{m}$. Damit gilt die Behauptung. Sei also $\un{m} < \ov{m}$. Dann folgt aus der Stetigkeit von $f$, dass $x_1$ und $x_2$ in $I$ existieren, sodass $f(x_1) = \un{m}$ und $f(x_2) = \ov{m}$ mit $x_1\neq x_2$. Außerdem folgt aus $\un{m} < \ov{m}$, $f\in \mC\of{I}$ auch}
+            \un{m} &\leq \fint_{a}^{b} f\of{x} \dif x < \ov{m}
+            \intertext{Nach dem Zwischenwertsatz für stetige Funktionen folgt}
+            \impl \ex\xi \text{ zwischen } x_1, x_2 \text{ mit } f\of{x} &= \fint_{a}^{b} f(x) \dif x\qedhere
+        \end{align*}
+    \end{proof}
+\end{satz}
+
+\begin{satz}[Verallgemeinerung des vorherigen Satzes] % Satz 23
+    \label{satz:temp-23}
+    \marginnote{[30. Apr]}
+    Es sei $I=\interv{a,b}$, $f\in\mC\of{I}$, $p\in\mR\of{I}$. Falls $p\geq 0$ folgt $\exists\xi$ mit $a<\xi<b$ und
+    \begin{align*}
+        \int_{a}^{b} f\of{x}p\of{x} \dif x &= f\of{\xi}\cdot \int_{a}^{b} p\of{x} \dif x\numberthis\label{eq:mittelwertsatz-2}
+    \end{align*}
+    \begin{proof}
+        Angenommen $ \int_{a}^{b} p\of{x} \dif x = 0$
+        \begin{align*}
+            \impl \abs{\int_{a}^{b} f\of{x}p\of{x} \dif x} &\leq \sup_{x\in I} \int_{a}^{b} \abs{p\of{x}} \dif x = 0
+        \end{align*}
+        Damit gilt (\ref{eq:mittelwertsatz-2}) für alle $a < \xi< b$.\\
+        Ist $ \int_{a}^{b} p\of{x} \dif x > 0$, dann definieren wir ein neues Mittel:
+        \begin{align*}
+            \text{Mittel}\of{f} &\coloneqq \frac{1}{\int_{a}^{b} p\of{x}\dif x} \cdot \int_{a}^{b} f\of{x}p\of{x} \dif x
+        \end{align*}
+        Durch scharfes Hinschauen folgt dann die Aussage aus dem Beweis des vorherigen Satzes.
+    \end{proof}
+\end{satz}
+
+\newpage
