@@ -3,7 +3,7 @@
 Bisher haben wir immer nur Integrale auf kompakten Intervalle $I$ berechnet und dabei waren alle Funktionen $f\in\mR\of{I}$ insbesondere beschränkt.\\
 Frage: Was ist $ \int_{0}^{1} \frac{1}{\sqrt{x}} \dif x$? Was ist $ \int_{0}^{\infty} e^{-t} \dif t$?
 \begin{align*}
-    \int_{a}^{b} e^{-t} \dif t &= \interv{-e^{-t}}_a^b = e^{-0} - e^{-b} = 1 - e^{-b} = 1 -\frac{1}{e^t}\fromto 1 \text{ für } b\fromto\infty
+    \int_{a}^{b} e^{-t} \dif t &= \interv{-e^{-t}}_a^b = e^{-0} - e^{-b} = 1 - e^{-b} = 1 -\frac{1}{e^b}\fromto 1 \text{ für } b\fromto\infty
 \end{align*}
 
 \subsection{Uneigentliche Integrale: Fall I}
@@ -200,7 +200,7 @@ $f$ hat eine Singularität in $\xi$ im Inneren von $\interv{a,b}$.
 
 \begin{satz}[Integralvergleichskriterium] % Satz 10
     \label{satz:integral-vergleich}
-    Sei $f: \linterv{1, \infty} \fromto\R$ monoton fallend. Das gilt
+    Sei $f: \linterv{1, \infty} \fromto\R$ monoton fallend. Dann gilt
     \begin{align*}
         \sum_{n=1}^{\infty}  f\of{n} \text{ konvergiert } \equivalent \int_{1}^{\infty} f\of{x} \dif x \text{ existiert }
     \end{align*}

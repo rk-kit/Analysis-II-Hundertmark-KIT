@@ -288,7 +288,7 @@
             \int_{x_0}^{x} f\of{t} \dif t &= F\of{x}
             \intertext{Das gilt tatsächlich und lässt sich folgendermaßen zeigen. Wir definieren eine Funktionenfolge}
             f_n\of{x} &= \sum_{k=0}^{n} a_k\pair{x-x_0}^k
-            \intertext{Wir wissen $\forall\delta > 0$ klein genug (das heißt konkrete $\delta < R$) konvergiert $f_n$ gleichmäßig gegen $f$ auf dem Intervall $\interv{x_0-R+\delta, x_0+R-\delta}$. Dann gilt nach Satz~\ref{satz:gleichm-int} für $x\in\interv{x_0-R+\delta, x_0+R-\delta}$ fest}
+            \intertext{Wir wissen $\forall\delta > 0$ klein genug (konkret heißt das $\delta < R$) konvergiert $f_n$ gleichmäßig gegen $f$ auf dem Intervall $\interv{x_0-R+\delta, x_0+R-\delta}$. Dann gilt nach Satz~\ref{satz:gleichm-int} für $x\in\interv{x_0-R+\delta, x_0+R-\delta}$ fest}
             \int_{x_0}^{x} f\of{t} \dif t &= \lim_{\ntoinf} \int_{x_0}^{x} f_n\of{t} \dif t\\
             &= \lim_{\ntoinf} \int_{x_0}^{x} \sum_{k=0}^{n} \frac{a_k}{k+1}\pair{x-x_0}^{k+1} \dif x = F(x)\\
             \int_{x_0}^{x} f_n\of{t} \dif t &= \int_{x_0}^{x} \sum_{k=0}^{n} a_k\pair{x-x_0}^k \dif t = \sum_{k=0}^{n} a_k \int_{x_0}^{x} \pair{t-x_0}^k \dif t\\
