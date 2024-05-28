@@ -337,9 +337,17 @@
     \end{anwendung}
 
     \begin{korollar}
-        Jede Potenzreihe ist unendlich oft differenzierbar auf ihrem Konvergenzintervall.
+        \label{korollar:potenzreihe-diffb}
+        Jede Potenzreihe $f\of{x} = \sum_{n=0}^{\infty} a_n\pair{x-x_0}^{n}$ ist unendlich oft differenzierbar auf ihrem Konvergenzintervall.
         \begin{proof}
-            Nach Anwendung~\ref{anwendung:potenzreihe-diff} ist eine Potenzreihe einmal differenzierbar mit einer Potenzreihe als Ableitung. Damit folgt induktiv die Behauptung.
+            Nach Anwendung~\ref{anwendung:potenzreihe-diff} ist eine Potenzreihe einmal differenzierbar mit einer Potenzreihe als Ableitung. Damit folgt induktiv die Behauptung. Insbesondere gilt
+            \begin{align*}
+                f'\of{x} &= \sum_{n=1}^{\infty} n a_n\cdot\pair{x-x_0}^{n-1}\\
+                f''\of{x} &= \sum_{n=2}^{\infty} n\cdot\pair{n-1}\cdot a_n\cdot\pair{x-x_0}^{n-2}\\
+                f^{(k)}\of{x} &= \sum_{n=k}^{\infty} n\cdot\pair{n-1}\cdot\ldots\cdot\pair{n-k+1}\cdot a_n\cdot \pair{x-x_0}^{n-k}\\
+                \impl f^{(k)}\of{x_0} &= k!\cdot a_k\\
+                \equivalent a_k &= \frac{f^{(k)}\of{x_0}}{k!}
+            \end{align*}
         \end{proof}
     \end{korollar}
 
@@ -365,5 +373,201 @@
             \frac{\abs{R_{x_0}\of{x}}}{\abs{x-x_0}} &= \varepsilon\of{x} \fromto 0 \text{ für } x\fromto x_0
         \end{align*}
     \end{bemerkung}
+
+    \newpage
+
+
+    \section{Taylors Theorem}
+    \imaginarysubsection{Taylors Theorem}
+    \thispagestyle{pagenumberonly}
+
+    \begin{align*}
+        f\of{x} &= f\of{x_0} + \int_{x_0}^{x} f'\of{t} \dif t\numberthis\label{eq:taylor}
+    \end{align*}
+
+    \begin{satz} % Satz 1
+        \marginnote{[28. Mai]}
+        \label{satz:taylor}
+        Sei $f\in\mC^{(n+1)}\of{\pair{a,b}}$ ($n+1$ mal stetig differenzierbar auf $\pair{a,b}$). Dann gilt für alle $x, x_0\in\pair{a,b}$
+        \begin{align*}
+            f\of{x} &= f\of{x_0} + f'\of{x_0}\pair{x-x_0} + \frac{f''\of{x_0}}{2}\pair{x-x_0}^2\\
+            &\quad+ \dots + \frac{f^{(n)}\of{x_0}}{n!}\pair{x-x_0}^n + R_n\of{f, x_0, x}
+            \intertext{mit}
+            R_n\of{f, x_0, x} &= \frac{1}{n!} \int_{x_0}^{x} \pair{x-t}^{n}f^{(n+1)}\of{t} \dif t
+        \end{align*}
+        \begin{proof}
+            Wir verwenden Induktion. Der Induktionsanfang für $n=1$ ist gerade der Hauptsatz.\\[.5\baselineskip]
+            Induktionsschritt: Angenommen $f\in\mC^{(n+2)}$. Dann gilt nach Induktionsannahme
+            \begin{align*}
+                f\of{x} &= \sum_{k=0}^{n} \frac{f^{(k)}\of{x_0}}{k!}\pair{x-x_0}^{k} + R_n\of{f, x_0, x}\tag{1}\\
+                R_n\of{f, x_0, x} &= \frac{1}{n!} \int_{x_0}^{x} \pair{x-t}^{n}f^{(n+1)}\of{t} \dif t
+                \intertext{Wir integrieren partiell}
+                &= \frac{1}{n!}\pair{\interv{-\frac{1}{n+1}\pair{x-t}^{n+1}f^{(n+1)}\of{t}}_{x_0}^x - \int_{x_0}^{x} \frac{1}{n+1}\pair{x-t}^{n+1}f^{(n+2)}\of{t} \dif t}\\
+                &= -\frac{1}{n+1}\cdot\frac{\dif}{\dif t}\pair{x-t}^{n+1}
+                \intertext{Nach (1) folgt}
+                f\of{x} &= \sum_{k=0}^{n+1} \frac{f^{(k)}\of{x_0}}{k!}\pair{x-x_0}^k + \underbrace{\frac{1}{\pair{n+1}!} \int_{x_0}^{x} \pair{x-t}^{n+1}\cdot f^{(n+2)}\of{t} \dif t}_{=R_{n+1}\of{f, x_0, x}}\qedhere
+            \end{align*}
+        \end{proof}
+    \end{satz}
+
+    \begin{korollar} % Korollar 1
+        Sei $f\in\mC^n\of{\pair{a,b}}$. Dann gilt $\forall x, x_0\in\pair{a,b}$:
+        \begin{align*}
+            f\of{x} &= \sum_{k=0}^{n} \frac{f^{(k)}\of{x_0}}{k!}\pair{x-x_0}^k + \overline{R}_n\of{f, x_0, x}
+            \intertext{mit}
+            \ov{R}_n\of{f, x_0, x} &= \frac{1}{\pair{1-n}!} \int_{x_0}^{x} \pair{x-t}^{n-1}\cdot\interv{f^{(n)}\of{t} - f^{(n)}\of{x}} \dif t
+        \end{align*}
+        \begin{proof} Nach Satz~\ref{satz:taylor} gilt
+            \begin{align*}
+                f(x) &= \sum_{k=0}^{n-1} \frac{f^{(n)}\of{x_0}}{k!}\cdot\pair{x-x_0}^k + \ov{R}_{n-1}\of{f, x_0, x}\\
+                &= \sum_{k=0}^{n} \frac{f^{(k)}\of{x_0}}{k!}\pair{x-x_0}^k + R_{n-1}\of{f, x_0, x} - \frac{f^{(n)}\of{x_0}}{n!}\pair{x-x_0}^{n}\\
+                \pair{n-1}!\cdot R_{n-1}\of{f, x_0, x} &= \int_{x_0}^{x} \pair{x-t}^{n-1}f{(n)}\of{t} \dif t - \frac{1}{n}f^{(n)}\of{x_0}\pair{x-x_0}^n\\
+                &= \int_{x_0}^{x} \pair{x-t}^{n-1}\cdot\interv{f^{(n)}\of{t} - f^{(n)}\of{x_0}} \dif t\qedhere
+            \end{align*}
+        \end{proof}
+    \end{korollar}
+
+    \begin{bemerkung}
+        \begin{align*}
+            n!\cdot\abs{\frac{R_n\of{f, x_0, x}}{\pair{x-x_0}^n}} &= \abs{\int_{x_0}^{x} \frac{\pair{x-t}^n}{\pair{x-x_0}^n}f^{(n+1)}\of{t} \dif t}\\
+            &\leq \int_{x_0}^{x} \abs{\frac{x-t}{x-x_0}}^n\cdot\abs{f^{(n+1)}\of{t}} \dif t\\
+            &\leq \int_{x_0}^{x} \abs{f^{(n+1)}\of{t}} \dif t\fromto 0
+        \end{align*}
+    \end{bemerkung}
+
+    \begin{definition}
+        Sei $f\in\mC\of{\pair{a,b}}$ und $x_0\in\pair{a,b}$. Wir definieren
+        \begin{align*}
+            T_n\of{f, x_0}\of{x} &\coloneqq \sum_{k=0}^{n} \frac{f^{(n)}\of{x_0}}{k!}\pair{x-x_0}^k \tag{$n$-tes Taylorpolynom}
+            \intertext{Ist $f$ unendlich oft differenzierbar, so nennen wir}
+            T\of{f, x_0, x} &= \sum_{n=0}^{\infty} \frac{f^{(n)}\of{x_0}}{n!}\pair{x-x_0}^n
+        \end{align*}
+        Taylorreihe (von $f$ im Entwicklungspunkt $x_0$).
+    \end{definition}
+
+    \begin{bemerkung}
+        \theoremescape
+        \begin{enumerate}[label=(\roman*)]
+            \item Die Taylorreihe kann Konvergenzradius $R > 0$ haben
+            \item Ist eine Taylorreihe konvergent, so muss sie nicht unbedingt gegen $f$ konvergieren
+        \end{enumerate}
+    \end{bemerkung}
+
+    \begin{beispiel}
+        Wir betrachten $f: \R\fromto\R$
+        \begin{align*}
+            x\mapsto f\of{x}&\coloneqq \begin{cases}
+                                           e^{-\frac{1}{x^2}} & x\neq 0\\
+                                           0 &x=0
+            \end{cases}
+        \end{align*}
+        Dann ist $f$ unendlich oft differenzierbar und es gilt $f^{(n)}\of{0} = 0~\forall n\in\N_0$.
+        \begin{proof}
+            \textsc{Schritt 1}: Sei $x\neq 0$. Dann existiert $\forall n\in\N_0$ ein Polynom $p_n$, sodass
+            \begin{align*}
+                f^{(n)}\of{x} &= p_n\of{\frac{1}{n}}\cdot e^{-\frac{1}{x^2}}
+            \end{align*}
+            Wir beweisen diese Behauptung mittels Induktion.~\\
+            \begin{induktionsanfang}
+                Es ist $n=0$. Wir wählen $p_0\of{x} = 1$.
+            \end{induktionsanfang}
+            \begin{induktionsschritt}
+                \begin{align*}
+                    f^{(n+1)}\of{x} &= \frac{\dif}{\dif x}\pair{f^{(n)}\of{x}}\\
+                    &= \frac{\dif}{\dif x}\pair{p_n\of{\frac{1}{x}}\cdot e^{-\frac{1}{x^2}}}\\
+                    &= p_n'\of{\frac{1}{x}}\cdot\pair{-\frac{1}{x^2}}\cdot e^{-\frac{1}{x^2}} + p_n\of{\frac{1}{n}}\cdot e^{-\frac{1}{x^2}}\cdot\frac{2}{x3}\\
+                    &= \underbrace{\pair{-p_n'\of{\frac{1}{x}} + 2p_n\of{\frac{1}{x}}\frac{1}{x^3}}}_{\definedasbackwards p_{n+1}\of{\frac{1}{x}}}\cdot e^{-\frac{1}{x^2}}\\
+                    p_{n+1}\of{t} &\coloneqq -p'_n\of{t}\cdot t^2 + 2t^3\cdot p_n\of{t}
+                \end{align*}
+            \end{induktionsschritt}~\\
+            \textsc{Schritt 2}: $f^{(n)}\of{0} = 0~\forall n\in\N_0$. Wir nutzen wieder Induktion. Der Induktionsanfang ist klar.
+            \begin{induktionsschritt}
+                Angenommen $f^{(n)}\of{0} = 0$. Dann gilt
+                \begin{align*}
+                    f^{(n+1)}\of{0} &= \lim_{x\fromto 0} \frac{f^{(n)}\of{x} - f^{(n)}\of{0}}{x}\\
+                    &= \lim_{x\fromto 0} \frac{f^{(n)}\of{x}}{x}\\
+                    &= \lim_{x\fromto 0}\pair{\frac{1}{x}\cdot p_n\of{\frac{1}{x}}\cdot e^{-\frac{1}{x^2}}}\\
+                    &= \lim_{\abs{R}\fromto \infty} \pair{R\cdot p_n\of{R}\cdot e^{-R^2}} = 0\qedhere
+                \end{align*}
+            \end{induktionsschritt}
+        \end{proof}
+    \end{beispiel}
+
+    \begin{satz} % Satz 4
+        Ist $f\of{x} = \sum_{n=0}^{\infty} a_n\pair{x-x_0}^{n}$ eine Potenzreihe mit Konvergenzradius $r>0$, so ist die Taylorreihe von $f$ gleich dieser Potenzreihe.
+        \begin{proof}
+            Folgt aus Korollar~\ref{korollar:potenzreihe-diffb} und Gleichung ??.
+        \end{proof}
+    \end{satz}
+
+    \begin{beispiel}
+        \begin{align*}
+            \sum_{n==}^{\infty} \frac{\pair{cx}^n}{n!} &= \sum_{n=0}^{\infty} \frac{c^n}{n!}\cdot x^n\\
+            \exp\of{cx} &= \exp\of{cx_0 + c\pair{x-x_0}}\\
+            &= \exp\of{cx_0}\cdot\exp\of{c\pair{x-x_0}}\\
+            &= \exp\of{cx_0}\cdot \sum_{n=0}^{\infty} \frac{c^n}{n!}\pair{x-x_0}^n\\
+            &= \sum_{n=0}^{\infty} ??
+        \end{align*}
+    \end{beispiel}
+
+    \begin{satz}[Restglieddarstellung von Schlömilch] % Satz 5
+        \label{satz:restglied-schloemilch}
+        Sei $f\in\mC^{n+1}\of{\pair{a,b}}$ und $x_0\in\pair{a,b}$. Dann gilt
+        \begin{align*}
+            f\of{x} &= T_n\of{f, x_0, x} + R_n\of{f, x_0, x}
+            \intertext{mit}
+            ????
+        \end{align*}
+    \end{satz}
+
+    \begin{bemerkung}
+        Ist $p=n+1$, dann haben wir die Lagrangsche Darstellung
+        \begin{align*}
+            R_n\of{f, x_0, x} &= \frac{1}{\pair{n+1}!}\cdot f^{(n+1)}\of{\xi}\cdot\pair{x-x_0}^{n+1}\of{\xi}
+            \intertext{und wenn $p=1$, dann haben wir die Cauchysche Darstellung}
+            R_n\of{f, x_0, x} &= \frac{1}{n!}\cdot f^{(n+1)}\of{\xi}\cdot\pair{x-\xi}^n\cdot\pair{x-x_0}
+        \end{align*}
+        für das Restglied.
+    \end{bemerkung}
+
+    \begin{satz}[Logarithmus] % Satz 6
+        Für die Logarithmusreihe $f_n: -1\leq x \leq 1$ gilt
+        \begin{align*}
+            \log\of{1+x} &= x-\frac{x^2}{2} + \frac{x^2}{3} \pm \dots = \sum_{n=1}^{\infty} \pair{-1}^{n+1}\cdot \frac{x^n}{n}
+        \end{align*}
+
+        \begin{proof}
+            \begin{align*}
+                f\of{x} &= \log\of{1+x}\\
+                f'\of{x} &= \pair{1+x}^{-1}\\
+                f''\of{x} &= -1\cdot\pair{1+x}^{-2}\\
+                \vdots\\
+                f^{(n)}\of{x} &= \pair{-1}^{n+1}\cdot\pair{n-1}!\cdot \pair{1+x}^{-n}\\
+                T_n\of{f, 0}\of{x} &= \sum_{k=0}^{n} \frac{f^{(k)}\of{0}}{k} \cdot x^k = \sum_{k=0}^{n} \pair{-1}^{n+1}\cdot \frac{\pair{k-1}}{k!}x^k\\
+                &= \sum_{k=0}^{n} \pair{-1}^{k+1}\cdot \frac{x^k}{k}
+                \intertext{\textsc{Schritt 1}: Aus Satz~\ref{satz:restglied-schloemilch} folgt}
+                f\of{x} &= \sum_{k=1}^{n} \pair{-1}^{k+1}\cdot \frac{x^k}{k} + R_n\of{f, 0, x}\\
+                R_n\of{f, 0, x} &= \frac{1}{pn!}\cdot f^{(n+1)}\of{x}\cdot\pair{x-\xi}^{n+1-p}\cdot\pair{x-x_0}^p\\
+                &= n!\cdot\pair{-1}^{n+1}\cdot\pair{1+\xi}^{-\pair{n+1}}\\
+                \impl \abs{R_n\of{f, 0, x}} &= \frac{1}{pn!}\cdot n! \cdot\pair{1+\xi}^{-n-1}\cdot\abs{x-\xi}^{n+1-p}\cdot\abs{x}^p
+                \intertext{Angenommen $0< x \leq 1$. $0 < \xi < x$, wir wählen $p=n+1$}
+                \impl \abs{R_n\of{f, 0, x}}&\leq \frac{1}{p} = \frac{1}{n+1}\fromto 0
+            \end{align*}
+            Rest des Beweises: Später
+        \end{proof}
+    \end{satz}
+
+    \begin{korollar}
+        Für $a > 0$ und $0< x \leq 2a$ folgt
+        \begin{align*}
+            \log x &= \log a + \sum_{n=1}^{\infty} \frac{\pair{-1}^{n+1}}{n\cdot a^n}\pair{x-a}^n
+        \end{align*}
+        \begin{proof}
+            \begin{align*}
+                \log x &= \log\of{a+\pair{x-a}} = \log\of{a\cdot\pair{1+\frac{x}{a}}} \\
+                &= \log a + \log\of{1-\frac{x}{a}}\qedhere
+            \end{align*}
+        \end{proof}
+    \end{korollar}
 
 \end{document}
