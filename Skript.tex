@@ -417,7 +417,8 @@
             \intertext{mit}
             \ov{R}_n\of{f, x_0, x} &= \frac{1}{\pair{1-n}!} \int_{x_0}^{x} \pair{x-t}^{n-1}\cdot\interv{f^{(n)}\of{t} - f^{(n)}\of{x}} \dif t
         \end{align*}
-        \begin{proof} Nach Satz~\ref{satz:taylor} gilt
+        \begin{proof}
+            Nach Satz~\ref{satz:taylor} gilt
             \begin{align*}
                 f(x) &= \sum_{k=0}^{n-1} \frac{f^{(n)}\of{x_0}}{k!}\cdot\pair{x-x_0}^k + \ov{R}_{n-1}\of{f, x_0, x}\\
                 &= \sum_{k=0}^{n} \frac{f^{(k)}\of{x_0}}{k!}\pair{x-x_0}^k + R_{n-1}\of{f, x_0, x} - \frac{f^{(n)}\of{x_0}}{n!}\pair{x-x_0}^{n}\\
@@ -550,10 +551,23 @@
                 R_n\of{f, 0, x} &= \frac{1}{pn!}\cdot f^{(n+1)}\of{x}\cdot\pair{x-\xi}^{n+1-p}\cdot\pair{x-x_0}^p\\
                 &= n!\cdot\pair{-1}^{n+1}\cdot\pair{1+\xi}^{-\pair{n+1}}\\
                 \impl \abs{R_n\of{f, 0, x}} &= \frac{1}{pn!}\cdot n! \cdot\pair{1+\xi}^{-n-1}\cdot\abs{x-\xi}^{n+1-p}\cdot\abs{x}^p
-                \intertext{Angenommen $0< x \leq 1$. $0 < \xi < x$, wir wählen $p=n+1$}
-                \impl \abs{R_n\of{f, 0, x}}&\leq \frac{1}{p} = \frac{1}{n+1}\fromto 0
+                \intertext{Angenommen $0\leq x \leq 1$. $0 < \xi < x$, wir wählen $p=n+1$}
+                \impl \abs{R_n\of{f, 0, x}}&\leq \frac{1}{p} = \frac{1}{n+1}\fromto 0\marginnote{[31. Mai]}
+                \intertext{Angenommen $-1\leq x \leq 0$. Dann gibt es ein $\xi$ zwischen 0 und $x$, das heißt $\xi = \Theta x$ mit $0 < \Theta < 1$. Dann gilt}
+                R_n\of{f, 0, x} &= \frac{1}{p}\cdot\pair{-1}^n\cdot\pair{1+\Theta x}^{-(n+1)}\cdot\pair{x-\Theta x}^{n+1-p}\cdot x^p\\
+                \impl \abs{R_n\of{f, 0, x}} &= \frac{1}{p} \cdot \pair{1+\Theta x}^{-(n+1)}\cdot\abs{x}^{n+1-p}\cdot\pair{1-\Theta}^{n+1-p}\cdot\abs{x}^p\\
+                &= \frac{1}{p}\cdot \pair{1+\Theta x}^{-(n+1)}\cdot \pair{1-\Theta}^{n+1-p}\cdot \abs{x}^{n+1}
+                \intertext{Da $-1\leq x \leq 0$}
+                \impl 1 + \Theta x &= 1 - \Theta\cdot\abs{x} \geq 1 - \Theta > 0\\
+                \impl \pair{1+\Theta x}^{-n} &\leq \pair{1-\Theta}^{-n}\\
+                \impl \abs{R_n\of{f, 0, x}} &\leq \frac{1}{p}\cdot\pair{1-\Theta}^{-n}\cdot\pair{1-\abs{x}}^{-1}\cdot\pair{1-\Theta}^{n+1-p}\cdot\abs{x}^{n+1}
+                \intertext{Wähle $p=1$}
+                \impl \abs{R_n\of{f, 0, x}} &\leq \pair{1-\Theta}^{-n}\cdot\pair{1-\Theta}^{n} \cdot \frac{\abs{x}^{n+1}}{1-\abs{x}}= \frac{\abs{x}^{n+1}}{1-\abs{x}}\fromto 0
+                \intertext{\textsc{Schritt 2}: Wir wollen zeigen, dass die Taylorreihe $ \sum_{n=1}^{\infty} \frac{(-1)^{n+1}}{n}\cdot x^n$ für alle $-1\leq x \leq 1$ konvergiert. Für $-1\leq x \leq 0$ gilt}
+                \abs{\frac{(-1)^{n+1}}{n}\cdot x^n} &\leq \frac{1}{n}\cdot\abs{x}^n\leq \abs{x}^n
             \end{align*}
-            Rest des Beweises: Später
+            Damit folgt die Konvergenz aus dem Vergleich mit der geometrischen Reihe. Das gleiche Prinzip lässt sich für $0\leq x< 1$ anwenden. Für $x=1$ ist $ \sum_{n=1}^{\infty} \frac{(-1)^{n+1}}{n}$ eine alternierende monotone Reihe, die damit nach Leibniz konvergiert.\\[.2\baselineskip]
+            Aus \textsc{Schritt 1} und \textsc{Schritt 2} folgt damit die Behauptung.
         \end{proof}
     \end{satz}
 
@@ -565,9 +579,116 @@
         \begin{proof}
             \begin{align*}
                 \log x &= \log\of{a+\pair{x-a}} = \log\of{a\cdot\pair{1+\frac{x}{a}}} \\
-                &= \log a + \log\of{1-\frac{x}{a}}\qedhere
+                &= \log a + \log\of{1+\frac{x}{a}}\qedhere
             \end{align*}
         \end{proof}
     \end{korollar}
+    
+    \begin{bemerkung}
+        Es gilt
+        \begin{align*}
+            \log 2 &= \log\of{1+1} = \sum_{n=1}^{\infty} \frac{(-1)^{n+1}}{n}\tag{konvergiert langsam}\\
+            \log\of{1+x} &= \sum_{n=1}^{\infty} \frac{(-1)^{n+1}}{n}\cdot x^n\\
+            \log\of{1-x} &= \sum_{n=1}^{\infty} \frac{(-1)^{n+1}}{n}\cdot (-1)^n\cdot x^n = - \sum_{n=1}^{\infty} \frac{x^n}{n}\\
+            \impl \log\of{1+x} - \log\of{1-x} &= \sum_{n \text{ ungerade}}^{} \pair{\frac{x^n}{n}+\frac{x^n}{n}} = 2\cdot \sum_{k=0}^{\infty} \frac{x^{2k+1}}{2k+1}= \log\of{\frac{1+x}{1-x}}
+            \intertext{Für ein $y>1$ mit $y=\frac{1+x}{1-x}$ gilt}
+            \pair{1-x}\cdot y &= 1+x\\
+            \equivalent y-1 &= x\cdot\pair{y+1}\\
+            \equivalent x &= \frac{y-1}{y+1}
+            \intertext{Für $y=2$ gilt also $x=\frac{1}{3}$. Das heißt}
+            \log y &= 2\cdot \sum_{k=0}^{\infty} \frac{1}{2k+1}\cdot\pair{\frac{y-1}{y+1}}^{2k+1}\\
+            \impl \log 2 &= 2\cdot \sum_{k=0}^{\infty} \frac{1}{2k+1}\cdot\pair{\frac{1}{3}}^{2k+1}\tag{konvergiert schneller}
+        \end{align*}
+    \end{bemerkung}
+
+    \begin{satz}[Abelscher Grenzwertsatz] % Satz 8
+        \label{satz:abel-grenzwert}
+        Angenommen $\displaystyle \sum_{n=0}^{\infty} a_n$ konvergiert. Dann ist die Potenzreihe $\displaystyle f(x) \coloneqq\sum_{n=0}^{\infty} a_n\cdot x^n$
+        \begin{enumerate}[label=(\roman*)]
+            \item konvergent für alle $-1 < x \leq 1$
+            \item stetig in $x=1$ und
+            \item Die Potenzreihe konvergiert gleichmäßig auf allen Intervallen $\interv{a, 1}$ mit $-1 < a < 1$. (Das heißt sie konvergiert lokal gleichmäßig auf $\interv{-1, 1}$). Insbesondere in jeder $\varepsilon$-Umgebung um $x=1$.
+        \end{enumerate}
+        
+        \begin{proof}
+            \textsc{Schritt 1}: Wir zeigen zunächst (ii) und setzen dafür
+            \begin{align*}
+                A_n &\coloneqq \sum_{k=n+1}^{\infty} a_{k}\fromto 0 \text{ für } \ntoinf
+                \intertext{Insbesondere ist}
+                \sup_{n\geq 0} \abs{A_n} &< \infty\\
+                \impl \sup_{n\geq k+1} \abs{A_n} &\fromto 0 \text{ für } k\toinf\\
+                a_n &= A_{n-1} - A_n\tag{Wir setzen $A_{-1} = \sum_{n=0}^{\infty} a_n$}
+                \intertext{Für ein $L\in\N$ gilt}
+                \sum_{n=0}^{L} a_n \cdot x^n &= \sum_{n=0}^{L} \pair{A_{n-1}-A_n}\cdot x^n\\
+                &= \sum_{n=0}^{L} A_{n-1}\cdot x^n - \sum_{n=0}^{L} A_n\cdot x^n\\
+                &= \sum_{j=-1}^{L-1} A_j\cdot x^{j+1} - \sum_{j=0}^{L} A_j \cdot x^j\\
+                &= A_{-1}\cdot x^0 - A_{L}\cdot x^L + \sum_{n=0}^{L} A_n\cdot\pair{x^{n+1}-x^n}\\
+                &= f\of{1} - A_{L}\cdot x^L + \pair{x-1}\cdot \sum_{n=0}^{L-1} A_n \cdot x^n
+                \intertext{Es gilt $\abs{A_L\cdot x^L} \leq \abs{A_L}$ und $\abs{A_n}\leq C$ für eine Konstante $C$. Das heißt für $\abs{x} < 1$}
+                \impl \sum_{n=0}^{\infty} A_n\cdot x^n &\text{ hat Limes für }L\toinf\\
+                \impl f\of{x} &= \lim_{L\toinf} \sum_{n=0}^{L} a_n\cdot x^n = f\of{1}+ \pair{x-1}\cdot \sum_{n=0}^{\infty} A_n\cdot x^n\\
+                \impl \abs{f\of{1} - f\of{x}} &= \pair{1-x} \cdot \abs{\sum_{n=0}^{\infty} A_n \cdot x^n} \leq \pair{1-x} \cdot \sum_{n=0}^{\infty} \abs{A_n}\cdot x^n
+                \intertext{Sei $K\in\N$. Dann gilt}
+                \impl \abs{f\of{1} - f\of{x}} &\leq \pair{1-x}\cdot \sum_{n=0}^{K} \abs{A_n}\cdot x^n + \pair{1-x} \cdot \sum_{n=K+1}^{\infty} \abs{A_n}\cdot x^n\\
+                &\leq \underbrace{\pair{1-x} \cdot \sup_{n\geq 0}\of{\abs{A_n} }\cdot \sum_{n=0}^{K} x^n}_{\definedasbackwards I_{K}\of{x}} + \underbrace{\pair{1-x}\cdot \sup_{n\geq K+1}\of{\abs{A_n}}\cdot \sum_{n=K+1}^{\infty} x^n}_{\definedasbackwards J_{K}\of{x}}
+                \intertext{Für ein festes $K\in\N$ geht $I_{K}\fromto 0$ für $x\fromto 1-$ und es gilt}
+                J_{K}\of{x} &= \sup_{n\geq K + 1}\of{\abs{A_n}}\cdot\pair{1-x}\cdot \sum_{n=K+1}^{\infty} x^n
+                \intertext{Nach der geometrischen Summenformel gilt}
+                &= \sup_{n\geq K + 1}\of{\abs{A_n}}\cdot \pair{1-x}\cdot\frac{x^{K+1}}{1-x}\\
+                &\leq \sup_{n\geq K + 1}\of{\abs{A_n}}\fromto 0 \text{ für } L\toinf \tag{gleichmäßig in $0\leq x <  1$}\\
+                \impl \limsup_{x\fromto 1-} \abs{f\of{1} - f\of{x}} &\leq 0 + \limsup_{x\fromto 1-} J_K\of{x}\\
+                &\leq \sup_{n\geq K+1}\of{\abs{A_n}}\fromto 0 \text{ für } K\toinf\quad\forall K\in\N\\
+                \impl \limsup_{x\fromto 1-} \abs{f\of{1}-f\of{x}} &= 0\\
+                \impl \lim_{x\fromto 1-} f\of{x} &= f\of{1}
+                \intertext{\textsc{Schritt 2}: $f_n\of{x} = \sum_{k=0}^{n} a_k\cdot x^k$}
+                \impl f\of{x} - f_n\of{x} &= \pair{x-1}\cdot \sum_{k=n+1}^{\infty} A_k \cdot x^k - A_n\cdot x^n\\
+                \impl \abs{f\of{x} - f_n\of{x}} &\leq \pair{1-x} \cdot \sum_{k=n+1}^{\infty} \abs{A_k}\cdot x^k + \abs{A_n}\cdot x^n\tag{$0\leq x < 1$}\\
+                &\leq \pair{1-x} \cdot \sup_{k\geq n+1}\of{\abs{A_k}}\cdot \sum_{k=n+1}^{\infty} x^k + \abs{A_n}\\
+                &\leq \sup_{k\geq n+1}\of{\abs{A_k}} \cdot\pair{1-x}\cdot x^{n+1}\cdot \sum_{k=0}^{\infty} x^k + \abs{A_n}\\
+                &\leq 2\cdot \sup_{k\geq n}\of{\abs{A_k}}
+                \intertext{Mit (ii) folgt $\fa 0\leq x \leq 1$}
+                \abs{f\of{x} - f_n\of{x}} &\leq 2\cdot \sup_{k\geq n}\of{\abs{A_k}}\\
+                \impl \sup_{0 \leq x \leq 1}\of{\abs{f\of{x}-f_n\of{x}}} &\leq 2\cdot \sup_{k\geq n}\of{\abs{A_k}}
+            \end{align*}
+            Das heißt $(A_n)_n$ ist eine Nullfolge. Damit gilt gleichmäßige Konvergenz auf $\interv{0,1}$.\\
+            $f\of{x}$ konvergiert gleichmäßig auf kompakten Teilintervallen innerhalb des Konvergenzradius und $ \sum_{}^{} a_n$ konvergiert mit Konvergenzradius $R\geq 1$. Das heißt $f\of{x}$ konvergiert gleichmäßig auf allen $\interv{-\delta, \delta}$ für $0<\delta < 1$.
+        \end{proof}
+    \end{satz}
+
+    \begin{satz}[Arctan Reihe] % Satz 8?
+        Für $\abs{x} \leq 1$ gilt
+        \begin{align*}
+            \arctan x &= x- \frac{x^3}{3} + \frac{x^5}{5} \pm \dots\\
+            &= \sum_{n=0}^{\infty} \pair{-1}^n \cdot \frac{x^{2n+1}}{2n+1}
+        \end{align*}
+        \begin{proof}
+            Es sei $f\of{x} = \arctan x$. Dann gilt
+            \begin{align*}
+                f'\of{x} &= \frac{1}{1+x^2} = \frac{1}{1-\pair{-x}^2}\\
+                &= \sum_{n=0}^{\infty} \pair{-x^2}^n = \sum_{n=0}^{\infty} \pair{-1}^n \cdot x^{2n}
+                \intertext{Nach dem Hauptsatz gilt}
+                f\of{x} &= f\of{0} + \int_{0}^{x} f'\of{t} \dif t\\
+                &= 0 + \int_{0}^{x} \frac{1}{1+t^2} \dif t\\
+                &= \int_{0}^{x} \sum_{n=0}^{\infty} \pair{-1}^n\cdot t^{2n}  \dif t\\
+                &= \sum_{n=0}^{\infty} \pair{-1}^{2n}\cdot \int_{0}^{x} t^{2n} \dif t\\
+                &= \sum_{n=0}^{\infty} \pair{-1}^n\cdot \frac{x^{2n+1}}{2n+1} \text{ falls } \abs{x} < 1
+            \end{align*}
+            Für $x=1$ gilt
+            \begin{align*}
+                f\of{x} &= \sum_{n=0}^{\infty} \pair{-1}^n \cdot \frac{x^{2n+1}}{2n+1}\\
+                f\of{1} &= \sum_{n=0}^{\infty} \pair{-1}^n \cdot \frac{1^{2n+1}}{2n+1}\\
+                &= \sum_{n=0}^{\infty} \frac{(-1)^n}{2n+1} \text{ konvergiert nach Leibniz }
+            \end{align*}
+            Das heißt aus Satz~\ref{satz:abel-grenzwert} folgt die gleichmäßige Konvergenz von dieser Reihe für alle $\abs{x} \leq 1$.\\
+            Das heißt aus der Stetigkeit von $\arctan$ bei $\pm 1$ und dem Satz folgt
+            \begin{align*}
+                \arctan x &= \sum_{n=0}^{\infty} \pair{-1}^n\cdot \frac{x^{2n+1}}{2n+1}\quad\forall \abs{x}\leq 1\qedhere
+            \end{align*}
+        \end{proof}
+    \end{satz}
+
+    \begin{bemerkung}
+        Es gilt $\tan x = \frac{\sin x}{\cos x}$ und damit $1=\tan \frac{\pi}{4}$, $\arctan 1 = \frac{\pi}{4}$. So ergibt sich mit dem Arctan eine Reihendarstellung von $\pi$.
+    \end{bemerkung}
 
 \end{document}
