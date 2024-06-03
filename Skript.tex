@@ -105,6 +105,9 @@
 \newcommand{\fixedspace}[2]{\makebox[#1][l]{#2}}
 \newcommand{\ov}[1]{\overline{#1}}
 \newcommand{\un}[1]{\underline{#1}}
+\newcommand{\verteq}{\rotatebox{-90}{$~=$}}
+\newcommand{\equalto}[2]{\underset{\scriptstyle\overset{\mkern4mu\verteq}}{#1}}
+\newcommand{\eqbelow}[1]{\underset{\verteq}{#1}}
 
 \let\Re\relax
 \let\Im\relax
@@ -221,50 +224,46 @@
     \imaginarysubsection{Gleichmäßige Konvergenz}
     \thispagestyle{pagenumberonly}
 
-    $I=\interv{a,b}$ und $f: I\fromto\R$, $f_n: I\fromto \R$. $f_n$ konvergiert gegen $f$ \anf{irgendwie}. Wann gilt
+    Sei $I=\interv{a,b}$ und $f: I\fromto\R$, $f_n: I\fromto \R$. Wenn die Funktionenfolge $(f_n)_n$ \anf{irgendwie} gegen $f$ konvergiert. Wann gilt dann
     \begin{align*}
-        \int_{a}^{b} f_n\of{x} \dif x \fromto \int_{a}^{b} f\of{x} \dif x
+        \int_{a}^{b} f_n\of{x} \dif x \fromto \int_{a}^{b} f\of{x} \dif x \text{ für } \ntoinf \text{ ?}
     \end{align*}
-    Punktweise Konvergenz ist nicht genug.
-    \begin{beispiel}
+    Wir werden in diesem Kapitel einsehen, dass punktweise Konvergenz dafür nicht ausreichend ist, sondern wir gleichmäßige Konvergenz fordern müssen.
+    \begin{beispiel}[Punktweise Konvergenz]
         Sei $f_n: \interv{0, 1}\fromto\R$ mit
         \begin{align*}
             f_n\of{x} &\coloneqq \begin{cases}
                                      n &0 < x < \frac{1}{n}\\
-                                     0 &x = 0 \text{ oder } \frac{1}{n} \leq x \leq 1
-            \end{cases}\\
+                                     0 &\text{sonst}
+            \end{cases}
+            \intertext{$(f_n)_n$ konvergiert punktweise gegen die Nullfunktion ($f_n\of{x}\fromto 0$ für $n\toinf~\forall x\in\interv{0,1}$). Außerdem gilt für ein $n\in\N$}
             \int_{0}^{1} f_n\of{x} \dif x &= \int_{0}^{\frac{1}{n}} n \dif x = \frac{n}{n} = 1
         \end{align*}
-        das heißt $f_n\of{x}\fromto 0$ für $n\toinf~\forall x\in\interv{0,1}$.
+        Das Integral über die Nullfunktion ist aber 0. Das heißt punktweise Konvergenz ist kein ausreichendes Kriterium, damit die Integrale gleich sind.
     \end{beispiel}
 
     \begin{satz} % Satz 1
         \label{satz:gleichm-int}
-        Seien $f, f_n: \interv{a,b}\fromto\R \pair{\C, \dots}$ und $n\in\N$. $(f_n)_n$ konvergiere gleichmäßig gegen $f$ auf $\interv{a,b}$ und $f_n\in\mR\of{\interv{a,b}}$. Dann gilt $f\in\mR\of{I}$ und
+        Seien $f, f_n: \interv{a,b}\fromto\R$ (oder $\C, \dots$) und $n\in\N$. Außerdem konvergiere $(f_n)_n$ gleichmäßig gegen $f$ auf $\interv{a,b}$ und $f_n\in\mR\of{\interv{a,b}}$. Dann gilt $f\in\mR\of{I}$ und
         \begin{align*}
             \lim_{\ntoinf} \int_{a}^{b} f_n\of{x} \dif x &= \int_{a}^{b} f\of{x} \dif x = \int_{a}^{b} \lim_{\ntoinf} f_n\of{x} \dif x
         \end{align*}
 
         \begin{proof}
-            Sei $\varepsilon > 0$ und $N\in\N$. Dann gilt
+            Sei $\varepsilon > 0$ und $N\in\N$ groß genug. Dann gilt
             \begin{align*}
-                \norm{f-f_n}_{\infty} &= \sup_{a < x < b} \abs{f\of{x} - f_n\of{x}} < \frac{\varepsilon}{4\pair{b-a}}\\
-                \impl f_n\of{x} - \frac{\varepsilon}{4\pair{b-a}} &\leq f\of{x} \leq f_n\of{x} + \frac{\varepsilon}{4\pair{b-a}}\quad\forall n\geq N
-                \intertext{Halte $N$ fest und nehme Zerlegung $Z$ von $I=\interv{a,b}$ mit}
-                \ov{S}_Z\of{f_N} - \un{S}_Z\of{f_N} &< \frac{\varepsilon}{2}\\
-                \ov{S}_Z\of{f_N - \frac{\varepsilon}{4\pair{b-a}}} &\leq \ov{S}_Z\of{f}\\
-                \ov{S}_Z\of{f_N - \frac{\varepsilon}{4\pair{b-a}}} &= \ov{S}_Z\of{f_N} + \ov{S}_Z\of{\frac{\varepsilon}{4\pair{b-a}}}\\
-                &= \ov{S}_Z\of{f_N} + \frac{\varepsilon}{4}\\[5pt]
-                \un{S}_Z\of{f_N - \frac{\varepsilon}{4\pair{b-a}}} &\leq \un{S}_Z\of{f}\\
-                \un{S}_Z\of{f_N - \frac{\varepsilon}{4\pair{b-a}}} &= \un{S}_Z\of{f_N} - \frac{\varepsilon}{4}\\
+                \norm{f-f_n}_{\infty} &= \sup_{a \leq x \leq b} \abs{f\of{x} - f_n\of{x}} < \frac{\varepsilon}{4\cdot\pair{b-a}}\\
+                \impl f_n\of{x} - \frac{\varepsilon}{4\cdot\pair{b-a}} &\leq f\of{x} \leq f_n\of{x} + \frac{\varepsilon}{4\cdot\pair{b-a}}\quad\forall n\geq N\tag{1}
+                \intertext{Halte $N$ fest und nehme Zerlegung $Z$ von $I=\interv{a,b}$ mit $\ov{S}_Z\of{f_N} - \un{S}_Z\of{f_N} < \frac{\varepsilon}{2}$. Dann gilt jeweils nach (1)}
+                \ov{S}_Z\of{f} \leq \ov{S}_Z\of{f_N + \frac{\varepsilon}{4\cdot\pair{b-a}}} &= \ov{S}_Z\of{f_N} + \ov{S}_Z\of{\frac{\varepsilon}{4\cdot\pair{b-a}}} = \ov{S}_Z\of{f_N} + \frac{\varepsilon}{4}\\
+                \un{S}_Z\of{f} \geq \un{S}_Z\of{f_N - \frac{\varepsilon}{4\cdot\pair{b-a}}} &= \un{S}_Z\of{f_N} - \un{S}_Z\of{\frac{\varepsilon}{4\cdot\pair{b-a}}} = \un{S}_Z\of{f_N} - \frac{\varepsilon}{4}\\[.6\baselineskip]
                 \impl \ov{S}_Z\of{f} - \un{S}_Z\of{f} &\leq \ov{S}_Z\of{f_N} + \frac{\varepsilon}{4} - \pair{\un{S}_Z\of{f_N} - \frac{\varepsilon}{4}}\\
-                &= \ov{S}_Z\of{f_N} - \un{S}_Z\of{f_N} + \frac{\varepsilon}{2} < \frac{\varepsilon}{2} + \frac{\varepsilon}{2} = \varepsilon
-            \end{align*}
-            Damit folgt $f\in\mR\of{I}$.
-            \begin{align*}
-                \int_{a}^{b} f_n\of{x} \dif x - \frac{\varepsilon}{4} &= \int_{a}^{b} \pair{f_n\of{x} - \frac{\varepsilon}{4\pair{b-a}}} \dif x\\
-                &= \int_{a}^{b} f\of{x} \dif x \leq \int_{a}^{b} \pair{f_n\of{x} + \frac{\varepsilon}{4\pair{b-a}}} \dif x\\
-                &= \int_{a}^{b} f_n\of{x} \dif x + \frac{\varepsilon}{4}\\
+                &= \ov{S}_Z\of{f_N} - \un{S}_Z\of{f_N} + \frac{\varepsilon}{2}\\
+                &< \frac{\varepsilon}{2} + \frac{\varepsilon}{2} = \varepsilon
+                \intertext{Damit folgt $f\in\mR\of{I}$. Wir beweisen die Gleichheit der Integrale.}\\
+                \int_{a}^{b} f_n\of{x} \dif x - \frac{\varepsilon}{4} &= \int_{a}^{b} \pair{f_n\of{x} - \frac{\varepsilon}{4\cdot\pair{b-a}}} \dif x\\
+                &\leq \int_{a}^{b} f\of{x} \dif x \leq \int_{a}^{b} \pair{f_n\of{x} + \frac{\varepsilon}{4\cdot\pair{b-a}}} \dif x\\
+                &= \int_{a}^{b} f_n\of{x} \dif x + \frac{\varepsilon}{4}\quad\forall n\geq N\\
                 \impl \limsup_{\ntoinf} \int_{a}^{b} f_n\of{x} \dif x - \frac{\varepsilon}{4} &\leq \int_{a}^{b} f\of{x} \dif x \leq \liminf_{\ntoinf} \int_{a}^{b} f_n\of{x} \dif x + \frac{\varepsilon}{4}\quad\forall\varepsilon > 0\\
                 \impl \limsup_{\ntoinf} \int_{a}^{b} f_n\of{x} \dif x &\leq \int_{a}^{b} f\of{x} \dif x \leq \liminf \int_{a}^{b} f_n\of{x} \dif x\qedhere
             \end{align*}
@@ -377,7 +376,7 @@
     \newpage
 
 
-    \section{Taylors Theorem}
+    \section{[*] Taylors Theorem}
     \imaginarysubsection{Taylors Theorem}
     \thispagestyle{pagenumberonly}
 
@@ -583,7 +582,7 @@
             \end{align*}
         \end{proof}
     \end{korollar}
-    
+
     \begin{bemerkung}
         Es gilt
         \begin{align*}
@@ -609,7 +608,7 @@
             \item stetig in $x=1$ und
             \item Die Potenzreihe konvergiert gleichmäßig auf allen Intervallen $\interv{a, 1}$ mit $-1 < a < 1$. (Das heißt sie konvergiert lokal gleichmäßig auf $\interv{-1, 1}$). Insbesondere in jeder $\varepsilon$-Umgebung um $x=1$.
         \end{enumerate}
-        
+
         \begin{proof}
             \textsc{Schritt 1}: Wir zeigen zunächst (ii) und setzen dafür
             \begin{align*}
