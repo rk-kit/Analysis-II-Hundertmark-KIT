@@ -476,8 +476,8 @@
                 \begin{align*}
                     f^{(n+1)}\of{x} &= \frac{\dif}{\dif x}\pair{f^{(n)}\of{x}}\\
                     &= \frac{\dif}{\dif x}\pair{p_n\of{\frac{1}{x}}\cdot e^{-\frac{1}{x^2}}}\\
-                    &= p_n'\of{\frac{1}{x}}\cdot\pair{-\frac{1}{x^2}}\cdot e^{-\frac{1}{x^2}} + p_n\of{\frac{1}{n}}\cdot e^{-\frac{1}{x^2}}\cdot\frac{2}{x3}\\
-                    &= \underbrace{\pair{-p_n'\of{\frac{1}{x}} + 2p_n\of{\frac{1}{x}}\frac{1}{x^3}}}_{\definedasbackwards p_{n+1}\of{\frac{1}{x}}}\cdot e^{-\frac{1}{x^2}}\\
+                    &= p_n'\of{\frac{1}{x}}\cdot\pair{-\frac{1}{x^2}}\cdot e^{-\frac{1}{x^2}} + p_n\of{\frac{1}{x}}\cdot e^{-\frac{1}{x^2}}\cdot\frac{2}{x^3}\\
+                    &= \underbrace{\pair{-p_n'\of{\frac{1}{x}}\cdot\frac{1}{x^2} + 2p_n\of{\frac{1}{x}}\cdot\frac{1}{x^3}}}_{\definedasbackwards p_{n+1}\of{\frac{1}{x}}}\cdot e^{-\frac{1}{x^2}}\\
                     p_{n+1}\of{t} &\coloneqq -p'_n\of{t}\cdot t^2 + 2t^3\cdot p_n\of{t}
                 \end{align*}
             \end{induktionsschritt}~\\
