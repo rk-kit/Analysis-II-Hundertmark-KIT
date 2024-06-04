@@ -697,15 +697,16 @@
     \end{bemerkung}
 
     \begin{satz}[Binomische Reihe]
-        Sei $\alpha\in\R$. Dann gilt für $\abs{x} < 1$\footnote{Gefunden von Newton 1665}
+        Sei $\alpha\in\R$. Dann gilt für $\abs{x} < 1$
         \begin{align*}
-            \pair{1+x}^{\alpha} &= \sum_{n=0}^{\alpha} \binom{\alpha}{n} x^n
+            \pair{1+x}^{\alpha} &= \sum_{n=0}^{\alpha} \binom{\alpha}{n} x^n\tag{\footnotemark}
             \intertext{wobei wir den verallgemeinerten Binomialkoeffizient verwenden}
             \binom{\alpha}{n} &\coloneqq \prod_{k=1}^{n} \frac{\alpha - k +1}{k} = \frac{\alpha\cdot\pair{\alpha-1}\cdot\ldots\cdot\pair{\alpha-k+1}}{k!}\\
             \binom{\alpha}{n} &\coloneqq 0 \text{ für } n\geq \alpha + 1
             \intertext{Daraus folgt der speziellere Binomische Lehrsatz für $m\in\N$}
             \impl \pair{1+x}^m &= \sum_{n=0}^{m} \binom{m}{n}\cdot x^n
         \end{align*}
+        \footnotetext{Gefunden von Newton 1665}
         \begin{proof}
             \textsc{Schritt 1}: Sei $f\of{x} = \pair{1+x}^{\alpha}$ für $x > -1$. Dann gilt
             \begin{align*}
@@ -750,7 +751,7 @@
     Erinnerung: Die $\Gamma$-Funktion ist für $x>0$ definiert als
     \begin{align*}
         \Gamma\of{x} &\coloneqq \int_{0}^{\infty} t^{x-1}\cdot e^{-t} \dif t
-        \intertext{Das funktioniert bei $0$; da $-x - 1 > -1$ und es funktioniert bei $\infty$, da}
+        \intertext{Das funktioniert bei $0$, da $-x - 1 > -1$ und es funktioniert bei $\infty$, da}
         t^{x-1}\cdot e^{-t} &= t^{x-1}\cdot e^{-\frac{t}{2}}\cdot e^{-\frac{t}{2}}\\
         &= C_x\cdot e^{-\frac{t}{2}} \tag{$C_x \coloneqq \sup_{t \geq 1} t^{x-1}\cdot e^{-\frac{t}{2}} < \infty$}\\
         \impl \Gamma\of{x} &= \lim_{a\searrow 0}\lim_{b\toinf} \int_{a}^{b} t^{x-1}\cdot e^{-t} \dif t \text{ existiert } \forall x>0
