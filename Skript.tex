@@ -760,7 +760,7 @@
     \end{align*}
 
     \begin{definition}[Konvexität\footnote{Siehe auch Skript Ana I, Kapitel 19}]
-        Eine Funktion $F: I\fromto \R$ -- wobei $I$ ein Intervall ist ($I=\linterv{0, \infty}$ ist dabei erlaubt) -- heißt \emph{konvex}, falls $\forall x,y\in I$ und für alle $0\leq \Theta \leq 1$ gilt
+        Eine Funktion $F: I\fromto \R$ -- wobei $I$ ein Intervall ist ($I=\linterv{0, \infty}$ ist dabei erlaubt) -- heißt konvex, falls $\forall x,y\in I$ und für alle $0\leq \Theta \leq 1$ gilt
         \begin{align*}
             F\of{\Theta x + \pair{1-\Theta}y} &\leq \Theta F\of{x} + \pair{1-\Theta}F\of{y}
         \end{align*}
@@ -790,14 +790,14 @@
     \end{beispiel}
 
     \begin{definition}
-        Eine Funktion $F$ heißt \emph{konkav}, falls $-F$ konvex ist. Das heißt
+        Eine Funktion $F$ heißt konkav, falls $-F$ konvex ist. Das heißt
         \begin{align*}
             F\of{\Theta x + \pair{1-\Theta}y} &\geq \Theta F\of{x} + \pair{1-\Theta}F\of{y}\quad\fa 0\leq \Theta < 1\fa x,y\in I
         \end{align*}
     \end{definition}
 
     \begin{definition}[Logarithmische Konvexität]
-        Eine Funktion $F$ heißt \emph{logarithmisch konvex}, falls $\log \circ F = \log\of{F}$ konvex ist. Das heißt
+        Eine Funktion $F$ heißt logarithmisch konvex, falls $\log \circ F = \log\of{F}$ konvex ist. Das heißt
         \begin{align*}
             \log F\of{\Theta x + \pair{1-\Theta} y} &\leq \Theta\log F\of{x} + \pair{1-\Theta}\cdot \log F\of{y}\\
             &= \log\of{F\of{x}^{\Theta}} + \log\of{F\of{y}^{1-\Theta}}\\
@@ -947,15 +947,29 @@
 
     \subsection{[*] Normierte Vektorräume}
 
-    \begin{definition}[Normierte Vektorräume]
-        Ein Vektorraum $V$ über $\K$ ($\R$ oder $\C$) ist eine Menge auf der eine Vektoraddition $+: V \times V\fromto V,~\pair{x,y}\mapsto x+y$ und eine (skalare) Multiplikation $\cdot: \K \times V\fromto V~\pair{\alpha, x}\mapsto \alpha \cdot x$ gibt, welche den üblichen Axiomen aus der Algebra genügen (z.B. $x+y = y+x$ oder $\alpha\pair{x+y} = \alpha x + \alpha y$).\\[.5\baselineskip]
-        Eine \emph{Norm} auf $V$ ist eine Abbildung $\norm{\cdot}: V \fromto \R~x\mapsto\norm{x}$ mit den Eigenschaften
+    \begin{definition}[Vektorraum]
+        Ein Vektorraum $V$ über $\K$ ($\R$ oder $\C$) ist eine Menge auf der es eine Vektoraddition
+        \begin{align*}
+            +: V \times V&\fromto V\\
+            \pair{x,y}&\mapsto x+y
+            \intertext{und eine (skalare) Multiplikation}
+            \cdot: \K \times V&\fromto V\\
+            \pair{\alpha, x}&\mapsto \alpha \cdot x
+        \end{align*}
+        gibt, welche den üblichen Axiomen aus der Algebra genügen (z.B. $x+y = y+x$, $\alpha\pair{x+y} = \alpha x + \alpha y$ oder $\pair{\alpha + \beta} x = \alpha x + \beta x$).
+    \end{definition}
+
+    \begin{definition}[Norm]
+        Eine Norm auf einem VR $V$ ist eine Abbildung $\norm{\cdot}: V \fromto \R~x\mapsto\norm{x}$ mit den Eigenschaften
         \begin{enumerate}[label=(\roman*)]
             \item $\norm{x} \geq 0$ und $\norm{x} = 0 \equivalent x = 0~\forall x\in V$
             \item $\norm{\lambda x} = \abs{\lambda}\norm{x}~\forall \lambda\in\K, x\in V$
             \item $\norm{x+y} \leq \norm{x} + \norm{y}~\forall x,y\in V$
         \end{enumerate}
-        Ein \emph{normierter Vektorraum} ist ein Paar $\pair{V, \norm{\cdot}}$ aus einem VR $V$ und einer Norm $\norm{\cdot}$ auf $V$.
+    \end{definition}
+
+    \begin{definition}[Normierter Vektorraum]
+        Ein normierter Vektorraum ist ein Paar $\pair{V, \norm{\cdot}}$ aus einem VR $V$ und einer Norm $\norm{\cdot}$ auf $V$.
     \end{definition}
 
     \begin{satz}
@@ -966,14 +980,14 @@
     \end{satz}
 
     \begin{bemerkung}
-        Gelten für eine Abbildung die Norm-Eigenschaften (ii) und (ii), aber statt (i) nur $\norm{x} \geq 0~\forall x\in V$. Dann heißt $\norm{\cdot}$ eine \emph{Halbnorm}.
+        Gelten für eine Abbildung die Norm-Eigenschaften (ii) und (ii), aber statt (i) nur $\norm{x} \geq 0~\forall x\in V$. Dann heißt $\norm{\cdot}$ eine \emph{Halbnorm}. Eine Beispiel dafür im $\R^2$ wäre die Abbildung $\pair{x_1~x_2}\mapsto x_1$.
     \end{bemerkung}
 
     \begin{beispiel}
         \theoremescape
         \begin{enumerate}
-            \item Ist $V$ ein euklidischer reeller VR mit symmetrischem, positiv-definitem Skalarprodukt $\sprod{x,y}$. Dann ist $\norm{x}\coloneqq \sqrt{\sprod{x,x}}$ eine Norm.
-            \item Ähnlich, wenn $V$ ein komplexer VR mit positiv-definiter sesquilinearer Bilinearformen $\sprod{x,y}$ ist. Das heißt $\sprod{\cdot, \cdot}: V\times V\fromto\C$ hat die Eigenschaften
+            \item Ist $V$ ein euklidischer reeller VR mit symmetrischem, positiv-definitem Skalarprodukt $\sprod{\cdot,\cdot}$. Dann ist $\norm{x}\coloneqq \sqrt{\sprod{x,x}}$ eine Norm.
+            \item Ähnlich, wenn $V$ ein komplexer VR mit positiv-definiter sesquilinearer Bilinearformen $\sprod{\cdot,\cdot}$ ist. Das heißt $\sprod{\cdot, \cdot}: V\times V\fromto\C$ hat die Eigenschaften
             \begin{enumerate}[label=(\roman*)]
                 \item $\sprod{x,y} = \conj{\sprod{y,x}}$ und $\sprod{x,x} \geq 0~\forall x,y\in V$ (\footnote{Die Forderung $\sprod{x,x} \geq 0$ ist wohldefiniert, weil durch die anderen Eigenschaften folgt, dass $\forall x\in V\colon \sprod{x,x}\in\R$})
                 \item $\sprod{x, u+w} = \sprod{x,u} + \sprod{x,w}$ sowie $\sprod{u+w, y} = \sprod{u, y} + \sprod{w, y}$
@@ -1010,7 +1024,7 @@
         \end{enumerate}
     \end{definition}
 
-    \begin{satz}[Hausdorffsche Trennungsaxiom]
+    \begin{satz}[Hausdorffsches Trennungsaxiom]
         Sei $\pair{X, d}$ ein metrischer Raum. Dann existieren zu $x,y\in X$ mit $x\neq y$ $\varepsilon$-Umgebungen $V$ von $y$ und $U$ von $x$ mit $U\cap V = \emptyset$.
         \begin{proof}
             Wir wählen $\varepsilon = \frac{1}{2}\cdot d\of{x,y} > 0$. Angenommen $\exists z\in B_{\varepsilon}\of{x} \cap B_{\varepsilon}\of{y}$. Dann gilt
