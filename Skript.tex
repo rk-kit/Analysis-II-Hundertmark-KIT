@@ -889,4 +889,136 @@
         \end{proof}
     \end{satz}
 
+    \newpage
+
+
+    \section{[*] Metrische Räume, topologische Räume und normierte Vektorräume}
+
+    \subsection{[*] Metrische Räume}
+    \thispagestyle{pagenumberonly}
+
+    \marginnote{[07. Jun]}
+    Frage: Wie definiert man Abstand?
+
+    \begin{beispiel}[Abstände zweier reeller Zahlen]
+        Seien $x,y\in\R$. Wir definieren den Abstand über den Betrag. Das heißt $d\of{x,y}\coloneqq \abs{x-y}$.
+        Der Abstand hat in diesem Fall die Eigenschaften
+        \begin{enumerate}[label=(\roman*)]
+            \item $\abs{x-y} \geq 0$ und $\abs{x-y} = 0 \equivalent x=y$
+            \item $\abs{x-y} = \abs{y-x}$
+            \item $\abs{x-y} \leq \abs{x-z} + \abs{z-y}$ für ein beliebiges $z\in\R$
+        \end{enumerate}
+    \end{beispiel}
+
+    \begin{definition}[Metrik]
+        Sei $X$ eine Menge und $d: X \times X\fromto \R$ eine Abbildung mit den Eigenschaften
+        \begin{enumerate}[label=(\roman*)]
+            \item $d\of{x,y} \geq 0~\forall x,y\in X$ und $d\of{x,y} = 0\equivalent x = y$
+            \item $d\of{x,y} = d\of{y,x}~\forall x,y\in X$
+            \item $d\of{x,y} \leq d\of{x,z} + d\of{z,y}~\forall x,y,z\in X$
+        \end{enumerate}
+        In diesem Fall nennen wir $d$ eine Metrik auf $X$.
+    \end{definition}
+
+    \begin{beispiel}
+        \theoremescape
+        \begin{enumerate}
+            \item Auf $\R$ oder $\C$ definieren wir $d\of{x,y} \coloneqq \abs{x-y}$
+            \item Für $x,y\in\R^2$ definieren wir zum Beispiel die euklidische Metrik $d\of{x,y} \coloneqq \sqrt{\pair{x_1 - y_1}^2 + \pair{x_2 - y_2}^2}$
+            \item Sei $\pair{X, d}$ ein metrischer Raum (das heißt wir haben bereits eine Metrik $d$ auf $X$ definiert) und sei $A\subseteq X$. Dann definieren wir die \emph{induzierte Metrik} $d_A: A \times A \fromto \R,~\pair{x,y}\mapsto d\of{x,y}$
+            \item Die \emph{diskrete Metrik} ist definiert durch $d\of{x,y} \coloneqq \begin{cases}
+                                                                                          0 & x = y\\
+                                                                                          1 & x\neq y
+            \end{cases}$
+            \item Die französische Eisenbahnmetrik im $\R^2$ ist definiert durch $d\of{x,y}\coloneqq \sqrt{x_1^1 + x_2^2} + \sqrt{y_1^2 + y_2^2}$. Die Metrik setzt sich also jeweils zusammen aus der euklidischen Distanz von $x$ und $y$ zum Koordinatenursprung
+            \item Sei $\pair{X, d}$ ein metrischer Raum. Dann können wir eine Metrik $d_1$ definieren durch
+            \begin{align*}
+                d_1\of{x,y} &\coloneqq \frac{d\of{x,y}}{1+d\of{x,y}}
+                \intertext{Dass $d_1$ die Eigenschaften (i) und (ii) im Sinne der Definition erfüllt, rechnet sich leicht nach. Für (iii) gilt für ein $z\in X$}
+                d\of{x,y} &\leq d\of{x,z} + d\of{z,y}
+                \intertext{Außerdem gilt für $t\in\R$}
+                \frac{t}{1+t} &= 1- \frac{1}{t+1} \tag{monoton steigend}\\
+                \impl d_1\of{x,y} = \frac{d\of{x,y}}{1+d\of{x,y}} &\leq \frac{d\of{x,z} + d\of{z,y}}{1+d\of{x,z} + d\of{z,y}}\\
+                &= \frac{d\of{x,z}}{1+d\of{x,z} + d\of{z,y}} + \frac{d\of{z,y}}{1+d\of{x,z} + d\of{z,y}}\\
+                &\leq \frac{d\of{x,z}}{1+d\of{x,z}} + \frac{d\of{z,y}}{1+d\of{z,y}} = d_1\of{x,z} + d_1\of{z,y}
+            \end{align*}
+        \end{enumerate}
+    \end{beispiel}
+
+    \subsection{[*] Normierte Vektorräume}
+
+    \begin{definition}[Normierte Vektorräume]
+        Ein Vektorraum $V$ über $\K$ ($\R$ oder $\C$) ist eine Menge auf der eine Vektoraddition $+: V \times V\fromto V,~\pair{x,y}\mapsto x+y$ und eine (skalare) Multiplikation $\cdot: \K \times V\fromto V~\pair{\alpha, x}\mapsto \alpha \cdot x$ gibt, welche den üblichen Axiomen aus der Algebra genügen (z.B. $x+y = y+x$ oder $\alpha\pair{x+y} = \alpha x + \alpha y$).\\[.5\baselineskip]
+        Eine \emph{Norm} auf $V$ ist eine Abbildung $\norm{\cdot}: V \fromto \R~x\mapsto\norm{x}$ mit den Eigenschaften
+        \begin{enumerate}[label=(\roman*)]
+            \item $\norm{x} \geq 0$ und $\norm{x} = 0 \equivalent x = 0~\forall x\in V$
+            \item $\norm{\lambda x} = \abs{\lambda}\norm{x}~\forall \lambda\in\K, x\in V$
+            \item $\norm{x+y} \leq \norm{x} + \norm{y}~\forall x,y\in V$
+        \end{enumerate}
+        Ein \emph{normierter Vektorraum} ist ein Paar $\pair{V, \norm{\cdot}}$ aus einem VR $V$ und einer Norm $\norm{\cdot}$ auf $V$.
+    \end{definition}
+
+    \begin{satz}
+        Ist $\pair{V, \norm{\cdot}}$ ein normierter VR, so wird durch $d\of{x,y}\coloneqq \norm{x-y}$ eine Metrik auf $V$ definiert.
+        \begin{proof}
+            Die Axiome der Metrik folgen unmittelbar aus den Axiomen der Norm.
+        \end{proof}
+    \end{satz}
+
+    \begin{bemerkung}
+        Gelten für eine Abbildung die Norm-Eigenschaften (ii) und (ii), aber statt (i) nur $\norm{x} \geq 0~\forall x\in V$. Dann heißt $\norm{\cdot}$ eine \emph{Halbnorm}.
+    \end{bemerkung}
+
+    \begin{beispiel}
+        \theoremescape
+        \begin{enumerate}
+            \item Ist $V$ ein euklidischer reeller VR mit symmetrischem, positiv-definitem Skalarprodukt $\sprod{x,y}$. Dann ist $\norm{x}\coloneqq \sqrt{\sprod{x,x}}$ eine Norm.
+            \item Ähnlich, wenn $V$ ein komplexer VR mit positiv-definiter sesquilinearer Bilinearformen $\sprod{x,y}$ ist. Das heißt $\sprod{\cdot, \cdot}: V\times V\fromto\C$ hat die Eigenschaften
+            \begin{enumerate}[label=(\roman*)]
+                \item $\sprod{x,y} = \conj{\sprod{y,x}}$ und $\sprod{x,x} \geq 0~\forall x,y\in V$ (\footnote{Die Forderung $\sprod{x,x} \geq 0$ ist wohldefiniert, weil durch die anderen Eigenschaften folgt, dass $\forall x\in V\colon \sprod{x,x}\in\R$})
+                \item $\sprod{x, u+w} = \sprod{x,u} + \sprod{x,w}$ sowie $\sprod{u+w, y} = \sprod{u, y} + \sprod{w, y}$
+                \item $\sprod{x, \alpha y} = \alpha\sprod{x,y}$ sowie $\sprod{\alpha x, y} = \conj{\alpha}\sprod{x,y}$ (\footnote{Physiker-Konvention, anders herum als in der Vorlesung \textsc{Lineare Algebra I/II}})
+            \end{enumerate}
+            Dann definieren wir eine Norm durch $\norm{x} \coloneqq \sqrt{\sprod{x,x}}$.
+            \item Im $\R^d$ definieren wir für zwei Vektoren $x=\pair{x_1, \ldots, x_d}$ und $y=\pair{y_1, \ldots, y_d}$ ein Skalarprodukt durch
+            \begin{align*}
+                \sprod{x,y} &\coloneqq \sum_{j=1}^{d} x_j \cdot y_j
+                \intertext{Und eine Norm durch}
+                \norm{x} &\coloneqq \norm{x}_2 \coloneqq \sqrt{\sprod{x,x}} = \sqrt{\sum_{j=1}^{d} \abs{x_j}^2}
+            \end{align*}
+            \item Wir definieren die Maximums-Norm auf $\R^d$ durch $\norm{x}_{\infty} \coloneqq \max_{1\leq j\leq d} \abs{x_j}$. Daraus folgt auch $\norm{x}_{\infty} \leq \norm{x}_2 \leq \sqrt{d}\cdot\norm{x}_{\infty}$.
+            \item Wir definieren die Manhattan-Norm auf $\R^d$ durch
+            \begin{align*}
+                \norm{x}_1 &\coloneqq \sum_{j=1}^{d} \abs{x_j}
+            \end{align*}
+            und es gilt $\norm{x}_{\infty} \leq \norm{x}_1 \leq d \cdot \norm{x}_{\infty}$
+            \item Sei $X$ eine beliebige Menge und $\mathcal{B}\of{X}$ der Vektorraum der reellwertigen beschränkten Funktionen $f: X\fromto \R$. Dann definieren wir
+            \begin{align*}
+                \norm{f}_{L^{\infty}\of{x}} &\coloneqq \sup\set{\abs{f\of{x}}: x\in X} = \sup_{x\in X} \abs{f\of{x}}
+            \end{align*}
+            als eine Norm auf $\mathcal{B}\of{x}$. Das ist eine Verallgemeinerung der Maximumsnorm.
+        \end{enumerate}
+    \end{beispiel}
+
+    \subsection{[*] Umgebungen und offene Mengen}
+
+    \begin{definition}
+        Sei $\pair{X, d}$ ein metrischer Raum
+        \begin{enumerate}[label=(\alph*)]
+            \item Für $a\in X$, $r > 0$ heißt $B_r\of{a} \coloneqq \set{x\in X: d\of{a, x} < r}$ die (offene) Kugel um $a$ mit dem Radius $r$ und dem Mittelpunkt $a$.
+            \item Eine Teilmenge $U\subseteq X$ heißt \emph{Umgebung} von $x\in X$, falls $\exists\varepsilon > 0$, sodass $B_{\varepsilon}\of{x} \subseteq U$. Insbesondere ist $B_{\varepsilon}\of{x}$ eine Umgebung von $x$. Wir nennen $B_{\varepsilon}\of{x}$ die $\varepsilon$-Umgebung von $x$.
+        \end{enumerate}
+    \end{definition}
+
+    \begin{satz}[Hausdorffsche Trennungsaxiom]
+        Sei $\pair{X, d}$ ein metrischer Raum. Dann existieren zu $x,y\in X$ mit $x\neq y$ $\varepsilon$-Umgebungen $V$ von $y$ und $U$ von $x$ mit $U\cap V = \emptyset$.
+        \begin{proof}
+            Wir wählen $\varepsilon = \frac{1}{2}\cdot d\of{x,y} > 0$. Angenommen $\exists z\in B_{\varepsilon}\of{x} \cap B_{\varepsilon}\of{y}$. Dann gilt
+            \begin{align*}
+                2\varepsilon &= d\of{x,y} \leq d\of{x,z} + d\of{z,y}\\
+                &< \varepsilon + \varepsilon = 2\varepsilon\qedhere
+            \end{align*}
+        \end{proof}
+    \end{satz}
+
 \end{document}
