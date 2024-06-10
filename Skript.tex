@@ -414,7 +414,7 @@
         \begin{align*}
             f\of{x} &= \sum_{k=0}^{n} \frac{f^{(k)}\of{x_0}}{k!}\pair{x-x_0}^k + \overline{R}_n\of{f, x_0, x}
             \intertext{mit}
-            \ov{R}_n\of{f, x_0, x} &= \frac{1}{\pair{1-n}!} \int_{x_0}^{x} \pair{x-t}^{n-1}\cdot\interv{f^{(n)}\of{t} - f^{(n)}\of{x}} \dif t
+            \ov{R}_n\of{f, x_0, x} &= \frac{1}{\pair{n-1}!} \int_{x_0}^{x} \pair{x-t}^{n-1}\cdot\interv{f^{(n)}\of{t} - f^{(n)}\of{x}} \dif t
         \end{align*}
         \begin{proof}
             Nach Satz~\ref{satz:taylor} gilt
