@@ -1035,4 +1035,121 @@
         \end{proof}
     \end{satz}
 
+    \begin{definition}[Offene Menge, Hausdorff 1914]
+        \marginnote{[11. Jun]}
+        Sei $\pair{X, d}$ ein metrischer Raum. Eine Teilmenge $U\subseteq X$ heißt offen, wenn $\forall x\in U\ex \varepsilon > 0\colon B_{\varepsilon}\of{x}\subseteq U$.
+    \end{definition}
+
+    \begin{beispiel}
+        Seien $a, b\in\R$, $a < b$
+        \begin{enumerate}
+            \item Dann sind $\pair{a, b}$, $\pair{a, \infty}$, $\pair{-\infty, a}$ offen.
+            \item Die Mengen $\linterv{a,b}$, $\interv{a,b}$, $\linterv{a,\infty}$ sind nicht offen, weil für den ersten Fall $\pair{a-\varepsilon, a + \varepsilon}\nsubseteq \linterv{a,b}$.
+            \item In jedem metrischen Raum $\pair{X, d}$ ist für beliebige $a\in X$, $r > 0$ die Menge $B_r\of{a}$ offen. Deshalb heißt $B_r\of{a}$ die offene Kugel um $a$ mit Radius $r$.
+            \item In $\R^d$ gilt $U\subseteq\R^d$ ist offen bezüglich $\norm{\cdot}_{\infty} \equivalent U$ ist offen bezüglich $\norm{\cdot}_2$
+        \end{enumerate}
+        \begin{proof}[Beweis für 3.]
+            Sei $x\in B_{r}\of{a}$ und $\varepsilon \coloneqq r - d\of{a, x} > 0$. Sei $z\in B_{\varepsilon}\of{x}$. Dann gilt
+            \begin{align*}
+                d\of{a,z} \leq d\of{a,x} + d\of{x,z} &< d\of{a, x} + r - d\of{a,x} = r\\
+                \impl d\of{a,z} &< r\\
+                \impl z&\in B_r\of{a}
+            \end{align*}
+        \end{proof}
+        \begin{proof}[Beweis für 4.]
+            Sei $B_{\varepsilon}^{\infty}\of{x}\coloneqq\set{y\in \R^d: \norm{x-y}_{\infty} < \varepsilon}$ und $B_{\varepsilon}^{(2)}\of{x} \coloneqq \set{y\in\R^d: \norm{x-y}_2 < \varepsilon}$. Für ein $y\in B_{\frac{\varepsilon}{\sqrt{d}}}^{(2)}\of{x}$ gilt
+            \begin{align*}
+                \sqrt{ \sum_{i=1}^{d} \pair{y_i - x_i}^2} &< \frac{\varepsilon}{\sqrt{d}}\\
+                \impl \max_{1 \leq i \leq d} \abs{_i - y_i} &< \varepsilon\\
+                \impl y&\in B_{\varepsilon}^{\infty}\of{x}
+                \intertext{Außerdem lässt sich zeigen, dass daraus auch folgt, dass $y\in B_{\varepsilon}^{(2)}\of{x}$. Das heißt}
+                B_{\frac{\varepsilon}{\sqrt{d}}}^{(2)}\of{x} &\subseteq B_{\varepsilon}^{\infty}\of{x} \subseteq B_{\varepsilon}^{(2)}\of{x}\qedhere
+            \end{align*}
+        \end{proof}
+    \end{beispiel}
+
+    \begin{satz} % Satz 7
+        \label{satz:offene-mengen-metr}
+        Für die offenen Mengen eines metrischen Raums $\pair{X, d}$ gilt
+        \begin{enumerate}[label=(\alph*)]
+            \item $\emptyset$ und $X$ sind offen
+            \item Sind $U$ und $V$ offen, so ist auch $U\cap V$ offen
+            \item Ist $I$ eine beliebige Indexmenge und $(U_j)_{j\in I}$ eine Familie offener Teilmengen von $X$. So ist $\bigcup_{j\in I} U_j$ offen.
+        \end{enumerate}
+
+        \begin{proof}[Beweis von (b)]
+            Sei $x\in U\cap V$. Da $U$ und $V$ offen sind, gibt es $\varepsilon_1 > 0$ und $\varepsilon_2 > 0$ mit $B_{\varepsilon_1}\of{x}\subseteq U$, $B_{\varepsilon_2}\of{x}\subseteq V$. Sei $\varepsilon\coloneqq \min\set{\varepsilon_1, \varepsilon_2} \impl B_{\varepsilon}\of{x}\subseteq U\land B_{\varepsilon}\of{x}\subseteq V$. Damit gilt $B_{\varepsilon}\of{x}\subseteq U\cap V$.
+        \end{proof}
+
+        \begin{proof}[Beweis von (c)]
+            Sei $x\in \bigcup_{j\in I} U_j \impl \exists j_0\colon x\in U_{j_0}$. $U_{j_0}$ ist offen. Das heißt $\exists\varepsilon > 0\colon B_{\varepsilon}\of{x}\subseteq U_{j_0} \impl B_{\varepsilon}\of{x}\subseteq \bigcup_{j\in I} U_{j}$.
+        \end{proof}
+    \end{satz}
+
+    \begin{bemerkung}
+        Seien $U_1, \ldots, U_k$ offen. Dann folgt aus Satz~\ref{satz:offene-mengen-metr}, dass $U_1\cap U_2\cap\dots\cap U_k$ offen ist. Das gilt allerdings nur für $k < \infty$.
+    \end{bemerkung}
+
+    \begin{beispiel}[Schnitt über unendlich viele offene Mengen]
+        Sei $U_n = \pair{-\frac{1}{n}, 1+\frac{1}{n}}$. Dann ist $U_n$ offen $\forall n\in\N$. Allerdings ist $\bigcap_{n=1}^{\infty} U_n = \interv{0, 1}$ nicht offen.
+    \end{beispiel}
+
+    \begin{definition}[Abgeschlossene Menge]
+        In einem metrischen Raum $\pair{X, d}$ nennen wir eine Menge $A\subseteq X$ abgeschlossen, wenn ihr Komplement $A^{C}\coloneqq X \exclude A = \set{y\in X: y\not\in A}$ offen ist.
+    \end{definition}
+
+    \begin{bemerkung}
+        Eine andere Definition von Abgeschlossenheit wurde 1884 von Cantor gegeben. Diese Definition benutzt Folgen.
+    \end{bemerkung}
+
+    \begin{definition}[Konvergenz in metrischen Räumen]
+        Sei $\pair{X, d}$ ein metrischer Raum. Eine Folge $(x_n)_n\subseteq X$ konvergiert gegen den Punkt $a\in X$, wenn
+            \begin{align*}
+                &\forall\varepsilon>0\ex N\in\N\colon d\of{a, x_n} < \varepsilon\quad\forall n> N
+                \intertext{das heißt}
+                \equivalent &\forall\varepsilon > 0\ex N\in\N\colon x_n\in B_{\varepsilon}\of{a}\quad\forall n> N\\
+                \equivalent &\forall\varepsilon > 0 \text{ ist } x_n\in B_{\varepsilon}\of{a} \text{ für fast alle $n$}
+            \end{align*}
+            Wir schreiben dann $\lim_{\ntoinf} x_n = a$.
+    \end{definition}
+
+    \begin{definition}[Folgen-Abgeschlossenheit]
+        Sei $\pair{X, d}$ ein metrischer Raum. Eine Menge $A\subseteq X$ ist Folgen-abgeschlossen, falls für jede Folge $(x_n)_n \subseteq A$, die gegen einen Punkt $a\in X$ konvergiert, auch gilt $a\in A$.
+    \end{definition}
+
+    \begin{beispiel}
+        Wir betrachten die Menge $\rinterv{0, 1}$ und die Folge $x_n = \frac{1}{n}$. Dann liegt der Grenzwert von $(x_n)_n$ nicht in $\rinterv{0, 1}$. Das heißt $\rinterv{0,1}$ ist nicht Folgen-abgeschlossen. Die Menge $\interv{0, 1}$ hingegen schon.
+    \end{beispiel}
+
+    \begin{satz} % Staz 11
+        \label{satz:vergleich-folgen-abgeschlossen}
+        Sei $\pair{X, d}$ ein metrischer Raum. Für $A\subseteq X$ gilt $A$ ist genau dann abgeschlossen, wenn $A$ Folgen-abgeschlossen ist.
+    \end{satz}
+
+    Um diesen Satz zu beweisen, benötigen wir zunächst noch folgende Lemmata
+    
+    \begin{lemma} % Lemma 12
+        \label{lemma:komplement-folgen-abgeschlossen}
+        Sei $\pair{X, d}$ ein metrischer Raum. Ist $U\subseteq X$ offen, so ist $U^{C}$ Folgen-abgeschlossen.
+
+        \begin{proof}
+            Angenommen es gibt eine Folge $(x_n)_n \subseteq U^{C}$ mit $x_n\fromto a$, aber $a\not\in U^{C}$. Das heißt $a\in U$. Da $U$ offen ist, existiert eine Kugel $B_{\varepsilon}\of{a} \subseteq U$ (für ein $\varepsilon > 0$). Da $x_n\fromto a$ für $\ntoinf$ $\exists N\in\N$, sodass $d\of{a, x_n} < \varepsilon~\forall n> N \equivalent x_n \in B_{\varepsilon}\of{a}~\forall n > N$. Damit gilt $x_n\not\in U^{C}~\forall n > N$. Widerspruch.
+        \end{proof}
+    \end{lemma}
+
+    \begin{lemma}
+        \label{lemma:komplement-offen}
+        Sei $\pair{X, d}$ ein metrischer Raum. Dann gilt $A$ ist Folgen-abgeschlossen $\impl A^{C}$ ist offen.
+
+        \begin{proof}
+            Angenommen $A^{C}$ ist nicht offen. Das heißt $\exists x_0 \in A^{C}$, sodass für jedes $\varepsilon > 0$ die Kugel $B_{\varepsilon}\of{x_0}$ nicht ganz in $A^{C}$ enthalten ist. Das heißt $B_{\varepsilon}\of{x_0}\cap A \neq \emptyset~\forall\varepsilon > 0$. Wir wählen $x_n\in A$ mit $x_n\in B_{\frac{1}{n}}\of{x_0}$. Also gilt $x_n\fromto x_0\in A^{C}$. Das heißt $A$ ist nicht Folgen-abgeschlossen. Widerspruch.
+        \end{proof}
+    \end{lemma}
+
+    \begin{proof}[Beweis von Satz~\ref{satz:vergleich-folgen-abgeschlossen}]
+        ~\\
+        \anf{$\impl$} Wenn $A$ abgeschlossen ist, dann gilt nach Definition, dass $A^{C}$ offen ist. Mit Lemma~\ref{lemma:komplement-folgen-abgeschlossen} folgt dann, dass $A$ Folgen-abgeschlossen ist.\\
+        \anf{$\Leftarrow$} Sei $A$ Folgen-abgeschlossen. Dann folgt direkt aus Lemma~\ref{lemma:komplement-offen}, dass $A$ abgeschlossen.
+    \end{proof}
+
 \end{document}
