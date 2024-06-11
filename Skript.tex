@@ -506,7 +506,7 @@
             \exp\of{cx} &= \exp\of{cx_0 + c\pair{x-x_0}}\\
             &= \exp\of{cx_0}\cdot\exp\of{c\pair{x-x_0}}\\
             &= \exp\of{cx_0}\cdot \sum_{n=0}^{\infty} \frac{c^n}{n!}\pair{x-x_0}^n\\
-            &= \sum_{n=0}^{\infty} ??
+			&= \sum_{n=0}^{\infty} \frac{\exp\of{cx_0}c^n}{n!}\pair{x-x_0}^n
         \end{align*}
     \end{beispiel}
 
@@ -516,7 +516,8 @@
         \begin{align*}
             f\of{x} &= T_n\of{f, x_0, x} + R_n\of{f, x_0, x}
             \intertext{mit}
-            ????
+			R_n\of{f, x_0, x} &= \frac{1}{p \cdot n!}\cdot f^{(n+1)}\of{\xi}\cdot\pair{x-\xi}^{n+1-p}\pair{x-x_0}^p \tag{8}\\ 
+			\forall 1 \leq p \leq n+1 \text{ und } \xi \text{ zwischen } x_0 \text{ und } x
         \end{align*}
     \end{satz}
 
