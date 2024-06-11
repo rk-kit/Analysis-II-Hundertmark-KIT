@@ -1053,17 +1053,18 @@
             \begin{align*}
                 d\of{a,z} \leq d\of{a,x} + d\of{x,z} &< d\of{a, x} + r - d\of{a,x} = r\\
                 \impl d\of{a,z} &< r\\
-                \impl z&\in B_r\of{a}
+                \impl z&\in B_r\of{a}\qedhere
             \end{align*}
         \end{proof}
         \begin{proof}[Beweis für 4.]
             Sei $B_{\varepsilon}^{\infty}\of{x}\coloneqq\set{y\in \R^d: \norm{x-y}_{\infty} < \varepsilon}$ und $B_{\varepsilon}^{(2)}\of{x} \coloneqq \set{y\in\R^d: \norm{x-y}_2 < \varepsilon}$. Für ein $y\in B_{\frac{\varepsilon}{\sqrt{d}}}^{(2)}\of{x}$ gilt
             \begin{align*}
                 \sqrt{ \sum_{i=1}^{d} \pair{y_i - x_i}^2} &< \frac{\varepsilon}{\sqrt{d}}\\
-                \impl \max_{1 \leq i \leq d} \abs{_i - y_i} &< \varepsilon\\
+                \impl \sum_{i=1}^{d} \pair{y_i - x_i}^2 &< \frac{\varepsilon^2}{d}\\
+                \impl \max_{1 \leq i \leq d} \abs{x_i - y_i} &< \varepsilon\\
                 \impl y&\in B_{\varepsilon}^{\infty}\of{x}
                 \intertext{Außerdem lässt sich zeigen, dass daraus auch folgt, dass $y\in B_{\varepsilon}^{(2)}\of{x}$. Das heißt}
-                B_{\frac{\varepsilon}{\sqrt{d}}}^{(2)}\of{x} &\subseteq B_{\varepsilon}^{\infty}\of{x} \subseteq B_{\varepsilon}^{(2)}\of{x}\qedhere
+                B_{\frac{\varepsilon}{\sqrt{d}}}^{(2)}\of{x} \subseteq B_{\varepsilon}^{\infty}\of{x} &\subseteq B_{\varepsilon}^{(2)}\of{x}\qedhere
             \end{align*}
         \end{proof}
     \end{beispiel}
