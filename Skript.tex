@@ -25,6 +25,7 @@
 \usepackage{mdframed}
 \usepackage{aligned-overset}
 \usepackage{esint}
+\usepackage{scalerel}
 
 % Font-Encoding
 \usepackage[T1]{fontenc}
@@ -134,6 +135,14 @@
 \newcommand{\mJ}{\mathcal{J}}
 \newcommand{\mPC}{\mathcal{PC}}
 
+% Spezielle Symbole
+\NewDocumentCommand{\Tau}{e{^_}}{
+  \scalerel*{\tau}{X}
+  \IfValueT{#1}{^{#1}}
+  \IfValueT{#2}{_{\!\!#2}}
+}
+
+% Spezielle Commands
 \newcommand\imaginarysubsection[1]{
     \refstepcounter{subsection}
     \subsectionmark{#1}
@@ -1180,16 +1189,16 @@
         \end{enumerate}
     \end{bemerkung}
 
-    \subsection{Grundzüge der Topologie}
+    \subsection{[*] Grundzüge der Topologie}
 
     \begin{definition}[Topologischer Raum]
-        Sei $X$ eine Menge. Dann heißt ein Mengensystem $\tau\sbset\mathcal{P}\of{x}$ eine \emph{Topologie} auf $X$, falls
+        Sei $X$ eine Menge. Dann heißt ein Mengensystem $\Tau\sbset\mathcal{P}\of{x}$ eine \emph{Topologie} auf $X$, falls
         \begin{enumerate}[label=(\roman*)]
-            \item $\emptyset, X\in\tau$
-            \item $U, V\in \tau \impl U \cap V \in \tau$ und
-            \item Für eine beliebige Indexmenge $I$ mit $\forall j\in I\colon V_j \in \tau$ folgt $\displaystyle\bigcup_{j\in I} V_j \in I$
+            \item $\emptyset, X\in\Tau$
+            \item $U, V\in \Tau \impl U \cap V \in \Tau$ und
+            \item Für eine beliebige Indexmenge $I$ mit $\forall j\in I\colon V_j \in \Tau$ folgt $\displaystyle\bigcup_{j\in I} V_j \in I$
         \end{enumerate}
-        Ein topologischer Raum ist ein Paar $\pair{X, \tau}$. $V\subseteq X$ heißt offen, falls $V\in\tau$ und $A\subseteq X$ heißt abgeschlossen, falls $A^{C} \in\tau$.
+        Ein topologischer Raum ist ein Paar $\pair{X, \Tau}$. $V\subseteq X$ heißt offen, falls $V\in\Tau$ und $A\subseteq X$ heißt abgeschlossen, falls $A^{C} \in\Tau$.
     \end{definition}
 
     \begin{beispiel}
@@ -1197,42 +1206,46 @@
         \begin{enumerate}
             \item Das System von offenen Mengen eines metrischen Raums $X$ ist eine Topologie.
             \item $\R^d$ ist ein topologischer Raum (mit dem System der offenen Mengen als implizierte Topologie).
-            \item Auf jeder Menge $X$ gibt es mindestens 2 Topologien: $\tau_0 \coloneqq \set{\emptyset, X}$ und die feinste Topologie $\tau_1 = \mathcal{P}\of{X}$. Ist $\abs{X} \geq 2$, so ist $\tau_0 \neq \tau_1$.
-            \item Sei $\pair{X, \tau}$ ein topologischer Raum und $Y\subseteq X$ eine Teilmenge von $X$. Wir definieren ähnlich zur induzierten Metrik eine \emph{induzierte Topologie} (Relativ-Topologie) $\tau_Y \coloneqq \tau \cap Y \coloneqq \set{U \cap Y \colon U\in \tau}$. Dann ist $\pair{Y, \tau_Y}$ ein topologischer Raum.
+            \item Auf jeder Menge $X$ gibt es mindestens 2 Topologien: $\Tau_0 \coloneqq \set{\emptyset, X}$ und die feinste Topologie $\Tau_1 = \mathcal{P}\of{X}$. Ist $\abs{X} \geq 2$, so ist $\Tau_0 \neq \Tau_1$.
+            \item Sei $\pair{X, \Tau}$ ein topologischer Raum und $Y\subseteq X$ eine Teilmenge von $X$. Wir definieren ähnlich zur induzierten Metrik eine \emph{induzierte Topologie} (Relativ-Topologie) $\Tau_{Y} \coloneqq \Tau \cap Y \coloneqq \set{U \cap Y \colon U\in \Tau}$. Dann ist $\pair{Y, \Tau_Y}$ ein topologischer Raum.
         \end{enumerate}
     \end{beispiel}
 
     \begin{bemerkung}
-        Ist $Y$ nicht offen in $X$, so ist $V\in \tau_Y$ nicht notwendigerweise offen in $X$.
+        Ist $Y$ nicht offen in $X$, so ist $V\in \Tau_Y$ nicht notwendigerweise offen in $X$.
     \end{bemerkung}
 
     \begin{definition}[Umgebung]
-        Sei $\pair{X, \tau}$ ein topologischer Raum und $x\in X$ (Punkt in $X$). Eine Teilmenge $V\subseteq X$ heißt Umgebung von $x$, falls es eine Menge $U\in\tau$ gibt mit $x\in U \subseteq V$.
+        Sei $\pair{X, \Tau}$ ein topologischer Raum und $x\in X$ (Punkt in $X$). Eine Teilmenge $V\subseteq X$ heißt Umgebung von $x$, falls es eine Menge $U\in\Tau$ gibt mit $x\in U \subseteq V$.
     \end{definition}
 
     \begin{satz} % Satz 16
-        Sei $\pair{X, \tau}$ ein topologischer Raum. Eine Menge $V\subseteq X$ ist genau dann offen, wenn $V$ eine Umgebung für jeden Punkt $x\in V$ ist.
+        Sei $\pair{X, \Tau}$ ein topologischer Raum. Eine Menge $V\subseteq X$ ist genau dann offen, wenn $V$ eine Umgebung für jeden Punkt $x\in V$ ist.
         \begin{proof}
-            \anf{$\impl$} Sei $V$ offen. Dann existiert für jedes $x\in V$ eine offene Menge $U\in\tau$ mit $x\in U\subseteq V$. Also ist $V$ eine Umgebung jedes Punktes $x\in V$.\\[.5\baselineskip]
-            \anf{$\Leftarrow$} Sei $V$ eine Umgebung für alle Punkte $x\in V$. Dann gilt $\forall x\in V\ex U_x \in \tau\colon x\in U_x \subseteq V$. Dann ist $V=\bigcup_{x\in V} U_x$. Das heißt $V$ ist als Vereinigung offener Mengen offen.
+            \anf{$\impl$} Sei $V$ offen. Dann existiert für jedes $x\in V$ eine offene Menge $U\in\Tau$ mit $x\in U\subseteq V$. Also ist $V$ eine Umgebung jedes Punktes $x\in V$.\\[.5\baselineskip]
+            \anf{$\Leftarrow$} Sei $V$ eine Umgebung für alle Punkte $x\in V$. Dann gilt $\forall x\in V\ex U_x \in \Tau\colon x\in U_x \subseteq V$. Dann ist $V=\bigcup_{x\in V} U_x$. Das heißt $V$ ist als Vereinigung offener Mengen offen.
         \end{proof}
     \end{satz}
 
     \begin{definition}[Hausdorff-Raum]
-        Ein topologischer Raum heißt Hausdorff-Raum, falls das Hausdorffsche Trennungsaxiom gilt. Das heißt zu zwei Punkten $x,y\in X$ mit $x\neq y$ existieren offene Mengen $U,V\in\tau$ mit $x\in U$, $y\in V$ und $U\cap V = \emptyset$.
+        Ein topologischer Raum heißt Hausdorff-Raum, falls das Hausdorffsche Trennungsaxiom gilt. Das heißt zu zwei Punkten $x,y\in X$ mit $x\neq y$ existieren offene Mengen $U,V\in\Tau$ mit $x\in U$, $y\in V$ und $U\cap V = \emptyset$.
     \end{definition}
 
     \begin{beispiel}
         \theoremescape
         \begin{enumerate}
             \item Nach Satz~\ref{satz:hausdorff-trennungsaxiom} ist jeder metrische Raum ein Hausdorff-Raum.
-            \item Sei $X=\set{0, 1}$ und $\tau\coloneqq \set{\emptyset, \set{0}, \set{0, 1}}$ eine Topologie. Dann ist $\pair{X, \tau}$ kein Hausdorff-Raum. Um das einzusehen, betrachten wir $x=0$ und $y=1$. Für diese zwei Elemente finden wir keine entsprechenden Mengen.
+            \item Sei $X=\set{0, 1}$ und $\Tau\coloneqq \set{\emptyset, \set{0}, \set{0, 1}}$ eine Topologie. Dann ist $\pair{X, \Tau}$ kein Hausdorff-Raum. Um das einzusehen, betrachten wir $x=0$ und $y=1$. Für diese zwei Elemente finden wir keine entsprechenden Mengen.
         \end{enumerate}
     \end{beispiel}
 
-    \subsection{Berührpunkt, Häufungspunkt und Randpunkt}
+    \subsection{[*] Berührpunkt, Häufungspunkt und Randpunkt}
 
-    Für die folgenden Definition sei $\pair{X, \tau}$ ein topologischer Raum und $A\subseteq X$
+    \begin{mdframed}
+        \begin{center}
+            Für die folgenden Definitionen sei $\pair{X, \Tau}$ ein topologischer Raum und $A\subseteq X$.
+        \end{center}
+    \end{mdframed}
 
     \begin{definition}[Berührpunkt]
         Ein Punkt $x\in X$ heißt Berührpunkt von $A$, wenn in jeder offenen Umgebung $U$ von $x$ mindestens ein Punkt aus $A$ liegt. Das heißt $U\cap A \neq \emptyset$ für alle offenen Mengen $U$ mit $x\in U$.
