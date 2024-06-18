@@ -1350,7 +1350,7 @@
     \thispagestyle{pagenumberonly}
 
     \begin{definition}[Konvergenz in metrischen Räumen]
-        Sei $\pair{M, d}$ ein metrischer Raum. Eine Folge $(x_n)_n \subseteq M$ konvergiert gegen $A \in M$, falls
+        Sei $\pair{M, d}$ ein metrischer Raum. Eine Folge $(x_n)_n \subseteq M$ konvergiert gegen $a \in M$, falls
         \begin{align*}
             &\forall\varepsilon > 0\ex N\in\N\colon d\of{x_n, a} < \varepsilon\quad\forall n\geq N\\
             (\equivalent &\forall \varepsilon > 0\colon x_n \in B_{\varepsilon}\of{a} \text{ für fast alle } n)
@@ -1358,7 +1358,7 @@
         Wir schreiben $a = \lim_{\ntoinf} x_n$ oder $x_n\fromto a$ für $\ntoinf$.\\
         $(x_n)_n$ heißt \emph{Cauchy-Folge}, falls
         \begin{align*}
-            &\forall\varepsilon>0\ex N\in\N\colon d\of{x_n, x_m} < \varepsilon\quad\forall n,m\geq N\\
+            &\forall\varepsilon>0\ex N\in\N\colon d\of{x_n, x_m} < \varepsilon\quad\forall n,m\geq N
         \end{align*}
     \end{definition}
 
@@ -1371,9 +1371,9 @@
     \end{definition}
 
     \begin{bemerkung}
+        Eine Menge $A\subseteq M$ ist genau dann beschränkt, wenn
         \begin{align*}
-            A &\subseteq M \text{ beschränkt }\\
-            \equivalent \exists x\in M, r > 0\colon A &\subseteq B_{r}\of{x}
+            \exists x\in M, r> 0\colon A \subseteq B_r\of{x}
         \end{align*}
         In diesem Fall ist $\diam\of{A} \leq 2r$.
     \end{bemerkung}
