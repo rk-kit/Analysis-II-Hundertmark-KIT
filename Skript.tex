@@ -120,6 +120,7 @@
 \DeclareMathOperator{\Im}{Im}
 \DeclareMathOperator{\arcsinh}{arcsinh}
 \DeclareMathOperator{\arccosh}{arccosh}
+\DeclareMathOperator{\diam}{diam}
 
 % Mengenbezeichner
 \newcommand{\R}{\mathbb{R}}
@@ -137,9 +138,9 @@
 
 % Spezielle Symbole
 \NewDocumentCommand{\Tau}{e{^_}}{
-  \scalerel*{\tau}{X}
-  \IfValueT{#1}{^{#1}}
-  \IfValueT{#2}{_{\!\!#2}}
+    \scalerel*{\tau}{X}
+    \IfValueT{#1}{^{#1}}
+    \IfValueT{#2}{_{\!\!#2}}
 }
 
 % Spezielle Commands
@@ -1256,7 +1257,183 @@
     \end{definition}
 
     \begin{definition}[Randpunkt]
-        Ein Punkt $x\in X$ heißt Randpunkt von $A$, falls es in jeder offenen Umgebung $U$ von $x$ mindestens einen Punkt aus $A$ und einen Punkt aus $A^{C}$ gibt. Das heißt für alle offenen Mengen $U$ mit $x\in U$ ist $U\cap A \neq \emptyset$ und $U\cap A^{C} \neq \emptyset$.
+        Ein Punkt $x\in X$ heißt Randpunkt von $A$, falls es in jeder offenen Umgebung $U$ von $x$ mindestens einen Punkt aus $A$ und einen Punkt aus $A^{C}$ gibt. Das heißt für alle offenen Mengen $U$ mit $x\in U$ ist $U\cap A \neq \emptyset$ und $U\cap A^{C} \neq \emptyset$. Wir schreiben $\partial A$ für die Menge aller Randpunkte von $A$.
     \end{definition}
+
+    \begin{satz} % Satz 19
+        \marginnote{[18. Jun]}
+        \label{satz:top-rand}
+        Ist $\pair{X, \Tau}$ ein topologischer Raum und $A\subseteq X$. Dann gilt
+        \begin{enumerate}[label=(\roman*)]
+            \item $A \exclude \partial A$ ist offen
+            \item $A \cup \partial A$ ist abgeschlossen
+            \item $\partial A$ ist abgeschlossen
+        \end{enumerate}
+        \begin{proof}
+            \theoremescape
+            \begin{enumerate}[label=(\roman*)]
+                \item Sei $x\in A \exclude \partial A$ beliebig. Dann folgt es existiert eine offene Umgebung $V$ von $x$ mit
+                \begin{align*}
+                    V \cap A^{C} &= V\cap \pair{X\exclude A} = \emptyset\tag{(1)}
+                    \intertext{denn ansonsten wäre $x\in\partial A$}
+                    \impl V \cap \partial A &= \emptyset\tag{(2)}
+                    \intertext{Denn wäre $V\cap \partial A \neq \emptyset$. Dann würde folgen}
+                    \impl \exists y&\in V \cap \partial A\\
+                    \impl V \text{ offene Umgebung von  } y&\in \partial A\\
+                    \impl V\cap A^{C} &\neq \emptyset\tag{Widerspruch zu (1)}
+                    \intertext{Mit (1) und (2) folgt}
+                    V \cap\pair{\partial A \cup A^{C}} &= \emptyset\\
+                    \equivalent V \subseteq A \exclude \partial A\\
+                    \impl A\exclude \partial A \text{ ist offen }
+                \end{align*}
+                \item $A^{C} = X \exclude A$. Aus der Definition des Randes folgt $\partial A = \partial A^{C}$. Nach (i) gilt dann
+                \begin{align*}
+                    A^{C} \exclude \partial A = A^{C} \exclude \partial A^{C} \text{ ist offen }\\
+                    \equivalent \pair{A^{C} \exclude \partial A}^{C} \text{ ist abgeschlossen }\\
+                    \equivalent \pair{A^{C} \exclude \partial A}^{C} &= X\exclude\pair{A^{C} \exclude \partial A}\\
+                    &= X\exclude A^{C} \cup \partial A = A\cup \partial A \text{ ist abgeschlossen }
+                \end{align*}
+                \item
+                \begin{align*}
+                    \partial A &= \pair{A\cup \partial A} \cap \pair{A^C \cup \partial A}\\
+                    &= \pair{A \cup \partial A} \cap \pair{A^C \cup \partial A^{C}} \text{ ist abgeschlossen}
+                \end{align*}
+            \end{enumerate}
+        \end{proof}
+    \end{satz}
+
+    \begin{definition}[Innere und Abschluss]
+        Sei $\pair{X, \Tau}$ ein topologischer Raum und $A\subseteq X$.
+        \begin{enumerate}[label=(\roman*)]
+            \item $U\of{A} \coloneqq \set{U\in\Tau: U\subseteq A}= $ alle offenen Teilmengen von $A$.\\
+            Das Innere von $A = \overset{\circ}{A} \coloneqq \bigcup_{\sigma\in U\of{A}} =$ Vereinigung aller offenen Teilmengen von $A$
+            \item $B\of{A} \coloneqq \set{B\subseteq X \text{ abgeschlossen}: A \subseteq B} \neq \emptyset$ (da $X\in B\of{A}$)\\
+            Der Abschluss von $B$ sei $\overline{B} =$ abgeschlossene Hülle von $B \coloneqq \bigcap_{B\in B\of{A}} B$ abgeschlossen
+        \end{enumerate}
+        Damit gilt $A \subseteq \overline{A}$.
+    \end{definition}
+
+    \begin{bemerkung}
+        $\overset{\circ}{A} =$ größte offene Teilmenge von $A$ und $\overline{A} = $ kleinste abgeschlossene Menge, die $A$ enthält.
+    \end{bemerkung}
+
+    \begin{satz} % Satz 21
+        $\overset{\circ}{A} = A \exclude \partial A$ und $\overline{A} = A \cup \partial A$.
+        \begin{proof}
+            \textsc{Teil 1}: Nach Satz~\ref{satz:top-rand} ist $A\exclude \partial A$ offen und $A \exclude \partial A \subseteq A$. Damit folgt $A \exclude \partial A \subseteq \overset{\circ}{A}$.\\
+            Damit ist noch zu zeigen, dass $\overset{\circ}{A} \subseteq A \exclude \partial A$. Ist $U\subseteq A$ offen
+            \begin{align*}
+                \impl U\cap A^{C} &= \emptyset
+                \impl U \cap \partial A &= \emptyset
+            \end{align*}
+            Falls nicht $\exists y \in U \cap \partial A$, dann folgt $U\cap A^{C} \neq \emptyset$. Das ergibt einen Widerspruch.\\
+            Das heißt für jede offene Teilmenge $U\subseteq A$ gilt $U\subseteq A\exclude \partial A$.
+            \begin{align*}
+                A = \bigcup_{U\in U\of{A}} U \subseteq A \exclude \partial A\\
+                \impl \overset{\circ}{A} \subseteq A \exclude \partial A\\
+                \impl A \exclude \partial A = \overset{\circ}{A}
+            \end{align*}
+            \textsc{Teil 2}: Behauptung: Aus $B\subseteq X$ ist abgeschlossen und $A \subseteq B$ folgt $\partial A \subseteq B$. Angenommen die Behauptung ist falsch. Dann würde gelten $B^{C} \cap \partial A \neq \emptyset$.\\
+            $x\in \partial A \cap B^{C}$. $B^{C}$ ist offene Umgebung von $x$. Nach Definition von $\partial A$ ist $A\cap B^{C}\neq \emptyset$. Das heißt $A \subseteq B$. (Widerspruch).\\
+            Aus der Behauptung folgt jetzt also $B \supseteq A \cup \partial A~\forall B\supseteq A$ und $B$ ist abgeschlossen
+            \begin{align*}
+                \impl A \cup \partial A \subseteq \bigcap_{B\in B\of{A}} B = \overline{A}
+            \end{align*}
+            Andererseits ist nach Satz~\ref{satz:top-rand} $A \cup \partial A$ abgeschlossen und sicherlich $A \subseteq A \cup \partial A$. Daraus folgt $\overline{A} \subseteq A \cup\partial A$. Damit folgt $\overline{A} = A \cup \partial A$.
+        \end{proof}
+    \end{satz}
+
+    \newpage
+
+    \section{[*] Konvergenz und Stetigkeit in metrischen Räumen}
+    \imaginarysubsection{[*]Konvergenz und Stetigkeit in metrischen Räumen}
+    \thispagestyle{pagenumberonly}
+
+    \begin{definition}[Konvergenz in metrischen Räumen]
+        Sei $\pair{M, d}$ ein metrischer Raum. Eine Folge $(x_n)_n \subseteq M$ konvergiert gegen $A \in M$, falls
+        \begin{align*}
+            &\forall\varepsilon > 0\ex N\in\N\colon d\of{x_n, a} < \varepsilon\quad\forall n\geq N\\
+            (\equivalent &\forall \varepsilon > 0\colon x_n \in B_{\varepsilon}\of{a} \text{ für fast alle } n)
+        \end{align*}
+        Wir schreiben $a = \lim_{\ntoinf} x_n$ oder $x_n\fromto a$ für $\ntoinf$.\\
+        $(x_n)_n$ heißt \emph{Cauchy-Folge}, falls
+        \begin{align*}
+            &\forall\varepsilon>0\ex N\in\N\colon d\of{x_n, x_m} < \varepsilon\quad\forall n,m\geq N\\
+        \end{align*}
+    \end{definition}
+
+    \begin{definition}[Durchmesser]
+        Sei $\pair{M, d}$ ein metrischer Raum. Wir definieren den Durchmesser von einer Menge $A$ mit
+        \begin{align*}
+            \diam\of{A} &\coloneqq \sup \set{d\of{x,y}: x,y\in A}
+        \end{align*}
+        $A$ ist beschränkt, falls $\diam\of{A} < \infty$.
+    \end{definition}
+
+    \begin{bemerkung}
+        \begin{align*}
+            A &\subseteq M \text{ beschränkt }\\
+            \equivalent \exists x\in M, r > 0\colon A &\subseteq B_{r}\of{x}
+        \end{align*}
+        In diesem Fall ist $\diam\of{A} \leq 2r$.
+    \end{bemerkung}
+
+    \begin{satz}
+        \theoremescape
+        \begin{enumerate}[label=(\roman*)]
+            \item Konvergiert die Folge $(x_n)_n$, so ist sie eine Cauchy-Folge
+            \item Jede Cauchy-Folge ist beschränkt.
+        \end{enumerate}
+        \begin{proof}
+            ~\\
+            \begin{enumerate}[label=(\roman*)]
+                \item Sei $a = \lim_{\ntoinf} x_n$ und $\varepsilon > 0$
+                \begin{align*}
+                    \impl \exists N\in\N\colon d\of{x_n , a} &< \frac{\varepsilon}{2}\\
+                    \impl d\of{x_n, x_m} &\leq d\of{x_n, a} + d\of{a, x_m} < \varepsilon\quad\forall n,m\geq N\\
+                    \impl (x_n)_n &\text{ ist eine Cauchy-Folge }
+                \end{align*}
+                \item Sei $(x_n)_n$ eine Cauchy-Folge. Wir wählen $\varepsilon = 1$
+                \begin{align*}
+                    \impl \exists N\in\N\colon d\of{x_n, x_m} &< 1\quad\forall n,m\geq N
+                    \intertext{Wir definieren $a\coloneqq x_N$}
+                    \impl d\of{x_n, a} &< 1\quad\forall n\geq N
+                    \intertext{$r\coloneqq \max\of{d\of{x_1, a}, d\of{x_2, a}, \ldots, d\of{x_{N-1}, a}} + 1$}
+                    \impl \forall n\in\N\colon d\of{x_n, a} &< r\\
+                    \impl x_n&\in B_r\of{a}\quad\forall n\in \N
+                    \intertext{Das heißt}
+                    \bigcup_{n\in\N} \set{x_n} &\subseteq B_r\of{A} \text{ ist eine beschränkte Menge }
+                \end{align*}
+            \end{enumerate}
+        \end{proof}
+    \end{satz}
+
+    \begin{definition}[Banachräume]
+        Ein metrischer Raum $\pair{M, d}$ heißt vollständig, falls jede Cauchy-Folge in $M$ konvergiert. Ein vollständiger, normierter Vektorraum heißt Banachraum.
+    \end{definition}
+
+    \begin{beispiel}
+        $\pair{\R^d, \norm{\cdot}_2}$, $\pair{\R^d, \norm{\cdot}_{\infty}}$ oder $\pair{\R^d, \norm{\cdot}_1}$ sind vollständige, normierte Vektorräume. Genauso $\pair{\C^d, \norm{\cdot}_2}$ etc.
+    \end{beispiel}
+
+    \begin{satz}[Schachtelungsprinzip] % Satz 4
+        Sei $\pair{M, d}$ ein vollständiger metrischer Raum und $(A_n)_n$ eine absteigende Folge abgeschlossener Mengen ($A_0 \supseteq A_1 \supseteq A_2 \supseteq \dots$) mit $\diam\of{A_n}\fromto 0$ für $\ntoinf$ und $A_n\neq \emptyset~\forall n\in\N$. Dann existiert genau ein $x\in M$ sodass $x\in \bigcap_{n\in\N} A_n$. Das heißt $x\in A_n~\forall n\in\N$.
+        \begin{proof}
+            \textsc{Eindeutigkeit}: Angenommen $x, y\in A_n~\forall n\in \N$. Dann gilt $d\of{x,y} \leq \diam\of{A_n}\fromto 0$ für $\ntoinf$. Das heißt $d\of{x,y} = 0\equivalent x = y$.\\[.2\baselineskip]
+            \textsc{Existenz}: $\forall n\in\N\ex x_n\in A_n$. Behauptung: $(x_n)_n$ ist eine Cauchy-Folge. Sei $n\geq m$
+            \begin{align*}
+                x_n\in A_n \subseteq A_{n-1} &\subseteq A_{n-2} \subseteq \dots \subseteq A_m
+                \intertext{Das heißt}
+                x_n &\in A_m\quad\forall n\geq m\\
+                \impl x_n, x_m &\in A_m\quad\forall n\geq m\\
+                d\of{x_n, x_m} &\leq \diam\of{A_m}\fromto 0 \text{ für } m\toinf\\
+                \intertext{Das heißt $(x_n)_n$ ist eine Cauchy-Folge. Nach der Vollständigkeit von $M$ existiert ein $x\coloneqq \lim_{\ntoinf} x_n$. Behauptung: $x\in A_m~\forall m\in\N$}
+                x_n &\in A_m\quad\forall n\geq m\\
+                \impl \lim_{\ntoinf} x_n &\in A_m \text{ da $A_m$ abgeschlossen ist }\\
+                \impl x&\in A_m\quad\forall m\in \N\qedhere
+            \end{align*}
+        \end{proof}
+    \end{satz}
+
 
 \end{document}
