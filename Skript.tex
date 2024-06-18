@@ -1302,11 +1302,11 @@
         \end{proof}
     \end{satz}
 
-    \begin{definition}[Innere und Abschluss]
+    \begin{definition}[Inneres und Abschluss, abgeschlossene Hülle]
         Sei $\pair{X, \Tau}$ ein topologischer Raum und $A\subseteq X$.
         \begin{enumerate}[label=(\roman*)]
             \item $U\of{A} \coloneqq \set{U\in\Tau: U\subseteq A}= $ alle offenen Teilmengen von $A$.\\
-            Das Innere von $A = \overset{\circ}{A} \coloneqq \bigcup_{\sigma\in U\of{A}} =$ Vereinigung aller offenen Teilmengen von $A$
+            Das Innere von $A = A^{\circ} \coloneqq \bigcup_{\sigma\in U\of{A}} =$ Vereinigung aller offenen Teilmengen von $A$
             \item $B\of{A} \coloneqq \set{B\subseteq X \text{ abgeschlossen}: A \subseteq B} \neq \emptyset$ (da $X\in B\of{A}$)\\
             Der Abschluss von $B$ sei $\overline{B} =$ abgeschlossene Hülle von $B \coloneqq \bigcap_{B\in B\of{A}} B$ abgeschlossen
         \end{enumerate}
@@ -1314,14 +1314,14 @@
     \end{definition}
 
     \begin{bemerkung}
-        $\overset{\circ}{A} =$ größte offene Teilmenge von $A$ und $\overline{A} = $ kleinste abgeschlossene Menge, die $A$ enthält.
+        $A^{\circ} =$ größte offene Teilmenge von $A$ und $\overline{A} = $ kleinste abgeschlossene Menge, die $A$ enthält.
     \end{bemerkung}
 
     \begin{satz} % Satz 21
-        $\overset{\circ}{A} = A \exclude \partial A$ und $\overline{A} = A \cup \partial A$.
+        $A^{\circ} = A \exclude \partial A$ und $\overline{A} = A \cup \partial A$.
         \begin{proof}
-            \textsc{Teil 1}: Nach Satz~\ref{satz:top-rand} ist $A\exclude \partial A$ offen und $A \exclude \partial A \subseteq A$. Damit folgt $A \exclude \partial A \subseteq \overset{\circ}{A}$.\\
-            Damit ist noch zu zeigen, dass $\overset{\circ}{A} \subseteq A \exclude \partial A$. Ist $U\subseteq A$ offen
+            \textsc{Teil 1}: Nach Satz~\ref{satz:top-rand} ist $A\exclude \partial A$ offen und $A \exclude \partial A \subseteq A$. Damit folgt $A \exclude \partial A \subseteq A^{\circ}$.\\
+            Damit ist noch zu zeigen, dass $A^{\circ} \subseteq A \exclude \partial A$. Ist $U\subseteq A$ offen
             \begin{align*}
                 \impl U\cap A^{C} &= \emptyset
                 \impl U \cap \partial A &= \emptyset
@@ -1330,8 +1330,8 @@
             Das heißt für jede offene Teilmenge $U\subseteq A$ gilt $U\subseteq A\exclude \partial A$.
             \begin{align*}
                 A = \bigcup_{U\in U\of{A}} U \subseteq A \exclude \partial A\\
-                \impl \overset{\circ}{A} \subseteq A \exclude \partial A\\
-                \impl A \exclude \partial A = \overset{\circ}{A}
+                \impl A^{\circ} \subseteq A \exclude \partial A\\
+                \impl A \exclude \partial A = A^{\circ}
             \end{align*}
             \textsc{Teil 2}: Behauptung: Aus $B\subseteq X$ ist abgeschlossen und $A \subseteq B$ folgt $\partial A \subseteq B$. Angenommen die Behauptung ist falsch. Dann würde gelten $B^{C} \cap \partial A \neq \emptyset$.\\
             $x\in \partial A \cap B^{C}$. $B^{C}$ ist offene Umgebung von $x$. Nach Definition von $\partial A$ ist $A\cap B^{C}\neq \emptyset$. Das heißt $A \subseteq B$. (Widerspruch).\\
