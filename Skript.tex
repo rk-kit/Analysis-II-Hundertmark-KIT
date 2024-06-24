@@ -120,6 +120,7 @@
 \DeclareMathOperator{\Im}{Im}
 \DeclareMathOperator{\arcsinh}{arcsinh}
 \DeclareMathOperator{\arccosh}{arccosh}
+\DeclareMathOperator{\diam}{diam}
 
 % Mengenbezeichner
 \newcommand{\R}{\mathbb{R}}
@@ -137,9 +138,9 @@
 
 % Spezielle Symbole
 \NewDocumentCommand{\Tau}{e{^_}}{
-  \scalerel*{\tau}{X}
-  \IfValueT{#1}{^{#1}}
-  \IfValueT{#2}{_{\!\!#2}}
+    \scalerel*{\tau}{X}
+    \IfValueT{#1}{^{#1}}
+    \IfValueT{#2}{_{\!\!#2}}
 }
 
 % Spezielle Commands
@@ -939,7 +940,7 @@
                                                                                           0 & x = y\\
                                                                                           1 & x\neq y
             \end{cases}$
-            \item Die französische Eisenbahnmetrik im $\R^2$ ist definiert durch $d\of{x,y}\coloneqq \sqrt{x_1^1 + x_2^2} + \sqrt{y_1^2 + y_2^2}$. Die Metrik setzt sich also jeweils zusammen aus der euklidischen Distanz von $x$ und $y$ zum Koordinatenursprung
+            \item Die französische Eisenbahnmetrik im $\R^2$ ist definiert durch $d\of{x,y}\coloneqq \sqrt{x_1^2 + x_2^2} + \sqrt{y_1^2 + y_2^2}$. Die Metrik setzt sich also jeweils zusammen aus der euklidischen Distanz von $x$ und $y$ zum Koordinatenursprung
             \item Sei $\pair{X, d}$ ein metrischer Raum. Dann können wir eine Metrik $d_1$ definieren durch
             \begin{align*}
                 d_1\of{x,y} &\coloneqq \frac{d\of{x,y}}{1+d\of{x,y}}
@@ -1196,7 +1197,7 @@
         \begin{enumerate}[label=(\roman*)]
             \item $\emptyset, X\in\Tau$
             \item $U, V\in \Tau \impl U \cap V \in \Tau$ und
-            \item Für eine beliebige Indexmenge $I$ mit $\forall j\in I\colon V_j \in \Tau$ folgt $\displaystyle\bigcup_{j\in I} V_j \in I$
+            \item Für eine beliebige Indexmenge $I$ mit $\forall j\in I\colon V_j \in \Tau$ folgt $\displaystyle\bigcup_{j\in I} V_j \in \Tau$
         \end{enumerate}
         Ein topologischer Raum ist ein Paar $\pair{X, \Tau}$. $V\subseteq X$ heißt offen, falls $V\in\Tau$ und $A\subseteq X$ heißt abgeschlossen, falls $A^{C} \in\Tau$.
     \end{definition}
@@ -1256,7 +1257,296 @@
     \end{definition}
 
     \begin{definition}[Randpunkt]
-        Ein Punkt $x\in X$ heißt Randpunkt von $A$, falls es in jeder offenen Umgebung $U$ von $x$ mindestens einen Punkt aus $A$ und einen Punkt aus $A^{C}$ gibt. Das heißt für alle offenen Mengen $U$ mit $x\in U$ ist $U\cap A \neq \emptyset$ und $U\cap A^{C} \neq \emptyset$.
+        Ein Punkt $x\in X$ heißt Randpunkt von $A$, falls es in jeder offenen Umgebung $U$ von $x$ mindestens einen Punkt aus $A$ und einen Punkt aus $A^{C}$ gibt. Das heißt für alle offenen Mengen $U$ mit $x\in U$ ist $U\cap A \neq \emptyset$ und $U\cap A^{C} \neq \emptyset$. Wir schreiben $\partial A$ für die Menge aller Randpunkte von $A$.
     \end{definition}
+
+    \begin{satz} % Satz 19
+        \marginnote{[18. Jun]}
+        \label{satz:top-rand}
+        Ist $\pair{X, \Tau}$ ein topologischer Raum und $A\subseteq X$. Dann gilt
+        \begin{enumerate}[label=(\roman*)]
+            \item $A \exclude \partial A$ ist offen
+            \item $A \cup \partial A$ ist abgeschlossen
+            \item $\partial A$ ist abgeschlossen
+        \end{enumerate}
+        \begin{proof}
+            \theoremescape
+            \begin{enumerate}[label=(\roman*)]
+                \item Sei $x\in A \exclude \partial A$ beliebig. Dann folgt es existiert eine offene Umgebung $V$ von $x$ mit
+                \begin{align*}
+                    V \cap A^{C} &= V\cap \pair{X\exclude A} = \emptyset\tag{(1)}
+                    \intertext{denn ansonsten wäre $x\in\partial A$}
+                    \impl V \cap \partial A &= \emptyset\tag{(2)}
+                    \intertext{Denn wäre $V\cap \partial A \neq \emptyset$. Dann würde folgen}
+                    \impl \exists y&\in V \cap \partial A\\
+                    \impl V \text{ offene Umgebung von  } y&\in \partial A\\
+                    \impl V\cap A^{C} &\neq \emptyset\tag{Widerspruch zu (1)}
+                    \intertext{Mit (1) und (2) folgt}
+                    V \cap\pair{\partial A \cup A^{C}} &= \emptyset\\
+                    \equivalent V \subseteq A \exclude \partial A\\
+                    \impl A\exclude \partial A \text{ ist offen }
+                \end{align*}
+                \item $A^{C} = X \exclude A$. Aus der Definition des Randes folgt $\partial A = \partial A^{C}$. Nach (i) gilt dann
+                \begin{align*}
+                    A^{C} \exclude \partial A = A^{C} \exclude \partial A^{C} \text{ ist offen }\\
+                    \equivalent \pair{A^{C} \exclude \partial A}^{C} \text{ ist abgeschlossen }\\
+                    \equivalent \pair{A^{C} \exclude \partial A}^{C} &= X\exclude\pair{A^{C} \exclude \partial A}\\
+                    &= X\exclude A^{C} \cup \partial A = A\cup \partial A \text{ ist abgeschlossen }
+                \end{align*}
+                \item
+                \begin{align*}
+                    \partial A &= \pair{A\cup \partial A} \cap \pair{A^C \cup \partial A}\\
+                    &= \pair{A \cup \partial A} \cap \pair{A^C \cup \partial A^{C}} \text{ ist abgeschlossen}
+                \end{align*}
+            \end{enumerate}
+        \end{proof}
+    \end{satz}
+
+    \begin{definition}[Inneres und Abschluss, abgeschlossene Hülle]
+        Sei $\pair{X, \Tau}$ ein topologischer Raum und $A\subseteq X$.
+        \begin{enumerate}[label=(\roman*)]
+            \item $U\of{A} \coloneqq \set{U\in\Tau: U\subseteq A}= $ alle offenen Teilmengen von $A$.\\
+            Das Innere von $A = A^{\circ} \coloneqq \bigcup_{\sigma\in U\of{A}} \sigma= $Vereinigung aller offenen Teilmengen von $A$
+            \item $B\of{A} \coloneqq \set{B\subseteq X \text{ abgeschlossen}: A \subseteq B} \neq \emptyset$ (da $X\in B\of{A}$)\\
+            Der Abschluss von $B$ sei $\overline{B} =$ abgeschlossene Hülle von $B \coloneqq \bigcap_{B\in B\of{A}} B$ abgeschlossen
+        \end{enumerate}
+        Damit gilt $A \subseteq \overline{A}$.
+    \end{definition}
+
+    \begin{bemerkung}
+        $A^{\circ} =$ größte offene Teilmenge von $A$ und $\overline{A} = $ kleinste abgeschlossene Menge, die $A$ enthält.
+    \end{bemerkung}
+
+    \begin{satz} % Satz 21
+        $A^{\circ} = A \exclude \partial A$ und $\overline{A} = A \cup \partial A$.
+        \begin{proof}
+            \textsc{Teil 1}: Nach Satz~\ref{satz:top-rand} ist $A\exclude \partial A$ offen und $A \exclude \partial A \subseteq A$. Damit folgt $A \exclude \partial A \subseteq A^{\circ}$.\\
+            Damit ist noch zu zeigen, dass $A^{\circ} \subseteq A \exclude \partial A$. Ist $U\subseteq A$ offen
+            \begin{align*}
+                \impl U\cap A^{C} &= \emptyset
+                \impl U \cap \partial A &= \emptyset
+            \end{align*}
+            Falls nicht $\exists y \in U \cap \partial A$, dann folgt $U\cap A^{C} \neq \emptyset$. Das ergibt einen Widerspruch.\\
+            Das heißt für jede offene Teilmenge $U\subseteq A$ gilt $U\subseteq A\exclude \partial A$.
+            \begin{align*}
+                A = \bigcup_{U\in U\of{A}} U \subseteq A \exclude \partial A\\
+                \impl A^{\circ} \subseteq A \exclude \partial A\\
+                \impl A \exclude \partial A = A^{\circ}
+            \end{align*}
+            \textsc{Teil 2}: Behauptung: Aus $B\subseteq X$ ist abgeschlossen und $A \subseteq B$ folgt $\partial A \subseteq B$. Angenommen die Behauptung ist falsch. Dann würde gelten $B^{C} \cap \partial A \neq \emptyset$.\\
+            $x\in \partial A \cap B^{C}$. $B^{C}$ ist offene Umgebung von $x$. Nach Definition von $\partial A$ ist $A\cap B^{C}\neq \emptyset$. Das heißt $A \subseteq B$. (Widerspruch).\\
+            Aus der Behauptung folgt jetzt also $B \supseteq A \cup \partial A~\forall B\supseteq A$ und $B$ ist abgeschlossen
+            \begin{align*}
+                \impl A \cup \partial A \subseteq \bigcap_{B\in B\of{A}} B = \overline{A}
+            \end{align*}
+            Andererseits ist nach Satz~\ref{satz:top-rand} $A \cup \partial A$ abgeschlossen und sicherlich $A \subseteq A \cup \partial A$. Daraus folgt $\overline{A} \subseteq A \cup\partial A$. Damit folgt $\overline{A} = A \cup \partial A$.
+        \end{proof}
+    \end{satz}
+
+    \newpage
+
+
+    \section{[*] Konvergenz und Stetigkeit in metrischen Räumen}
+    \imaginarysubsection{[*]Konvergenz und Stetigkeit in metrischen Räumen}
+    \thispagestyle{pagenumberonly}
+
+    \begin{definition}[Konvergenz in metrischen Räumen]
+        Sei $\pair{M, d}$ ein metrischer Raum. Eine Folge $(x_n)_n \subseteq M$ konvergiert gegen $a \in M$, falls
+        \begin{align*}
+            &\forall\varepsilon > 0\ex N\in\N\colon d\of{x_n, a} < \varepsilon\quad\forall n\geq N\\
+            (\equivalent &\forall \varepsilon > 0\colon x_n \in B_{\varepsilon}\of{a} \text{ für fast alle } n)
+        \end{align*}
+        Wir schreiben $a = \lim_{\ntoinf} x_n$ oder $x_n\fromto a$ für $\ntoinf$.\\
+        $(x_n)_n$ heißt \emph{Cauchy-Folge}, falls
+        \begin{align*}
+            &\forall\varepsilon>0\ex N\in\N\colon d\of{x_n, x_m} < \varepsilon\quad\forall n,m\geq N
+        \end{align*}
+    \end{definition}
+
+    \begin{definition}[Durchmesser]
+        Sei $\pair{M, d}$ ein metrischer Raum. Wir definieren den Durchmesser von einer Menge $A$ mit
+        \begin{align*}
+            \diam\of{A} &\coloneqq \sup \set{d\of{x,y}: x,y\in A}
+        \end{align*}
+        $A$ ist beschränkt, falls $\diam\of{A} < \infty$.
+    \end{definition}
+
+    \begin{bemerkung}
+        Eine Menge $A\subseteq M$ ist genau dann beschränkt, wenn
+        \begin{align*}
+            \exists x\in M, r> 0\colon A \subseteq B_r\of{x}
+        \end{align*}
+        In diesem Fall ist $\diam\of{A} \leq 2r$.
+    \end{bemerkung}
+
+    \begin{satz}
+        \theoremescape
+        \begin{enumerate}[label=(\roman*)]
+            \item Konvergiert die Folge $(x_n)_n$, so ist sie eine Cauchy-Folge
+            \item Jede Cauchy-Folge ist beschränkt.
+        \end{enumerate}
+        \begin{proof}
+            ~\\
+            \begin{enumerate}[label=(\roman*)]
+                \item Sei $a = \lim_{\ntoinf} x_n$ und $\varepsilon > 0$
+                \begin{align*}
+                    \impl \exists N\in\N\colon d\of{x_n , a} &< \frac{\varepsilon}{2}\\
+                    \impl d\of{x_n, x_m} &\leq d\of{x_n, a} + d\of{a, x_m} < \varepsilon\quad\forall n,m\geq N\\
+                    \impl (x_n)_n &\text{ ist eine Cauchy-Folge }
+                \end{align*}
+                \item Sei $(x_n)_n$ eine Cauchy-Folge. Wir wählen $\varepsilon = 1$
+                \begin{align*}
+                    \impl \exists N\in\N\colon d\of{x_n, x_m} &< 1\quad\forall n,m\geq N
+                    \intertext{Wir definieren $a\coloneqq x_N$}
+                    \impl d\of{x_n, a} &< 1\quad\forall n\geq N
+                    \intertext{$r\coloneqq \max\of{d\of{x_1, a}, d\of{x_2, a}, \ldots, d\of{x_{N-1}, a}} + 1$}
+                    \impl \forall n\in\N\colon d\of{x_n, a} &< r\\
+                    \impl x_n&\in B_r\of{a}\quad\forall n\in \N
+                    \intertext{Das heißt}
+                    \bigcup_{n\in\N} \set{x_n} &\subseteq B_r\of{A} \text{ ist eine beschränkte Menge }
+                \end{align*}
+            \end{enumerate}
+        \end{proof}
+    \end{satz}
+
+    \begin{definition}[Banachräume]
+        Ein metrischer Raum $\pair{M, d}$ heißt vollständig, falls jede Cauchy-Folge in $M$ konvergiert. Ein vollständiger, normierter Vektorraum heißt Banachraum.
+    \end{definition}
+
+    \begin{beispiel}
+        $\pair{\R^d, \norm{\cdot}_2}$, $\pair{\R^d, \norm{\cdot}_{\infty}}$ oder $\pair{\R^d, \norm{\cdot}_1}$ sind vollständige, normierte Vektorräume. Genauso $\pair{\C^d, \norm{\cdot}_2}$ etc.
+    \end{beispiel}
+
+    \begin{satz}[Schachtelungsprinzip] % Satz 4
+        Sei $\pair{M, d}$ ein vollständiger metrischer Raum und $(A_n)_n$ eine absteigende Folge abgeschlossener Mengen ($A_0 \supseteq A_1 \supseteq A_2 \supseteq \dots$) mit $\diam\of{A_n}\fromto 0$ für $\ntoinf$ und $A_n\neq \emptyset~\forall n\in\N$. Dann existiert genau ein $x\in M$ sodass $x\in \bigcap_{n\in\N} A_n$. Das heißt $x\in A_n~\forall n\in\N$.
+        \begin{proof}
+            \textsc{Eindeutigkeit}: Angenommen $x, y\in A_n~\forall n\in \N$. Dann gilt $d\of{x,y} \leq \diam\of{A_n}\fromto 0$ für $\ntoinf$. Das heißt $d\of{x,y} = 0\equivalent x = y$.\\[.2\baselineskip]
+            \textsc{Existenz}: $\forall n\in\N\ex x_n\in A_n$. Behauptung: $(x_n)_n$ ist eine Cauchy-Folge. Sei $n\geq m$
+            \begin{align*}
+                x_n\in A_n \subseteq A_{n-1} &\subseteq A_{n-2} \subseteq \dots \subseteq A_m
+                \intertext{Das heißt}
+                x_n &\in A_m\quad\forall n\geq m\\
+                \impl x_n, x_m &\in A_m\quad\forall n\geq m\\
+                d\of{x_n, x_m} &\leq \diam\of{A_m}\fromto 0 \text{ für } m\toinf\\
+                \intertext{Das heißt $(x_n)_n$ ist eine Cauchy-Folge. Nach der Vollständigkeit von $M$ existiert ein $x\coloneqq \lim_{\ntoinf} x_n$. Behauptung: $x\in A_m~\forall m\in\N$}
+                x_n &\in A_m\quad\forall n\geq m\\
+                \impl \lim_{\ntoinf} x_n &\in A_m \text{ da $A_m$ abgeschlossen ist }\\
+                \impl x&\in A_m\quad\forall m\in \N\qedhere
+            \end{align*}
+        \end{proof}
+    \end{satz}
+
+    \begin{definition}[Stetigkeit in metrischen Räumen]
+        \marginnote{[21. Jun]}
+        \label{definition:stetigkeit-metr}
+        Seien $\pair{M, d_M}$, $\pair{N, d_N}$ metrische Räume.
+        \begin{enumerate}[label=(\alph*)]
+            \item $\varepsilon$-$\delta$-Definition von Stetigkeit: Eine Funktion $f: M\fromto N$ ist stetig im Punkt $a\in M$ falls
+            \begin{align*}
+                \forall\varepsilon > 0\ex\delta > 0\colon d_N\of{f\of{x}, f\of{a}} < \varepsilon\quad\forall x\in M \text{ mit } d_M\of{x,a} < \delta
+            \end{align*}
+            \item Folgenstetigkeit: Eine Funktion $f: M\fromto N$ ist folgenstetig in $a\in M$, falls für jede Folge $(x_n)_n \subseteq M$ mit $\biglim{\ntoinf} x_n = a$ auch $\biglim{\ntoinf} f\of{x_n} = f\of{a}$ folgt.
+        \end{enumerate}
+    \end{definition}
+
+    \begin{bemerkung}
+        Definition~\ref{definition:stetigkeit-metr} (a) ist dabei äquivalent zu
+        \begin{align*}
+            \forall \varepsilon > 0\ex \delta > 0\colon f\of{B_{\delta}^M\of{a}} \subseteq B_{\varepsilon}^{N}\of{f\of{a}}
+        \end{align*}
+    \end{bemerkung}
+
+    \begin{satz} % Satz 6
+        \label{satz:stetigkeit-def-equiv}
+        Für eine Funktion $f: M\fromto N$ und $a\in M$ sind äquivalent
+        \begin{enumerate}[label=(\roman*)]
+            \item $f$ ist $\varepsilon$-$\delta$-stetig in $a$
+            \item $f$ ist folgenstetig in $a$
+            \item Für jede Umgebung $U$ von $f\of{a}$ ist $V=f^{-1}\of{U}$ eine Umgebung von $a$
+        \end{enumerate}
+        Dabei ist (iii) die topologische Definition von Stetigkeit.
+        \begin{proof}
+        (i)
+            $\impl$ (ii): Sei $(x_n)_n \subseteq M$ mit $x_n\fromto a$. Für $\varepsilon > 0$ wähle $\delta > 0$, sodass
+            \begin{align*}
+                d_N\of{f\of{x}, f\of{a}} < \varepsilon\quad\forall x&\in M \text{ mit } d_M\of{x,a} < \delta
+                \intertext{Da $a=\biglim{\ntoinf} x_n$ existiert ein $N\in\N$, sodass $\forall n > N\colon d_M\of{x_n, a} < \delta$}
+                \impl \forall n > N\colon d_N\of{f\of{x_n}, f\of{a}} &< \varepsilon\\
+                \impl f\of{x_n} \fromto f\of{a}&
+            \end{align*}
+            (ii) $\impl$ (i): Kontraposition. Angenommen (i) gilt nicht. Dann $\exists\varepsilon_0$, sodass
+            \begin{align*}
+                \forall\delta > 0\ex &x\in M\colon d_M\of{x, a} < \delta \text{ und } d_N\of{f\of{x}, f\of{a}} > \varepsilon_0
+                \intertext{Wir wählen $\delta_n = \frac{1}{n}$. Dann gilt $x_n\fromto a$, da $d\of{x_n, a} < \frac{1}{n}$. Aber}
+                \exists x_1\colon d_N&\of{f\of{x_1}, f\of{a}} > \varepsilon_0\\
+                \exists x_2\colon d_N&\of{f\of{x_2}, f\of{a}} > \varepsilon_0\\
+                &\vdots\\
+                \exists x_n\colon d_N&\of{f\of{x_n}, f\of{a}} > \varepsilon_0\\
+                \impl d_N&\of{f\of{x_n}, f\of{a}}\quad\forall n\in\N > \varepsilon_0\\
+                \impl f&\of{x_n} \not\fromto f\of{a}
+            \end{align*}
+            (i) $\impl$ (iii): Sei $U\subseteq N$ eine Umgebung von $f\of{a}$. Dann gilt
+            \begin{align*}
+                \exists\varepsilon > 0\colon B_{\varepsilon}^{N}\of{f\of{a}} &\subseteq N\\
+                \annot{\impl}{(i)} \exists \delta > 0\colon f\of{B_{\delta}\of{a}} &\subseteq B_{\varepsilon}\of{f\of{a}}\\
+                \impl \exists \delta > 0\colon B_{\delta}\of{a} &\subseteq f^{-1}\of{U}\\
+                \impl f^{-1}\of{U} \coloneqq V &\text{ ist eine Umgebung }
+            \end{align*}
+            (iii) $\impl$ (i): Sei $\varepsilon > 0$. Dann ist $B_{\varepsilon}^{N}\of{f\of{a}}$ eine Umgebung von $f\of{a}$. Nach (iii) ist $V\coloneqq f^{-1}\of{B_{\varepsilon}^{N}\of{f\of{a}}}$ eine Umgebung von $a$. Das heißt
+            \begin{align*}
+                \exists\delta > 0\colon B_{\delta}^{M}\of{a} &\subseteq V\\
+                \equivalent d_N\of{f\of{x}, f\of{a}} &< \varepsilon\quad\forall x\in B_{\delta}\of{a}\\
+                \equivalent d_N\of{f\of{x}, f\of{a}} &< \varepsilon\quad\forall x\in M \text{ mit } d_M\of{x,a} < \delta\qedhere
+            \end{align*}
+        \end{proof}
+    \end{satz}
+
+    \begin{definition} % Definition 7
+        \label{definition:stetigkeit-vollst-metr}
+        Seien $\pair{M, d_M}$ und $\pair{N, d_N}$ metrische Räume und $f: M\fromto N$ eine Funktion.
+        \begin{enumerate}[label=(\alph*)]
+            \item $\varepsilon$-$\delta$-Version: $f$ heißt stetig auf $M$, falls
+            \begin{align*}
+                \forall x_0\in M\fa \varepsilon > 0\ex \delta > 0\colon d_N\of{f\of{x}, f\of{x_0}} < \varepsilon\quad\forall x\in M \text{ mit } d_M\of{x, x_0} < \delta
+            \end{align*}
+            \item Folgenversion: $f$ heißt stetig auf $M$, falls $\forall x_0\in M$ und jede Folge $(x_n)_n$ mit $x_n\fromto x_0$ gilt $f\of{x_n}\fromto f\of{x_0}$.
+            \item Topologische Version: $f$ heißt stetig auf $M$, falls für jede offene Menge $U\subseteq N$ das Urbild $f^{-1}\of{U}$ offen in $M$ ist.
+        \end{enumerate}
+    \end{definition}
+
+    \begin{satz} % Satz 8
+        Für metrische Räume $\pair{M, d_M}$ und $\pair{N, d_N}$ und eine Funktion $f: M\fromto N$ sind die Versionen (a), (b) und (c) von Definition~\ref{definition:stetigkeit-vollst-metr} äquivalent.
+        \begin{proof}
+            Der Beweis von (a) $\equivalent$ (b) folgt direkt aus Satz~\ref{satz:stetigkeit-def-equiv}.\\
+            (c) $\impl$ (a): Sei $U$ offen in $N$. Dann ist $f^{-1}\of{U}$ offen in $M$. Sei $x_0\in M$ beliebig und $\varepsilon > 0$. Dann ist
+            \begin{align*}
+                B_{\varepsilon}^{N}&\coloneqq B_{\varepsilon}^{N}\of{f\of{x}} = \set{y\in N: d_N\of{y, f\of{x_0}} < \varepsilon}
+                \intertext{offen in $N$}
+                &\impl V=f^{-1}\of{B_{\varepsilon}^{N}} \text{ offen in }M\\
+                \intertext{Außerdem ist $x_0\in V$}
+                &\impl \exists\delta > 0\colon B_{\delta}^{M} \subseteq V\\
+                \impl &d_N\of{f\of{x}, f\of{x_0}} < \varepsilon\quad\forall x\in B_{\delta}^{M}\of{x_0}\\
+                \impl &\forall d_M\of{x, x_0} < \delta\colon d_N\of{f\of{x}, f\of{x_0}} < \varepsilon
+            \end{align*}
+            (a) $\impl$ (c): Kontraposition. Angenommen es existiert eine Menge $U\subseteq N$, sodass $V\coloneqq f^{-1}\of{U}$ nicht offen ist. Dann existiert ein $x_0\in V$, sodass
+            \begin{align*}
+                \forall \delta> 0\colon B_{\delta}\of{x_0} &\not\subseteq V
+                \intertext{Da $x_0\in V$ ist $f\of{x_0} \in U$. Da $U$ offen ist, gilt}
+                \exists \varepsilon_0\colon B_{\varepsilon_0}^{N}\of{f\of{x_0}} &\subseteq U
+                \intertext{Sei $\delta_n = \frac{1}{n}$. Da $B_{\delta}\of{x_0}$ keine Teilmenge von $V$ ist, folgt}
+                \exists x_n&\in B_{\frac{1}{n}}\of{x_0}\\
+                \impl x_n &\not\in V\\
+                \impl x_n&\not\in f^{-1}\of{B_{\varepsilon_0}^N\of{f\of{x_0}}}\\
+                \impl d_N\of{f\of{x_n}, f\of{x_0}} &> \varepsilon_0\\
+                \impl d_M\of{x_n, x_0} &< \frac{1}{n} \text{ aber } d_N\of{f\of{x_N}, f\of{x_0}} > \varepsilon_0
+            \end{align*}
+            Damit ergibt sich ein Widerspruch zu (a).
+        \end{proof}
+    \end{satz}
+
+    \begin{bemerkung}
+        Für $N=\R^d$ und $M\subseteq\R$ ist die Stetigkeit von $f: M\fromto \R^d,~x\mapsto\pair{f_1\of{x}, f_2\of{x}, \ldots, f_n\of{x}}$ äquivalent dazu, dass jedes $f_j$ stetig ist.
+    \end{bemerkung}
+
 
 \end{document}
