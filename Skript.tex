@@ -904,11 +904,11 @@
 
     \section{[*] Metrische Räume, topologische Räume und normierte Vektorräume}
 
-    \subsection{[*] Metrische Räume}
+    \subsection{Metrische Räume}
     \thispagestyle{pagenumberonly}
 
     \marginnote{[07. Jun]}
-    Frage: Wie definiert man Abstand?
+    Frage: Wie definiert man Abstand auf allgemeinen Mengen?
 
     \begin{beispiel}[Abstände zweier reeller Zahlen]
         Seien $x,y\in\R$. Wir definieren den Abstand über den Betrag. Das heißt $d\of{x,y}\coloneqq \abs{x-y}$.
@@ -927,7 +927,7 @@
             \item $d\of{x,y} = d\of{y,x}~\forall x,y\in X$
             \item $d\of{x,y} \leq d\of{x,z} + d\of{z,y}~\forall x,y,z\in X$
         \end{enumerate}
-        In diesem Fall nennen wir $d$ eine Metrik auf $X$.
+        In diesem Fall nennen wir $d$ eine Metrik auf $X$ und das Paar $\pair{X, d}$ einen metrischen Raum.
     \end{definition}
 
     \begin{beispiel}
@@ -935,8 +935,8 @@
         \begin{enumerate}
             \item Auf $\R$ oder $\C$ definieren wir $d\of{x,y} \coloneqq \abs{x-y}$
             \item Für $x,y\in\R^2$ definieren wir zum Beispiel die euklidische Metrik $d\of{x,y} \coloneqq \sqrt{\pair{x_1 - y_1}^2 + \pair{x_2 - y_2}^2}$
-            \item Sei $\pair{X, d}$ ein metrischer Raum (das heißt wir haben bereits eine Metrik $d$ auf $X$ definiert) und sei $A\subseteq X$. Dann definieren wir die \emph{induzierte Metrik} $d_A: A \times A \fromto \R,~\pair{x,y}\mapsto d\of{x,y}$
-            \item Die \emph{diskrete Metrik} ist definiert durch $d\of{x,y} \coloneqq \begin{cases}
+            \item Sei $\pair{X, d}$ ein metrischer Raum und sei $A\subseteq X$. Dann definieren wir die \emph{induzierte Metrik} $d_A: A \times A \fromto \R,~\pair{x,y}\mapsto d\of{x,y}$
+            \item Die diskrete Metrik ist definiert durch $d\of{x,y} \coloneqq \begin{cases}
                                                                                           0 & x = y\\
                                                                                           1 & x\neq y
             \end{cases}$
@@ -955,10 +955,10 @@
         \end{enumerate}
     \end{beispiel}
 
-    \subsection{[*] Normierte Vektorräume}
+    \subsection{Normierte Vektorräume}
 
     \begin{definition}[Vektorraum]
-        Ein Vektorraum $V$ über $\K$ ($\R$ oder $\C$) ist eine Menge auf der es eine Vektoraddition
+        Ein Vektorraum $V$ über $\K\in\set{\R, \C}$ ist eine Menge auf der es eine Vektoraddition
         \begin{align*}
             +: V \times V&\fromto V\\
             \pair{x,y}&\mapsto x+y
@@ -966,11 +966,11 @@
             \cdot: \K \times V&\fromto V\\
             \pair{\alpha, x}&\mapsto \alpha \cdot x
         \end{align*}
-        gibt, welche den üblichen Axiomen aus der Algebra genügen (z.B. $x+y = y+x$, $\alpha\pair{x+y} = \alpha x + \alpha y$ oder $\pair{\alpha + \beta} x = \alpha x + \beta x$).
+        gibt, welche den üblichen Axiomen aus der Algebra\footnote{Zum Beispiel $x+y = y+x$, $\alpha\pair{x+y} = \alpha x + \alpha y$, etc. Für eine genaue Aufzählung siehe \textsc{Lineare Algebra I}} genügen.
     \end{definition}
 
     \begin{definition}[Norm]
-        Eine Norm auf einem VR $V$ ist eine Abbildung $\norm{\cdot}: V \fromto \R~x\mapsto\norm{x}$ mit den Eigenschaften
+        Eine Norm auf einem VR $V$ ist eine Abbildung $\norm{\cdot}: V \fromto \R,~x\mapsto\norm{x}$ mit den Eigenschaften
         \begin{enumerate}[label=(\roman*)]
             \item $\norm{x} \geq 0$ und $\norm{x} = 0 \equivalent x = 0~\forall x\in V$
             \item $\norm{\lambda x} = \abs{\lambda}\norm{x}~\forall \lambda\in\K, x\in V$
@@ -982,22 +982,22 @@
         Ein normierter Vektorraum ist ein Paar $\pair{V, \norm{\cdot}}$ aus einem VR $V$ und einer Norm $\norm{\cdot}$ auf $V$.
     \end{definition}
 
-    \begin{satz}
+    \begin{satz} % Satz 3
         Ist $\pair{V, \norm{\cdot}}$ ein normierter VR, so wird durch $d\of{x,y}\coloneqq \norm{x-y}$ eine Metrik auf $V$ definiert.
         \begin{proof}
             Die Axiome der Metrik folgen unmittelbar aus den Axiomen der Norm.
         \end{proof}
     \end{satz}
 
-    \begin{bemerkung}
-        Gelten für eine Abbildung die Norm-Eigenschaften (ii) und (ii), aber statt (i) nur $\norm{x} \geq 0~\forall x\in V$. Dann heißt $\norm{\cdot}$ eine \emph{Halbnorm}. Eine Beispiel dafür im $\R^2$ wäre die Abbildung $\pair{x_1~x_2}\mapsto x_1$.
+    \begin{bemerkung}[Halbnorm]
+        Gelten für eine Abbildung die Norm-Eigenschaften (ii) und (ii), aber statt (i) nur $\norm{x} \geq 0~\forall x\in V$. Dann heißt $\norm{\cdot}$ eine Halbnorm. Ein Beispiel dafür im $\R^2$ wäre die Abbildung $\pair{x_1~x_2}\mapsto x_1$.
     \end{bemerkung}
 
     \begin{beispiel}
         \theoremescape
         \begin{enumerate}
-            \item Ist $V$ ein euklidischer reeller VR mit symmetrischem, positiv-definitem Skalarprodukt $\sprod{\cdot,\cdot}$. Dann ist $\norm{x}\coloneqq \sqrt{\sprod{x,x}}$ eine Norm.
-            \item Ähnlich, wenn $V$ ein komplexer VR mit positiv-definiter sesquilinearer Bilinearformen $\sprod{\cdot,\cdot}$ ist. Das heißt $\sprod{\cdot, \cdot}: V\times V\fromto\C$ hat die Eigenschaften
+            \item Sei $V$ ein euklidischer reeller VR mit symmetrischem, positiv-definitem Skalarprodukt $\sprod{\cdot,\cdot}$. Dann ist $\norm{x}\coloneqq \sqrt{\sprod{x,x}}$ eine Norm.
+            \item Analog funktioniert der Fall, dass $V$ ein komplexer VR mit positiv-definiter sesquilinearer Bilinearformen $\sprod{\cdot,\cdot}$ ist. Das heißt $\sprod{\cdot, \cdot}: V\times V\fromto\C$ hat die Eigenschaften
             \begin{enumerate}[label=(\roman*)]
                 \item $\sprod{x,y} = \conj{\sprod{y,x}}$ und $\sprod{x,x} \geq 0~\forall x,y\in V$ (\footnote{Die Forderung $\sprod{x,x} \geq 0$ ist wohldefiniert, weil durch die anderen Eigenschaften folgt, dass $\forall x\in V\colon \sprod{x,x}\in\R$})
                 \item $\sprod{x, u+w} = \sprod{x,u} + \sprod{x,w}$ sowie $\sprod{u+w, y} = \sprod{u, y} + \sprod{w, y}$
@@ -1015,28 +1015,28 @@
             \begin{align*}
                 \norm{x}_1 &\coloneqq \sum_{j=1}^{d} \abs{x_j}
             \end{align*}
-            und es gilt $\norm{x}_{\infty} \leq \norm{x}_1 \leq d \cdot \norm{x}_{\infty}$
+            und es gilt $\norm{x}_{\infty} \leq \norm{x}_1 \leq d \cdot \norm{x}_{\infty}$.
             \item Sei $X$ eine beliebige Menge und $\mathcal{B}\of{X}$ der Vektorraum der reellwertigen beschränkten Funktionen $f: X\fromto \R$. Dann definieren wir
             \begin{align*}
                 \norm{f}_{L^{\infty}\of{x}} &\coloneqq \sup\set{\abs{f\of{x}}: x\in X} = \sup_{x\in X} \abs{f\of{x}}
             \end{align*}
-            als eine Norm auf $\mathcal{B}\of{x}$. Das ist eine Verallgemeinerung der Maximumsnorm.
+            als eine Norm auf $\mathcal{B}\of{X}$. Das ist eine Verallgemeinerung der Maximumsnorm.
         \end{enumerate}
     \end{beispiel}
 
     \subsection{[*] Umgebungen und offene Mengen}
 
-    \begin{definition}
+    \begin{definition}[Umgebung]
         Sei $\pair{X, d}$ ein metrischer Raum
         \begin{enumerate}[label=(\alph*)]
-            \item Für $a\in X$, $r > 0$ heißt $B_r\of{a} \coloneqq \set{x\in X: d\of{a, x} < r}$ die (offene) Kugel um $a$ mit dem Radius $r$ und dem Mittelpunkt $a$.
+            \item Für $a\in X$, $r > 0$ heißt $B_r\of{a} \coloneqq \set{x\in X ~\middle\vert~ d\of{a, x} < r}$ die (offene) Kugel um $a$ mit dem Radius $r$ und dem Mittelpunkt $a$.
             \item Eine Teilmenge $U\subseteq X$ heißt \emph{Umgebung} von $x\in X$, falls $\exists\varepsilon > 0$, sodass $B_{\varepsilon}\of{x} \subseteq U$. Insbesondere ist $B_{\varepsilon}\of{x}$ eine Umgebung von $x$. Wir nennen $B_{\varepsilon}\of{x}$ die $\varepsilon$-Umgebung von $x$.
         \end{enumerate}
     \end{definition}
 
-    \begin{satz}[Hausdorffsches Trennungsaxiom]
+    \begin{satz}[Hausdorffsches Trennungsaxiom in metrischen Räumen]
         \label{satz:hausdorff-trennungsaxiom}
-        Sei $\pair{X, d}$ ein metrischer Raum. Dann existieren zu $x,y\in X$ mit $x\neq y$ $\varepsilon$-Umgebungen $V$ von $y$ und $U$ von $x$ mit $U\cap V = \emptyset$.
+        Sei $\pair{X, d}$ ein metrischer Raum. Dann existieren zu $x,y\in X$ mit $x\neq y$ $\varepsilon$-Umgebungen mit $B_{\varepsilon}\of{x} \cap B_{\varepsilon}\of{y} = \emptyset$.
         \begin{proof}
             Wir wählen $\varepsilon = \frac{1}{2}\cdot d\of{x,y} > 0$. Angenommen $\exists z\in B_{\varepsilon}\of{x} \cap B_{\varepsilon}\of{y}$. Dann gilt
             \begin{align*}
@@ -1046,15 +1046,15 @@
         \end{proof}
     \end{satz}
 
-    \begin{definition}[Offene Menge, Hausdorff 1914]
+    \begin{definition}[Offene Menge]
         \marginnote{[11. Jun]}
         Sei $\pair{X, d}$ ein metrischer Raum. Eine Teilmenge $U\subseteq X$ heißt offen, wenn $\forall x\in U\ex \varepsilon > 0\colon B_{\varepsilon}\of{x}\subseteq U$.
     \end{definition}
 
     \begin{beispiel}
-        Seien $a, b\in\R$, $a < b$
+        Seien $a, b\in\R$ und $a < b$
         \begin{enumerate}
-            \item Dann sind $\pair{a, b}$, $\pair{a, \infty}$, $\pair{-\infty, a}$ offen.
+            \item Dann sind $\pair{a, b}$, $\pair{a, \infty}$ und $\pair{-\infty, a}$ offen
             \item Die Mengen $\linterv{a,b}$, $\interv{a,b}$, $\linterv{a,\infty}$ sind nicht offen, weil für den ersten Fall $\pair{a-\varepsilon, a + \varepsilon}\nsubseteq \linterv{a,b}$.
             \item In jedem metrischen Raum $\pair{X, d}$ ist für beliebige $a\in X$, $r > 0$ die Menge $B_r\of{a}$ offen. Deshalb heißt $B_r\of{a}$ die offene Kugel um $a$ mit Radius $r$.
             \item In $\R^d$ gilt $U\subseteq\R^d$ ist offen bezüglich $\norm{\cdot}_{\infty} \equivalent U$ ist offen bezüglich $\norm{\cdot}_2$
@@ -1064,7 +1064,7 @@
             \begin{align*}
                 d\of{a,z} \leq d\of{a,x} + d\of{x,z} &< d\of{a, x} + r - d\of{a,x} = r\\
                 \impl d\of{a,z} &< r\\
-                \impl z&\in B_r\of{a}\qedhere
+                \impl z\in &B_r\of{a}\qedhere
             \end{align*}
         \end{proof}
         \begin{proof}[Beweis für 4.]
