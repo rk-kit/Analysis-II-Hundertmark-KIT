@@ -30,6 +30,7 @@
 % Font-Encoding
 \usepackage[T1]{fontenc}
 \usepackage{lmodern}
+\usepackage{stmaryrd}
 
 % Theorems
 \newtheoremstyle{plain}{}{}{}{}{\bfseries}{.}{ }{}
@@ -90,8 +91,8 @@
 
 \newcommand{\ntoinf}[0]{n\fromto\infty}
 \newcommand{\toinf}{\fromto\infty}
-\newcommand{\fa}{\;\forall\,}
-\newcommand{\ex}{\;\exists\,}
+\newcommand{\fa}{\;\forall}
+\newcommand{\ex}{\;\exists}
 \newcommand{\conj}[1]{\overline{#1}}
 
 \newcommand{\annot}[3][]{\overset{\text{#3}}#1{#2}}
@@ -937,8 +938,8 @@
             \item Für $x,y\in\R^2$ definieren wir zum Beispiel die euklidische Metrik $d\of{x,y} \coloneqq \sqrt{\pair{x_1 - y_1}^2 + \pair{x_2 - y_2}^2}$
             \item Sei $\pair{X, d}$ ein metrischer Raum und sei $A\subseteq X$. Dann definieren wir die \emph{induzierte Metrik} $d_A: A \times A \fromto \R,~\pair{x,y}\mapsto d\of{x,y}$
             \item Die diskrete Metrik ist definiert durch $d\of{x,y} \coloneqq \begin{cases}
-                                                                                          0 & x = y\\
-                                                                                          1 & x\neq y
+                                                                                   0 & x = y\\
+                                                                                   1 & x\neq y
             \end{cases}$
             \item Die französische Eisenbahnmetrik im $\R^2$ ist definiert durch $d\of{x,y}\coloneqq \sqrt{x_1^2 + x_2^2} + \sqrt{y_1^2 + y_2^2}$. Die Metrik setzt sich also jeweils zusammen aus der euklidischen Distanz von $x$ und $y$ zum Koordinatenursprung
             \item Sei $\pair{X, d}$ ein metrischer Raum. Dann können wir eine Metrik $d_1$ definieren durch
@@ -1083,23 +1084,24 @@
     \begin{satz} % Satz 7
         \label{satz:offene-mengen-metr}
         Für die offenen Mengen eines metrischen Raums $\pair{X, d}$ gilt
-        \begin{enumerate}[label=(\alph*)]
+        \begin{enumerate}[label=(\roman*)]
             \item $\emptyset$ und $X$ sind offen
             \item Sind $U$ und $V$ offen, so ist auch $U\cap V$ offen
             \item Ist $I$ eine beliebige Indexmenge und $(U_j)_{j\in I}$ eine Familie offener Teilmengen von $X$. So ist $\bigcup_{j\in I} U_j$ offen.
         \end{enumerate}
 
-        \begin{proof}[Beweis von (b)]
+        \begin{proof}[Beweis von (ii)]
             Sei $x\in U\cap V$. Da $U$ und $V$ offen sind, gibt es $\varepsilon_1 > 0$ und $\varepsilon_2 > 0$ mit $B_{\varepsilon_1}\of{x}\subseteq U$, $B_{\varepsilon_2}\of{x}\subseteq V$. Sei $\varepsilon\coloneqq \min\set{\varepsilon_1, \varepsilon_2} \impl B_{\varepsilon}\of{x}\subseteq U\land B_{\varepsilon}\of{x}\subseteq V$. Damit gilt $B_{\varepsilon}\of{x}\subseteq U\cap V$.
         \end{proof}
 
-        \begin{proof}[Beweis von (c)]
-            Sei $x\in \bigcup_{j\in I} U_j \impl \exists j_0\colon x\in U_{j_0}$. $U_{j_0}$ ist offen. Das heißt $\exists\varepsilon > 0\colon B_{\varepsilon}\of{x}\subseteq U_{j_0} \impl B_{\varepsilon}\of{x}\subseteq \bigcup_{j\in I} U_{j}$.
+        \begin{proof}[Beweis von (iii)]
+            Sei $x\in \bigcup_{j\in I} U_j \impl \exists i\colon x\in U_{i}$. Außerdem ist $U_{i}$ offen. Das heißt es existiert ein $\varepsilon > 0$, sodass $B_{\varepsilon}\of{x}\subseteq U_{i} \impl B_{\varepsilon}\of{x}\subseteq \bigcup_{j\in I} U_{j}$.
         \end{proof}
     \end{satz}
 
     \begin{bemerkung}
-        Seien $U_1, \ldots, U_k$ offen. Dann folgt aus Satz~\ref{satz:offene-mengen-metr}, dass $U_1\cap U_2\cap\dots\cap U_k$ offen ist. Das gilt allerdings nur für $k < \infty$.
+        Seien $U_1, \ldots, U_k$ offen. Dann folgt aus Satz~\ref{satz:offene-mengen-metr}, dass $U_1\cap U_2\cap\dots\cap U_k$ offen ist. Das gilt allerdings nur für $k < \infty$.\\
+        Wir betrachten für einen Schnitt über unendlich viele Mengen das folgende Beispiel:
     \end{bemerkung}
 
     \begin{beispiel}[Schnitt über unendlich viele offene Mengen]
@@ -1107,11 +1109,11 @@
     \end{beispiel}
 
     \begin{definition}[Abgeschlossene Menge]
-        In einem metrischen Raum $\pair{X, d}$ nennen wir eine Menge $A\subseteq X$ abgeschlossen, wenn ihr Komplement $A^{C}\coloneqq X \exclude A = \set{y\in X: y\not\in A}$ offen ist.
+        In einem metrischen Raum $\pair{X, d}$ nennen wir eine Menge $A\subseteq X$ abgeschlossen, wenn ihr Komplement $A^{\mathrm{C}}\coloneqq X \exclude A = \set{y\in X: y\not\in A}$ offen ist.
     \end{definition}
 
     \begin{bemerkung}
-        Eine andere Definition von Abgeschlossenheit wurde 1884 von Cantor gegeben. Diese Definition benutzt Folgen.
+        Eine andere (aber äquivalente) Definition von Abgeschlossenheit wurde 1884 von Cantor gegeben. Diese Definition basiert auf Folgen.
     \end{bemerkung}
 
     \begin{definition}[Konvergenz in metrischen Räumen]
@@ -1122,93 +1124,108 @@
             \equivalent &\forall\varepsilon > 0\ex N\in\N\colon x_n\in B_{\varepsilon}\of{a}\quad\forall n> N\\
             \equivalent &\forall\varepsilon > 0 \text{ ist } x_n\in B_{\varepsilon}\of{a} \text{ für fast alle $n$}
         \end{align*}
-        Wir schreiben dann $\lim_{\ntoinf} x_n = a$.
+        Wir schreiben dann $\biglim{\ntoinf} x_n = a$.
     \end{definition}
 
-    \begin{definition}[Folgen-Abgeschlossenheit]
-        Sei $\pair{X, d}$ ein metrischer Raum. Eine Menge $A\subseteq X$ ist Folgen-abgeschlossen, falls für jede Folge $(x_n)_n \subseteq A$, die gegen einen Punkt $a\in X$ konvergiert, auch gilt $a\in A$.
+    \begin{definition}[Folgenabgeschlossenheit]
+        Sei $\pair{X, d}$ ein metrischer Raum. Eine Menge $A\subseteq X$ ist folgenabgeschlossen, falls für jede Folge $(x_n)_n \subseteq A$, die gegen einen Punkt $a\in X$ konvergiert, auch gilt $a\in A$.
     \end{definition}
 
     \begin{beispiel}
-        Wir betrachten die Menge $\rinterv{0, 1}$ und die Folge $x_n = \frac{1}{n}$. Dann liegt der Grenzwert von $(x_n)_n$ nicht in $\rinterv{0, 1}$. Das heißt $\rinterv{0,1}$ ist nicht Folgen-abgeschlossen. Die Menge $\interv{0, 1}$ hingegen schon.
+        Wir betrachten die Menge $A = \rinterv{0, 1}$ und die Folge $x_n = \frac{1}{n}$. Dann liegt $\lim_{\ntoinf} x_n$ nicht in $A$. Das heißt $A$ ist nicht folgenabgeschlossen. Die Menge $\interv{0, 1}$ hingegen schon.
     \end{beispiel}
 
     \begin{satz} % Satz 11
         \label{satz:vergleich-folgen-abgeschlossen}
-        Sei $\pair{X, d}$ ein metrischer Raum. Für $A\subseteq X$ gilt $A$ ist genau dann abgeschlossen, wenn $A$ Folgen-abgeschlossen ist.
+        Sei $\pair{X, d}$ ein metrischer Raum. Für $A\subseteq X$ gilt, $A$ ist genau dann abgeschlossen, wenn $A$ folgenabgeschlossen ist.
     \end{satz}
 
     Um diesen Satz zu beweisen, benötigen wir zunächst noch folgende Lemmata
 
     \begin{lemma} % Lemma 12
         \label{lemma:komplement-folgen-abgeschlossen}
-        Sei $\pair{X, d}$ ein metrischer Raum. Ist $U\subseteq X$ offen, so ist $U^{C}$ Folgen-abgeschlossen.
+        Sei $\pair{X, d}$ ein metrischer Raum. Ist $U\subseteq X$ offen, so ist $U^{\mathrm{C}}$ folgenabgeschlossen.
 
         \begin{proof}
-            Angenommen es gibt eine Folge $(x_n)_n \subseteq U^{C}$ mit $x_n\fromto a$, aber $a\not\in U^{C}$. Das heißt $a\in U$. Da $U$ offen ist, existiert eine Kugel $B_{\varepsilon}\of{a} \subseteq U$ (für ein $\varepsilon > 0$). Da $x_n\fromto a$ für $\ntoinf$ $\exists N\in\N$, sodass $d\of{a, x_n} < \varepsilon~\forall n> N \equivalent x_n \in B_{\varepsilon}\of{a}~\forall n > N$. Damit gilt $x_n\not\in U^{C}~\forall n > N$. Widerspruch.
+            Angenommen es gibt eine Folge $(x_n)_n \subseteq U^{\mathrm{C}}$ mit $x_n\fromto a$, aber $a\not\in U^{\mathrm{C}}$. Das heißt $a\in U$. Da $U$ offen ist, existiert eine Kugel $B_{\varepsilon}\of{a} \subseteq U$ (für ein $\varepsilon > 0$). Da $x_n\fromto a$ für $\ntoinf$ gilt
+            \begin{align*}
+                \exists N\in\N\colon &d\of{a, x_n} < \varepsilon\quad\forall n> N \\
+                \equivalent \exists N\in\N\colon &x_n \in B_{\varepsilon}\of{a}\quad\forall n > N\\
+                \impl &x_n\not\in U^{\mathrm{C}}\quad\forall n > N\tag*{(Widerspruch)\qedhere}
+            \end{align*}
         \end{proof}
     \end{lemma}
 
     \begin{lemma}
         \label{lemma:komplement-offen}
-        Sei $\pair{X, d}$ ein metrischer Raum. Dann gilt $A$ ist Folgen-abgeschlossen $\impl A^{C}$ ist offen.
+        Sei $\pair{X, d}$ ein metrischer Raum und $A\subseteq X$ folgenabgeschlossen. Dann ist $A^{\mathrm{C}}$ offen.
 
         \begin{proof}
-            Angenommen $A^{C}$ ist nicht offen. Das heißt $\exists x_0 \in A^{C}$, sodass für jedes $\varepsilon > 0$ die Kugel $B_{\varepsilon}\of{x_0}$ nicht ganz in $A^{C}$ enthalten ist. Das heißt $B_{\varepsilon}\of{x_0}\cap A \neq \emptyset~\forall\varepsilon > 0$. Wir wählen $x_n\in A$ mit $x_n\in B_{\frac{1}{n}}\of{x_0}$. Also gilt $x_n\fromto x_0\in A^{C}$. Das heißt $A$ ist nicht Folgen-abgeschlossen. Widerspruch.
+            Angenommen $A^{\mathrm{C}}$ ist nicht offen. Das heißt $\exists x_0 \in A^{\mathrm{C}}$, sodass für jedes $\varepsilon > 0$ die Kugel $B_{\varepsilon}\of{x_0}$ nicht ganz in $A^{\mathrm{C}}$ enthalten ist. Das heißt
+            \begin{align*}
+                \forall\varepsilon > 0\colon B_{\varepsilon}\of{x_0}\cap A \neq \emptyset
+            \end{align*}
+            Wir wählen eine Folge $(x_n)_n\subseteq A$ mit $x_n\in B_{\frac{1}{n}}\of{x_0}$. Also gilt $x_n\fromto x_0\in A^{\mathrm{C}}$. Das heißt $A$ ist nicht folgenabgeschlossen. Widerspruch.
         \end{proof}
     \end{lemma}
 
     \begin{proof}[Beweis von Satz~\ref{satz:vergleich-folgen-abgeschlossen}]
         ~\\
-        \anf{$\impl$} Wenn $A$ abgeschlossen ist, dann gilt nach Definition, dass $A^{C}$ offen ist. Mit Lemma~\ref{lemma:komplement-folgen-abgeschlossen} folgt dann, dass $A$ Folgen-abgeschlossen ist.\\
-        \anf{$\Leftarrow$} Sei $A$ Folgen-abgeschlossen. Dann folgt direkt aus Lemma~\ref{lemma:komplement-offen}, dass $A$ abgeschlossen.
+        \anf{$\impl$} Wenn $A$ abgeschlossen ist, dann gilt nach Definition, dass $A^{\mathrm{C}}$ offen ist. Mit Lemma~\ref{lemma:komplement-folgen-abgeschlossen} folgt dann, dass $A$ folgenabgeschlossen ist.\\
+        \anf{$\Leftarrow$} Sei $A$ folgenabgeschlossen. Dann folgt direkt aus Lemma~\ref{lemma:komplement-offen}, dass $A$ abgeschlossen.
     \end{proof}
+
+    \newpage
 
     \begin{beispiel}
         \marginnote{[14. Jun]}
         Seien $A_1\subseteq\R^k$, $A_2\sbset\R^m$ abgeschlossen. Dann ist auch $A_1\times A_2 \subseteq \R^k \times \R^m$ abgeschlossen.
         \begin{proof}
-            Sei $\pair{x,y}\in \pair{A_1 \times A_2}^{C} \supseteq A_1^C \times \R^m \cup \R^k \times A_2^C$.\\[.5\baselineskip]
-            \textsc{Fall 1}: $x\not\in A_1 \impl x \in A_1^C$. Dann gilt wegen der Abgeschlossenheit von $A_1$
+            Sei $\pair{x,y}\in \pair{A_1 \times A_2}^{\mathrm{C}} \supseteq A_1^C \times \R^m \cup \R^k \times A_2^C$.\\[.5\baselineskip]
+            \textsc{Fall 1}: $x \in A_1^C$. Dann gilt wegen der Abgeschlossenheit von $A_1$
             \begin{align*}
                 \exists \varepsilon > 0\colon B_{\varepsilon}\of{x} &\subseteq A_1^C\\
-                \impl B_{\varepsilon}\of{x, y} &\subseteq A_1^{C} \times \R^m
+                \impl B_{\varepsilon}\of{x, y} &\subseteq A_1^{\mathrm{C}} \times \R^m
                 \intertext{Aber $B_{\varepsilon}\of{x,y}$ ist eine offene Menge mit}
-                B_{\varepsilon}\of{x,y} \subseteq A^{C}_1 \times \R^m &\subseteq \pair{A_1 \times A_2}^{C}
-                \intertext{\textsc{Fall 2}: $y\in A_2^{C}$. Dann gilt analog zu \textsc{Fall 1}}
-                \impl \exists \varepsilon > 0\colon B_{\varepsilon}\of{x,y} &\subseteq \pair{A_1 \times A_2}^{C}
+                B_{\varepsilon}\of{x,y} \subseteq A^{\mathrm{C}}_1 \times \R^m &\subseteq \pair{A_1 \times A_2}^{\mathrm{C}}
+                \intertext{\textsc{Fall 2}: $y\in A_2^{\mathrm{C}}$. Dann gilt analog zu \textsc{Fall 1}}
+                \impl \exists \varepsilon > 0\colon B_{\varepsilon}\of{x,y} &\subseteq \pair{A_1 \times A_2}^{\mathrm{C}}
             \end{align*}
-            Das heißt $\pair{A_1 \times A_2}^{C}$ ist offen und damit ist $\pair{A_1 \times A_2}$ abgeschlossen.
+            Das heißt $\pair{A_1 \times A_2}^{\mathrm{C}}$ ist offen und damit ist $\pair{A_1 \times A_2}$ abgeschlossen.
         \end{proof}
     \end{beispiel}
 
     \begin{bemerkung}
         \theoremescape
-        \begin{enumerate}[label=(\alph*)]
+        \begin{enumerate}[label=(\roman*)]
             \item In jedem metrischen Raum $\pair{X, d}$ sind die Mengen $\emptyset$ und $X$ sowohl offen als auch abgeschlossen
             \item Das Intervall $\linterv{a,b}\subseteq\R$ ist nicht offen und nicht abgeschlossen
         \end{enumerate}
     \end{bemerkung}
 
-    \subsection{[*] Grundzüge der Topologie}
+    \subsection{Grundzüge der Topologie}
 
-    \begin{definition}[Topologischer Raum]
-        Sei $X$ eine Menge. Dann heißt ein Mengensystem $\Tau\sbset\mathcal{P}\of{x}$ eine \emph{Topologie} auf $X$, falls
+    \begin{definition}[Topologie]
+        Sei $X$ eine Menge. Dann heißt ein Mengensystem $\Tau\sbset\mathcal{P}\of{x}$ eine Topologie auf $X$, falls
         \begin{enumerate}[label=(\roman*)]
             \item $\emptyset, X\in\Tau$
             \item $U, V\in \Tau \impl U \cap V \in \Tau$ und
             \item Für eine beliebige Indexmenge $I$ mit $\forall j\in I\colon V_j \in \Tau$ folgt $\displaystyle\bigcup_{j\in I} V_j \in \Tau$
         \end{enumerate}
-        Ein topologischer Raum ist ein Paar $\pair{X, \Tau}$. $V\subseteq X$ heißt offen, falls $V\in\Tau$ und $A\subseteq X$ heißt abgeschlossen, falls $A^{C} \in\Tau$.
+        Ein topologischer Raum ist ein Paar $\pair{X, \Tau}$. $V\subseteq X$ heißt offen, falls $V\in\Tau$ und $A\subseteq X$ heißt abgeschlossen, falls $A^{\mathrm{C}} \in\Tau$.
     \end{definition}
 
     \begin{beispiel}
         \theoremescape
         \begin{enumerate}
-            \item Das System von offenen Mengen eines metrischen Raums $X$ ist eine Topologie.
-            \item $\R^d$ ist ein topologischer Raum (mit dem System der offenen Mengen als implizierte Topologie).
-            \item Auf jeder Menge $X$ gibt es mindestens 2 Topologien: $\Tau_0 \coloneqq \set{\emptyset, X}$ und die feinste Topologie $\Tau_1 = \mathcal{P}\of{X}$. Ist $\abs{X} \geq 2$, so ist $\Tau_0 \neq \Tau_1$.
-            \item Sei $\pair{X, \Tau}$ ein topologischer Raum und $Y\subseteq X$ eine Teilmenge von $X$. Wir definieren ähnlich zur induzierten Metrik eine \emph{induzierte Topologie} (Relativ-Topologie) $\Tau_{Y} \coloneqq \Tau \cap Y \coloneqq \set{U \cap Y \colon U\in \Tau}$. Dann ist $\pair{Y, \Tau_Y}$ ein topologischer Raum.
+            \item Das System von offenen Mengen eines metrischen Raums $X$ ist eine Topologie
+            \item $\R^d$ ist ein topologischer Raum (mit dem System der offenen Mengen als implizierte Topologie)
+            \item Auf jeder Menge $X$ gibt es mindestens 2 Topologien: $\Tau_0 \coloneqq \set{\emptyset, X}$ und die feinste Topologie $\Tau_1 = \mathcal{P}\of{X}$. Ist $\abs{X} \geq 2$, so ist $\Tau_0 \neq \Tau_1$
+            \item Sei $\pair{X, \Tau}$ ein topologischer Raum und $Y\subseteq X$ eine Teilmenge von $X$. Wir definieren ähnlich zur induzierten Metrik eine \emph{induzierte Topologie} (Relativ-Topologie)
+            \begin{align*}
+                \Tau_{Y} \coloneqq \Tau \cap Y \coloneqq \set{U \cap Y \colon U\in \Tau}
+            \end{align*}
+            Dann ist $\pair{Y, \Tau_Y}$ ein topologischer Raum.
         \end{enumerate}
     \end{beispiel}
 
@@ -1257,7 +1274,7 @@
     \end{definition}
 
     \begin{definition}[Randpunkt]
-        Ein Punkt $x\in X$ heißt Randpunkt von $A$, falls es in jeder offenen Umgebung $U$ von $x$ mindestens einen Punkt aus $A$ und einen Punkt aus $A^{C}$ gibt. Das heißt für alle offenen Mengen $U$ mit $x\in U$ ist $U\cap A \neq \emptyset$ und $U\cap A^{C} \neq \emptyset$. Wir schreiben $\partial A$ für die Menge aller Randpunkte von $A$.
+        Ein Punkt $x\in X$ heißt Randpunkt von $A$, falls es in jeder offenen Umgebung $U$ von $x$ mindestens einen Punkt aus $A$ und einen Punkt aus $A^{\mathrm{C}}$ gibt. Das heißt für alle offenen Mengen $U$ mit $x\in U$ ist $U\cap A \neq \emptyset$ und $U\cap A^{\mathrm{C}} \neq \emptyset$. Wir schreiben $\partial A$ für die Menge aller Randpunkte von $A$.
     \end{definition}
 
     \begin{satz} % Satz 19
@@ -1274,29 +1291,29 @@
             \begin{enumerate}[label=(\roman*)]
                 \item Sei $x\in A \exclude \partial A$ beliebig. Dann folgt es existiert eine offene Umgebung $V$ von $x$ mit
                 \begin{align*}
-                    V \cap A^{C} &= V\cap \pair{X\exclude A} = \emptyset\tag{(1)}
+                    V \cap A^{\mathrm{C}} &= V\cap \pair{X\exclude A} = \emptyset\tag{(1)}
                     \intertext{denn ansonsten wäre $x\in\partial A$}
                     \impl V \cap \partial A &= \emptyset\tag{(2)}
                     \intertext{Denn wäre $V\cap \partial A \neq \emptyset$. Dann würde folgen}
                     \impl \exists y&\in V \cap \partial A\\
                     \impl V \text{ offene Umgebung von  } y&\in \partial A\\
-                    \impl V\cap A^{C} &\neq \emptyset\tag{Widerspruch zu (1)}
+                    \impl V\cap A^{\mathrm{C}} &\neq \emptyset\tag{Widerspruch zu (1)}
                     \intertext{Mit (1) und (2) folgt}
-                    V \cap\pair{\partial A \cup A^{C}} &= \emptyset\\
+                    V \cap\pair{\partial A \cup A^{\mathrm{C}}} &= \emptyset\\
                     \equivalent V \subseteq A \exclude \partial A\\
                     \impl A\exclude \partial A \text{ ist offen }
                 \end{align*}
-                \item $A^{C} = X \exclude A$. Aus der Definition des Randes folgt $\partial A = \partial A^{C}$. Nach (i) gilt dann
+                \item $A^{\mathrm{C}} = X \exclude A$. Aus der Definition des Randes folgt $\partial A = \partial A^{\mathrm{C}}$. Nach (i) gilt dann
                 \begin{align*}
-                    A^{C} \exclude \partial A = A^{C} \exclude \partial A^{C} \text{ ist offen }\\
-                    \equivalent \pair{A^{C} \exclude \partial A}^{C} \text{ ist abgeschlossen }\\
-                    \equivalent \pair{A^{C} \exclude \partial A}^{C} &= X\exclude\pair{A^{C} \exclude \partial A}\\
-                    &= X\exclude A^{C} \cup \partial A = A\cup \partial A \text{ ist abgeschlossen }
+                    A^{\mathrm{C}} \exclude \partial A = A^{\mathrm{C}} \exclude \partial A^{\mathrm{C}} \text{ ist offen }\\
+                    \equivalent \pair{A^{\mathrm{C}} \exclude \partial A}^{\mathrm{C}} \text{ ist abgeschlossen }\\
+                    \equivalent \pair{A^{\mathrm{C}} \exclude \partial A}^{\mathrm{C}} &= X\exclude\pair{A^{\mathrm{C}} \exclude \partial A}\\
+                    &= X\exclude A^{\mathrm{C}} \cup \partial A = A\cup \partial A \text{ ist abgeschlossen }
                 \end{align*}
                 \item
                 \begin{align*}
                     \partial A &= \pair{A\cup \partial A} \cap \pair{A^C \cup \partial A}\\
-                    &= \pair{A \cup \partial A} \cap \pair{A^C \cup \partial A^{C}} \text{ ist abgeschlossen}
+                    &= \pair{A \cup \partial A} \cap \pair{A^C \cup \partial A^{\mathrm{C}}} \text{ ist abgeschlossen}
                 \end{align*}
             \end{enumerate}
         \end{proof}
@@ -1323,18 +1340,18 @@
             \textsc{Teil 1}: Nach Satz~\ref{satz:top-rand} ist $A\exclude \partial A$ offen und $A \exclude \partial A \subseteq A$. Damit folgt $A \exclude \partial A \subseteq A^{\circ}$.\\
             Damit ist noch zu zeigen, dass $A^{\circ} \subseteq A \exclude \partial A$. Ist $U\subseteq A$ offen
             \begin{align*}
-                \impl U\cap A^{C} &= \emptyset \\
+                \impl U\cap A^{\mathrm{C}} &= \emptyset \\
                 \impl U \cap \partial A &= \emptyset
             \end{align*}
-            Falls nicht $\exists y \in U \cap \partial A$, dann folgt $U\cap A^{C} \neq \emptyset$. Das ergibt einen Widerspruch.\\
+            Falls nicht $\exists y \in U \cap \partial A$, dann folgt $U\cap A^{\mathrm{C}} \neq \emptyset$. Das ergibt einen Widerspruch.\\
             Das heißt für jede offene Teilmenge $U\subseteq A$ gilt $U\subseteq A\exclude \partial A$.
             \begin{align*}
                 A = \bigcup_{U\in U\of{A}} U \subseteq A \exclude \partial A\\
                 \impl A^{\circ} \subseteq A \exclude \partial A\\
                 \impl A \exclude \partial A = A^{\circ}
             \end{align*}
-            \textsc{Teil 2}: Behauptung: Aus $B\subseteq X$ ist abgeschlossen und $A \subseteq B$ folgt $\partial A \subseteq B$. Angenommen die Behauptung ist falsch. Dann würde gelten $B^{C} \cap \partial A \neq \emptyset$.\\
-            $x\in \partial A \cap B^{C}$. $B^{C}$ ist offene Umgebung von $x$. Nach Definition von $\partial A$ ist $A\cap B^{C}\neq \emptyset$. Das heißt $A \subseteq B$. (Widerspruch).\\
+            \textsc{Teil 2}: Behauptung: Aus $B\subseteq X$ ist abgeschlossen und $A \subseteq B$ folgt $\partial A \subseteq B$. Angenommen die Behauptung ist falsch. Dann würde gelten $B^{\mathrm{C}} \cap \partial A \neq \emptyset$.\\
+            $x\in \partial A \cap B^{\mathrm{C}}$. $B^{\mathrm{C}}$ ist offene Umgebung von $x$. Nach Definition von $\partial A$ ist $A\cap B^{\mathrm{C}}\neq \emptyset$. Das heißt $A \subseteq B$. (Widerspruch).\\
             Aus der Behauptung folgt jetzt also $B \supseteq A \cup \partial A~\forall B\supseteq A$ und $B$ ist abgeschlossen
             \begin{align*}
                 \impl A \cup \partial A \subseteq \bigcap_{B\in B\of{A}} B = \overline{A}
