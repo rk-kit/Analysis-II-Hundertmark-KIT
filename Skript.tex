@@ -1565,5 +1565,135 @@
         Für $N=\R^d$ und $M\subseteq\R$ ist die Stetigkeit von $f: M\fromto \R^d,~x\mapsto\pair{f_1\of{x}, f_2\of{x}, \ldots, f_n\of{x}}$ äquivalent dazu, dass jedes $f_j$ stetig ist.
     \end{bemerkung}
 
+    \begin{bemerkung}
+        \marginnote{[25. Jun]}
+        Sei $\pair{M, d}$ ein metrischer Raum. Wenn $g, f: M\fromto\R$ stetig sind, dann sind auch $f+g: M\fromto\R,x\mapsto f\of{x}+g\of{x}$ sowie $f\cdot g: M\fromto\R,~x\mapsto f\of{x}\cdot g\of{x}$ stetig.\\
+        Außerdem ist die Menge $D_{g\neq 0} \coloneqq \set{x\in M: g\of{x}\neq 0}$ für ein stetiges $g$ offen. Das heißt wenn $g\of{x_0} \neq 0$, dann ist $D_{g\neq 0}$ eine Umgebung und wir können eine Funktion $\frac{f}{g}: D_{g\neq 0}\fromto\R$ definieren, die stetig in $x_0$ ist.
+        \begin{proof}
+        (Übung)
+        \end{proof}
+    \end{bemerkung}
+
+    \begin{definition}[Homöomorphismus] % Def 9
+        Seien $\pair{M, d_M}$ und $\pair{N, d_N}$ metrische Räume. Dann heißt eine Funktion $f: M\fromto N$ Homöomorphismus, wenn sie bijektiv und stetig ist und $f^{-1}: N\fromto M$ auch stetig ist.
+    \end{definition}
+
+    \begin{beispiel}
+        \theoremescape
+        \begin{enumerate}
+            \item Die Funktion
+            \begin{align*}
+                f: \R&\fromto\pair{-1, 1}\\
+                x &\mapsto \frac{x}{1+\abs{x}}
+            \end{align*}
+            ist ein Homöomorphismus.
+            \item Die Funktion
+            \begin{align*}
+                f: \R^d &\fromto B_{1}\of{0} = \set{x\in\R^d: \abs{x} < 1}\\
+                x &\mapsto f\of{x} = \frac{x}{1+\norm{x}}
+                \intertext{ist ein Homöomorphismus mit der Umkehrabbildung}
+                f^{-1}\of{x} &= \frac{y}{1-\norm{y}}
+            \end{align*}
+        \end{enumerate}
+
+    \end{beispiel}
+
+    \begin{definition} % Def 10
+        Seien $\pair{M, d_M}$ und $\pair{N, d_N}$ metrische Räume. Eine Funktionenfolge $(f_n)_n$ mit $f_n: M\fromto N$ konvergiert gleichmäßig gegen $f: M\fromto N$, falls
+        \begin{align*}
+            \forall\varepsilon > 0\ex N\in\N\colon d_N\of{f\of{x}, f_n\of{x}} &< \varepsilon\quad\forall x\in M\fa n\geq N
+            \intertext{Das heißt}
+            \limsup_{\ntoinf} \sup_{x\in M} d_N\of{f\of{x}, f_n\of{x}} &= 0
+        \end{align*}
+    \end{definition}
+
+    \begin{satz}
+        Seien $f_n: M\fromto N$ stetig für alle $n\in\N$ und konvergiere $(f_n)_n$ gleichmäßig gegen $f: M\fromto N$. Dann ist $f$ stetig.
+        \begin{proof}
+            Wir verwenden den $\frac{\varepsilon}{3}$-Trick. Angenommen $\varepsilon > 0$ und $x_0\in M$ beliebig. Wegen der gleichmäßigen Konvergenz gilt
+            \begin{align*}
+                \exists N\in\N\colon d_N\of{f\of{x}, f_n\of{x}} &< \frac{\varepsilon}{3}\quad\forall n\geq N
+                \intertext{$f_N$ ist stetig in $x_0$. Das heißt}
+                \exists\delta > 0\colon d_N\of{f_N\of{x}, f_N\of{x_0}} &< \frac{\varepsilon}{3}\quad\forall x\in M, d_M\of{x, x_0} < \delta
+            \end{align*}
+            Sei nun $x\in B_{\delta}\of{x_0} = \set{y\in M: d_M\of{y, x_0} <\delta}$. Dann folgt durch das Verwenden der Dreiecksungleichung
+            \begin{align*}
+                d_N\of{f\of{x}, f\of{x_0}} &\leq d_N\of{f\of{x}, f_N\of{x}} + d_N\of{f_N\of{x}, f\of{x_0}}\\
+                &\leq d_N\of{f\of{x}, f_N\of{x}} + d_N\of{f_N\of{x}, f_N\of{x_0}} + d_N\of{f_N\of{x_0}, f\of{x_0}}\\
+                &<\frac{\varepsilon}{3} + \frac{\varepsilon}{3} + \frac{\varepsilon}{3} = \varepsilon\qedhere
+            \end{align*}
+        \end{proof}
+    \end{satz}
+
+    \newpage
+
+
+    \section{Kompakte Mengen und metrische Räume}
+    \imaginarysubsection{Kompakte Mengen}
+    \thispagestyle{pagenumberonly}
+
+    \begin{definition}[Kompaktheit]
+        Sei $\pair{M, d}$ ein metrischer Raum. Eine Teilmenge $A\subseteq M$ ist kompakt, falls jede Folge in $A$ eine konvergente Teilfolge besitzt, deren Grenzwert wieder in $A$ liegt. Das heißt
+        \begin{align*}
+            \forall \text{Folge } (x_n)_n\subseteq A\ex\text{Teilfolge } (x_{n_k})_k\colon x\coloneqq \lim_{k\toinf} x_{n_k}\text{ existiert und }x\in A
+        \end{align*}
+    \end{definition}
+
+    \begin{bemerkung}[Topologische Kompaktheit]
+        Es gibt auch eine topologische Definition, die nicht über Folgen argumentiert und im metrischen Fall äquivalent zur Folgenkompaktheit ist: $A\subseteq M$ ist topologisch kompakt, falls jede offene Überdeckung eine endliche Teilüberdeckung hat.\\
+        Das heißt für eine beliebige Indexmenge $I$ und $U_j$ offen $\forall j\in I$ mit $A\subseteq \bigcup_{j\in I} U_j$ muss ein $N\in\N$ und $j_1, j_2, \ldots, j_N \in I$ existieren, sodass $A \subseteq U_{j_1} \cup U_{j_2} \cup \dots \cup U_{j_N}$.
+    \end{bemerkung}
+
+    \begin{definition}
+        Ein metrischer Raum $\pair{M, d}$ ist kompakt, falls $M$ kompakt ist.
+    \end{definition}
+
+    \begin{bemerkung}
+        Jeder kompakte metrische Raum ist vollständig.
+        ´\begin{proof}
+             Wir haben gezeigt, dass eine Cauchy-Folge genau dann konvergiert, wenn sie eine konvergente Teilfolge hat. Damit konvergiert jede Cauchy-Folge in einem kompakten Raum.
+        \end{proof}
+    \end{bemerkung}
+
+    \begin{satz}
+        Wir betrachten $\pair{\R^d, \norm{\cdot}_{\infty}}$ mit Maximumsnorm. Dann gilt $A\subseteq \R^d$ ist genau dann kompakt, wenn $A$ abgeschlossen und beschränkt ist.
+        \begin{proof}
+            \anf{$\impl$} Sei $A\subseteq\R^d$ kompakt. Sei $(x_n)_n \subseteq A$ eine Folge in $A$, welche gegen $x\in\R^d$ konvergiert. Dann existiert eine Teilfolge $(x_{n_k})_k$ mit $y\coloneqq \lim_{\ntoinf} x_{n_k}\in A$. Da $(x_n)_n$ konvergiert, ist $x=y\in A$.\\
+            Angenommen $A$ ist nicht beschränkt. Das heißt
+            \begin{align*}
+                \forall n\in\N\ex x_n\in A\colon \norm{x_n}_{\infty} \geq n
+            \end{align*}
+            Dann gilt für jede Teilfoge $(x_{n_k})_k$ auch $\norm{x_{n_k}} \geq n_k \geq k$. Das heißt jede Teilfoge von $(x_n)_n$ ist unbeschränkt und kann somit nicht konvergieren.\\[.5\baselineskip]
+            \anf{$\Leftarrow$} Sei $A$ abgeschlossen und beschränkt. Dann wählen wir eine Folge $(x_n)_n\subseteq A$. Dann besteht $x_n$ aus mehreren Koordinaten. Das heißt $x_n = \pair{x_n^1~x_n^2~\dots~x_n^d}$ Wir definieren $(x_n^j)_n$ als Folge in $\R$. Da $A$ beschränkt ist, muss auch $(x_n^j)_n$ beschränkt sein. Das heißt für $j=1$ gibt es eine Teilfolge $(x_{n_k}^1)_k$ von $(x_n^1)_n$, die konvergiert. Es gibt also eine Ausdünnung $\sigma_1: \N\fromto\N$ mit $\sigma_1\of{n+1} > \sigma_1\of{n}~\forall n\in\N$, sodass $x^1\coloneqq \lim_{k\toinf} x_{\sigma_{1}\of{k}}^1$ existiert. Dann konvergiert die erste Koordinate von $\pair{x_{\sigma_1\of{n}}^1~x_{\sigma_1\of{n}}^2~\ldots~x_{\sigma_1\of{n}}^d}$.\\
+            Wir führen das Prinzip iterativ fort. Das heißt $(x_{\sigma\of{n}}^2)_n$ ist beschränkt in $\R$. Damit hat es eine konvergente Teilfolge. Wir wählen eine neue Ausdünnung $\sigma_2: \N\fromto\N$ analog zu $\sigma_1$ und setzen $\kappa_2 \coloneqq \sigma_2 \circ \sigma_1$. Dann hat $x^2_{\kappa_2\of{n}}$ einen Grenzwert $x^2\coloneqq \biglim{\ntoinf} x^2_{\kappa_2\of{n}}$. Dabei konvergiert $x_{\kappa_2\of{n}}^1$ immer noch.\\
+            Dieses Prinzip wenden wir für jede Koordinate an. Das heißt wir definieren $\sigma_j: \N\fromto\N$ und $\kappa_{j+1} \coloneqq \sigma_{j+1} \circ \kappa_j$. Damit hören wir bei $j=d$ auf. Dann haben wir $x_{\kappa_d\of{n}}^j$ konvergiert gegen ein $x^j$ für alle $j\in\set{1, \ldots, d}$. Das heißt wir haben einen Grenzwert $x=\pair{x^1~x^2~\dots~x^d}$ von $(x_{\kappa_d\of{n}})_n$. Da $A$ abgeschlossen ist und $x_{\kappa\of{n}} \fromto x$ ist auch $x\in A$. Damit ist $A$ kompakt.
+        \end{proof}
+    \end{satz}
+
+    \begin{satz} % Satz 4
+        Sei $\pair{M, d}$ ein metrischer Raum und $A\subseteq M$ kompakt. Sei außerdem $f: A\fromto\R$ stetig. Dann nimmt $f$ sein Maximum und Minimum an. Das heißt
+        \begin{align*}
+            \exists\un{x}\in A\colon f\of{\un{x}} &= \inf\set{f\of{x}: x\in A} \text{ und } \\
+            \exists\ov{x}\in A\colon f\of{\ov{x}} &= \sup\set{f\of{x}: x\in A}
+        \end{align*}
+        \begin{proof}
+            \textsc{Schritt 1}: Sei $a\coloneqq\inf\set{f\of{x}: x\in A} > -\infty$. Angenommen $a=-\infty$. Dann würde gelten
+            \begin{align*}
+                &\forall n\in\N\ex x_0\in A\colon f\of{x_n} \leq -n\\
+                \intertext{Das heißt es existiert eine konvergente Teilfolge $(x_{n_k})_k$, da $A$ kompakt ist. Wir definieren $x \coloneqq \biglim{k\toinf} x_{n_k}\in A$. Wegen der Stetigkeit von $f$ gilt dann}
+                \R\ni f\of{x} &= f\of{\lim_{k\toinf} x_{n_k}} = \lim_{k\toinf} f\of{x_{n_k}} = -\infty
+            \end{align*}
+            \textsc{Schritt 2}: Sei $a\coloneqq\inf\set{f\of{x}: x\in A}$. Das heißt
+            \begin{align*}
+                \forall n\in\N\ex x_n\in A\colon &f\of{x_n} < a + \frac{1}{n}\\
+                \impl a \leq &f\of{x_n} < a + \frac{1}{n}
+                \intertext{Da $A$ kompakt ist, existiert eine konvergente Teilfolge $(x_{n_k})_k$ von $(x_n)_n$. Wir definieren}
+                \un{x}\coloneqq&\lim_{k\toinf} x_{n_k} \leq a + \frac{1}{n}\\
+                \impl a \leq &f\of{\un{x}} = f\of{\lim_{k\toinf} x_{n_k}} = \lim_{k\toinf} x_{n_k} = a\\
+                \impl &f\of{\un{x}} = a
+            \end{align*}
+            \textsc{Schritt 3}: Für das Maximum betrachte $-f$ und wende \textsc{Schritt 1} und \textsc{Schritt 2} an.
+        \end{proof}
+    \end{satz}
 
 \end{document}
