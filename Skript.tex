@@ -122,6 +122,7 @@
 \DeclareMathOperator{\arcsinh}{arcsinh}
 \DeclareMathOperator{\arccosh}{arccosh}
 \DeclareMathOperator{\diam}{diam}
+\DeclareMathOperator{\fehler}{Fehler}
 
 % Mengenbezeichner
 \newcommand{\R}{\mathbb{R}}
@@ -1670,6 +1671,7 @@
     \end{satz}
 
     \begin{satz} % Satz 4
+        \label{satz:weierstrass-alg}
         Sei $\pair{M, d}$ ein metrischer Raum und $A\subseteq M$ kompakt. Sei außerdem $f: A\fromto\R$ stetig. Dann nimmt $f$ sein Maximum und Minimum an. Das heißt
         \begin{align*}
             \exists\un{x}\in A\colon f\of{\un{x}} &= \inf\set{f\of{x}: x\in A} \text{ und } \\
@@ -1694,5 +1696,145 @@
             \textsc{Schritt 3}: Für das Maximum betrachte $-f$ und wende \textsc{Schritt 1} und \textsc{Schritt 2} an.
         \end{proof}
     \end{satz}
+
+    \begin{satz} % Satz 5
+        \marginnote{[28. Jun]}
+        Auf endliche-dimensionalen Vektorräumen sind alle Normen äquivalent. Das heißt für einen endlich-dimensionalen Vektorraum $X$ mit zwei Normen $\norm{\cdot}_a, \norm{\cdot}_b$ gibt es $0 <c_1 \leq c_2 < \infty$, sodass
+        \begin{align*}
+            c_1\cdot\norm{h}_a &\leq \norm{h}_b \leq c_2\cdot\norm{h}_a\quad\forall h\in X
+        \end{align*}
+        \begin{proof}
+            \textsc{Schritt 1}: Sei $d\coloneqq\dim\of{X} < \infty$. Wir wählen eine geordnete Basis $\pair{e_1, e_2, \ldots, e_d}$ von $X$. Dann können wir einen beliebigen Vektor $h\in X$ schreiben als
+            \begin{align*}
+                h &= \sum_{j=1}^{d} t_j\cdot e_j
+                \intertext{Für eindeutige $t_j\in\R$. Damit erhalten wir eine Bijektion}
+                h: \R^d &\fromto X\\
+                \R^d \ni t&\mapsto h\of{t} = \sum_{j=1}^{d} t_j\cdot e_j \in X
+                \intertext{Also reicht es, zu zeigen, dass für beliebige Normen $\norm{\cdot}$ auf $X$ und gewählte $0< c_1 \leq c_2 < \infty$ gilt}
+                c_1\cdot\norm{t}_{\infty} &\leq \norm{h\of{t}} \leq c_2\cdot\norm{t}_{\infty}\quad\forall t\in\R^d\tag{1}
+                \intertext{Setzen wir nämlich voraus, dass (1) gilt, dann gilt für zwei beliebige Normen $\norm{\cdot}_a, \norm{\cdot}_b$ auf $X$}
+                c_1\cdot\norm{t}_{\infty} &\leq \norm{h\of{t}}_a \leq c_2\cdot\norm{t}_{\infty}\\
+                d_1\cdot\norm{t}_{\infty} &\leq \norm{h\of{t}}_b \leq d_2\cdot\norm{t}_{\infty}
+                \intertext{Sei $h\coloneqq h\of{t}$}
+                \impl \norm{h}_a &\leq c_2\cdot \norm{t}_{\infty} \leq \frac{c_2}{d_1}\cdot\norm{h}_b\\
+                &\leq \frac{c_2}{d_1}\cdot d_2 \cdot \norm{t}_{\infty}\\
+                &\leq \frac{c_2\cdot d_2}{c_1\cdot d_1} \cdot\norm{h}_a\\
+                \impl \frac{d_1}{c_2} \cdot\norm{h}_a &\leq \norm{h}_b \leq \frac{d_2}{c_1}\cdot\norm{h}_a
+                \intertext{Damit wäre die Behauptung gezeigt. Das heißt wir müssen nur noch (1) zeigen. \textsc{Schritt 2}: Sei $\norm{\cdot}$ eine beliebige Norm auf $X$. Wir definieren}
+                f: \R^d &\fromto \R\\
+                h &\mapsto f\of{h\of{t}} = \norm{h\of{t}}
+                \intertext{Dann existiert ein $0 < C < \infty$, sodass}
+                \abs{f\of{t}} = f\of{t} &\leq C\cdot\norm{t}_{\infty}\quad\forall t\in\R^d\tag{2}
+                \intertext{und}
+                \abs{f\of{t_1} - f\of{t}} &\leq C\cdot\norm{t_1 - t_2}_{\infty}\quad\forall t_1, t_2\in\R^d\tag{3}
+                \intertext{Dabei folgt aus (3) gerade, dass $f$ Lipschitz-stetig ist. Um (2) zu beweisen, betrachten wir}
+                \abs{f\of{t}} &= \norm{h\of{t}} = \norm{ \sum_{j=1}^{d} t_j\cdot e_j}\\
+                &\leq \sum_{j=1}^{d} \norm{t_j\cdot e_j}\\
+                &\leq \max_{1\leq j \leq d} \abs{t_j} \cdot \underbrace{\sum_{j=1}^{d} \norm{e_j}}_{\eqqcolon C} = C\cdot\norm{t}_{\infty}
+                \intertext{Außerdem zeigen wir (3):}
+                \abs{f\of{t_1} - f\of{t_2}} &= \abs{\norm{h\of{t_1}} - \norm{h\of{t_2}}}\\
+                &= \abs{\norm{h_1} - \norm{h_2}} \leq \norm{h_1 - h_2}\\
+                \impl \abs{f\of{t_1} - f\of{t_2}} &\leq \norm{h\of{t_1} - h\of{t_2}}\\
+                &= \norm{h\of{t_1 - t_2}} \leq C\cdot\norm{t_1 - t_2}_{\infty}
+                \intertext{Damit haben wir (3) gezeigt. \textsc{Schritt 3}: Nach (3) gilt $\norm{h\of{t}} \leq C\cdot\norm{t}_{\infty}$. Also reicht es zu zeigen, dass}
+                \exists c_1 > 0\colon c_1\cdot\norm{t}_{\infty} &\leq \norm{h\of{t}}
+                \intertext{Sei $t\neq 0$. Dann ist auch $\norm{t}_{\infty} > 0$}
+                f\of{\frac{t}{\norm{t}}_{\infty}} &= \norm{h\of{\frac{t}{\norm{t}_{\infty}}}}\\
+                h\of{\frac{t}{\norm{t}_{\infty}}} &= \sum_{j=1}^{d} \frac{t_j}{\norm{t}_{\infty}}\cdot e_j\\
+                &= \frac{1}{\norm{t}_{\infty}} \sum_{j=1}^{d} t_j\cdot e_j\\
+                &= \frac{1}{\norm{t}_{\infty}}\cdot f\of{t}\\
+                \impl \norm{t}_{\infty}\cdot f\of{\frac{t}{\norm{t}_{\infty}}} &= f\of{t}\quad\forall t\in \R^d\exclude\set{\textbf{0}}\tag{4}
+                \intertext{Wir definieren}
+                S &\coloneqq \set{t\in\R^d : \norm{t}_{\infty} = 1}
+                \intertext{Damit ist $S$ beschränkt und abgeschlossen. Wir wählen eine Folge $(t_n)_n\subseteq S$ mit $t_n\fromto t$}
+                \impl \norm{t}_{\infty} &= \norm{\lim_{\ntoinf} t_n}_{\infty} = \lim_{\ntoinf}\norm{t_n}_{\infty} = 1\\
+                \impl t&\in S
+                \intertext{Wir definieren außerdem}
+                c_1 &\coloneqq \inf\set{f\of{t}: t\in S}\\
+                \annot{\impl}{(4)} f\of{t} &= \norm{t}_{\infty} \cdot f\of{\frac{t}{\norm{t}_{\infty}}} \geq c_1\cdot\norm{t}_{\infty}\quad\forall t\in\R^d
+                \intertext{Frage: Was ist ein guter Grund, dass $c_1 > 0$? \textsc{Schritt 4}: $S$ ist kompakt, da $\R^d$ endlich-dimensional ist und $S$ beschränkt und abgeschlossen ist. Außerdem ist $f: S\fromto\R$ stetig und $f\of{t} > 0~\forall t\in S$. Nach Satz~\ref{satz:weierstrass-alg} nimmt $f$ auf $S$ sein Minimum ein. Das heißt es existiert ein $\un{t}\in S$, sodass}
+                c_1 &= \inf\set{f\of{t}: t\in S} = f\of{\un{t}} > 0\qedhere
+            \end{align*}
+        \end{proof}
+    \end{satz}
+
+    \begin{bemerkung}
+        Sei $d = \dim\of{X}$ und $\pair{e_1, e_2,\ldots, e_d}$ eine Basis von $X$. Dann ist
+        \begin{align*}
+            F: \R^d &\fromto X\\
+            t &\mapsto F\of{t} = \sum_{j=1}^{d} t_j\cdot e_j
+            \intertext{eine lineare Bijektion. Wir haben im vorherigen Beweis gesehen, dass}
+            \norm{F\of{t}} & \leq C\cdot\norm{t}_{\infty}\text{ für } C \coloneqq \sum_{j=1}^{d} \norm{e_j}
+            \intertext{Damit ist $F$ sogar stetig. Frage: Ist $F^{-1}: X\fromto\R^d$ auch stetig?}
+            c_1 \cdot\norm{t}_{\infty} &\leq \norm{F\of{t}}\\
+            t &= F^{-1}\of{h}\tag{$h\coloneqq F\of{t}$}\\
+            \impl c_1\cdot\norm{F^{-1}\of{h}} &\leq \norm{h}\\
+            \impl \norm{F^{-1}\of{h}} &\leq \frac{1}{c_1}\cdot\norm{h}
+        \end{align*}
+        Das heißt $F^{-1}: X\fromto \R^d$ ist auch stetig.
+    \end{bemerkung}
+
+    \begin{satz} % Satz 6
+        Seien $\pair{M, d_M}$ und $\pair{N, d_N}$ metrische Räume, $M$ kompakt und $f: M\fromto N$. Dann gilt $f$ ist genau dann stetig, wenn $f$ gleichmäßig stetig ist. Das heißt
+        \begin{align*}
+            \forall \varepsilon > 0\ex\delta > 0\fa x,y\in M\colon d_M\of{x,y} < \delta \impl d_N\of{f\of{x}, f\of{y}} < \varepsilon
+        \end{align*}
+        \begin{proof}
+            \anf{$\Leftarrow$} Ist klar.\\
+            \anf{$\impl$} Angenommen $f$ ist stetig, aber nicht gleichmäßig stetig. Das heißt
+            \begin{align*}
+                \exists\varepsilon > 0\fa\delta > 0\ex x,y\in M\colon d_M\of{x,y} < \delta \text{ aber } d_N\of{f\of{x}, f\of{y}} \geq \varepsilon
+                \intertext{Wähle $\delta = \frac{1}{n}$. Das heißt es existieren zwei Folgen $(x_n)_n, (y_n)_n \subseteq M$, sodass}
+                d_N\of{x_n, y_n} < \frac{1}{n} \text{ aber } d_N\of{f\of{x_n}, f\of{y_n}} \geq \varepsilon\quad\forall n\in\N
+                \intertext{Da $M$ kompakt ist, existiert eine Teilfolge $(y_{n_k})_k$ von $(y_n)_n$, die konvergiert. Sei}
+                y \coloneqq \lim_{k\toinf} y_{n_k} \in M
+                \intertext{Behauptung: $x_{n_K} \fromto y$, da}
+                d_M\of{x_{n_k}, y} \leq d_M\of{x_{n_k}, y_{n_k}} + d_M\of{y_{n_k}, y} \fromto 0
+                \intertext{Da $f$ stetig ist folgt}
+                \impl d_N\of{f\of{x_{n_k}}, f\of{y}}\fromto 0 \text{ für } k\toinf\\
+                0 < \varepsilon \leq d_N\of{f\of{x_{n_j}}, f\of{y_{n_k}}} \leq d_N\of{f\of{x_{n_k}}, f\of{y}} + d_N\of{f\of{y}, f\of{y_{n_k}}}\fromto 0
+            \end{align*}
+            Damit ergibt sich ein Widerspruch, da $\varepsilon$ fest gewählt war.
+        \end{proof}
+    \end{satz}
+
+    \newpage
+    \section{Differentialrechnung im $\R^d$}
+    \subsection{Die Ableitung}
+    \thispagestyle{pagenumberonly}
+    Bisher haben wir die Ableitung in $\R$ definiert. Die Idee dahinter war, eine Funktion $f\of{x}$ an einer Stelle durch eine affine Funktion zu approximieren. Das heißt
+    \begin{align*}
+        f\of{x+h} &= f\of{x} + f'\of{x}\cdot h + \fehler_x\of{h}\\
+        &=b + a\cdot h + \fehler_x\of{h}
+        \intertext{Dabei galt}
+        &\frac{\abs{\fehler_x\of{h}}}{h}\fromto 0 \text{ für } h\toinf\\
+        \equivalent &\lim_{h\toinf} \frac{f\of{x+h} - f\of{x}}{h} \text{ existiert }
+        \intertext{Wir wollen dieses Prinzip auf den $\R^d$ übertragen und fragen uns: Gibt es eine affine Funktion}
+        g: \R^n &\fromto \R^m\\
+        h &\mapsto g\of{h} = b + A\cdot\interv{h} = b + A\cdot h
+        \intertext{sodass}
+        f\of{x + h} &= g\of{h} + \fehler_x\of{x} \in\R^m
+        \intertext{mit}
+        &\frac{\norm{\fehler_x\of{h}}_{\R^m}}{\norm{h}_{\R^n}}\fromto 0 \text{ für } h\toinf
+        \intertext{Angenommen wir finden eine solche Funktion $f: D\fromto Y\coloneqq \R^m$ mit $D\subseteq X\coloneqq\R^u$, sodass}
+        f\of{x+h} &= b + A\cdot\interv{h} + \fehler_x\of{h}\\
+        \frac{\norm{\fehler_x\of{h}}_Y}{\norm{h}_X} &= \frac{\norm{\varepsilon_x\of{h}\cdot\norm{h}_X}}{\norm{h}_X} = \norm{\varepsilon_x\of{h}}_Y\fromto 0\\
+        \varepsilon_x\of{h} &\coloneqq \frac{\fehler_x\of{h}}{\norm{h}_x}\\
+        f\of{x+h} &= g\of{h} + \varepsilon_x\of{h}\cdot\norm{h}_X\tag{*}
+    \end{align*}
+    Behauptung: Angenommen (*) und $\varepsilon_x\of{h} \fromto 0$ gilt. Dann folgt, dass $g$ eindeutig bestimmt ist.
+    \begin{proof}
+        Angenommen es existieren $g_1, g_2$ affine Abbildungen, sodass
+        \begin{align*}
+            f\of{x+h} &= g_1\of{h} + \varepsilon_x^1\of{h}\cdot\norm{h}_X\\
+            &= g_2\of{h} + \varepsilon_x^2\of{h}\cdot\norm{h}_X
+            \intertext{Dann ist zu zeigen, dass $g_1 = g_2$. Wir definieren}
+            g\of{h} &= g_1\of{h} - g_2\of{h} = -\varepsilon_x^1\of{h}\cdot\norm{h}_X + \varepsilon_x^2\of{h}\cdot\norm{h}_X\\
+            &\eqqcolon \varepsilon_x\of{h}\cdot\norm{h}_X\fromto 0 \text{ für } h\fromto 0\\
+            \impl g\of{0} &= 0 = b_1 - b_2\\
+            \impl b1 &= b_2
+        \end{align*}
+        (Rest des Beweises am Dienstag)
+    \end{proof}
 
 \end{document}
