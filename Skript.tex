@@ -1965,4 +1965,79 @@
         \end{align*}
     \end{definition}
 
+    \begin{bemerkung}
+        \marginnote{[05. Jul]}
+        Sei $f: U\fromto Y$  in $x\in U$ differenzierbar. $\D f\of{x}\in\mL\of{\R^n, Y}$. Dann gilt
+        \begin{align*}
+            \D f\of{x}\interv{h} &= \D f\of{x}\cdot h = \D f\begin{pmatrix}
+                                                                h_1    \\
+                                                                \vdots \\
+                                                                h_n
+            \end{pmatrix} = \begin{pmatrix}
+                                \partial_1 f_1 & \cdots & \partial_n f_1 \\
+                                \vdots         & \ddots & \vdots         \\
+                                \partial_1 f_m & \cdots & \partial_n f_m
+            \end{pmatrix}\begin{pmatrix}
+                             h_1    \\
+                             \vdots \\
+                             h_n
+            \end{pmatrix}
+        \end{align*}
+    \end{bemerkung}
+
+    \noindent\textbf{Warnung:} Die Existenz der partiellen Ableitungen und sogar aller Richtungsableitungen impliziert nicht die Existenz der Ableitung!
+
+    \begin{beispiel}
+        Für die Funktion $f: \R^2 \fromto \R$ mit
+        \begin{align*}
+            f\of{x} &= \begin{cases}
+                           \dfrac{x_1 x_2}{\sqrt{x_1^2 + x_2^2}} &x\neq \pair{0,0}\\
+                           0 &x = \pair{0,0}
+            \end{cases}
+            \intertext{existiert $\frac{\partial f}{\partial x_2}$ für $x_1 \neq 0 \impl \sqrt{x_1^2 + x_2^2} \neq 0$. Außerdem gilt für $x_1 = 0$}
+            \frac{\partial f}{\partial x_2} &= 0
+            \intertext{Damit existieren die partiellen Ableitungen. Au0erdem gilt}
+            f\of{th} &= \frac{t^2 h_1 h_2}{\sqrt{t^2 h_1^2 + t^2 h_2^2}}\\
+            &= \frac{t^2 h_1 h_2}{t\sqrt{h_1^2 + h_2^2}} = t\cdot f\of{h}\\
+            \impl \text{D}_n\! f\of{0} &= \lim_{t\fromto 0} \frac{f\of{th}-f\of{0}}{t} = \lim_{t\fromto 0} \frac{tf\of{h} - 0}{t} = f\of{h} = \frac{h_1 h_2}{\sqrt{h_1^2 + h_2^2}}
+        \end{align*}
+        $f\of{x}$ ist nicht stetig in $\pair{0,0}$.
+    \end{beispiel}
+
+    \begin{satz} % Satz 8
+        Sei $f: U\fromto Y$, $U$ offen, $x\in U$ und $f$ sei differenzierbar in $x$. Dann ist $f$ stetig in $x$.
+        \begin{proof}
+            Sei $h$ klein genug, dass $x+h \in U$. Dann gilt
+            \begin{align*}
+                f\of{x+h} &= f\of{x} + \underbrace{A\interv{h}}_{\fromto 0 \text{ für } \norm{h}\fromto 0} + \underbrace{\varepsilon\of{h}}_{\fromto 0 \text{ für } \norm{h}\fromto 0}\cdot\norm{h}_X\fromto f\of{x}
+            \end{align*}
+            Damit ist $f$ in $x$ stetig.
+        \end{proof}
+    \end{satz}
+
+    \subsection{Kettenregel}
+
+    \begin{satz}[Kettenregel] % Satz 9
+        Seien $X, Y, Z$ normierte Vektorräume mit $V\subseteq X$, $U\subseteq Y$ offen und $f: V\fromto U$, $g: U\fromto Z$. Sei außerdem $f$ diffenzierbar in $x\in V$, $g$ differenzierbar in $y=f\of{x}$. Dann gilt $g\circ f: V\fromto Z$ ist differenzierbar in $x$ und $\text{D}_{g\circ f}\of{x} = \text{D}_g\of{f\of{x}}\circ \D f\of{x}$. Das heißt
+        \begin{align*}
+            \text{D}_{f\circ g}\of{x}\interv{h} &= \text{D}_g\of{f\of{x}}\interv{\D f\of{x}\interv{h}}
+        \end{align*}
+        \begin{proof}
+            Sei $A = \D f\of{x}$, $B= \D g\of{y}$, $y=f\of{x}$. Nach Definition gilt
+            \begin{align*}
+                f\of{x+h} &= f\of{x} + A\interv{h} + \varepsilon_1\of{h}\cdot\norm{h}_X\quad\forall\pair{x+h}\in V\\
+                g\of{y+k} &= g\of{y} + B\interv{k} + \varepsilon_2\of{k}\cdot\norm{k}_X \quad\forall\pair{y+k}\in U\\
+                \impl \pair{g\circ f}\of{x+h} &= g\of{f\of{x+h}} = g\of{f\of{x} + \underbrace{A\interv{h} + \varepsilon_1\of{h}\cdot\norm{h}_X}_{\eqqcolon k}}\\
+                &= g\of{y+k} = g\of{f\of{x}} + B\interv{k} + \varepsilon_2\of{k}\cdot\norm{k}_{Y}\\
+                &= g\of{f\of{x}} + B\interv{A\interv{h}} + \norm{h}_X \cdot B\interv{\varepsilon_1\of{h}}\\
+                &~~+ \varepsilon_2\of{A\interv{h} + \varepsilon_1\of{h}\cdot\norm{h}_X}\cdot\norm{A\interv{h} + \varepsilon_1\of{h}\cdot\norm{h}_X}
+                \intertext{Durch Analyse der Grenzwerte der einzelnen Summanden, ergibt sich, dass}
+                \pair{g\circ f}\of{x+h} - \pair{g\circ f} \of{x} &= B\interv{A\interv{h}} + \varepsilon\of{h}\cdot\norm{h}_X
+                \intertext{Damit sit $g\circ f$ in $x$ differenzierbar und}
+                \text{D}_{g\circ f}\interv{h} &= B\interv{A\interv{h}}\qedhere
+            \end{align*}
+        \end{proof}
+    \end{satz}
+
+
 \end{document}
