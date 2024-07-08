@@ -1652,8 +1652,8 @@
 
     \begin{bemerkung}
         Jeder kompakte metrische Raum ist vollständig.
-        ´\begin{proof}
-             Wir haben gezeigt, dass eine Cauchy-Folge genau dann konvergiert, wenn sie eine konvergente Teilfolge hat. Damit konvergiert jede Cauchy-Folge in einem kompakten Raum.
+        \begin{proof}
+            Wir haben gezeigt, dass eine Cauchy-Folge genau dann konvergiert, wenn sie eine konvergente Teilfolge hat. Damit konvergiert jede Cauchy-Folge in einem kompakten Raum.
         \end{proof}
     \end{bemerkung}
 
@@ -1902,7 +1902,7 @@
     \end{satz}
 
     \begin{satz}
-        Die Ableitung ist linear. Das heißt fpr $X,Y$ normierte Vektorräume und $U\subseteq X$ offen sowie $f,g: U\fromto Y$ differenzierbar in $x\in U$ gilt
+        Die Ableitung ist linear. Das heißt für $X,Y$ normierte Vektorräume und $U\subseteq X$ offen sowie $f,g: U\fromto Y$ differenzierbar in $x\in U$ gilt
         \begin{align*}
             \D \pair{\lambda f}\of{x} &= \lambda \D f\of{x}\\
             \D\pair{f+g} \of{x} &= \D f\of{x} + \D g\of{x}
@@ -1996,7 +1996,7 @@
             \end{cases}
             \intertext{existiert $\frac{\partial f}{\partial x_2}$ für $x_1 \neq 0 \impl \sqrt{x_1^2 + x_2^2} \neq 0$. Außerdem gilt für $x_1 = 0$}
             \frac{\partial f}{\partial x_2} &= 0
-            \intertext{Damit existieren die partiellen Ableitungen. Au0erdem gilt}
+            \intertext{Damit existieren die partiellen Ableitungen. Außerdem gilt}
             f\of{th} &= \frac{t^2 h_1 h_2}{\sqrt{t^2 h_1^2 + t^2 h_2^2}}\\
             &= \frac{t^2 h_1 h_2}{t\sqrt{h_1^2 + h_2^2}} = t\cdot f\of{h}\\
             \impl \text{D}_n\! f\of{0} &= \lim_{t\fromto 0} \frac{f\of{th}-f\of{0}}{t} = \lim_{t\fromto 0} \frac{tf\of{h} - 0}{t} = f\of{h} = \frac{h_1 h_2}{\sqrt{h_1^2 + h_2^2}}
