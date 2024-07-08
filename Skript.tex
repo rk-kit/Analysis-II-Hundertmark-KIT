@@ -944,7 +944,7 @@
                                                                                    0 & x = y\\
                                                                                    1 & x\neq y
             \end{cases}$
-            \item Die französische Eisenbahnmetrik im $\R^2$ ist definiert durch $d\of{x,y}\coloneqq \sqrt{x_1^2 + x_2^2} + \sqrt{y_1^2 + y_2^2}$. Die Metrik setzt sich also jeweils zusammen aus der euklidischen Distanz von $x$ und $y$ zum Koordinatenursprung
+            \item Die französische Eisenbahnmetrik im $\R^2$ ist definiert durch $d\of{x,y} \coloneqq \sqrt{x_1^2 + x_2^2} + \sqrt{y_1^2 + y_2^2}$ falls $x$ und $y$ nicht auf einer Geraden durch $\pair{0,0}$ liegen und sonst $d\of{x,y} \coloneqq \sqrt{\pair{x_1 - y_1}^2 + \pair{x_2 - y_2}^2}$.
             \item Sei $\pair{X, d}$ ein metrischer Raum. Dann können wir eine Metrik $d_1$ definieren durch
             \begin{align*}
                 d_1\of{x,y} &\coloneqq \frac{d\of{x,y}}{1+d\of{x,y}}
