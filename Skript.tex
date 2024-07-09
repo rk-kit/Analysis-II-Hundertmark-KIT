@@ -1854,7 +1854,7 @@
     \end{proof}
 
     \begin{definition}
-        \marginnote{02. Jul}
+        \marginnote{[02. Jul]}
         Sei $U\subseteq\R^n$ offen und $f: U\fromto\R^m$, $x\in U$. $f$ ist differenzierbar in $x$, falls eine lineare Abbildung $A: \R^n\fromto \R^m$ existiert mit
         \begin{align*}
             f\of{x+h} &= f\of{h} + A\interv{h} + \varepsilon_x\of{h}\cdot\norm{h}\\
@@ -2039,5 +2039,105 @@
         \end{proof}
     \end{satz}
 
+    \begin{bemerkung}[Richtungsableitung aus Ableitung]
+        \marginnote{[09. Jul]}
+        Sei $I=\interv{a,b}, f: I \fromto Y$ und existiere
+        \begin{align*}
+            f'\of{x} &= \lim_{s\fromto 0} \frac{F\of{x+s} - F\of{x}}{s}
+        \end{align*}
+        Dann gilt
+        \begin{align*}
+            \text{D}_h\! f\of{x} = \frac{\dif f}{\dif t} f\of{x+th} &= \lim_{t\fromto 0} \frac{f\of{x+th} - f\of{x}}{t\cdot h} \cdot h = \lim_{s\fromto 0} \frac{f\of{x+s} - f\of{x}}{s} \cdot h = f'\of{x}\cdot h
+        \end{align*}
+    \end{bemerkung}
+
+    \begin{bemerkung}
+        Sei $f: \pair{a,b}\fromto Y$ differenzierbar. Dann gilt für alle $x\in\pair{a,b}$
+        \begin{align*}
+            \norm{\D f\of{x}}_{\R\fromto Y} \coloneqq \sup_{h\neq 0} \frac{\norm{\D f\of{x}\interv{h}}_Y}{\abs{h}} = \frac{\norm{f'\of{x}\cdot h}}{\abs{h}} = \frac{\abs{h}\cdot\norm{f'\of{x}}_Y}{\abs{h}} = \norm{f'\of{x}}_Y
+        \end{align*}
+    \end{bemerkung}
+
+    \begin{satz}[Mittelwertsatz oder Schrankensatz] % Satz 10
+        \label{satz:mittelwertsatz}
+        Sei $\pair{Y, \norm{\cdot}_Y}$ ein vollständiger Vektorraum, $I=\interv{a,b}\subseteq\R$ und $f: I\fromto Y$ stetig auf $\interv{a,b}$ und differenzierbar auf $\pair{a,b}\eqqcolon I^{\circ}$. Sei außerdem $\norm{\D f\of{s}}_{\R\fromto Y} = \norm{f'\of{s}}_Y \leq M$ für alle $a < s < b$. Dann gilt
+        \begin{align*}
+            \norm{f\of{b}-f\of{a}}_Y &\leq M\cdot\pair{b-a}
+        \end{align*}
+
+        \begin{proof}
+            Sei $\eta > 0$ fixiert. Wir definieren
+            \begin{align*}
+                A\coloneqq\set{\xi\in\interv{a,b}: \forall s, a\leq s < \xi\text{ gilt } \norm{f\of{s}-f\of{a}}_{Y} \leq \pair{M+\eta}\cdot\pair{s-a}}
+            \end{align*}
+            Dann ist $a\in A\impl A\neq \emptyset$. Sei $c\coloneqq \sup A \leq b$. Da $f$ stetig ist, gilt $c\in A \impl \interv{a,c}\subseteq A$. Zu zeigen ist, dass $c=b$. Angenommen $c<b$. Dann gilt
+            \begin{align*}
+                \exists\delta > 0, c+\delta \leq b, c\leq t < c+\delta\colon f\of{t} - f\of{c} - \D f\of{c}\interv{t-c} = f\of{t} - f\of{c} - f'\of{c}\cdot\pair{t-c} = \varepsilon\of{t\cdot c}
+            \end{align*}
+            \begin{align*}
+                \norm{f\of{t} - f\of{c}}_Y &\leq \norm{f'\of{c}}_Y \cdot\pair{t-c} + \norm{\varepsilon\of{t-c}}_Y \leq M\cdot\pair{t-c} + \norm{\varepsilon\of{t-c}}_Y\cdot\pair{t-c}\\
+                \norm{f\of{t} - f\of{a}}_Y &\leq \norm{f\of{c} - f\of{a}}_Y + \norm{f\of{t} - f\of{c}}_Y\\
+                &\leq \pair{M + \eta}\cdot\pair{-a+c} + \pair{M+\frac{\eta}{2}}\pair{t-c} < \pair{M+\eta}\pair{t-a}\\
+                \impl t&\in A\\
+                \impl c&= b\qedhere
+            \end{align*}
+        \end{proof}
+    \end{satz}
+
+    \begin{bemerkung}
+        Eine Menge $A\subseteq X$ heißt konvex, falls $\forall x,y\in A\colon \interv{x,y}\subseteq A$.
+    \end{bemerkung}
+
+    \begin{anwendung}
+        Sei $U\subseteq X$ offen und $x,y\in U$ mit $\interv{x,y}\subseteq U$. Dann ist\\ $\interv{x,y} \coloneqq \set{x+s\cdot\pair{y-x}: 0 \leq s \leq 1}$. Das heißt wir definieren $X\of{s} = x + s\cdot\pair{y-x}$ und können für eine Funktion $f$, die auf $U$ definiert ist schreiben
+        \begin{align*}
+            F\of{s} \coloneqq f\circ X\of{s}
+        \end{align*}
+        Damit haben wir nach Kettenregel für $h\in \R$
+        \begin{align*}
+            \D F\of{s}\interv{h} &= \D f\of{X\of{s}}\interv{\D X\of{s}\interv{h}}\\
+            \frac{\dif}{\dif s} &= \lim_{t\fromto 0} \frac{F\of{s+t} - F\of{s}}{t} = \text{D}_1\! F\of{s} = \D F\of{s}\interv{1} = \D f\of{X\of{s}}\interv{y-x}\\
+            \norm{F'\of{s}}_Y &= \norm{\D f\of{X\of{s}}\interv{y-x}}_Y \leq \norm{\D f\of{X\of{s}}}_{X\fromto Y} \cdot\norm{y-x}_X
+            \intertext{Dann definieren wir}
+            M &\coloneqq \sup_{0\leq s \leq 1} \norm{F'\of{x}}_Y \leq \sup_{0\leq s \leq 1}\norm{\D f\of{X\of{s}}}_{X\fromto Y}\cdot\norm{y-x}_X = \norm{\D f\of{\xi}}_{X\fromto Y}\cdot\norm{Y-x}_X\tag{$\xi = \pair{1-s}\cdot x + sy$}\\
+            \impl \norm{f\of{y} - f\of{x}}_Y &= \norm{F\of{1} - F\of{0}}_Y
+            \intertext{Nach Satz~\ref{satz:mittelwertsatz} können wir abschätzen}
+            &\leq \sup_{0\leq s \leq 1} \norm{F'\of{s}}_Y \cdot 1
+        \end{align*}
+    \end{anwendung}
+
+    \begin{satz}[Schrankensatz II] % Satz 11
+        Seien $\pair{X, \norm{\cdot}_X}, \pair{Y, \norm{\cdot}_Y}$ normierte Vektorräume und $U\subseteq X$ offen, $x,y\in U$, $\interv{x,y}\subseteq U$. Ferner sei $f: U\fromto Y$ differenzierbar auf ganz $U$. Dann gilt
+        \begin{align*}
+            \norm{f\of{y}  -f\of{x}}_Y \leq \sup_{\xi\in\interv{x,y}} \norm{\D f\of{\xi}}_{X\fromto Y} \cdot \norm{y-x}_X &= \sup_{0\leq s \leq 1}\norm{\D f\of{\pair{1-s}\cdot x + sy}}_{X\fromto Y}\cdot\norm{y-x}_X
+            \intertext{Außerdem $\forall A\in\mL\of{X, Y}$}
+            \norm{f\of{y} - f\of{x} - A\interv{y-x}}_Y &\leq \sup_{\xi\in\interv{x,y}} \norm{\D f\of{\xi} - A}_{X\fromto Y} \cdot\norm{y-x}_X\numberthis\label{eq:schrankensatz-ii}
+        \end{align*}
+
+        \begin{proof}[Beweis von (\ref{eq:schrankensatz-ii})]
+            Seien $x,y\in U$, $\interv{x,y} \subseteq U$, $A\in \mL\of{X, Y}$. Sei $f: U\fromto Y,~x\mapsto F\of{x} \coloneqq f\of{x} - A\interv{X}$.
+            \begin{align*}
+                \D F\of{x}\interv{h} &= \D f\of{x}\interv{h} - A\interv{h}\\
+                \impl \norm{f\of{x} - f\of{y} - A\interv{x-y}}_Y &= \norm{F\of{y} - F\of{x}}_Y\\
+                &\leq \sup_{\xi\in\interv{x,y}} \norm{\D F\of{\xi}}_{X\fromto Y}\cdot\norm{y-x}_X\qedhere
+            \end{align*}
+        \end{proof}
+    \end{satz}
+
+    \begin{satz} % Satz 12
+        Sei $U\subseteq X$, $x,y\in U$, $\interv{x,y}\subseteq U$ und $f: U\fromto \R$ differenzierbar. Dann gibt es ein $\xi\in\interv{x,y}$ mit
+        \begin{align*}
+            f\of{x} - f\of{y} &= \D f\of{\xi}\interv{y-x}
+        \end{align*}
+
+        \begin{proof}
+            Setze $F: \interv{0,1}\fromto\R,~s\mapsto f\of{\pair{1-s}\cdot x + sy}$
+            \begin{align*}
+                \exists t\in\pair{0,1}\colon F\of{1} - F\of{0} = F'\of{t}\cdot\pair{1-0} = F'\of{t}\\
+                F'\of{s} = \frac{\dif}{\dif s}f\of{\pair{1-s}\cdot x + sy} = \frac{\dif}{\dif s} f\of{x+s\cdot\pair{y-x}} = \D f\of{x+s\pair{y-x}}\interv{y-x}
+            \end{align*}
+            Dann setze $\xi\coloneqq \pair{1-t}\cdot x + ty$.
+        \end{proof}
+    \end{satz}
 
 \end{document}
