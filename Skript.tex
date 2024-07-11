@@ -2107,6 +2107,7 @@
     \end{anwendung}
 
     \begin{satz}[Schrankensatz II] % Satz 11
+        \label{satz:schrankensatz-ii}
         Seien $\pair{X, \norm{\cdot}_X}, \pair{Y, \norm{\cdot}_Y}$ normierte Vektorräume und $U\subseteq X$ offen, $x,y\in U$, $\interv{x,y}\subseteq U$. Ferner sei $f: U\fromto Y$ differenzierbar auf ganz $U$. Dann gilt
         \begin{align*}
             \norm{f\of{y}  -f\of{x}}_Y \leq \sup_{\xi\in\interv{x,y}} \norm{\D f\of{\xi}}_{X\fromto Y} \cdot \norm{y-x}_X &= \sup_{0\leq s \leq 1}\norm{\D f\of{\pair{1-s}\cdot x + sy}}_{X\fromto Y}\cdot\norm{y-x}_X
@@ -2139,5 +2140,73 @@
             Dann setze $\xi\coloneqq \pair{1-t}\cdot x + ty$.
         \end{proof}
     \end{satz}
+
+    \subsection{Existenz von Ableitungen}
+
+    Das Ziel dieses Teilkapitels ist es, ein Differenzierbarkeitskriterium zu finden und in diesem Sinne den folgenden Satz zu beweisen.
+
+    \begin{satz} % Satz 13
+        \marginnote{[11. Jul]}
+        \label{satz:existenz-ableitung}
+        Eine Funktion $f: U\fromto Y$ für einen Banachraum $Y$ und eine offene Menge $U\subseteq \R^n$ ist genau dann stetig differenzierbar, wenn alle partiellen Ableitungen $\partial_j f: U\fromto Y$ ($j\in\set{1,\ldots, n}$) stetig sind.
+    \end{satz}
+
+    \begin{definition}[Verallgemeinerte partielle Ableitung]
+        Wir können den $\R^n$ zerlegen, indem wir $\R^{n_1}, \R^{n_2}, \ldots, \R^{n_k}$ für $k\in\N$ und $n_j\in\N$ finden, sodass $\sum n_j = n$. Dann schreiben wir eine Zerlegung als $\R^n = \R^{n_1}\times \R^{n_2}\times\dots\times\R^{n_k}$. Außerdem können wir einen Vektor $x\in\R^n$ schreiben als $x=\pair{x_1, \ldots, x_k}$, wobei $x_j\in\R^{n_j}$.\\
+        Wir betrachten eine Funktion $f: U\fromto Y$ mit $U$ offen und $a=\pair{a_1, \ldots, a_k}\in U$. Die Ableitung von $f\of{a_1, \ldots, a_{j} + x_j, a_{j+1},\ldots, a_k}$ nach $x_j$ an der Stelle $x_j = 0$ heißt verallgemeinerte partielle Ableitung von $f$ nach $j$ an der Stelle $a$.
+    \end{definition}
+
+    \begin{lemma} % Lemma 15
+        \label{lemma:veralg-part-diff}
+        Sei $f: U\fromto Y$ eine Abbildung mit $U\subseteq\R^n$ und haben wir eine Zerlegung von $\R^n$ mit $\sum n_j = n$. Dann gilt für die verallgemeinerte partielle Ableitung $\text{D}_j\! f\of{a}$ mit $h=\pair{h_1, \ldots, h_k}\in\R^{n_1}\times\dots \times\R^{n_k}$
+        \begin{align*}
+            \D f\of{a} &= \sum_{j=1}^{k} \text{D}_j f\of{a}\interv{h_j}
+        \end{align*}
+        \begin{proof}
+            Sei $I_j: \R^{n_j}\fromto\R^{n}$, $I_j\of{x_j} = \pair{0,\ldots, 0, x_j, 0,\ldots, 0}$. Dann gilt
+            \begin{align*}
+                \D I_j\interv{h_j} &= I_j\of{h_j} = \pair{0,\ldots, 0, h_j, 0, \ldots, 0}\\
+                \text{D}_j f\of{a} &= \D f\of{a}\circ I_j\\
+                \impl \sum_{j=1}^{k} \text{D}_j f\of{a}\interv{h_j} &= \sum_{j=1}^{k} \D f\of{a} \cdot I\of{h_j} = \sum_{j=1}^{k} \D f\of{a}\interv{I_j\interv{h_j}}\\
+                &= \D f\of{a} \cdot \underbrace{\sum_{j=1}^{k} I_j\interv{h_j}}_{h} = \D f\of{a}\interv{h}
+            \end{align*}
+        \end{proof}
+    \end{lemma}
+
+    \begin{satz} % Satz 16
+        \label{satz:diff-krit-veralg-part}
+        Eine Funktion $f: U\fromto Y$ für einen Banachraum $Y$ und eine offene Menge $U\subseteq \R^n$ ist genau dann stetig differenzierbar, wenn die verallgemeinerten partiellen Ableitungen $\text{D}_j f$ für alle Zerlegungen von $\R^n$ auf $U$ stetig differenzierbar sind.
+        \begin{proof}
+            \anf{$\impl$} Sei $f$ differenzierbar. Dann gilt nach Lemma~\ref{lemma:veralg-part-diff}, dass
+            \begin{align*}
+                \text{D}_j f\of{x}\interv{h_j} = \D f\of{x}\interv{I_j h}
+            \end{align*}
+            Da die rechte Seite in $x$ stetig differenzierbar ist, muss auch die linke Seite stetig differenzierbar sein.\\[.2\baselineskip]
+            \anf{$\Leftarrow$} \textsc{Schritt 1}: Wir betrachten zunächst den Fall $\R^n = \R^{n_1} \times\R^{n_2}$ und definieren dafür $\norm{h}\coloneqq\max\of{\norm{h_1}_1, \norm{h_2}_2}$. Dann gilt
+            \begin{align*}
+                &f\of{x_1 + h_1, x_2 + h_2} - f\of{x_1, x_2} - \text{D}_1 f\of{x_1, x_2}\interv{h_1} - \text{D}_2\of{x_1, x_2}\interv{h_2}_Y\\
+                = &f\of{x_1 + h_1, x_2 + h_2} - f\of{x_1 + h_1, x_2} - \text{D}_2 f\of{x_1+h_1, x_2}\interv{h_2} + \text{D}_2 f\of{x_1 + h_1, x_2}\interv{h_2}\\
+                &- \text{D}_2 f\of{x_1, x_2}\interv{h_2} + f\of{x_1 + h_1, x_2} - f\of{x_1, x_2} - \text{D}_1 f\of{x_1, x_2}\interv{h_1} - \text{D}_2 f\of{x_1, x_2}\interv{h_2}
+            \end{align*}
+            Wir wollen die Normen der Terme nacheinander nach oben abschätzen
+            \begin{alignat*}{2}
+            (1)\quad&&\norm{f\of{x_1 + h_1, x_2} - f\of{x_1, x_2} - \text{D}_1 f\of{x_1, x_2}\interv{h_1}}_Y &\leq \frac{\varepsilon\of{h_1}}{4}\cdot\norm{h_1}_1\\
+            (2)\quad&&\norm{\text{D}_2 f\of{x_1 + h_1, x_2} - \text{D}_2 f\of{x_1, x_2}}_{\R^{n_2}\fromto Y} &< \frac{\varepsilon}{4}\tag{Stetigkeit}\\
+                &&\impl \norm{\text{D}_2 f\of{x_1 + h_1, x_2}\interv{h_2} - \text{D}_2 f\of{x_1, x_2}\interv{h_2}}_Y &< \frac{\varepsilon}{4}\cdot\norm{h_2}\\
+            (3)\quad&&\norm{f\of{x_1 + h_1, x_2 + h_2} - f\of{x_1 + h_1, x_2} - \text{D}_2 f\of{x_1 + h_1, x_2}\interv{h_2}}_y \annot[{&}]{\leq}{\ref{satz:schrankensatz-ii}}\\
+            &&\norm{h_2}\cdot\sup_{0\leq s \leq 1} \norm{\text{D}_2 f\of{x_1 + h_1, x_2 + sh_2} - \text{D}_2 f\of{x_1 + h_1, x_2}} &< \norm{h_2} \cdot \frac{\varepsilon}{4}
+            \end{alignat*}
+            Das heißt insgesamt folgt
+            \begin{align*}
+                \norm{f\of{x_1 + h_1, x_2 + h_2} - f\of{x_1, x_2} - \text{D}_1 f\of{x_1, x_2}\interv{h_1} - \text{D}_2\of{x_1, x_2}\interv{h_2}}_Y &\leq \varepsilon\of{\norm{h}}\cdot\norm{h}
+            \end{align*}
+            Damit folgt die Behauptung für diesen speziellen Fall.\\[5pt] \textsc{Schritt 2}: Im allgemeinen Fall haben wir $\R^n = \R^{n_1}\times\dots\times\R^{n_k}$. Dann gilt nach \textsc{Schritt 1}, dass wir mit $\text{D}_1 f$, $\text{D}_2 f$ auch $\text{D}_{12} f$ erhalten. Wir nehmen eine neue Zerlegung $\R^n = \pair{\R^{n_1}\times\R^{n_2}}\times \R^{n_3}\times\dots\times\R^{n_k}$. Dann erhalten wir aus $\text{D}_{12} f$ und $\text{D}_3 f$ auch $\text{D}_{123} f$. Dieses Vorgehen setzen wir induktiv fort. So ergibt sich nach $k$ Schritten unsere Behauptung.
+        \end{proof}
+    \end{satz}
+
+    \begin{proof}[Beweis von Satz~\ref{satz:existenz-ableitung}]
+        Der Satz folgt dann aus Satz~\ref{satz:diff-krit-veralg-part}, indem wir als initiale Zerlegung die Zerlegung $\R^n = \R^{1}\times \dots \times \R^{1}$ wählen.
+    \end{proof}
+
 
 \end{document}
