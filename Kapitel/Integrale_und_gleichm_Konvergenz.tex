@@ -1,0 +1,153 @@
+\imaginarysubsection{Gleichmäßige Konvergenz}
+\thispagestyle{pagenumberonly}
+
+Sei $I=\interv{a,b}$ und $f: I\fromto\R$, $f_n: I\fromto \R$. Wenn die Funktionenfolge $(f_n)_n$ \anf{irgendwie} gegen $f$ konvergiert. Wann gilt dann
+\begin{align*}
+    \int_{a}^{b} f_n\of{x} \dif x \fromto \int_{a}^{b} f\of{x} \dif x \text{ für } \ntoinf \text{ ?}
+\end{align*}
+Wir werden in diesem Kapitel einsehen, dass punktweise Konvergenz dafür nicht ausreichend ist, sondern wir gleichmäßige Konvergenz fordern müssen.
+\begin{beispiel}[Punktweise Konvergenz]
+    Sei $f_n: \interv{0, 1}\fromto\R$ mit
+    \begin{align*}
+        f_n\of{x} &\coloneqq \begin{cases}
+                                 n &0 < x < \frac{1}{n}\\
+                                 0 &\text{sonst}
+        \end{cases}
+        \intertext{$(f_n)_n$ konvergiert punktweise gegen die Nullfunktion ($f_n\of{x}\fromto 0$ für $n\toinf~\forall x\in\interv{0,1}$). Außerdem gilt für ein $n\in\N$}
+        \int_{0}^{1} f_n\of{x} \dif x &= \int_{0}^{\frac{1}{n}} n \dif x = \frac{n}{n} = 1
+    \end{align*}
+    Das Integral über die Nullfunktion ist aber 0. Das heißt punktweise Konvergenz ist kein ausreichendes Kriterium, damit die Integrale gleich sind.
+\end{beispiel}
+
+\begin{satz} % Satz 1
+    \label{satz:gleichm-int}
+    Seien $f, f_n: \interv{a,b}\fromto\R$ (oder $\C, \dots$) und $n\in\N$. Außerdem konvergiere $(f_n)_n$ gleichmäßig gegen $f$ auf $\interv{a,b}$ und $f_n\in\mR\of{\interv{a,b}}$. Dann gilt $f\in\mR\of{I}$ und
+    \begin{align*}
+        \lim_{\ntoinf} \int_{a}^{b} f_n\of{x} \dif x &= \int_{a}^{b} f\of{x} \dif x = \int_{a}^{b} \lim_{\ntoinf} f_n\of{x} \dif x
+    \end{align*}
+
+    \begin{proof}
+        Sei $\varepsilon > 0$ und $N\in\N$ groß genug. Dann gilt
+        \begin{align*}
+            \norm{f-f_n}_{\infty} &= \sup_{a \leq x \leq b} \abs{f\of{x} - f_n\of{x}} < \frac{\varepsilon}{4\cdot\pair{b-a}}\\
+            \impl f_n\of{x} - \frac{\varepsilon}{4\cdot\pair{b-a}} &\leq f\of{x} \leq f_n\of{x} + \frac{\varepsilon}{4\cdot\pair{b-a}}\quad\forall n\geq N\tag{1}
+            \intertext{Halte $N$ fest und nehme Zerlegung $Z$ von $I=\interv{a,b}$ mit $\ov{S}_Z\of{f_N} - \un{S}_Z\of{f_N} < \frac{\varepsilon}{2}$. Dann gilt jeweils nach (1)}
+            \ov{S}_Z\of{f} \leq \ov{S}_Z\of{f_N + \frac{\varepsilon}{4\cdot\pair{b-a}}} &= \ov{S}_Z\of{f_N} + \ov{S}_Z\of{\frac{\varepsilon}{4\cdot\pair{b-a}}} = \ov{S}_Z\of{f_N} + \frac{\varepsilon}{4}\\
+            \un{S}_Z\of{f} \geq \un{S}_Z\of{f_N - \frac{\varepsilon}{4\cdot\pair{b-a}}} &= \un{S}_Z\of{f_N} - \un{S}_Z\of{\frac{\varepsilon}{4\cdot\pair{b-a}}} = \un{S}_Z\of{f_N} - \frac{\varepsilon}{4}\\[.6\baselineskip]
+            \impl \ov{S}_Z\of{f} - \un{S}_Z\of{f} &\leq \ov{S}_Z\of{f_N} + \frac{\varepsilon}{4} - \pair{\un{S}_Z\of{f_N} - \frac{\varepsilon}{4}}\\
+            &= \ov{S}_Z\of{f_N} - \un{S}_Z\of{f_N} + \frac{\varepsilon}{2}\\
+            &< \frac{\varepsilon}{2} + \frac{\varepsilon}{2} = \varepsilon
+            \intertext{Damit folgt $f\in\mR\of{I}$. Wir beweisen die Gleichheit der Integrale.}\\
+            \int_{a}^{b} f_n\of{x} \dif x - \frac{\varepsilon}{4} &= \int_{a}^{b} \pair{f_n\of{x} - \frac{\varepsilon}{4\cdot\pair{b-a}}} \dif x\\
+            &\leq \int_{a}^{b} f\of{x} \dif x \leq \int_{a}^{b} \pair{f_n\of{x} + \frac{\varepsilon}{4\cdot\pair{b-a}}} \dif x\\
+            &= \int_{a}^{b} f_n\of{x} \dif x + \frac{\varepsilon}{4}\quad\forall n\geq N\\
+            \impl \limsup_{\ntoinf} \int_{a}^{b} f_n\of{x} \dif x - \frac{\varepsilon}{4} &\leq \int_{a}^{b} f\of{x} \dif x \leq \liminf_{\ntoinf} \int_{a}^{b} f_n\of{x} \dif x + \frac{\varepsilon}{4}\quad\forall\varepsilon > 0\\
+            \impl \limsup_{\ntoinf} \int_{a}^{b} f_n\of{x} \dif x &\leq \int_{a}^{b} f\of{x} \dif x \leq \liminf \int_{a}^{b} f_n\of{x} \dif x\qedhere
+        \end{align*}
+    \end{proof}
+\end{satz}
+
+\begin{beispiel}[Integral von Potenzreihen]
+    \marginnote{[17. Mai]}
+    Wir betrachten die Potenzreihe
+    \begin{align*}
+        f\of{x} &= \sum_{n=0}^{\infty} a_n\pair{x-x_0}^n
+        \intertext{mit Konvergenzradius $R>0$ und}
+        R &= \frac{1}{\displaystyle \limsup_{\ntoinf} \abs{a_n}^{\frac{1}{n}}}
+        \intertext{Wir erhalten also eine Funktion $f: \pair{x_0 - R, x_0 + R}\fromto\R$ (oder $\C$). Die Stammfunktion zu $a_n\pair{x-x_0}^n$ ist $\frac{a_n}{n+1}\pair{x-x_0}^{n+1}$. Wir definieren also eine Funktion $F$ analog}
+        F\of{x} = \sum_{n=0}^{\infty} \frac{a_n}{n+1}\pair{x-x_0}^{n+1} &= \sum_{n=1}^{\infty} c_n\pair{x-x_0}^n\tag{$c_n\coloneqq \frac{a_{n-1}}{n}$}\\
+        \limsup_{\ntoinf} \pair{\abs{c_n}}^{\frac{1}{n}} &= \limsup_{\ntoinf} \abs{\frac{a_{n-1}}{n}}^{\frac{1}{n}}\\
+        \intertext{Es gilt}
+        \pair{\frac{\abs{a_{n-1}}}{n}}^{\frac{1}{n}} &= \frac{1}{n^{\frac{1}{n}}}\pair{\abs{a_{n-1}}^{\frac{1}{n-1}}}^{\frac{n-1}{n}}\\
+        \impl \limsup_{\ntoinf} \abs{c_n}^{\frac{1}{n}} &= \limsup_{\ntoinf} \abs{a_n}^{\frac{1}{n}}
+        \intertext{Das heißt $F$ hat denselben Konvergenzradius wie $f$. Unsere Hoffnung ist also, dass $F$ eine Stammfunktion von $f$ ist oder}
+        \int_{x_0}^{x} f\of{t} \dif t &= F\of{x}
+        \intertext{Das gilt tatsächlich und lässt sich folgendermaßen zeigen. Wir definieren eine Funktionenfolge}
+        f_n\of{x} &= \sum_{k=0}^{n} a_k\pair{x-x_0}^k
+        \intertext{Wir wissen $\forall\delta > 0$ klein genug (konkret heißt das $\delta < R$) konvergiert $f_n$ gleichmäßig gegen $f$ auf dem Intervall $\interv{x_0-R+\delta, x_0+R-\delta}$. Dann gilt nach Satz~\ref{satz:gleichm-int} für $x\in\interv{x_0-R+\delta, x_0+R-\delta}$ fest}
+        \int_{x_0}^{x} f\of{t} \dif t &= \lim_{\ntoinf} \int_{x_0}^{x} f_n\of{t} \dif t\\
+        &= \lim_{\ntoinf} \int_{x_0}^{x} \sum_{k=0}^{n} \frac{a_k}{k+1}\pair{x-x_0}^{k+1} \dif x = F(x)\\
+        \int_{x_0}^{x} f_n\of{t} \dif t &= \int_{x_0}^{x} \sum_{k=0}^{n} a_k\pair{x-x_0}^k \dif t = \sum_{k=0}^{n} a_k \int_{x_0}^{x} \pair{t-x_0}^k \dif t\\
+        &= \interv{\frac{1}{k+1}\pair{t-x_0}^{k-1}}_{x_0}^{x} = \frac{1}{k+1}x{k+1}
+    \end{align*}
+\end{beispiel}
+
+\begin{satz}
+    Sei $I=\interv{a,b}$ sowie $f_n: I\fromto\R$ (oder $\C$) und die folgenden Voraussetzungen gelten
+    \begin{enumerate}[label=(\roman*)]
+        \item $\exists x_0\in I\colon f_n\of{x_0}$ konvergiert gegen $f\of{x_0}$
+        \item $\pair{f_n'}_n$ konvergiert gleichmäßig gegen eine Funktion $g$
+        \item $f_n'$ ist stetig für alle $n\in\N$
+    \end{enumerate}
+    Dann gilt $f(x) \coloneqq \displaystyle\lim_{\ntoinf} f_n\of{x}~\forall x\in I$ und $f$ ist stetig differenzierbar mit Ableitung $f' = g$.
+    \begin{proof}
+        Sei $x\in I$. Da alle Ableitungen von $f_n$ stetig sind, können wir den Hauptsatz verwenden und es gilt
+        \begin{align*}
+            f_n\of{x} - f_n\of{x_0} &= \int_{x_0}^{x} f_n'\of{t} \dif t\\
+            \impl f_n\of{x} &= \underbrace{f_n\of{x_0}}_{\fromto f\of{x_0}} + \underbrace{\int_{x_0}^{x} f_n'\of{t} \dif t}_{\fromto \int_{x_0}^{x} g\of{t} \dif t}\\
+            \impl f\of{x} &\coloneqq \lim_{\ntoinf} f_n\of{x} \text{ existiert } \forall x\in I \text{ und}\\
+            f\of{x} &= f\of{x_0} + \int_{x_0}^{x} g\of{t} \dif t
+        \end{align*}
+        Nach dem Hauptsatz gilt, dass $f$ stetig differenzierbar ist mit $f' = g$.
+    \end{proof}
+\end{satz}
+
+\begin{anwendung}
+    \label{anwendung:potenzreihe-diff}
+    \begin{align*}
+        f\of{x} &= \sum_{n=0}^{\infty} a_N\pair{x-x_0}^{n}\\
+        R &= \frac{1}{\displaystyle \limsup_{\ntoinf} \abs{a_n}^{\frac{1}{n}}} > 0\\
+        f_n\of{x} &= \sum_{k=0}^{n} a_k\pair{x-x_0}^k\\
+        \impl f\of{x} &= \lim_{\ntoinf} f_n\of{x}\\
+        f_n'\of{x} &= \sum_{k=1}^{\infty} k\cdot a_k\pair{x-x_0}^{k-1}
+        \intertext{Es gilt}
+        \limsup_{\ntoinf} \abs{\pair{n+1} a_{n+1}}^{\frac{1}{n}} &= \limsup_{\ntoinf} \abs{a_{n+1}}^{\frac{1}{n+1}}
+        \intertext{Nach dem vorherigen Satz gilt damit}
+        f_n'\of{x} &= \sum_{k=1}^{n} k\cdot a_k\pair{x-x_0}^{k-1}
+        \intertext{konvergiert auch auf $\pair{x_0-R, x_0+R}$ und gleichmäßig auf $\interv{x_0-R+\delta, x_0+R-\delta}$. Also konvergiert}
+        \sum_{n=0}^{\infty} a_n\pair{x-x_0}^n &= \of{x}
+        \intertext{und ihre Ableitung ist gegeben durch}
+        \sum_{n=1}^{\infty} n\cdot a_n\pair{x-x_0}^{n-1}
+    \end{align*}
+    Also ist jede Potenzreihe differenzierbar auf ihrem Konvergenzintervall.
+\end{anwendung}
+
+\begin{korollar}
+    \label{korollar:potenzreihe-diffb}
+    Jede Potenzreihe $f\of{x} = \sum_{n=0}^{\infty} a_n\pair{x-x_0}^{n}$ ist unendlich oft differenzierbar auf ihrem Konvergenzintervall.
+    \begin{proof}
+        Nach Anwendung~\ref{anwendung:potenzreihe-diff} ist eine Potenzreihe einmal differenzierbar mit einer Potenzreihe als Ableitung. Damit folgt induktiv die Behauptung. Insbesondere gilt
+        \begin{align*}
+            f'\of{x} &= \sum_{n=1}^{\infty} n a_n\cdot\pair{x-x_0}^{n-1}\\
+            f''\of{x} &= \sum_{n=2}^{\infty} n\cdot\pair{n-1}\cdot a_n\cdot\pair{x-x_0}^{n-2}\\
+            f^{(k)}\of{x} &= \sum_{n=k}^{\infty} n\cdot\pair{n-1}\cdot\ldots\cdot\pair{n-k+1}\cdot a_n\cdot \pair{x-x_0}^{n-k}\\
+            \impl f^{(k)}\of{x_0} &= k!\cdot a_k\\
+            \equivalent a_k &= \frac{f^{(k)}\of{x_0}}{k!}
+        \end{align*}
+    \end{proof}
+\end{korollar}
+
+\begin{beispiel}
+    Wir wissen
+    \begin{align*}
+        \sum_{n=0}^{\infty} x^{n} &= \frac{1}{1-x}\tag{$\abs{x} < 1$}\\
+        \impl \sum_{n=1}^{\infty} n\cdot x^{n} &= x\cdot \sum_{n=1}^{\infty} n\cdot x^{n-1}\\
+        &= x\cdot \frac{\dif}{\dif x}\cdot \frac{1}{1-x}\\
+        &= x\cdot \frac{\dif}{\dif x} \sum_{n=0}^{\infty} x^{n} = x\cdot \frac{-1}{\pair{1-x}^2}\pair{-1} = \frac{x}{\pair{1-x}^2}
+    \end{align*}
+\end{beispiel}
+
+\begin{bemerkung}[Taylorrreihe]
+    \begin{align*}
+        f\of{x} - f\of{x_0} &= \int_{x_0}^{x} f'\of{t} \dif t\\
+        \impl f\of{x} &= f\of{x_0} + \int_{x_0}^{x} f'\of{t} \dif t\\
+        &= f\of{x_0} + \int_{x_0}^{x} \pair{f'\of{t} - f'\of{x_0} + f'\of{x_0}} \dif x\\
+        &= f\of{x_0} + \int_{x_0}^{x} \pair{f'\of{t} - f'\of{x_0}} \dif t + f'\of{x_0} \cdot \int_{x_0}^{x} 1 \dif t\\
+        &= f\of{x_0} + f'\of{x_0}\cdot \pair{x-x_0} + \underbrace{\int_{x_0}^{x} \pair{f'\of{t} - f'\of{x_0}} \dif t}_{\eqqcolon R_{x_0}\of{x}}
+        \intertext{Wir können den Fehler abschätzen und erhalten für ein $\varepsilon\of{x} \coloneqq \sup_{t\in\pair{x_0, x}} \abs{f'\of{t} - f'\of{x_0}}$}
+        \abs{R_{x_0}\of{x}} &\leq \int_{x_0}^{x} \abs{f'\of{t} - f'\of{x_0}} \dif t \leq \varepsilon\of{x}\cdot\abs{x-x_0}\\
+        \frac{\abs{R_{x_0}\of{x}}}{\abs{x-x_0}} &= \varepsilon\of{x} \fromto 0 \text{ für } x\fromto x_0
+    \end{align*}
+\end{bemerkung}
+
+\newpage

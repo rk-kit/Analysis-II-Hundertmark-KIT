@@ -1,0 +1,145 @@
+\imaginarysubsection{Die $\Gamma$-Funktion}
+\thispagestyle{pagenumberonly}
+
+Erinnerung: Die $\Gamma$-Funktion ist für $x>0$ definiert als
+\begin{align*}
+    \Gamma\of{x} &\coloneqq \int_{0}^{\infty} t^{x-1}\cdot e^{-t} \dif t
+    \intertext{Das funktioniert bei $0$, da $-x - 1 > -1$ und es funktioniert bei $\infty$, da}
+    t^{x-1}\cdot e^{-t} &= t^{x-1}\cdot e^{-\frac{t}{2}}\cdot e^{-\frac{t}{2}}\\
+    &= C_x\cdot e^{-\frac{t}{2}} \tag{$C_x \coloneqq \sup_{t \geq 1} t^{x-1}\cdot e^{-\frac{t}{2}} < \infty$}\\
+    \impl \Gamma\of{x} &= \lim_{a\searrow 0}\lim_{b\toinf} \int_{a}^{b} t^{x-1}\cdot e^{-t} \dif t \text{ existiert } \forall x>0
+    \intertext{Wir hatten außerdem}
+    \Gamma\of{x+1} &= x\cdot\Gamma\of{x}\quad\forall x > 0
+\end{align*}
+
+\begin{definition}[Konvexität\footnote{Siehe auch Skript Ana I, Kapitel 19}]
+    Eine Funktion $F: I\fromto \R$ -- wobei $I$ ein Intervall ist ($I=\linterv{0, \infty}$ ist dabei erlaubt) -- heißt konvex, falls $\forall x,y\in I$ und für alle $0\leq \Theta \leq 1$ gilt
+    \begin{align*}
+        F\of{\Theta x + \pair{1-\Theta}y} &\leq \Theta F\of{x} + \pair{1-\Theta}F\of{y}
+    \end{align*}
+\end{definition}
+
+\begin{skizze}[Konvexe Funktion]
+    Wähle ein $\Theta\in\pair{0,1}$ und formuliere die Interpolation $\Theta x + \pair{1-\Theta}\cdot y$.
+    \begin{figure}[H]
+        \centering
+        \begin{tikzpicture}
+            \draw[->] (-1, 0) -- (3, 0);
+            \draw[->] (0, -1) -- (0, 4);
+            \draw (-0.95*0.5, 0.1) -- (-0.95*0.5, -0.1) node[below] {$x$};
+            \draw (5.2*0.5, 0.1) -- (5.2*0.5, -0.1) node[below] {$y$};
+
+            \fill (-0.95*.5,0.7875*.5) circle[radius=1.5pt] node[left] {$F(x)$};
+            \fill (5.2*.5,5.4*.5) circle[radius=1.5pt] node[right] {$F(y)$};
+            \draw[domain=-2:6, smooth, variable=\x] plot ({0.5*\x}, {(0.2*(\x-0.25)^2+0.5)*0.5}) node[anchor=east] {$F$};
+            \draw[domain=-0.95:5.2, smooth, variable=\x, dashed] plot ({0.5*\x}, {(0.75*\x+1.5)*0.5});
+        \end{tikzpicture}
+        \caption{Konvexe Funktion mit eingezeichneter Sekante}
+    \end{figure}
+\end{skizze}
+
+\begin{beispiel}
+    Die Funktionen $F\of{t} = e^{t}$ und $F\of{t} = e^{-t}$ sind konvex auf $\R$. (Übung)
+\end{beispiel}
+
+\begin{definition}
+    Eine Funktion $F$ heißt konkav, falls $-F$ konvex ist. Das heißt
+    \begin{align*}
+        F\of{\Theta x + \pair{1-\Theta}y} &\geq \Theta F\of{x} + \pair{1-\Theta}F\of{y}\quad\fa 0\leq \Theta < 1\fa x,y\in I
+    \end{align*}
+\end{definition}
+
+\begin{definition}[Logarithmische Konvexität]
+    Eine Funktion $F$ heißt logarithmisch konvex, falls $\log \circ F = \log\of{F}$ konvex ist. Das heißt
+    \begin{align*}
+        \log F\of{\Theta x + \pair{1-\Theta} y} &\leq \Theta\log F\of{x} + \pair{1-\Theta}\cdot \log F\of{y}\\
+        &= \log\of{F\of{x}^{\Theta}} + \log\of{F\of{y}^{1-\Theta}}\\
+        &= \log\of{F\of{x}^{\Theta}\cdot F\of{y}^{1-\Theta}}\\
+        \equivalent F\of{\Theta x + \pair{1-\Theta}y} &\leq F\of{x}^{\Theta} \cdot F\of{y}^{1-\Theta}\quad\fa x,y\in I\fa 0\leq \Theta \leq 1
+    \end{align*}
+    dann ist $F$ logarithmisch konvex.
+\end{definition}
+
+\begin{satz} % Satz 2
+    Die $\Gamma$-Funktion $\Gamma: \pair{0, \infty}\fromto \pair{0, \infty}, x\mapsto F\of{x}$ ist logarithmisch konvex.
+    \begin{proof}
+    (Übung)
+    \end{proof}
+\end{satz}
+
+\begin{satz}[Bohr, Mollerup] % Satz 3
+    Ist $F: \pair{0, \infty}\fromto\pair{0, \infty}$ eine Funktion mit
+    \begin{enumerate}[label=(\alph*)]
+        \item $F\of{1} = 1$
+        \item $F\of{x+1} = x\cdot F\of{x}$ und
+        \item $F$ ist logarithmisch konvex
+    \end{enumerate}
+    Dann gilt $F = \Gamma$, das heißt $F\of{x} = \Gamma\of{x}~\forall x > 0$.
+    \begin{proof}
+        Es reicht zu zeigen, dass die obigen Eigenschaften die Funktion $F$ eindeutig bestimmen, da wir bereits wissen, dass $\Gamma$ die Eigenschaften erfüllt.\\[.5\baselineskip]
+        \textsc{Schritt 1}:
+        \begin{align*}
+            F\of{x+n} \annot[{&}]{=}{(b)} \pair{x+n-1}\cdot F\of{x+n-1}\\
+            &= \pair{x+n-1}\cdot\pair{x-n-2}\cdot \ldots \cdot \pair{x-1}\cdot x\cdot F\of{x}\quad\forall x > 0
+            \intertext{Für $n\in\N$ gilt}
+            F\of{n+1} &= n!\cdot F\of{1} = n!\\
+            \impl F\of{n} &= \Gamma\of{n}\quad\forall n\in\N
+            \intertext{Das heißt es reicht zu zeigen, dass $F\of{x}$ bei $0< x < 1$ eindeutig bestimmt ist.\endgraf\noindent\textsc{Schritt 2}: Sei $0 < x < 1$}
+            s+ n &= \pair{1-x}\cdot n + x\cdot\pair{n+1}\tag{$\Theta = 1-x$}\\
+            \annot{\impl}{(c)} F\of{x+n} &= F\of{\pair{1-x}\cot n + x\cdot\pair{n+1}}\\
+            &\leq F\of{n}^{1-x} \cdot F\of{n-1}^{x} = F\of{n}^{1-x} \cdot \pair{n\cdot F\of{n}}^x\\
+            &= F\of{n}\cdot n^x = \pair{n-1}! \cdot n^x\quad\fa n\in\N\fa 0 < x < 1\\[10pt]
+            n+1 &= x\cdot\pair{n+x} + \pair{1-x}\cdot\pair{n+1+x}\tag{1}\\
+            \impl F\of{n+x} &\leq F\of{n+x}^x\cdot F\of{n+1+x}^{1-x}\\
+            &= F\of{n+x}\cdot \pair{n+x}^{1-x}\tag{2}
+            \intertext{Durch die Kombination von (1) und (2) folgt}
+            \impl n!\cdot \pair{n+x}^{x-1} &\leq F\of{n+x}\leq \pair{n-1}!\cdot x^n\\
+            F\of{n+x} &= x\cdot\pair{x+1}\cdot\ldots\cdot \pair{x+n-1}\cdot F\of{x}\\
+            \impl \frac{n!\cdot\pair{n+x}^{x-1}}{x\cdot \pair{x+1}\cdot\ldots\cdot\pair{x+n-1}} &\leq F\of{x} \leq \frac{\pair{n-1}!\cdot n^x}{x\cdot\pair{x+1}\cdot\ldots\cdot \pair{x+n-1}}\\
+            a_n\of{x} &\coloneqq \frac{n!\cdot\pair{x+n}^{x-1}}{x\cdot \pair{x+1}\cdot\ldots\cdot\pair{x+n-1}}\\
+            b_n\of{x} &\coloneqq \frac{\pair{n-1}!\cdot n^x}{x\cdot\pair{x+1}\cdot\ldots\cdot \pair{x-n-1}}\\
+            \impl a_n\of{x} &\leq F\of{x} \leq b_n\of{x}\quad\fa x\in\N\fa 0 < x < 1\\
+            \impl \frac{a_n\of{x}}{b_n\of{x}} &\leq \frac{F\of{x}}{b_n\of{x}} \leq 1\\
+            \frac{b_n\of{x}}{a_n\of{x}} &= \frac{n^x}{n\cdot\pair{n+x}^{x-1}} = \frac{\pair{n+x}\cdot n^x}{n\cdot\pair{n+x}^x}\\
+            &= \frac{n+x}{n}\cdot\pair{\frac{n}{n+x}}^x\underset{\ntoinf}{\fromto}  1\\[10pt]
+            \fromto F\of{x} &= \lim_{\ntoinf} b_n\of{x}\\
+            &= \lim_{\ntoinf} \frac{\pair{n-1}! \cdot n^x}{x\cdot\pair{1+x}\cdot \ldots\cdot \pair{x+n-1}}\numberthis\label{eq:gamma-alt}
+        \end{align*}
+        also ist $F\of{x}$ eindeutig bestimmt.
+    \end{proof}
+\end{satz}
+
+\begin{korollar}[Gaußsche Darstellung von $\Gamma$] % Korollar 4
+    \begin{align*}
+        \Gamma\of{x} &= \lim_{\ntoinf} \frac{n!\cdot x^n}{x\cdot\pair{x+1}\cdot\ldots\cdot \pair{x+n}}\numberthis\label{eq:gamma-gauss}
+    \end{align*}
+    \begin{proof}
+        Da $\frac{n}{n+1}\fromto 1$ für $\ntoinf$ folgt die Behauptung for $0 < x < 1$ direkt aus (\ref{eq:gamma-alt}). Für $x=1$ rechnet sich die Formel leicht nach.
+        Also ist noch zu zeigen: Gilt (\ref{eq:gamma-gauss}) für ein $x$, so gilt die Aussage auch für $y=x+1$.
+        \begin{align*}
+            \Gamma\of{y} &=\Gamma\of{x+1} = x\cdot\Gamma\of{x}\\
+            &= x \cdot \lim_{\ntoinf} \frac{n!\cdot n^x}{x\cdot\pair{x+1}\cdot\ldots\cdot\pair{x+n}}\\
+            &= \lim_{\ntoinf} \frac{n!\cdot n^{y-1}}{y\cdot\pair{y+1}\cdot\ldots\cdot \pair{y+n-1}}\\
+            \intertext{Multiplikation im Zähler mit $n$ und im Nenner mit $y+n$ (was sich für $\ntoinf$ entspricht) liefert}
+            &= \lim_{\ntoinf} \frac{n!\cdot n^{y}}{y\cdot\pair{y+1}\cdot \ldots\cdot \pair{y+n-1}\cdot\pair{y+n}}\qedhere
+        \end{align*}
+    \end{proof}
+\end{korollar}
+
+\begin{satz} % Satz 5
+    \begin{align*}
+        \Gamma\of{\frac{1}{2}} &= \sqrt {\pi}
+    \end{align*}
+
+    \begin{proof}
+        \begin{align*}
+            \Gamma\of{\frac{1}{2}} &= \lim_{\ntoinf} \frac{n!\cdot n^{\frac{1}{2}}}{\frac{1}{2}\cdot \pair{1+\frac{1}{2}}\cdot\ldots \cdot \pair{n+\frac{1}{2}}}\\
+            &= \lim_{\ntoinf} \frac{n!\cdot n^{\frac{1}{2}}}{\pair{1-\frac{1}{2}}\cdot\pair{2-\frac{1}{2}}\cdot\ldots\cdot \pair{n+1-\frac{1}{2}}}\\
+            \impl \Gamma\of{\frac{1}{2}}^{2} &= \lim_{\ntoinf} \frac{2n\cdot \pair{n!}^2}{\pair{1+\frac{1}{2}}\cdot \pair{1-\frac{1}{2}}\cdot\pair{2+\frac{1}{2}}\cdot\pair{2-\frac{1}{2}}\cdot\ldots\cdot \pair{n+\frac{1}{2}}\cdot \pair{n-\frac{1}{2}}}\\
+            &= \lim_{\ntoinf} \frac{2n\cdot \pair{n!}^2}{\pair{-\frac{1}{4}}\cdot\pair{4-\frac{1}{4}}\cdot\ldots\cdot\pair{n^2-\frac{1}{4}}}\\
+            &= 2\lim_{\ntoinf} \prod_{k=1}^{n} \frac{k^2}{k^2-\frac{1}{2}} = \pi\tag{Wallisches Produkt}
+        \end{align*}
+    \end{proof}
+\end{satz}
+
+\newpage
