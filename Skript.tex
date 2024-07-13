@@ -272,13 +272,13 @@
         g: \R^n &\fromto \R^m\\
         h &\mapsto g\of{h} = b + A\cdot\interv{h} = b + A\cdot h
         \intertext{sodass}
-        f\of{x + h} &= g\of{h} + \fehler_x\of{x} \in\R^m
+        f\of{x + h} &= g\of{h} + \fehler_x\of{h} \in\R^m
         \intertext{mit}
         &\frac{\norm{\fehler_x\of{h}}_{\R^m}}{\norm{h}_{\R^n}}\fromto 0 \text{ für } h\toinf
         \intertext{Angenommen wir finden eine solche Funktion $f: D\fromto Y\coloneqq \R^m$ mit $D\subseteq X\coloneqq\R^u$, sodass}
         f\of{x+h} &= b + A\cdot\interv{h} + \fehler_x\of{h}\\
         \frac{\norm{\fehler_x\of{h}}_Y}{\norm{h}_X} &= \frac{\norm{\varepsilon_x\of{h}\cdot\norm{h}_X}}{\norm{h}_X} = \norm{\varepsilon_x\of{h}}_Y\fromto 0\\
-        \varepsilon_x\of{h} &\coloneqq \frac{\fehler_x\of{h}}{\norm{h}_x}\\
+        \varepsilon_x\of{h} &\coloneqq \frac{\fehler_x\of{h}}{\norm{h}_X}\\
         f\of{x+h} &= g\of{h} + \varepsilon_x\of{h}\cdot\norm{h}_X\tag{*}
     \end{align*}
     Behauptung: Angenommen (*) und $\varepsilon_x\of{h} \fromto 0$ gilt. Dann folgt, dass $g$ eindeutig bestimmt ist.
@@ -321,8 +321,8 @@
         Seien $\pair{X, \norm{\cdot}_X}$, $\pair{Y, \norm{\cdot}_Y}$ beliebige normierte Vektorräume und $U\subseteq X$ offen. Dann ist $f: U\fromto Y$ differenzierbar in $X$, falls $A\in\mL\of{X, Y}$ eine \underline{stetige} lineare Abbildung von $X$ nach $Y$ ist, sodass
         \begin{align*}
             f\of{x+h} &= f\of{x} + A\interv{h} + \fehler_x\of{h}\\
-            &= f\of{x} + A\interv{h}\\
-            ??
+            &= f\of{x} + A\interv{h} + \varepsilon_x\of{h}\cdot\norm{h}_X,\\
+            &\norm{\varepsilon_x\of{h}}_Y \fromto 0 \text{ für } h\fromto 0.
         \end{align*}
     \end{definition}
 
