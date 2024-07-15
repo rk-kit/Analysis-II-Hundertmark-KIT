@@ -678,8 +678,8 @@
         \begin{align*}
             \D f\of{x}\interv{h} &= \sum_{j=1}^{n} \partial_j f\of{x}\interv{h}\\
             &= \pair{\partial_1 f\of{x}, \partial_2 f\of{x}, \ldots, \partial_n f\of{x}}\cdot\begin{pmatrix}
-                                                                                                 h_1\\
-                                                                                                 \vdots\\
+                                                                                                 h_1    \\
+                                                                                                 \vdots \\
                                                                                                  h_n
             \end{pmatrix}\\
             &= \sprod{\nabla f, h}
@@ -693,10 +693,10 @@
             &= \sprod{v, H_{e}h}
             \intertext{wobei}
             H_e\of{x} &= \begin{pmatrix}
-                             \partial_1\partial_1 f\of{x} & \partial_1\partial_2 f\of{x} & \dots & \partial_1\partial_n f\of{x}\\
-                             \partial_2 \partial_1 f\of{x} & \partial_2\partial_2 f\of{x}& \dots & \partial_2 \partial_n f\of{x}\\
-                             \vdots & \ddots &\ddots & \vdots\\
-                             \partial_n\partial_1 f\of{x} & \dots & \dots&\partial_n \partial_n f\of{x}
+                             \partial_1\partial_1 f\of{x}  & \partial_1\partial_2 f\of{x} & \dots  & \partial_1\partial_n f\of{x}  \\
+                             \partial_2 \partial_1 f\of{x} & \partial_2\partial_2 f\of{x} & \dots  & \partial_2 \partial_n f\of{x} \\
+                             \vdots                        & \ddots                       & \ddots & \vdots                        \\
+                             \partial_n\partial_1 f\of{x}  & \dots                        & \dots  & \partial_n \partial_n f\of{x}
             \end{pmatrix}\tag{Hesse-Matrix}
         \end{align*}
     \end{bemerkung}
@@ -761,13 +761,12 @@
                 &= \text{D}_v f\of{x+s_1 v + th}\cdot s - \text{D}_v f\of{x+s_1 v}\cdot s\\
                 \text{D}_h \text{D}_v f\of{x+s_1 v + t_1 h}\cdot s \cdot t\\
                 \impl \frac{1}{st}\Delta_{sv} \Delta_{th} f\of{x} &= \text{D}_h \text{D}_v f\of{x+s_1 v + t_1 h}
-                \intertext{\textsc{Schritt 3}: Nach \textsc{Schritt 1} haben wir $\Delta_{sv}\Delta_{th} f\of{x} = \Delta_{th} \Delta{sv} f\of{x}$}
+                \intertext{\textsc{Schritt 3}: Nach \textsc{Schritt 1} haben wir $\Delta_{sv}\Delta_{th} f\of{x} = \Delta_{th} \Delta_{sv} f\of{x}$}
                 \impl \frac{1}{st}\Delta_{th} \Delta_{sv} f\of{x} &= \text{D}_v \text{D}_h f\of{x+s_1 v + t_1 h} = \text{D}_h \text{D}_v f\of{x+s_1 v + t_1 h}
             \end{align*}
             Für $s\fromto 0$ und $t\fromto 0$ haben wir so die Behauptung.
         \end{proof}
     \end{satz}
-
 
 
 \end{document}
