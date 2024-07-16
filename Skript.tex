@@ -30,7 +30,6 @@
 % Font-Encoding
 \usepackage[T1]{fontenc}
 \usepackage{lmodern}
-\usepackage{stmaryrd}
 
 % Theorems
 \newtheoremstyle{plain}{}{}{}{}{\bfseries}{.}{ }{}
@@ -139,6 +138,7 @@
 \newcommand{\mL}{\mathcal{L}}
 \newcommand{\mJ}{\mathcal{J}}
 \newcommand{\mPC}{\mathcal{PC}}
+\newcommand{\mM}{\mathcal{M}}
 
 % Spezielle Symbole
 \NewDocumentCommand{\Tau}{e{^_}}{
@@ -768,5 +768,159 @@
         \end{proof}
     \end{satz}
 
+    \subsection{Extrema und lokale Minima/Maxima}
+
+    \begin{definition}[Lokales Minimum und Maximum]
+        \marginnote{[16. Jul]}
+        Sei $f: U\fromto\R$ eine Funktion. Dann hat $f$ in $x_0$ ein lokales Minimum (oder Maximum), falls ein Ball $B_{\varepsilon}\of{x_0}$ existiert, sodass
+        \begin{align*}
+            \forall x\in B_{\varepsilon}\of{x_0}&\colon f\of{x} \underset{(\leq)}{\geq} f\of{x_0}
+            \intertext{Gilt sogar}
+            \forall x\in B_{\varepsilon}\of{x_0}\exclude\set{x_0}&\colon f\of{x} \underset{(>)}{<} f\of{x_0}
+        \end{align*}
+        so heißt $x_0$ striktes (isoliertes) Minimum (oder Maximum).
+    \end{definition}
+
+    \begin{satz}
+        Hat $f: U\fromto\R$ in $x_0$ ein lokales Minimum (oder Maximum) und ist $f$ differenzierbar in $x_0$, so ist $\nabla f\of{x_0} = 0$.
+        \begin{proof}
+            Sei $x_0$ ein lokales Minimum. Dann gilt $f\of{x} \geq f\of{x_0}~\forall x\in B_{\varepsilon}\of{x_0} \subseteq U$. Sei $h\in\R^n$ Dann gilt für $x_0 + th\in B_{\varepsilon}\of{x_0}$ für $\abs{t}$ klein genug. Damit folgt
+            \begin{align*}
+                0 \leq \frac{f\of{x_0 + th} - f\of{x_0}}{t} \fromto \text{D}_h f\of{x_0} &= \D f\of{x_0}\interv{h} = \nabla f\of{x}\cdot h\\
+                \impl 0\leq \nabla f\of{x_0} \cdot h&\quad\forall h\in\R^n\\
+                \impl 0 \leq \nabla f\of{x_0} \cdot \pair{-h} =& -\nabla f\of{x_0}\cdot h \leq 0\\
+                \impl \nabla f\of{x_0}\cdot h &= 0\quad\forall h\in\R^n\\
+                \impl \nabla f\of{x_0} &= 0\qedhere
+            \end{align*}
+            Der Beweis für ein lokales Maximum funktioniert analog.
+        \end{proof}
+    \end{satz}
+
+    \begin{notation}
+        Wir schreiben $f\in\mC^2\of{U} = \mC^2 \of{U, \R}$, falls alle partiellen Ableitungen von $f$ bis Ordnung 2 stetig auf $U$ sind. Das heißt $f$, $\partial_j f$ und $\partial_k \partial_j f$ stetig $\forall 1\leq k,j\leq n$.
+    \end{notation}
+
+    \begin{satz}
+        Sei $f: U\fromto\R$ mit $f\in\mC^2\of{U}$. Dann ist die Hesse-Matrix $H_l \of{x}$ stetig bezüglich der Operatornorm. (Das heißt jeder Eintrag $\partial_k\partial_j f$ ist stetig).
+
+        \begin{proof}
+            Sei $g\of{t} = f\of{x+tv}$. Dann gilt
+            \begin{align*}
+                g'\of{t} &= \frac{\dif}{\dif t} f\of{x+tv} = \D f\of{x+tv}\interv{v}\\
+                &= \nabla f\of{x+tv}\cdot v = \sum_{j=1}^{n} \partial_j f\of{x+tv}\cdot v_j\\
+                \impl f\of{x+v} &= f\of{x} + \int_{0}^{1} \frac{\dif}{\dif t}f\of{x+tv} \dif t\\
+                &= f\of{x} + \int_{0}^{1} \sum_{j=1}^{n} \partial_j f\of{x+tv}\cdot v_j \dif t\\
+                \int_{0}^{1} \partial_j f\of{x+tv}\cdot v_j \dif x &= \int_{0}^{1} \pair{-\frac{\dif}{\dif t}\pair{1-t}}\cdot \partial_j f\of{x+tv}\cdot v_j \dif t\\
+                &= \interv{-\pair{1-t}\partial_j f\of{x+tv}\cdot v_j}_{0}^1 + \int_{0}^{1} \pair{1-t}\frac{\partial}{\dif t} \partial_j f\of{x+tv}\cdot v_j\dif t\\
+                &= \partial_j f\of{x}\cdot v_j + \int_{0}^{1} \pair{1-t}\cdot \sum_{k=1}^{n} \partial_k\partial_j f\of{x+tv}\cdot v_k\cdot v_j \dif t\\
+                \impl f\of{x+tv} &= f\of{x} + \nabla f\of{x}\cdot v + \int_{0}^{1} \pair{1-t}\cdot \sum_{k=1}^{n} \sum_{j=1}^{n} \partial_k f\of{x+tv}\cdot v_k\cdot v_j \dif t\\
+                &= f\of{x} + \nabla f\of{x}\cdot v +\int_{0}^{1} \pair{1-t}\sprod{v, H_l \of{x+tv}\cdot v} \dif t\\
+                \intertext{Nach dem verallgemeinerten Mittelwertsatz der Integrale}
+                &= f\of{x} + \nabla f\of{x}\cdot v + k\of{\Theta}\cdot \int_{0}^{1} \pair{1-t} \dif x\tag{$\Theta\in\pair{0,1}$}\\
+                &= f\of{x} + \nabla f\of{x}\cdot v + \frac{1}{2}\underbrace{\sprod{v, H_l\of{x+\Theta v}}}_{\text{symmetrische $n\times n$-Matrix}}\numberthis\label{eq:extrema-lokal}
+            \end{align*}
+        \end{proof}
+    \end{satz}
+
+    \begin{definition}
+        Sei $A\in\mM\of{n, \R}$ (Menge aller $n\times n$-Matrizen) symmetrisch. Dann heißt $A$
+        \begin{enumerate}[label=(\roman*)]
+            \item positiv-definit $\pair{A > 0}$, falls $\sprod{v, Av} > 0~\forall v\in\R^n\exclude\set{0}$
+            \item positiv-semi-definit $\pair{A \geq 0}$, falls $\sprod{v, Av} \geq 0~\forall v\in\R^n$
+            \item negativ-definit $\pair{A < 0}$, falls $-A > 0$
+            \item negativ-semi-definit $\pair{A \leq 0}$, falls $-A \geq 0$
+        \end{enumerate}
+    \end{definition}
+
+    \begin{bemerkung}
+        ??
+    \end{bemerkung}
+
+    \begin{lemma}
+        Sei $A\in\mM\of{n, \R}$ symmetrisch. Dann ist $A$ genau dann positiv definit, wenn
+        \begin{align*}
+            \exists \lambda > 0\colon \sprod{v, A v}\geq \lambda \abs{v}^2\quad\forall v\in\R^n
+        \end{align*}
+
+        \begin{proof}
+            $A$ hat die  Eigenwerte $\lambda_1 \leq \lambda_2 \leq \dots \leq \lambda_n$ mit normierten Eigenvektoren $e_1, \ldots, e_n$. Dann gilt nach der Definition von EV $A e_j = \lambda _j e_j$
+            \begin{align*}
+                v &= \sum_{j=1}^{n} \mu_j \cdot e_j\\
+                \impl \sprod{v, Av} &= \sprod{v, A\cdot \sum_{j=1}^{n} \mu_j\cdot e_j}\\
+                &= \sum_{j=1}^{n} \mu_j \sprod{v, A\cdot e_j}\\
+                &= \sum_{j=1}^{n} \mu_j \lambda _j \sprod{v, e_j}\\
+                &= \sum_{k=1}^{n} \sum_{j=1}^{n} \lambda_j \mu_j e_j \delta_{k_j}\\
+                &= \sum_{k=1}^{n} \lambda _j e_j^2 \geq \lambda_1 \sum_{j=1}^{n} \mu_j^2 = \lambda_1 \cdot\abs{v}^2\qedhere
+            \end{align*}
+            Damit folgt
+            \begin{align*}
+                A > 0 &\equivalent \lambda_1 > 0\\
+                A \geq 0 &\equivalent \lambda_1 \geq 0\\
+                A < 0 &\equivalent \lambda_{n} < 0\\
+                A \leq 0 &\equivalent \lambda_n \leq 0\\
+                A\text{ nicht-definit } &\equivalent \lambda_1 < 0, \lambda_n > 0
+            \end{align*}
+        \end{proof}
+    \end{lemma}
+
+    \begin{lemma}
+        Sei $A: U\fromto\mM\of{n, \R}\cap\set{B\in \R^{n\times n}~\middle\vert~B\text{ symmetrisch}}$ stetig bezüglich Operatornorm. Ist $A\of{x_0} > 0$ (oder $A\of{x_0} < 0$) so existiert ein $B_{\varepsilon}\of{x_0}\subseteq U$, sodass $A\of{x} > 0$ (oder $A\of{x} < 0$) $\forall x\in B_{\varepsilon}\of{x_0}$.
+        \begin{proof}
+            Sei $A\of{x_0} > 0$. Das heißt
+            \begin{align*}
+                \exists\lambda > 0&\colon \sprod{v, A\of{x_0}v} \geq \lambda \abs{v}^2\quad\forall v\in\R^n\\
+                \sprod{v, A\of{x}v} &= \sprod{v, A\of{x_0}v} + \sprod{v, \underbrace{\pair{A\of{x} - A\of{x_0}}v}_{= B\of{x}}}
+            \end{align*}
+            ??
+        \end{proof}
+    \end{lemma}
+
+    \begin{satz} % Satz 7
+        Sei $f: U\fromto\R$, $f\in\mC^2\of{U}$. Ist $x_0\in U$ ein lokales Minimum (oder Maximum), so ist $H_l\of{x_0} \geq 0$ (oder $H_l\of{x_0} \leq 0$).
+
+        \begin{proof}
+            Wir haben $\nabla f\of{x_0} = 0$. Sei $x_0$ ein lokales Minimum. Das heißt
+            \begin{align*}
+                f\of{x} &\geq f\of{x_0}\quad\forall x\in B_{\varepsilon}\of{x_0}
+                \intertext{Sei $v\in\R^n$ mit $\abs{v} < \varepsilon$}
+                \impl x_0 + v &\in B_{\varepsilon}\of{x_0}
+                \intertext{Nach (\ref{eq:extrema-lokal}) gilt für ein $\Theta\in\pair{0,1}$}
+                \impl f\of{x_0 + v} &= f\of{x_0} + \nabla f\of{x_0}\cdot v + \frac{1}{2}\sprod{v, H_l\of{x_0 + \Theta v} v}\\
+                0 leq f\of{x_0 + v} - f\of{x_0} &= \frac{1}{2}\underbrace{\sprod{v, H_l \of{x_0 + \Theta v} v}}_{=t^2\sprod{h, H_l\of{x_0 + th}h}}
+                \intertext{Wir setzen $v= th$}
+                \impl \sprod{h, H_l\of{x_0 + \Theta th} h} &\geq 0\quad\forall \abs{t} \text{ klein genug}\\
+                \intertext{Wir lassen $t$ gegen 0 gehen und erhalten}
+                \impl \sprod{h, H_l\of{x_0} h} &\geq 0\quad\forall h\\
+                \impl H_l\of{x_0} &\geq 0\qedhere
+            \end{align*}
+        \end{proof}
+    \end{satz}
+
+    \begin{satz} % Satz 8
+        \label{satz:krit-punkt-extrema}
+        Ist $x_0\in U$ ein kritischer Punkt für $f: U\fromto\R$, $f\in\mC^2\of{U}$ und gilt
+        \begin{align*}
+            H_l\of{x} &\geq 0\quad\forall x\in B_{\varepsilon}\of{x_0}\tag{1}
+            \intertext{So ist $x_0$ ein lokales Minimum. Gilt sogar}
+            H_l\of{x} &> 0\quad\forall x\in B_{\varepsilon}\of{x_0}\tag{2}
+        \end{align*}
+        ann ist $x_0$ ein isoliertes Minimum von $f$.
+
+        \begin{proof}
+            Es gilt $\nabla f\of{x_0} = 0$. Wir haben für $h\in\R^n$ und $\abs{h} < \varepsilon$
+            \begin{align*}
+                f\of{x_0 + h} - f\of{x_0} &= \frac{1}{2}\sprod{h, H_l\of{x_0 + \Theta h}h} \geq 0
+            \end{align*}
+            Gilt sogar (2), dann gilt
+            \begin{align*}
+                fof{x_0 + h} - f\of{x_0} &= \frac{1}{2}\sprod{h, H_l\of{x_0 + \Theta h}h} > 0
+            \end{align*}
+            Damit ist $x_0$ ein isoliertes Minimum.
+        \end{proof}
+    \end{satz}
+
+    \begin{bemerkung}
+        Die Aussage aus Satz~\ref{satz:krit-punkt-extrema} gilt auch für lokale Maxima.
+    \end{bemerkung}
 
 \end{document}
