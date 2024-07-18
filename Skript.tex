@@ -269,15 +269,15 @@
         f\of{x+h} &= f\of{x} + f'\of{x}\cdot h + \fehler_x\of{h}\\
         &=b + a\cdot h + \fehler_x\of{h}
         \intertext{Dabei galt}
-        &\frac{\abs{\fehler_x\of{h}}}{h}\fromto 0 \text{ für } h\toinf\\
-        \equivalent &\lim_{h\toinf} \frac{f\of{x+h} - f\of{x}}{h} \text{ existiert }
+        &\frac{\abs{\fehler_x\of{h}}}{h}\fromto 0 \text{ für } h\to 0\\
+        \equivalent &\lim_{h\to 0} \frac{f\of{x+h} - f\of{x}}{h} \text{ existiert }
         \intertext{Wir wollen dieses Prinzip auf den $\R^d$ übertragen und fragen uns: Gibt es eine affine Funktion}
         g: \R^n &\fromto \R^m\\
         h &\mapsto g\of{h} = b + A\cdot\interv{h} = b + A\cdot h
         \intertext{sodass}
         f\of{x + h} &= g\of{h} + \fehler_x\of{h} \in\R^m
         \intertext{mit}
-        &\frac{\norm{\fehler_x\of{h}}_{\R^m}}{\norm{h}_{\R^n}}\fromto 0 \text{ für } h\toinf
+        &\frac{\norm{\fehler_x\of{h}}_{\R^m}}{\norm{h}_{\R^n}}\fromto 0 \text{ für } h\to 0
         \intertext{Angenommen wir finden eine solche Funktion $f: D\fromto Y\coloneqq \R^m$ mit $D\subseteq X\coloneqq\R^u$, sodass}
         f\of{x+h} &= b + A\cdot\interv{h} + \fehler_x\of{h}\\
         \frac{\norm{\fehler_x\of{h}}_Y}{\norm{h}_X} &= \frac{\norm{\varepsilon_x\of{h}\cdot\norm{h}_X}}{\norm{h}_X} = \norm{\varepsilon_x\of{h}}_Y\fromto 0\\
