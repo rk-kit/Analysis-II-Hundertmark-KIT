@@ -13,13 +13,13 @@ Frage: Was ist die Fläche unter einem Graphen?
     \begin{align*}
         a=x_0 < x_1 < x_2 < \dots < x_k = b
     \end{align*}
-    und $I_j = \interv{x_{j-1}, x_j}$. Wir setzen $\varDelta x_j \definedas x_j - x_{j-1} \definedasbackwards\abs{I_j}$.
+    und $I_j = \interv{x_{j-1}, x_j}$. Wir setzen $\varDelta x_j \coloneqq x_j - x_{j-1} \eqqcolon\abs{I_j}$.
 \end{definition}
 
 \begin{definition}[Feinheit einer Zerlegung]
     Die Feinheit der Zerlegung $Z$ ist definiert als die Länge des längsten Teilintervalls von $Z$:
     \begin{align*}
-        \varDelta\of{Z}\definedas \max\of{\abs{I_1}, \abs{I_2}, \dots, \abs{I_k}} = \max\of{\varDelta x_1, \varDelta x_2, \dots, \varDelta x_k}
+        \varDelta\of{Z}\coloneqq \max\of{\abs{I_1}, \abs{I_2}, \dots, \abs{I_k}} = \max\of{\varDelta x_1, \varDelta x_2, \dots, \varDelta x_k}
     \end{align*}
 \end{definition}
 
@@ -34,17 +34,17 @@ Frage: Was ist die Fläche unter einem Graphen?
 \begin{definition}[Riemannsche Zwischensumme]
     In jedem $I_j$ wählen wir ein $\xi_j\in I_j$ als Stützstelle und setzen $\xi=\pair{\xi_1, \xi_2, \dots, \xi_k}$. Für eine Funktion $f\in \mB\of{I}$ setzen wir die Riemannsche Zwischensumme
     \begin{align*}
-        S_Z\of{f} &= S_Z\of{f, \xi} \definedas \sum_{j=1}^{k} f\of{\xi_j}\cdot\varDelta x_j = \sum_{j=1}^{k} f\of{\xi_j}\cdot\abs{I_j}
+        S_Z\of{f} &= S_Z\of{f, \xi} \coloneqq \sum_{j=1}^{k} f\of{\xi_j}\cdot\varDelta x_j = \sum_{j=1}^{k} f\of{\xi_j}\cdot\abs{I_j}
     \end{align*}
 \end{definition}
 
 \begin{definition}[Ober- und Untersumme]
     Für $f\in \mB\of{I}$ setzen wir außerdem
     \begin{align*}
-        \underline{m}_j &\definedas \inf_{I_j} f = \inf\set{f(x): x\in I_j}\\
-        \overline{m}_j &\definedas \sup_{I_j} f = \sup\set{f(x): x\in I_j}\\
-        \overline{S}_Z\of{f}&\definedas \sum_{j=1}^{k} \overline{m}_j\cdot \varDelta x_j\tag{Obersumme}\\
-        \underline{S}_Z\of{f}&\definedas \sum_{j=1}^{k} \underline{m}_j\cdot \varDelta x_j\tag{Untersumme}
+        \underline{m}_j &\coloneqq \inf_{I_j} f = \inf\set{f(x): x\in I_j}\\
+        \overline{m}_j &\coloneqq \sup_{I_j} f = \sup\set{f(x): x\in I_j}\\
+        \overline{S}_Z\of{f}&\coloneqq \sum_{j=1}^{k} \overline{m}_j\cdot \varDelta x_j\tag{Obersumme}\\
+        \underline{S}_Z\of{f}&\coloneqq \sum_{j=1}^{k} \underline{m}_j\cdot \varDelta x_j\tag{Untersumme}
         \intertext{Damit gilt für $x \in I_j$}
         \underline{m}_j &\leq f\of{x} \leq \overline{m}_j\\
         \impl \underline{m}_j &\leq f\of{\xi_j} \leq \overline{m}_j\\
@@ -133,8 +133,8 @@ Frage: Was ist die Fläche unter einem Graphen?
 \begin{definition}[Ober- und Unterintegral]
     Es sei $I=\interv{a,b}$ und $f\in \mB\of{I}$. Wir definieren
     \begin{align*}
-        \overline{J}\of{f} \definedas \inf\set{\overline{S}_Z\of{f} : Z\text{ ist Zerlegung von $I$ } }\tag{Oberintegral}\\
-        \underline{J}\of{f} \definedas \sup\set{\underline{S}_Z\of{f} : Z\text{ ist Zerlegung von $I$ } }\tag{Unterintegral}
+        \overline{J}\of{f} \coloneqq \inf\set{\overline{S}_Z\of{f} : Z\text{ ist Zerlegung von $I$ } }\tag{Oberintegral}\\
+        \underline{J}\of{f} \coloneqq \sup\set{\underline{S}_Z\of{f} : Z\text{ ist Zerlegung von $I$ } }\tag{Unterintegral}
     \end{align*}
 \end{definition}
 
@@ -163,9 +163,9 @@ Frage: Was ist die Fläche unter einem Graphen?
     \begin{align*}
         \underline{J}\of{f} = \overline{J}\of{f}
     \end{align*}
-    In diese Fall nennen wir $J(f) \definedas \underline{J}\of{f} = \overline{J}\of{f}$ das (bestimmte) Integral von $f$ über $\interv{a,b}$ und schreiben
+    In diese Fall nennen wir $J(f) \coloneqq \underline{J}\of{f} = \overline{J}\of{f}$ das (bestimmte) Integral von $f$ über $\interv{a,b}$ und schreiben
     \begin{align*}
-        \int_{a}^{b} f(x) \dif x = \int_{a}^{b} f\dif x = \int_{I} f(x)\dif x = \int_{I} f\dif x \definedasbackwards J(f)
+        \int_{a}^{b} f(x) \dif x = \int_{a}^{b} f\dif x = \int_{I} f(x)\dif x = \int_{I} f\dif x \eqqcolon J(f)
     \end{align*}
     Die Klasse der Riemann-integrierbaren Funktionen $f\in \mB\of{I}$ nennen wir $\mR\of{I}$.
 \end{definition}
@@ -173,7 +173,7 @@ Frage: Was ist die Fläche unter einem Graphen?
 \begin{beispiel}[Konstante Funktion]
     \marginnote{[18. Apr]}
     \label{beispiel:int-konstant}
-    $f(x) \definedas c$ auf $\interv{a,b}$ für eine Konstante $c\in\R$. Dann gilt
+    $f(x) \coloneqq c$ auf $\interv{a,b}$ für eine Konstante $c\in\R$. Dann gilt
     \begin{align*}
         \int_{a}^{b} f\of{x} \dif x &= c\cdot\pair{b-a}
     \end{align*}
@@ -183,7 +183,7 @@ Frage: Was ist die Fläche unter einem Graphen?
     \label{beispiel:int-dirichlet}
     Die Funktion $f: \interv{0,1}\fromto\R$
     \begin{align*}
-        f(x) \definedas \begin{cases}
+        f(x) \coloneqq \begin{cases}
                             1 &x\in \Q\\
                             0 &\text{sonst}
         \end{cases}
@@ -220,7 +220,7 @@ Frage: Was ist die Fläche unter einem Graphen?
             \intertext{Das heißt zu $\varepsilon > 0$ existieren Zerlegungen $Z_1$, $Z_2$ von $I$ mit}
             \overline{J}\of{f} + \frac{\varepsilon}{2} &> \overline{S}_{Z_1}\of{f}\\
             \underline{J}\of{f} - \frac{\varepsilon}{2} &< \un{S}_{Z_2}\of{f}
-            \intertext{Da $f\in \mR\of{I}$ gilt $\underline{J}\of{f} = \overline{J}\of{f}$. Wir definieren die gemeinsame Verfeinerung $Z\definedas Z_1 \lor Z_2$. Dann gilt nach Lemma~\ref{lemma:temp-3}}
+            \intertext{Da $f\in \mR\of{I}$ gilt $\underline{J}\of{f} = \overline{J}\of{f}$. Wir definieren die gemeinsame Verfeinerung $Z\coloneqq Z_1 \lor Z_2$. Dann gilt nach Lemma~\ref{lemma:temp-3}}
             \overline{S}_Z\of{f} - \underline{S}_Z\of{f} &< \overline{J}\of{f} + \frac{\varepsilon}{2} - \pair{\underline{J}\of{f} - \frac{\varepsilon}{2}}\\
             &= \underbrace{\overline{J}\of{f} - \underline{J}\of{f}}_{=0} + \frac{\varepsilon}{2} + \frac{\varepsilon}{2} = \varepsilon\qedhere
         \end{align*}
@@ -533,7 +533,7 @@ Frage: Was ist die Fläche unter einem Graphen?
 \begin{bemerkung}
     \begin{align*}
         \sprod{f,g} &= \int_{a}^{b} f\of{x}g\of{x} \dif x\\
-        \norm{f} &\definedas\sqrt{\int_{a}^{b} \abs{f}^2 \dif x} \text{ ist eine Norm}\\
+        \norm{f} &\coloneqq\sqrt{\int_{a}^{b} \abs{f}^2 \dif x} \text{ ist eine Norm}\\
         \impl \abs{\sprod{f,g}} &\leq \norm{f}\norm{g}
     \end{align*}
 \end{bemerkung}
@@ -703,7 +703,7 @@ Mithilfe dieses Lemmas können wir nun Satz~\ref{satz:temp-18} beweisen.
         a = a_1 \leq a_2 \leq \dots \leq a_n &\leq b_n \leq b_{n-1} \leq\dots\leq b_1 = b\\
         \lim_{\ntoinf} a_n \text{ existiert und } &\lim_{\ntoinf} b_n \text{ texistiert aufgrund der monotonen Konvergenz}
         \intertext{und}
-        \lim_{\ntoinf} a_n&= \lim_{\ntoinf} b_n \definedasbackwards \xi \tag{da $b_n-a_n\fromto 0$}\\
+        \lim_{\ntoinf} a_n&= \lim_{\ntoinf} b_n \eqqcolon \xi \tag{da $b_n-a_n\fromto 0$}\\
         \impl \forall n\in\N\colon a_n &\leq \xi \leq b_n\\
         \impl a_n &\leq \xi\quad\forall n\in\N
         \intertext{Analog ergibt sich}

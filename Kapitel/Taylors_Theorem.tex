@@ -97,7 +97,7 @@
                 f^{(n+1)}\of{x} &= \frac{\dif}{\dif x}\pair{f^{(n)}\of{x}}\\
                 &= \frac{\dif}{\dif x}\pair{p_n\of{\frac{1}{x}}\cdot e^{-\frac{1}{x^2}}}\\
                 &= p_n'\of{\frac{1}{x}}\cdot\pair{-\frac{1}{x^2}}\cdot e^{-\frac{1}{x^2}} + p_n\of{\frac{1}{x}}\cdot e^{-\frac{1}{x^2}}\cdot\frac{2}{x^3}\\
-                &= \underbrace{\pair{-p_n'\of{\frac{1}{x}}\cdot\frac{1}{x^2} + 2p_n\of{\frac{1}{x}}\cdot\frac{1}{x^3}}}_{\definedasbackwards p_{n+1}\of{\frac{1}{x}}}\cdot e^{-\frac{1}{x^2}}\\
+                &= \underbrace{\pair{-p_n'\of{\frac{1}{x}}\cdot\frac{1}{x^2} + 2p_n\of{\frac{1}{x}}\cdot\frac{1}{x^3}}}_{\eqqcolon p_{n+1}\of{\frac{1}{x}}}\cdot e^{-\frac{1}{x^2}}\\
                 p_{n+1}\of{t} &\coloneqq -p'_n\of{t}\cdot t^2 + 2t^3\cdot p_n\of{t}
             \end{align*}
         \end{induktionsschritt}~\\
@@ -251,7 +251,7 @@
             \impl \abs{f\of{1} - f\of{x}} &= \pair{1-x} \cdot \abs{\sum_{n=0}^{\infty} A_n \cdot x^n} \leq \pair{1-x} \cdot \sum_{n=0}^{\infty} \abs{A_n}\cdot x^n
             \intertext{Sei $K\in\N$. Dann gilt}
             \impl \abs{f\of{1} - f\of{x}} &\leq \pair{1-x}\cdot \sum_{n=0}^{K} \abs{A_n}\cdot x^n + \pair{1-x} \cdot \sum_{n=K+1}^{\infty} \abs{A_n}\cdot x^n\\
-            &\leq \underbrace{\pair{1-x} \cdot \sup_{n\geq 0}\of{\abs{A_n} }\cdot \sum_{n=0}^{K} x^n}_{\definedasbackwards I_{K}\of{x}} + \underbrace{\pair{1-x}\cdot \sup_{n\geq K+1}\of{\abs{A_n}}\cdot \sum_{n=K+1}^{\infty} x^n}_{\definedasbackwards J_{K}\of{x}}
+            &\leq \underbrace{\pair{1-x} \cdot \sup_{n\geq 0}\of{\abs{A_n} }\cdot \sum_{n=0}^{K} x^n}_{\eqqcolon I_{K}\of{x}} + \underbrace{\pair{1-x}\cdot \sup_{n\geq K+1}\of{\abs{A_n}}\cdot \sum_{n=K+1}^{\infty} x^n}_{\eqqcolon J_{K}\of{x}}
             \intertext{Für ein festes $K\in\N$ geht $I_{K}\fromto 0$ für $x\fromto 1-$ und es gilt}
             J_{K}\of{x} &= \sup_{n\geq K + 1}\of{\abs{A_n}}\cdot\pair{1-x}\cdot \sum_{n=K+1}^{\infty} x^n
             \intertext{Nach der geometrischen Summenformel gilt}

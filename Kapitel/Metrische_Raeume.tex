@@ -272,7 +272,7 @@ Um diesen Satz zu beweisen, benötigen wir zunächst noch folgende Lemmata
 
 \begin{beispiel}
     \marginnote{[14. Jun]}
-    Seien $A_1\subseteq\R^k$, $A_2\sbset\R^m$ abgeschlossen. Dann ist auch $A_1\times A_2 \subseteq \R^k \times \R^m$ abgeschlossen.
+    Seien $A_1\subseteq\R^k$, $A_2\subseteq\R^m$ abgeschlossen. Dann ist auch $A_1\times A_2 \subseteq \R^k \times \R^m$ abgeschlossen.
     \begin{proof}
         Sei $\pair{x,y}\in \pair{A_1 \times A_2}^{\mathrm{C}} \supseteq A_1^C \times \R^m \cup \R^k \times A_2^C$.\\[.5\baselineskip]
         \textsc{Fall 1}: $x \in A_1^C$. Dann gilt wegen der Abgeschlossenheit von $A_1$
@@ -299,7 +299,7 @@ Um diesen Satz zu beweisen, benötigen wir zunächst noch folgende Lemmata
 \subsection{Grundzüge der Topologie}
 
 \begin{definition}[Topologie]
-    Sei $X$ eine Menge. Dann heißt ein Mengensystem $\Tau\sbset\mathcal{P}\of{X}$ eine Topologie auf $X$, falls
+    Sei $X$ eine Menge. Dann heißt ein Mengensystem $\Tau\subseteq\mathcal{P}\of{X}$ eine Topologie auf $X$, falls
     \begin{enumerate}[label=(\roman*)]
         \item $\emptyset, X\in\Tau$
         \item $U, V\in \Tau \impl U \cap V \in \Tau$ und
