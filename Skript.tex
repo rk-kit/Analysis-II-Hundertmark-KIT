@@ -122,6 +122,7 @@
 \DeclareMathOperator{\diam}{diam}
 \DeclareMathOperator{\fehler}{Fehler}
 \DeclareMathOperator{\D}{D\!}
+\DeclareMathOperator{\Id}{Id}
 
 % Mengenbezeichner
 \newcommand{\R}{\mathbb{R}}
@@ -257,669 +258,110 @@
 
 
     \section{[*] Differentialrechnung im $\R^d$}
+    \input{Kapitel/Differentialrechnung_R_d}
 
-    \subsection{Die Ableitung}
+
+    \section{[*] Inverse Funktionen und implizite Funktionen}
+    \imaginarysubsection{Inverse und implizite Funktionen}
     \thispagestyle{pagenumberonly}
-    Bisher haben wir die Ableitung in $\R$ definiert. Die Idee dahinter war, eine Funktion $f\of{x}$ an einer Stelle durch eine affine Funktion zu approximieren. Das heißt
-    \begin{align*}
-        f\of{x+h} &= f\of{x} + f'\of{x}\cdot h + \fehler_x\of{h}\\
-        &=b + a\cdot h + \fehler_x\of{h}
-        \intertext{Dabei galt}
-        &\frac{\abs{\fehler_x\of{h}}}{h}\fromto 0 \text{ für } h\to 0\\
-        \equivalent &\lim_{h\to 0} \frac{f\of{x+h} - f\of{x}}{h} \text{ existiert }
-        \intertext{Wir wollen dieses Prinzip auf den $\R^d$ übertragen und fragen uns: Gibt es eine affine Funktion}
-        g: \R^n &\fromto \R^m\\
-        h &\mapsto g\of{h} = b + A\cdot\interv{h} = b + A\cdot h
-        \intertext{sodass}
-        f\of{x + h} &= g\of{h} + \fehler_x\of{h} \in\R^m
-        \intertext{mit}
-        &\frac{\norm{\fehler_x\of{h}}_{\R^m}}{\norm{h}_{\R^n}}\fromto 0 \text{ für } h\to 0
-        \intertext{Angenommen wir finden eine solche Funktion $f: D\fromto Y\coloneqq \R^m$ mit $D\subseteq X\coloneqq\R^u$, sodass}
-        f\of{x+h} &= b + A\cdot\interv{h} + \fehler_x\of{h}\\
-        \frac{\norm{\fehler_x\of{h}}_Y}{\norm{h}_X} &= \frac{\norm{\varepsilon_x\of{h}\cdot\norm{h}_X}}{\norm{h}_X} = \norm{\varepsilon_x\of{h}}_Y\fromto 0\\
-        \varepsilon_x\of{h} &\coloneqq \frac{\fehler_x\of{h}}{\norm{h}_X}\\
-        f\of{x+h} &= g\of{h} + \varepsilon_x\of{h}\cdot\norm{h}_X\tag{*}
-    \end{align*}
-    Behauptung: Angenommen (*) und $\varepsilon_x\of{h} \fromto 0$ gilt. Dann folgt, dass $g$ eindeutig bestimmt ist.
-    \begin{proof}
-        Angenommen es existieren $g_1, g_2$ affine Abbildungen, sodass
-        \begin{align*}
-            f\of{x+h} &= g_1\of{h} + \varepsilon_x^1\of{h}\cdot\norm{h}_X\\
-            &= g_2\of{h} + \varepsilon_x^2\of{h}\cdot\norm{h}_X
-            \intertext{Dann ist zu zeigen, dass $g_1 = g_2$. Wir definieren}
-            g\of{h} &= g_1\of{h} - g_2\of{h} = -\varepsilon_x^1\of{h}\cdot\norm{h}_X + \varepsilon_x^2\of{h}\cdot\norm{h}_X\\
-            &\eqqcolon \varepsilon_x\of{h}\cdot\norm{h}_X\fromto 0 \text{ für } h\fromto 0\\
-            \impl g\of{0} &= 0 = b_1 - b_2\\
-            \impl b1 &= b_2
-            \intertext{Damit sind bereits die $b$ gleich. Also gilt}
-            \impl g\of{h} &= A_2\interv{h} - A_1\interv{h} = \pair{A_2 - A_1}\interv{h}
-            \intertext{Außerdem gilt $x+h\in U$. Wir ersetzen $h$ durch $th$. Dann ist $x+th\in U$}
-            A\interv{h} = \impl g\of{th} &= \pair{\varepsilon_1\of{th} - \varepsilon_2\of{th}}\cdot\norm{th}_X
-            \intertext{Das heißt $\abs{t} < \delta = \frac{r}{\norm{h}_X}$}
-            \impl A &= A_2 - A_1\\
-            \impl t\cdot A\interv{h} = A\interv{th} &= \pair{\varepsilon_1\of{th} - \varepsilon_2\of{th}}\cdot\norm{h}_X\cdot\abs{t}\\
-            \impl \norm{tA\interv{h}}_Y &= \abs{t}\cdot\norm{h}_X \cdot\norm{\varepsilon_1\of{th} + \varepsilon_2\of{th}}_Y\\
-            \impl \norm{A\interv{h}}_Y &= \norm{h}_X \cdot\norm{\varepsilon_1\of{th} - \varepsilon_2\of{th}}_Y \fromto 0\\
-            \impl \norm{A\interv{h}}_Y &= 0\quad\forall h\in X\\
-            \impl 0=A&= A_2 - A_1\\
-            \impl A_1 &= A_1\qedhere
-        \end{align*}
-    \end{proof}
 
-    \begin{definition}
-        \marginnote{[02. Jul]}
-        Sei $U\subseteq\R^n$ offen und $f: U\fromto\R^m$, $x\in U$. $f$ ist differenzierbar in $x$, falls eine lineare Abbildung $A: \R^n\fromto \R^m$ existiert mit
-        \begin{align*}
-            f\of{x+h} &= f\of{x} + A\interv{h} + \varepsilon_x\of{h}\cdot\norm{h}\\
-            &= f\of{x} + A\interv{h} + \fehler_x\of{h}
-        \end{align*}
-        $\varepsilon_x\of{h} \fromto 0$ (in $\R^m$) für $h\fromto 0$ ($\in \R^n$). Wir schreiben $\D f\of{x} \coloneqq A \in\mL\of{\R^n, \R^m}$ (lineare Abbildungen von $\R^n$ nach $\R^m$).
-    \end{definition}
+    \marginnote{[18. Jul]}
 
-    \begin{definition}
-        Seien $\pair{X, \norm{\cdot}_X}$, $\pair{Y, \norm{\cdot}_Y}$ beliebige normierte Vektorräume und $U\subseteq X$ offen. Dann ist $f: U\fromto Y$ differenzierbar in $X$, falls $A\in\mL\of{X, Y}$ eine \underline{stetige} lineare Abbildung von $X$ nach $Y$ ist, sodass
-        \begin{align*}
-            f\of{x+h} &= f\of{x} + A\interv{h} + \fehler_x\of{h}\\
-            &= f\of{x} + A\interv{h} + \varepsilon_x\of{h}\cdot\norm{h}_X,\\
-            &\norm{\varepsilon_x\of{h}}_Y \fromto 0 \text{ für } h\fromto 0.
-        \end{align*}
-    \end{definition}
+    Sei $D\subseteq \R^k\times\R^n$, $x\in\R^k$, $y\in\R^n$ und $F:D\to\R^n,~\pair{x,y}\mapsto F\of{x,y}$. Seien $\pair{x_0, y_0}\in D$ und $c=F\of{x_0, y_0}$. Gilt dann $F\of{x,y} = c$ für $\pair{x,y}$ nahe $\pair{x_0, y_0}$?
 
-    \begin{bemerkung}
-        Wir müssen im Allgemeinen verlangen, dass $A$ eine stetige lineare Abbildung $\equivalent A$ ist beschränkte lineare Abbildung.
-        \begin{align*}
-            &= \sup_{h\in X, \norm{h}_X \leq 1} \norm{A\interv{h}}_Y = \sup_{h\in X, \norm{h}_X = 1} \norm{A\interv{h}}_Y\\
-            &= \sup_{h\in X\exclude\set{0}} \frac{\norm{A\interv{h}}_Y}{\norm{h}_X} = \norm{A\interv{\frac{h}{\norm{h}_X}}}_Y\\
-            \norm{A}_{X\fromto Y} &\coloneqq \sup_{h\in X\exclude\set{0}} \frac{\norm{A\interv{h}}_Y}{\norm{h}_X}\tag{Operatornorm von $A: X\fromto Y$}
-        \end{align*}
-        $\mL\of{X,Y}$ mit $\norm{\cdot}_{X\fromto Y}$ ist ein normierter Vektorraum. Dieser ist vollständig, falls $Y$ vollständig ist.
-    \end{bemerkung}
-
-    \begin{definition}
-        Eine Funktion $f: U\fromto Y$ mit $U\subseteq X$ offen ist differenzierbar, falls es in jedem Punkt $x\in U$ differenzierbar ist. Wir definieren also eine Abbildung
-        \begin{align*}
-            \D f: U&\fromto\mL\of{X, Y}\\
-            x&\fromto\D f\of{x}
-        \end{align*}
-    \end{definition}
-
-    \begin{satz}
-        Für eine lineare Funktion $A: X\fromto Y$ sind äquivalent
+    \begin{satz}[Inverse Funktion] % Satz 1
+        \label{satz:invers-funktion}
+        Sei $D\subseteq\R^n$ offen, $x_0\in D$ und $f: D\to\R^n$ stetig differenzierbar (schreiben $f\in\mC^1\of{D, \R^n}$). Außerdem sei $\D f\of{x_0}: \R^n\to\R^n$ eine invertierbare lineare Abbildung. Wir nennen $x_0$ einen regulären Punkt von $f$ (weil die Ableitung an dieser Stelle invertierbar ist). Dann gilt es existieren offene Umgebungen $U\subseteq D$ von $x_0$ und $V\subseteq\R^n$ von $y_0 = f\of{x_0}$, sodass
         \begin{enumerate}[label=(\roman*)]
-            \item $A$ ist Lipschitz-stetig
-            \item $A$ ist gleichmäßig stetig
-            \item $A$ ist stetig
-            \item $A$ ist stetig in $0\in X$
-            \item $A$ ist beschränkt, das heißt $\norm{A}_{X\fromto Y} < \infty$
+            \item $f: U\to V$ ist bijektiv
+            \item $g=f^{-1}: V\to U$ ist in $\mC\of{U, V}$ (stetig differenzierbar)
+            \item $\forall x\in U\colon \D f\of{x}$ ist invertierbar
+            \begin{align*}
+                \D g\of{y} &= \pair{\D f\of{x}}^{-1} = \pair{\D f\of{g\of{y}}}^{-1}\\
+                x &= f^{-1}\of{y} = g\of{y}
+            \end{align*}
         \end{enumerate}
     \end{satz}
 
-    \begin{satz}
-        Die Ableitung ist linear. Das heißt für $X,Y$ normierte Vektorräume und $U\subseteq X$ offen sowie $f,g: U\fromto Y$ differenzierbar in $x\in U$ gilt
+    \begin{satz}[Implizite Funktion] % Satz 2
+        \label{satz:implizit-funktion}
+        Sei $D\subseteq\R^k\times\R^n$, $F: D\fromto\R^n$, $F\in\mC\of{D, \R^n}$, $\pair{x_0, y_0}\in D$. Wir definieren $c\coloneqq F\of{x_0, y_0}\in\R^n$ und schreiben $\D F = \pair{\text{D}_x F, \text{D}_y F}: \R^k\times \R^n\to\R^n$, wobei $\text{D}_x F: \R^k\to\R^n$, $\text{D}_y F: \R^n\to\R^n$. Ferner sei $\text{D}_y F\of{x_0, y_0}$ invertierbar. Dann existieren offene Umgebungen $U$ von $x_0$ und $V$ von $y_0$ mit $U\times V \subseteq D$ und eine $\mC^{1}$ Funktion $g: U\to V$, sodass
         \begin{align*}
-            \D \pair{\lambda f}\of{x} &= \lambda \D f\of{x}\\
-            \D\pair{f+g} \of{x} &= \D f\of{x} + \D g\of{x}
+            c = F\of{x, g\of{x}}\quad\forall x\in U
         \end{align*}
-        \begin{proof}
-            Folgt direkt aus der Definition der Ableitung.
-        \end{proof}
+        Außerdem gilt: Ist $c=F\of{x,y}$ für $x\in U$ und ein $y\in V$, dann folgt $y=g\of{x}$. Und $g$ ist $\mC^1$. $\D g\of{x} = -\pair{\text{D}_y F\of{x, g\of{x}}}^{-1}\circ \text{D}_x F\of{x,g\of{x}}$.
     \end{satz}
 
     \begin{beispiel}
-        Sei $X$ ein normierter Vektorraum und $\sprod{\cdot, \cdot}$ ein Skalarprodukt auf $X$. Außerdem definieren wir $f\of{x} \coloneqq \sprod{x, x}$.
+        $z^3 + 2z^2 - 3xyz + x^3 - y^3 = 0$ in einer Umgebung von $\pair{0,0,-2}$. Wir lösen nach $z$ auf. $F: \R^2\times\R\to\R,~\pair{x,y,z}\mapsto F\of{x,y,z}$ mit $\pair{x,y}\in\R^2$ und $z\in\R$.
         \begin{align*}
-            f\of{x+h} &= \sprod{x+h, x+h}\\
-            &= \sprod{x, x+h} + \sprod{h, x+h}\\
-            &= \sprod{x,x} + \sprod{x,h} + \sprod{h,x} + \sprod{h,h}\\
-            &= f\of{x} + \underbrace{2\sprod{x,h}}_{\text{linear in $h$}} + \underbrace{\norm{h}^2}_{\text{Fehler}}\\
-            \frac{\fehler\of{h}}{\norm{h}} &= \frac{\norm{h}^2}{\norm{h}} = \norm{h} \fromto 0
+            \partial_z F\of{x,y,z} &= 3z^2 + 4z - 3xy\\
+            \partial_z F\of{0,0,-2} &= 3\cdot 4 - 4\cdot 2 - 0 = 4\neq 0
         \end{align*}
+        Ist invertierbar. Somit greift Satz~\ref{satz:implizit-funktion}.
     \end{beispiel}
 
-    \subsection{[*] Richtungsableitung und partielle Ableitung}
-    \begin{definition}[Richtungsableitung]
-        Sei $U\subseteq X$ offen und $f: U\fromto Y$ sowie $h\in X$ beliebig. Die Richtungsableitung von $f$ (in $x$) in Richtung $h$ ist gegeben durch
-        \begin{align*}
-            \lim_{t\fromto 0} \frac{f\of{x+th} - f\of{x}}{t} &\eqqcolon\text{D}_h\!f\of{x}
-            \intertext{Also ist}
-            \text{D}_h\!f\of{x} &= \frac{\dif}{\dif t}f\of{x+th}
-        \end{align*}
-    \end{definition}
-
-    \begin{satz} % Satz 6
-        Ist $f: U\fromto Y$ in $x$ differenzierbar, so folgt
-        \begin{align*}
-            \D f\of{x}\interv{h} = \text{D}_h\!f\of{x}\quad\forall h\in X
-        \end{align*}
+    \begin{satz} % Satz 3
+        Satz~\ref{satz:invers-funktion} und Satz~\ref{satz:implizit-funktion} sind äquivalent.
         \begin{proof}
-            Sei $A = \D f\of{x}$
+            \anf{$\impl$} Vertauschen Variablen $x,y$ in Satz~\ref{satz:invers-funktion}. Gegeben $f: D\fromto\R^n$, $D\subseteq\R^n$ offen, $f\in\mC^{1}$. Wir definieren $F\of{x,y} \coloneqq f\of{y}-x$. $F:\R^n\times D\to\R^n$ ($k=n$). Dann gilt $\text{D}_x F = -\Id_{n}$ und $\text{D}_y F\of{x,y} = \D f\of{y}$.\\
+            $\text{D}_y F\of{x_0, y_0} = \D f\of{y_0}: \R^n\fromto \R^n$ ist invertierbar nach Voraussetzung. Damit gilt nach Satz\ref{satz:implizit-funktion}, dass es Umgebungen $V$ von $y_0$ und $U$ von $x_0$ gibt. Sowie $g: U\to V$ in $\mC^1$, sodass
             \begin{align*}
-                f\of{x+h} &= f\of{x} - A\interv{h} = \varepsilon\of{h}\norm{h}_X\\
-                f\of{x+th} - f\of{x} - A\interv{th} &= \varepsilon\of{th}\cdot\norm{th}_X\\
-                &= \varepsilon\of{th}\cdot\abs{t}\cdot\norm{h}_X\\
-                \frac{f\of{x+th} - f\of{x}}{t} - A\of{h} &= \frac{\abs{t}}{t}\cdot\varepsilon\of{th} \cdot\norm{h}_X\fromto 0 \text{ für } t\fromto 0\\
-                \impl \text{D}_h\!f\of{x} &= \lim_{t\fromto 0} \frac{f\of{x+th}- f\of{x}}{t} = A\interv{h} = \D f\of{x}\interv{h}\qedhere
+                f\of{y} - x = F\of{x,g\of{x}} = F\of{x_0, y_0} = f\of{y_0} - x_0 \annot{=}{!} 0\\
+                f\of{y} = x \equivalent y\of{x} = g\of{x}\\
+                \impl f^{-1}\of{x} = g\of{x}\\
+                f\of{g\of{x}} = x\quad\forall x\in U
+            \end{align*}
+            \anf{$\Leftarrow$} Gegeben $F: D\fromto\R^n$ mit $D\subseteq\R^k\times\R^n$ offen. $\pair{x_0, y_0}\in D$. $\text{D}_y F\of{x_0, y_0}$ sei invertierbar und $c\coloneqq F\of{x_0, y_0}$. Wir konstruieren eine Funktion
+            \begin{align*}
+                f: D&\to\R^{k+n}\\
+                \pair{x,y}&\mapsto \begin{pmatrix}
+                                       x\\
+                                       F\of{x,y}
+                \end{pmatrix}
+            \end{align*}
+            Angenommen $f: U\to V$ ist invertierbar. $\begin{pmatrix} x\\F\of{x,y} \end{pmatrix} = f\of{x,y} = \begin{pmatrix}
+                                                                      W\\
+                                                                      u
+            \end{pmatrix}$ hat eindeutige Lösung. Außerdem haben wir damit $x=w$ und $F\of{x,y} = u$.
+            \begin{align*}
+                \begin{pmatrix}
+                    x\\y
+                \end{pmatrix} &= y\pair{w,u} = \begin{pmatrix}
+                                                   g_1\of{w,u}\\g_2\of{w,u}
+                \end{pmatrix}\\
+                \impl y &= g_2\of{x,u}
+                \intertext{setzen wir $c\coloneqq F\of{x_0, y_0}$}
+                \impl F\of{x, g_2\of{x,c}} = c.
+            \end{align*}
+            Frage: Was ist $\D f\of{x,y}$?
+            \begin{align*}
+                \D f\of{x,y} &= \pair{\text{D}_x f\of{x,y}, \text{D}_y f\of{x,y}}\\
+                &= \pair{\text{D}_x\ \begin{pmatrix}
+                                           x\\F\of{x,y}
+                \end{pmatrix},\text{D}_y \begin{pmatrix}
+                                           x\\F\of{x,y}
+                \end{pmatrix}} = \begin{pmatrix}
+                                      \Id_n & 0\\
+                                      \text{D}_x F\of{x,y} & \text{D}_y F\of{x,y}
+                \end{pmatrix}\\
+                \begin{pmatrix}
+                    \Id & 0\\
+                    B & A
+                \end{pmatrix}\begin{pmatrix}
+                                 u\\ v
+                \end{pmatrix} &= \begin{pmatrix}
+                                    \alpha\\\beta
+                \end{pmatrix}\tag{$\alpha\in\R^k$, $\beta\in\R^n$}
+                \impl \begin{pmatrix}
+                          \Id\cdot u + 0\\ Bu + Av
+                \end{pmatrix} &= \begin{pmatrix}
+                                    \alpha\\\beta
+                \end{pmatrix}\\
+                \impl u=\alpha\quad Bu + Av = \beta\\
+                Av = \beta - Bu = \beta - B\alpha\\
             \end{align*}
         \end{proof}
     \end{satz}
-
-    \begin{mdframed}
-        \begin{center}
-            Im Folgenden sei $X=\R^n$ und $\pair{e_1, e_2, \ldots, e_n}$ die Standardbasis.
-        \end{center}
-    \end{mdframed}
-
-    \begin{definition}[Partielle Ableitung]
-        Sei $f: U\fromto Y$ mit $U\subseteq \R^n$ und $f$ differenzierbar in $x\in U$. Außerdem sei $A \coloneqq \D f\of{x}$. Dann definieren wir die partielle Ableitung $\partial_{x_j} f\of{x} = \partial_j f\of{x}$ bezüglich der Standardbasen durch
-        \begin{align*}
-            \partial_{x_j} f\of{x} &= \partial_j f\of{x} = \text{D}_{e_j}\! f\of{x}\\
-            &= \lim_{t\fromto 0} \frac{f\of{x+t\cdot e_j} - f\of{x}}{t}\\
-            &= \frac{\dif}{\dif t}f\of{x+t\cdot e_j}\vert_{t = 0}
-        \end{align*}
-    \end{definition}
-
-    \begin{bemerkung}
-        \marginnote{[05. Jul]}
-        Sei $f: U\fromto Y$  in $x\in U$ differenzierbar. $\D f\of{x}\in\mL\of{\R^n, Y}$. Dann gilt
-        \begin{align*}
-            \D f\of{x}\interv{h} &= \D f\of{x}\cdot h = \D f\begin{pmatrix}
-                                                                h_1    \\
-                                                                \vdots \\
-                                                                h_n
-            \end{pmatrix} = \begin{pmatrix}
-                                \partial_1 f_1 & \cdots & \partial_n f_1 \\
-                                \vdots         & \ddots & \vdots         \\
-                                \partial_1 f_m & \cdots & \partial_n f_m
-            \end{pmatrix}\begin{pmatrix}
-                             h_1    \\
-                             \vdots \\
-                             h_n
-            \end{pmatrix}
-        \end{align*}
-    \end{bemerkung}
-
-    \noindent\textbf{Warnung:} Die Existenz der partiellen Ableitungen und sogar aller Richtungsableitungen impliziert nicht die Existenz der Ableitung!
-
-    \begin{beispiel}
-        Für die Funktion $f: \R^2 \fromto \R$ mit
-        \begin{align*}
-            f\of{x} &= \begin{cases}
-                           \dfrac{x_1 x_2}{\sqrt{x_1^2 + x_2^2}} &x\neq \pair{0,0}\\
-                           0 &x = \pair{0,0}
-            \end{cases}
-            \intertext{existiert $\frac{\partial f}{\partial x_2}$ für $x_1 \neq 0 \impl \sqrt{x_1^2 + x_2^2} \neq 0$. Außerdem gilt für $x_1 = 0$}
-            \frac{\partial f}{\partial x_2} &= 0
-            \intertext{Damit existieren die partiellen Ableitungen. Außerdem gilt}
-            f\of{th} &= \frac{t^2 h_1 h_2}{\sqrt{t^2 h_1^2 + t^2 h_2^2}}\\
-            &= \frac{t^2 h_1 h_2}{t\sqrt{h_1^2 + h_2^2}} = t\cdot f\of{h}\\
-            \impl \text{D}_n\! f\of{0} &= \lim_{t\fromto 0} \frac{f\of{th}-f\of{0}}{t} = \lim_{t\fromto 0} \frac{tf\of{h} - 0}{t} = f\of{h} = \frac{h_1 h_2}{\sqrt{h_1^2 + h_2^2}}
-        \end{align*}
-        $f\of{x}$ ist nicht stetig in $\pair{0,0}$.
-    \end{beispiel}
-
-    \begin{satz} % Satz 8
-        Sei $f: U\fromto Y$, $U$ offen, $x\in U$ und $f$ sei differenzierbar in $x$. Dann ist $f$ stetig in $x$.
-        \begin{proof}
-            Sei $h$ klein genug, dass $x+h \in U$. Dann gilt
-            \begin{align*}
-                f\of{x+h} &= f\of{x} + \underbrace{A\interv{h}}_{\fromto 0 \text{ für } \norm{h}\fromto 0} + \underbrace{\varepsilon\of{h}}_{\fromto 0 \text{ für } \norm{h}\fromto 0}\cdot\norm{h}_X\fromto f\of{x}
-            \end{align*}
-            Damit ist $f$ in $x$ stetig.
-        \end{proof}
-    \end{satz}
-
-    \subsection{Kettenregel}
-
-    \begin{satz}[Kettenregel] % Satz 9
-        Seien $X, Y, Z$ normierte Vektorräume mit $V\subseteq X$, $U\subseteq Y$ offen und $f: V\fromto U$, $g: U\fromto Z$. Sei außerdem $f$ diffenzierbar in $x\in V$, $g$ differenzierbar in $y=f\of{x}$. Dann gilt $g\circ f: V\fromto Z$ ist differenzierbar in $x$ und $\text{D}_{g\circ f}\of{x} = \text{D}_g\of{f\of{x}}\circ \D f\of{x}$. Das heißt
-        \begin{align*}
-            \text{D}_{f\circ g}\of{x}\interv{h} &= \text{D}_g\of{f\of{x}}\interv{\D f\of{x}\interv{h}}
-        \end{align*}
-        \begin{proof}
-            Sei $A = \D f\of{x}$, $B= \D g\of{y}$, $y=f\of{x}$. Nach Definition gilt
-            \begin{align*}
-                f\of{x+h} &= f\of{x} + A\interv{h} + \varepsilon_1\of{h}\cdot\norm{h}_X\quad\forall\pair{x+h}\in V\\
-                g\of{y+k} &= g\of{y} + B\interv{k} + \varepsilon_2\of{k}\cdot\norm{k}_X \quad\forall\pair{y+k}\in U\\
-                \impl \pair{g\circ f}\of{x+h} &= g\of{f\of{x+h}} = g\of{f\of{x} + \underbrace{A\interv{h} + \varepsilon_1\of{h}\cdot\norm{h}_X}_{\eqqcolon k}}\\
-                &= g\of{y+k} = g\of{f\of{x}} + B\interv{k} + \varepsilon_2\of{k}\cdot\norm{k}_{Y}\\
-                &= g\of{f\of{x}} + B\interv{A\interv{h}} + \norm{h}_X \cdot B\interv{\varepsilon_1\of{h}}\\
-                &~~+ \varepsilon_2\of{A\interv{h} + \varepsilon_1\of{h}\cdot\norm{h}_X}\cdot\norm{A\interv{h} + \varepsilon_1\of{h}\cdot\norm{h}_X}
-                \intertext{Durch Analyse der Grenzwerte der einzelnen Summanden, ergibt sich, dass}
-                \pair{g\circ f}\of{x+h} - \pair{g\circ f} \of{x} &= B\interv{A\interv{h}} + \varepsilon\of{h}\cdot\norm{h}_X
-                \intertext{Damit sit $g\circ f$ in $x$ differenzierbar und}
-                \text{D}_{g\circ f}\interv{h} &= B\interv{A\interv{h}}\qedhere
-            \end{align*}
-        \end{proof}
-    \end{satz}
-
-    \begin{bemerkung}[Richtungsableitung aus Ableitung]
-        \marginnote{[09. Jul]}
-        Sei $I=\interv{a,b}, f: I \fromto Y$ und existiere
-        \begin{align*}
-            f'\of{x} &= \lim_{s\fromto 0} \frac{F\of{x+s} - F\of{x}}{s}
-        \end{align*}
-        Dann gilt
-        \begin{align*}
-            \text{D}_h\! f\of{x} = \frac{\dif f}{\dif t} f\of{x+th} &= \lim_{t\fromto 0} \frac{f\of{x+th} - f\of{x}}{t\cdot h} \cdot h = \lim_{s\fromto 0} \frac{f\of{x+s} - f\of{x}}{s} \cdot h = f'\of{x}\cdot h
-        \end{align*}
-    \end{bemerkung}
-
-    \begin{bemerkung}
-        Sei $f: \pair{a,b}\fromto Y$ differenzierbar. Dann gilt für alle $x\in\pair{a,b}$
-        \begin{align*}
-            \norm{\D f\of{x}}_{\R\fromto Y} \coloneqq \sup_{h\neq 0} \frac{\norm{\D f\of{x}\interv{h}}_Y}{\abs{h}} = \frac{\norm{f'\of{x}\cdot h}}{\abs{h}} = \frac{\abs{h}\cdot\norm{f'\of{x}}_Y}{\abs{h}} = \norm{f'\of{x}}_Y
-        \end{align*}
-    \end{bemerkung}
-
-    \begin{satz}[Mittelwertsatz oder Schrankensatz] % Satz 10
-        \label{satz:mittelwertsatz}
-        Sei $\pair{Y, \norm{\cdot}_Y}$ ein vollständiger Vektorraum, $I=\interv{a,b}\subseteq\R$ und $f: I\fromto Y$ stetig auf $\interv{a,b}$ und differenzierbar auf $\pair{a,b}\eqqcolon I^{\circ}$. Sei außerdem $\norm{\D f\of{s}}_{\R\fromto Y} = \norm{f'\of{s}}_Y \leq M$ für alle $a < s < b$. Dann gilt
-        \begin{align*}
-            \norm{f\of{b}-f\of{a}}_Y &\leq M\cdot\pair{b-a}
-        \end{align*}
-
-        \begin{proof}
-            Sei $\eta > 0$ fixiert. Wir definieren
-            \begin{align*}
-                A\coloneqq\set{\xi\in\interv{a,b}: \forall s, a\leq s < \xi\text{ gilt } \norm{f\of{s}-f\of{a}}_{Y} \leq \pair{M+\eta}\cdot\pair{s-a}}
-            \end{align*}
-            Dann ist $a\in A\impl A\neq \emptyset$. Sei $c\coloneqq \sup A \leq b$. Da $f$ stetig ist, gilt $c\in A \impl \interv{a,c}\subseteq A$. Zu zeigen ist, dass $c=b$. Angenommen $c<b$. Dann gilt
-            \begin{align*}
-                \exists\delta > 0, c+\delta \leq b, c\leq t < c+\delta\colon f\of{t} - f\of{c} - \D f\of{c}\interv{t-c} = f\of{t} - f\of{c} - f'\of{c}\cdot\pair{t-c} = \varepsilon\of{t\cdot c}
-            \end{align*}
-            \begin{align*}
-                \norm{f\of{t} - f\of{c}}_Y &\leq \norm{f'\of{c}}_Y \cdot\pair{t-c} + \norm{\varepsilon\of{t-c}}_Y \leq M\cdot\pair{t-c} + \norm{\varepsilon\of{t-c}}_Y\cdot\pair{t-c}\\
-                \norm{f\of{t} - f\of{a}}_Y &\leq \norm{f\of{c} - f\of{a}}_Y + \norm{f\of{t} - f\of{c}}_Y\\
-                &\leq \pair{M + \eta}\cdot\pair{-a+c} + \pair{M+\frac{\eta}{2}}\pair{t-c} < \pair{M+\eta}\pair{t-a}\\
-                \impl t&\in A\\
-                \impl c&= b\qedhere
-            \end{align*}
-        \end{proof}
-    \end{satz}
-
-    \begin{bemerkung}
-        Eine Menge $A\subseteq X$ heißt konvex, falls $\forall x,y\in A\colon \interv{x,y}\subseteq A$.
-    \end{bemerkung}
-
-    \begin{anwendung}
-        Sei $U\subseteq X$ offen und $x,y\in U$ mit $\interv{x,y}\subseteq U$. Dann ist\\ $\interv{x,y} \coloneqq \set{x+s\cdot\pair{y-x}: 0 \leq s \leq 1}$. Das heißt wir definieren $X\of{s} = x + s\cdot\pair{y-x}$ und können für eine Funktion $f$, die auf $U$ definiert ist schreiben
-        \begin{align*}
-            F\of{s} \coloneqq f\circ X\of{s}
-        \end{align*}
-        Damit haben wir nach Kettenregel für $h\in \R$
-        \begin{align*}
-            \D F\of{s}\interv{h} &= \D f\of{X\of{s}}\interv{\D X\of{s}\interv{h}}\\
-            \frac{\dif}{\dif s} &= \lim_{t\fromto 0} \frac{F\of{s+t} - F\of{s}}{t} = \text{D}_1\! F\of{s} = \D F\of{s}\interv{1} = \D f\of{X\of{s}}\interv{y-x}\\
-            \norm{F'\of{s}}_Y &= \norm{\D f\of{X\of{s}}\interv{y-x}}_Y \leq \norm{\D f\of{X\of{s}}}_{X\fromto Y} \cdot\norm{y-x}_X
-            \intertext{Dann definieren wir}
-            M &\coloneqq \sup_{0\leq s \leq 1} \norm{F'\of{x}}_Y \leq \sup_{0\leq s \leq 1}\norm{\D f\of{X\of{s}}}_{X\fromto Y}\cdot\norm{y-x}_X = \norm{\D f\of{\xi}}_{X\fromto Y}\cdot\norm{Y-x}_X\tag{$\xi = \pair{1-s}\cdot x + sy$}\\
-            \impl \norm{f\of{y} - f\of{x}}_Y &= \norm{F\of{1} - F\of{0}}_Y
-            \intertext{Nach Satz~\ref{satz:mittelwertsatz} können wir abschätzen}
-            &\leq \sup_{0\leq s \leq 1} \norm{F'\of{s}}_Y \cdot 1
-        \end{align*}
-    \end{anwendung}
-
-    \begin{satz}[Schrankensatz II] % Satz 11
-        \label{satz:schrankensatz-ii}
-        Seien $\pair{X, \norm{\cdot}_X}, \pair{Y, \norm{\cdot}_Y}$ normierte Vektorräume und $U\subseteq X$ offen, $x,y\in U$, $\interv{x,y}\subseteq U$. Ferner sei $f: U\fromto Y$ differenzierbar auf ganz $U$. Dann gilt
-        \begin{align*}
-            \norm{f\of{y}  -f\of{x}}_Y \leq \sup_{\xi\in\interv{x,y}} \norm{\D f\of{\xi}}_{X\fromto Y} \cdot \norm{y-x}_X &= \sup_{0\leq s \leq 1}\norm{\D f\of{\pair{1-s}\cdot x + sy}}_{X\fromto Y}\cdot\norm{y-x}_X
-            \intertext{Außerdem $\forall A\in\mL\of{X, Y}$}
-            \norm{f\of{y} - f\of{x} - A\interv{y-x}}_Y &\leq \sup_{\xi\in\interv{x,y}} \norm{\D f\of{\xi} - A}_{X\fromto Y} \cdot\norm{y-x}_X\numberthis\label{eq:schrankensatz-ii}
-        \end{align*}
-
-        \begin{proof}[Beweis von (\ref{eq:schrankensatz-ii})]
-            Seien $x,y\in U$, $\interv{x,y} \subseteq U$, $A\in \mL\of{X, Y}$. Sei $f: U\fromto Y,~x\mapsto F\of{x} \coloneqq f\of{x} - A\interv{X}$.
-            \begin{align*}
-                \D F\of{x}\interv{h} &= \D f\of{x}\interv{h} - A\interv{h}\\
-                \impl \norm{f\of{x} - f\of{y} - A\interv{x-y}}_Y &= \norm{F\of{y} - F\of{x}}_Y\\
-                &\leq \sup_{\xi\in\interv{x,y}} \norm{\D F\of{\xi}}_{X\fromto Y}\cdot\norm{y-x}_X\qedhere
-            \end{align*}
-        \end{proof}
-    \end{satz}
-
-    \begin{satz} % Satz 12
-        Sei $U\subseteq X$, $x,y\in U$, $\interv{x,y}\subseteq U$ und $f: U\fromto \R$ differenzierbar. Dann gibt es ein $\xi\in\interv{x,y}$ mit
-        \begin{align*}
-            f\of{x} - f\of{y} &= \D f\of{\xi}\interv{y-x}
-        \end{align*}
-
-        \begin{proof}
-            Setze $F: \interv{0,1}\fromto\R,~s\mapsto f\of{\pair{1-s}\cdot x + sy}$
-            \begin{align*}
-                \exists t\in\pair{0,1}\colon F\of{1} - F\of{0} = F'\of{t}\cdot\pair{1-0} = F'\of{t}\\
-                F'\of{s} = \frac{\dif}{\dif s}f\of{\pair{1-s}\cdot x + sy} = \frac{\dif}{\dif s} f\of{x+s\cdot\pair{y-x}} = \D f\of{x+s\pair{y-x}}\interv{y-x}
-            \end{align*}
-            Dann setze $\xi\coloneqq \pair{1-t}\cdot x + ty$.
-        \end{proof}
-    \end{satz}
-
-    \subsection{Existenz von Ableitungen}
-
-    Das Ziel dieses Teilkapitels ist es, ein Differenzierbarkeitskriterium zu finden und in diesem Sinne den folgenden Satz zu beweisen.
-
-    \begin{satz} % Satz 13
-        \marginnote{[11. Jul]}
-        \label{satz:existenz-ableitung}
-        Eine Funktion $f: U\fromto Y$ für einen Banachraum $Y$ und eine offene Menge $U\subseteq \R^n$ ist genau dann stetig differenzierbar, wenn alle partiellen Ableitungen $\partial_j f: U\fromto Y$ ($j\in\set{1,\ldots, n}$) stetig sind.
-    \end{satz}
-
-    \begin{definition}[Verallgemeinerte partielle Ableitung]
-        Wir können den $\R^n$ zerlegen, indem wir $\R^{n_1}, \R^{n_2}, \ldots, \R^{n_k}$ für $k\in\N$ und $n_j\in\N$ finden, sodass $\sum n_j = n$. Dann schreiben wir eine Zerlegung als $\R^n = \R^{n_1}\times \R^{n_2}\times\dots\times\R^{n_k}$. Außerdem können wir einen Vektor $x\in\R^n$ schreiben als $x=\pair{x_1, \ldots, x_k}$, wobei $x_j\in\R^{n_j}$.\\
-        Wir betrachten eine Funktion $f: U\fromto Y$ mit $U$ offen und $a=\pair{a_1, \ldots, a_k}\in U$. Die Ableitung von $f\of{a_1, \ldots, a_{j} + x_j, a_{j+1},\ldots, a_k}$ nach $x_j$ an der Stelle $x_j = 0$ heißt verallgemeinerte partielle Ableitung von $f$ nach $j$ an der Stelle $a$.
-    \end{definition}
-
-    \begin{lemma} % Lemma 15
-        \label{lemma:veralg-part-diff}
-        Sei $f: U\fromto Y$ eine Abbildung mit $U\subseteq\R^n$ und haben wir eine Zerlegung von $\R^n$ mit $\sum n_j = n$. Dann gilt für die verallgemeinerte partielle Ableitung $\text{D}_j\! f\of{a}$ mit $h=\pair{h_1, \ldots, h_k}\in\R^{n_1}\times\dots \times\R^{n_k}$
-        \begin{align*}
-            \D f\of{a} &= \sum_{j=1}^{k} \text{D}_j f\of{a}\interv{h_j}
-        \end{align*}
-        \begin{proof}
-            Sei $I_j: \R^{n_j}\fromto\R^{n}$, $I_j\of{x_j} = \pair{0,\ldots, 0, x_j, 0,\ldots, 0}$. Dann gilt
-            \begin{align*}
-                \D I_j\interv{h_j} &= I_j\of{h_j} = \pair{0,\ldots, 0, h_j, 0, \ldots, 0}\\
-                \text{D}_j f\of{a} &= \D f\of{a}\circ I_j\\
-                \impl \sum_{j=1}^{k} \text{D}_j f\of{a}\interv{h_j} &= \sum_{j=1}^{k} \D f\of{a} \cdot I\of{h_j} = \sum_{j=1}^{k} \D f\of{a}\interv{I_j\interv{h_j}}\\
-                &= \D f\of{a} \cdot \underbrace{\sum_{j=1}^{k} I_j\interv{h_j}}_{h} = \D f\of{a}\interv{h}
-            \end{align*}
-        \end{proof}
-    \end{lemma}
-
-    \begin{satz} % Satz 16
-        \label{satz:diff-krit-veralg-part}
-        Eine Funktion $f: U\fromto Y$ für einen Banachraum $Y$ und eine offene Menge $U\subseteq \R^n$ ist genau dann stetig differenzierbar, wenn die verallgemeinerten partiellen Ableitungen $\text{D}_j f$ für alle Zerlegungen von $\R^n$ auf $U$ stetig differenzierbar sind.
-        \begin{proof}
-            \anf{$\impl$} Sei $f$ differenzierbar. Dann gilt nach Lemma~\ref{lemma:veralg-part-diff}, dass
-            \begin{align*}
-                \text{D}_j f\of{x}\interv{h_j} = \D f\of{x}\interv{I_j h}
-            \end{align*}
-            Da die rechte Seite in $x$ stetig differenzierbar ist, muss auch die linke Seite stetig differenzierbar sein.\\[.2\baselineskip]
-            \anf{$\Leftarrow$} \textsc{Schritt 1}: Wir betrachten zunächst den Fall $\R^n = \R^{n_1} \times\R^{n_2}$ und definieren dafür $\norm{h}\coloneqq\max\of{\norm{h_1}_1, \norm{h_2}_2}$. Dann gilt
-            \begin{align*}
-                &f\of{x_1 + h_1, x_2 + h_2} - f\of{x_1, x_2} - \text{D}_1 f\of{x_1, x_2}\interv{h_1} - \text{D}_2\of{x_1, x_2}\interv{h_2}_Y\\
-                = &f\of{x_1 + h_1, x_2 + h_2} - f\of{x_1 + h_1, x_2} - \text{D}_2 f\of{x_1+h_1, x_2}\interv{h_2} + \text{D}_2 f\of{x_1 + h_1, x_2}\interv{h_2}\\
-                &- \text{D}_2 f\of{x_1, x_2}\interv{h_2} + f\of{x_1 + h_1, x_2} - f\of{x_1, x_2} - \text{D}_1 f\of{x_1, x_2}\interv{h_1} - \text{D}_2 f\of{x_1, x_2}\interv{h_2}
-            \end{align*}
-            Wir wollen die Normen der Terme nacheinander nach oben abschätzen
-            \begin{alignat*}{2}
-            (1)
-                \quad&&\norm{f\of{x_1 + h_1, x_2} - f\of{x_1, x_2} - \text{D}_1 f\of{x_1, x_2}\interv{h_1}}_Y &\leq \frac{\varepsilon\of{h_1}}{4}\cdot\norm{h_1}_1\\
-                (2)\quad&&\norm{\text{D}_2 f\of{x_1 + h_1, x_2} - \text{D}_2 f\of{x_1, x_2}}_{\R^{n_2}\fromto Y} &< \frac{\varepsilon}{4}\tag{Stetigkeit}\\
-                &&\impl \norm{\text{D}_2 f\of{x_1 + h_1, x_2}\interv{h_2} - \text{D}_2 f\of{x_1, x_2}\interv{h_2}}_Y &< \frac{\varepsilon}{4}\cdot\norm{h_2}\\
-                (3)\quad&&\norm{f\of{x_1 + h_1, x_2 + h_2} - f\of{x_1 + h_1, x_2} - \text{D}_2 f\of{x_1 + h_1, x_2}\interv{h_2}}_y \annot[{&}]{\leq}{\ref{satz:schrankensatz-ii}}\\
-                &&\norm{h_2}\cdot\sup_{0\leq s \leq 1} \norm{\text{D}_2 f\of{x_1 + h_1, x_2 + sh_2} - \text{D}_2 f\of{x_1 + h_1, x_2}} &< \norm{h_2} \cdot \frac{\varepsilon}{4}
-            \end{alignat*}
-            Das heißt insgesamt folgt
-            \begin{align*}
-                \norm{f\of{x_1 + h_1, x_2 + h_2} - f\of{x_1, x_2} - \text{D}_1 f\of{x_1, x_2}\interv{h_1} - \text{D}_2\of{x_1, x_2}\interv{h_2}}_Y &\leq \varepsilon\of{\norm{h}}\cdot\norm{h}
-            \end{align*}
-            Damit folgt die Behauptung für diesen speziellen Fall.\\[5pt] \textsc{Schritt 2}: Im allgemeinen Fall haben wir $\R^n = \R^{n_1}\times\dots\times\R^{n_k}$. Dann gilt nach \textsc{Schritt 1}, dass wir mit $\text{D}_1 f$, $\text{D}_2 f$ auch $\text{D}_{12} f$ erhalten. Wir nehmen eine neue Zerlegung $\R^n = \pair{\R^{n_1}\times\R^{n_2}}\times \R^{n_3}\times\dots\times\R^{n_k}$. Dann erhalten wir aus $\text{D}_{12} f$ und $\text{D}_3 f$ auch $\text{D}_{123} f$. Dieses Vorgehen setzen wir induktiv fort. So ergibt sich nach $k$ Schritten unsere Behauptung.
-        \end{proof}
-    \end{satz}
-
-    \begin{proof}[Beweis von Satz~\ref{satz:existenz-ableitung}]
-        Der Satz folgt dann aus Satz~\ref{satz:diff-krit-veralg-part}, indem wir als initiale Zerlegung die Zerlegung $\R^n = \R^{1}\times \dots \times \R^{1}$ wählen.
-    \end{proof}
-
-    \subsection{[*] Symmetrie der zweiten partiellen Ableitung - Der Satz von Schwartz}
-
-
-    \begin{mdframed}
-        \begin{center}
-            Für dieses Teilkapitel sei $Y$ ein Banach-Raum und $U\subseteq\R^n$ eine offene Menge.
-        \end{center}
-    \end{mdframed}
-
-    \begin{bemerkung}
-        \marginnote{[12. Jul]}
-        Wir betrachten eine Abbildung $f: U\fromto Y$. Dann gilt $\D f: U\fromto\mL\of{\R^n, Y}$ und $\text{D}\of{\D f} = \text{D}^2 f\of{x}\in\mL\of{\R^n, \mL\of{\R^n, Y}}$. Außerdem haben wir
-        \begin{align*}
-            \D f\of{x}\interv{h} &= \sum_{j=1}^{n} \partial_j f\of{x}\interv{h}\\
-            &= \pair{\partial_1 f\of{x}, \partial_2 f\of{x}, \ldots, \partial_n f\of{x}}\cdot\begin{pmatrix}
-                                                                                                 h_1    \\
-                                                                                                 \vdots \\
-                                                                                                 h_n
-            \end{pmatrix}\\
-            &= \sprod{\nabla f, h}
-            \intertext{Dabei ist $\partial_i f\of{x}: U\fromto Y^n$}
-            \text{D}_v \D f\of{x} &= \frac{\dif}{\dif t} \D f\of{x+tv}\vert_{t = 0}\\
-            &= \pair{\frac{\dif}{\dif t} \partial_1 f\of{x + v}, \frac{\dif}{\dif t}\partial_2 f\of{x+tv}, \ldots, \frac{\dif}{\dif t} \partial_n f\of{x+v}}\vert_{t=0}\\
-            &= \sum_{k=1}^{n} v_k\cdot\pair{\partial_k \partial_1 f\of{x}, \ldots, \partial_k \partial_n f\of{x}}
-            \intertext{$v=\pair{v_1, \ldots, v_n}$}
-            \text{D}_v \D f\of{x}\interv{h}  &= \frac{\dif}{\dif t}\pair{\partial_1 f\of{x+tv}, \ldots, \frac{\dif}{\dif t}\pair{\partial_n f\of{x+tv}}}\vert_{t=0}\\
-            &= \sum_{k=1}^{n} v_k\pair{\sum_{j=1}^{n} \partial_k\partial_j f\of{x}\cdot h_j} = \sum_{k=1}^{n} \sum_{j=1}^{n} v_k \partial_k\partial_j f\of{x} h_j\\
-            &= \sprod{v, H_{e}h}
-            \intertext{wobei}
-            H_e\of{x} &= \begin{pmatrix}
-                             \partial_1\partial_1 f\of{x}  & \partial_1\partial_2 f\of{x} & \dots  & \partial_1\partial_n f\of{x}  \\
-                             \partial_2 \partial_1 f\of{x} & \partial_2\partial_2 f\of{x} & \dots  & \partial_2 \partial_n f\of{x} \\
-                             \vdots                        & \ddots                       & \ddots & \vdots                        \\
-                             \partial_n\partial_1 f\of{x}  & \dots                        & \dots  & \partial_n \partial_n f\of{x}
-            \end{pmatrix}\tag{Hesse-Matrix}
-        \end{align*}
-    \end{bemerkung}
-
-    \begin{definition}
-        Sei $f: U\fromto Y$ eine Abbildung. Dann gilt $\D f: U\fromto \underbrace{\mL\of{\R^n, Y}}_{\text{Banachraum}}$.\\
-        Ist $\D f$ stetig differenzierbar, so heißt $f$ zweimal differenzierbar auf $U$. Wir nennen $\text{D}^2 f\of{x}$ dann die zweite Ableitung von $f$. Dabei ist
-        \begin{enumerate}[label=(\roman*)]
-            \item $\D f: U\fromto\mL\of{\R^n, Y}$
-            \item $\text{D}^2 f: U\fromto \mL\of{\R^n, \mL\of{\R^n, Y}}$
-        \end{enumerate}
-        Sei $L\in\mL\of{\R^n, \mL\of{\R^n, Y}}$, $B: \R^n\times\R^n,~\pair{v,h}\mapsto \sprod{v, Bh} = \sum_{k=1}^n v_k\cdot \sum_{j=1}^n B_{k_j} h_j$. Definiere $B\of{v,h} \coloneqq \pair{L\interv{h}}\interv{h}$. Sei $\pair{e_1, \ldots, e_n}$ die Standardbasis in $\R^n$
-        \begin{align*}
-            v &= \sum_{}^{} v_k\cdot e_k\\
-            h &= \sum h_k\cdot e_k\\
-            \pair{L\interv{v}}\interv{h} &= \pair{L\interv{\sum_{k=1}^{n} v_k\cdot e_k}}\interv{\sum_{j=1}^{n} h_j e_j}\\
-            &= \sum_{k=1}^{n} \sum_{j=1}^{n} \underbrace{\pair{L\interv{e_k}\interv{e_j}}}_{B_{k_j} = B\of{e_k, e_j}}\cdot v_k h_j\\
-            &= \sum_{k=1}^{n} \sum_{j=1}^{n} B_{k_j} v_k h_j = \sprod{v, Bh}\\
-            \pair{\text{D}^2 f\of{x}\interv{v}}\interv{h} &= \sum_{k=1}^{n} \sum_{j=1}^{n} v_k\pair{\text{D}^2 f\of{x}\interv{e_k}}\interv{e_j} h_j\\
-            &= \sum_{k=1}^{n} \sum_{j=1}^{n} v_k \partial_k \partial_j f\of{x} h_j\\
-            &= \sprod{v, H_e h}
-        \end{align*}
-    \end{definition}
-
-    \begin{satz} % Satz 1
-        Die folgenden Aussagen sind äquivalent
-        \begin{enumerate}[label=(\roman*)]
-            \item Die 2. Ableitung existiert und ist stetig
-            \item Alle gemischten partiellen Ableitungen $\partial_k\partial_j f\of{x}$, $1\leq k,j \leq n$ existieren und sind stetig
-            \item Die Hesse-Matrix $H_e \of{x}$ existiert und ist stetig
-        \end{enumerate}
-
-        \begin{proof}
-            Folgt direkt aus Satz~\ref{satz:existenz-ableitung} und Satz~\ref{satz:diff-krit-veralg-part}.
-        \end{proof}
-    \end{satz}
-
-    \begin{satz} % Satz 2
-        Sei $f: U\fromto Y$ zwei mal differenzierbar und $x\in U$. Dann ist die bilineare Abbildung $\text{D}^2 f\of{x}: \R^n \times \R^n\fromto Y$ symmetrisch. Das heißt für alle $v,h\in\R^n$ gilt
-        \begin{align*}
-            \text{D}^2 f\of{x}\interv{v,h} &= \text{D}^2 f\of{x}\interv{h,v}\\
-            \intertext{oder}
-            \text{D}_v\text{D}_h f\of{x} &= \text{D}_h \text{D}_v f\of{x}
-            \intertext{oder}
-            \partial_k\partial_j f\of{x} &= \partial_j \partial_k f\of{x}
-        \end{align*}
-        \begin{proof}
-            Wir wollen zeigen, dass $\text{D}_v \text{D}_h f\of{x} = \text{D}_h \text{D}_v f\of{x}$. Wir betrachten den Fall $Y=\R$, $U\subseteq\R^n$. Definieren den Differenz-Operator
-            \begin{align*}
-                \Delta_h f\of{x} &\coloneqq f\of{x+h} - f\of{x}
-                \intertext{\textsc{Schritt 1}: Für $f,h\in\R^n$ mit $x+h, x+v\in U$ gilt}
-                \Delta_v \Delta_h f\of{x} &= \Delta_v \pair{f\of{x+h} - f\of{x}} = \Delta_v f\of{x+h} - \Delta_v f\of{x}\\
-                &= f\of{x+h+v} - f\of{x+h} - f\of{x+v} + f\of{x}\\
-                &= f\of{x+h+v} - f\of{x+v} - f\of{x+h} + f\of{x} = \Delta_h \Delta_v f\of{x}
-                \intertext{\textsc{Schritt 2}: Sei $h,v\in\R^n$ beliebig und $x\in U$, $U$ offen. Dann $\exists\delta > 0\colon B_{2\delta}\of{x} \subseteq U$}
-                \abs{s} &< \frac{\delta}{\min\of{1,\abs{v}}}\\
-                \abs{t} &< \frac{\delta}{\min\of{1, \abs{h}}}
-                \intertext{Wir wollen zeigen, dass $\frac{1}{st} \Delta_{sv}\Delta_{th} = \text{D}_h \text{D}_v f\of{x+s, v+t_1 h}$ für $s_1\in\pair{0,s}$, $t_1\in\pair{0,t}$}
-                \Delta_{sv} \Delta_{th} f\of{x} &= g\of{x+sv} - g\of{x} = k'\of{s_1}\cdot\pair{s-0} = k'\of{s_1}\cdot s = \frac{\dif}{\dif s} g\of{x+sv}\vert_{s=s_1}\cdot s\\
-                &= \text{D}_v g\of{x+s_1 v}\cdot s = \text{D}_v\of{\Delta_{th} f}\pair{x+s_1v}\cdot s\\
-                &= \text{D}_v\of{f\of{x+s_1 v + th} - f\of{x+s_1v}\cdot s}\\
-                &= \text{D}_v f\of{x+s_1 v + th}\cdot s - \text{D}_v f\of{x+s_1 v}\cdot s\\
-                \text{D}_h \text{D}_v f\of{x+s_1 v + t_1 h}\cdot s \cdot t\\
-                \impl \frac{1}{st}\Delta_{sv} \Delta_{th} f\of{x} &= \text{D}_h \text{D}_v f\of{x+s_1 v + t_1 h}
-                \intertext{\textsc{Schritt 3}: Nach \textsc{Schritt 1} haben wir $\Delta_{sv}\Delta_{th} f\of{x} = \Delta_{th} \Delta_{sv} f\of{x}$}
-                \impl \frac{1}{st}\Delta_{th} \Delta_{sv} f\of{x} &= \text{D}_v \text{D}_h f\of{x+s_1 v + t_1 h} = \text{D}_h \text{D}_v f\of{x+s_1 v + t_1 h}
-            \end{align*}
-            Für $s\fromto 0$ und $t\fromto 0$ haben wir so die Behauptung.
-        \end{proof}
-    \end{satz}
-
-    \subsection{Extrema und lokale Minima/Maxima}
-
-    \begin{definition}[Lokales Minimum und Maximum]
-        \marginnote{[16. Jul]}
-        Sei $f: U\fromto\R$ eine Funktion. Dann hat $f$ in $x_0$ ein lokales Minimum (oder Maximum), falls ein Ball $B_{\varepsilon}\of{x_0}$ existiert, sodass
-        \begin{align*}
-            \forall x\in B_{\varepsilon}\of{x_0}&\colon f\of{x} \underset{(\leq)}{\geq} f\of{x_0}
-            \intertext{Gilt sogar}
-            \forall x\in B_{\varepsilon}\of{x_0}\exclude\set{x_0}&\colon f\of{x} \underset{(>)}{<} f\of{x_0}
-        \end{align*}
-        so heißt $x_0$ striktes (isoliertes) Minimum (oder Maximum).
-    \end{definition}
-
-    \begin{satz}
-        Hat $f: U\fromto\R$ in $x_0$ ein lokales Minimum (oder Maximum) und ist $f$ differenzierbar in $x_0$, so ist $\nabla f\of{x_0} = 0$.
-        \begin{proof}
-            Sei $x_0$ ein lokales Minimum. Dann gilt $f\of{x} \geq f\of{x_0}~\forall x\in B_{\varepsilon}\of{x_0} \subseteq U$. Sei $h\in\R^n$ Dann gilt für $x_0 + th\in B_{\varepsilon}\of{x_0}$ für $\abs{t}$ klein genug. Damit folgt
-            \begin{align*}
-                0 \leq \frac{f\of{x_0 + th} - f\of{x_0}}{t} \fromto \text{D}_h f\of{x_0} &= \D f\of{x_0}\interv{h} = \nabla f\of{x}\cdot h\\
-                \impl 0\leq \nabla f\of{x_0} \cdot h&\quad\forall h\in\R^n\\
-                \impl 0 \leq \nabla f\of{x_0} \cdot \pair{-h} =& -\nabla f\of{x_0}\cdot h \leq 0\\
-                \impl \nabla f\of{x_0}\cdot h &= 0\quad\forall h\in\R^n\\
-                \impl \nabla f\of{x_0} &= 0\qedhere
-            \end{align*}
-            Der Beweis für ein lokales Maximum funktioniert analog.
-        \end{proof}
-    \end{satz}
-
-    \begin{notation}
-        Wir schreiben $f\in\mC^2\of{U} = \mC^2 \of{U, \R}$, falls alle partiellen Ableitungen von $f$ bis Ordnung 2 stetig auf $U$ sind. Das heißt $f$, $\partial_j f$ und $\partial_k \partial_j f$ stetig $\forall 1\leq k,j\leq n$.
-    \end{notation}
-
-    \begin{satz}
-        Sei $f: U\fromto\R$ mit $f\in\mC^2\of{U}$. Dann ist die Hesse-Matrix $H_l \of{x}$ stetig bezüglich der Operatornorm. (Das heißt jeder Eintrag $\partial_k\partial_j f$ ist stetig).
-
-        \begin{proof}
-            Sei $g\of{t} = f\of{x+tv}$. Dann gilt
-            \begin{align*}
-                g'\of{t} &= \frac{\dif}{\dif t} f\of{x+tv} = \D f\of{x+tv}\interv{v}\\
-                &= \nabla f\of{x+tv}\cdot v = \sum_{j=1}^{n} \partial_j f\of{x+tv}\cdot v_j\\
-                \impl f\of{x+v} &= f\of{x} + \int_{0}^{1} \frac{\dif}{\dif t}f\of{x+tv} \dif t\\
-                &= f\of{x} + \int_{0}^{1} \sum_{j=1}^{n} \partial_j f\of{x+tv}\cdot v_j \dif t\\
-                \int_{0}^{1} \partial_j f\of{x+tv}\cdot v_j \dif x &= \int_{0}^{1} \pair{-\frac{\dif}{\dif t}\pair{1-t}}\cdot \partial_j f\of{x+tv}\cdot v_j \dif t\\
-                &= \interv{-\pair{1-t}\partial_j f\of{x+tv}\cdot v_j}_{0}^1 + \int_{0}^{1} \pair{1-t}\frac{\partial}{\dif t} \partial_j f\of{x+tv}\cdot v_j\dif t\\
-                &= \partial_j f\of{x}\cdot v_j + \int_{0}^{1} \pair{1-t}\cdot \sum_{k=1}^{n} \partial_k\partial_j f\of{x+tv}\cdot v_k\cdot v_j \dif t\\
-                \impl f\of{x+tv} &= f\of{x} + \nabla f\of{x}\cdot v + \int_{0}^{1} \pair{1-t}\cdot \sum_{k=1}^{n} \sum_{j=1}^{n} \partial_k f\of{x+tv}\cdot v_k\cdot v_j \dif t\\
-                &= f\of{x} + \nabla f\of{x}\cdot v +\int_{0}^{1} \pair{1-t}\sprod{v, H_l \of{x+tv}\cdot v} \dif t\\
-                \intertext{Nach dem verallgemeinerten Mittelwertsatz der Integrale}
-                &= f\of{x} + \nabla f\of{x}\cdot v + k\of{\Theta}\cdot \int_{0}^{1} \pair{1-t} \dif x\tag{$\Theta\in\pair{0,1}$}\\
-                &= f\of{x} + \nabla f\of{x}\cdot v + \frac{1}{2}\underbrace{\sprod{v, H_l\of{x+\Theta v}}}_{\text{symmetrische $n\times n$-Matrix}}\numberthis\label{eq:extrema-lokal}
-            \end{align*}
-        \end{proof}
-    \end{satz}
-
-    \begin{definition}
-        Sei $A\in\mM\of{n, \R}$ (Menge aller $n\times n$-Matrizen) symmetrisch. Dann heißt $A$
-        \begin{enumerate}[label=(\roman*)]
-            \item positiv-definit $\pair{A > 0}$, falls $\sprod{v, Av} > 0~\forall v\in\R^n\exclude\set{0}$
-            \item positiv-semi-definit $\pair{A \geq 0}$, falls $\sprod{v, Av} \geq 0~\forall v\in\R^n$
-            \item negativ-definit $\pair{A < 0}$, falls $-A > 0$
-            \item negativ-semi-definit $\pair{A \leq 0}$, falls $-A \geq 0$
-        \end{enumerate}
-    \end{definition}
-
-    \begin{bemerkung}
-        ??
-    \end{bemerkung}
-
-    \begin{lemma}
-        Sei $A\in\mM\of{n, \R}$ symmetrisch. Dann ist $A$ genau dann positiv definit, wenn
-        \begin{align*}
-            \exists \lambda > 0\colon \sprod{v, A v}\geq \lambda \abs{v}^2\quad\forall v\in\R^n
-        \end{align*}
-
-        \begin{proof}
-            $A$ hat die Eigenwerte $\lambda_1 \leq \lambda_2 \leq \dots \leq \lambda_n$ mit normierten Eigenvektoren $e_1, \ldots, e_n$. Dann gilt nach der Definition von EV $A e_j = \lambda _j e_j$
-            \begin{align*}
-                v &= \sum_{j=1}^{n} \mu_j \cdot e_j\\
-                \impl \sprod{v, Av} &= \sprod{v, A\cdot \sum_{j=1}^{n} \mu_j\cdot e_j}\\
-                &= \sum_{j=1}^{n} \mu_j \sprod{v, A\cdot e_j}\\
-                &= \sum_{j=1}^{n} \mu_j \lambda _j \sprod{v, e_j}\\
-                &= \sum_{k=1}^{n} \sum_{j=1}^{n} \lambda_j \mu_j e_j \delta_{k_j}\\
-                &= \sum_{k=1}^{n} \lambda _j e_j^2 \geq \lambda_1 \sum_{j=1}^{n} \mu_j^2 = \lambda_1 \cdot\abs{v}^2\qedhere
-            \end{align*}
-            Damit folgt
-            \begin{align*}
-                A > 0 &\equivalent \lambda_1 > 0\\
-                A \geq 0 &\equivalent \lambda_1 \geq 0\\
-                A < 0 &\equivalent \lambda_{n} < 0\\
-                A \leq 0 &\equivalent \lambda_n \leq 0\\
-                A\text{ nicht-definit } &\equivalent \lambda_1 < 0, \lambda_n > 0
-            \end{align*}
-        \end{proof}
-    \end{lemma}
-
-    \begin{lemma}
-        Sei $A: U\fromto\mM\of{n, \R}\cap\set{B\in \R^{n\times n}~\middle\vert~B\text{ symmetrisch}}$ stetig bezüglich Operatornorm. Ist $A\of{x_0} > 0$ (oder $A\of{x_0} < 0$) so existiert ein $B_{\varepsilon}\of{x_0}\subseteq U$, sodass $A\of{x} > 0$ (oder $A\of{x} < 0$) $\forall x\in B_{\varepsilon}\of{x_0}$.
-        \begin{proof}
-            Sei $A\of{x_0} > 0$. Das heißt
-            \begin{align*}
-                \exists\lambda > 0&\colon \sprod{v, A\of{x_0}v} \geq \lambda \abs{v}^2\quad\forall v\in\R^n\\
-                \sprod{v, A\of{x}v} &= \sprod{v, A\of{x_0}v} + \sprod{v, \underbrace{\pair{A\of{x} - A\of{x_0}}v}_{= B\of{x}}}
-            \end{align*}
-            ??
-        \end{proof}
-    \end{lemma}
-
-    \begin{satz} % Satz 7
-        Sei $f: U\fromto\R$, $f\in\mC^2\of{U}$. Ist $x_0\in U$ ein lokales Minimum (oder Maximum), so ist $H_l\of{x_0} \geq 0$ (oder $H_l\of{x_0} \leq 0$).
-
-        \begin{proof}
-            Wir haben $\nabla f\of{x_0} = 0$. Sei $x_0$ ein lokales Minimum. Das heißt
-            \begin{align*}
-                f\of{x} &\geq f\of{x_0}\quad\forall x\in B_{\varepsilon}\of{x_0}
-                \intertext{Sei $v\in\R^n$ mit $\abs{v} < \varepsilon$}
-                \impl x_0 + v &\in B_{\varepsilon}\of{x_0}
-                \intertext{Nach (\ref{eq:extrema-lokal}) gilt für ein $\Theta\in\pair{0,1}$}
-                \impl f\of{x_0 + v} &= f\of{x_0} + \nabla f\of{x_0}\cdot v + \frac{1}{2}\sprod{v, H_l\of{x_0 + \Theta v} v}\\
-                0 leq f\of{x_0 + v} - f\of{x_0} &= \frac{1}{2}\underbrace{\sprod{v, H_l \of{x_0 + \Theta v} v}}_{=t^2\sprod{h, H_l\of{x_0 + th}h}}
-                \intertext{Wir setzen $v= th$}
-                \impl \sprod{h, H_l\of{x_0 + \Theta th} h} &\geq 0\quad\forall \abs{t} \text{ klein genug}\\
-                \intertext{Wir lassen $t$ gegen 0 gehen und erhalten}
-                \impl \sprod{h, H_l\of{x_0} h} &\geq 0\quad\forall h\\
-                \impl H_l\of{x_0} &\geq 0\qedhere
-            \end{align*}
-        \end{proof}
-    \end{satz}
-
-    \begin{satz} % Satz 8
-        \label{satz:krit-punkt-extrema}
-        Ist $x_0\in U$ ein kritischer Punkt für $f: U\fromto\R$, $f\in\mC^2\of{U}$ und gilt
-        \begin{align*}
-            H_l\of{x} &\geq 0\quad\forall x\in B_{\varepsilon}\of{x_0}\tag{1}
-            \intertext{So ist $x_0$ ein lokales Minimum. Gilt sogar}
-            H_l\of{x} &> 0\quad\forall x\in B_{\varepsilon}\of{x_0}\tag{2}
-        \end{align*}
-        dann ist $x_0$ ein isoliertes Minimum von $f$.
-
-        \begin{proof}
-            Es gilt $\nabla f\of{x_0} = 0$. Wir haben für $h\in\R^n$ und $\abs{h} < \varepsilon$
-            \begin{align*}
-                f\of{x_0 + h} - f\of{x_0} &= \frac{1}{2}\sprod{h, H_l\of{x_0 + \Theta h}h} \geq 0
-            \end{align*}
-            Gilt sogar (2), dann gilt
-            \begin{align*}
-                f\of{x_0 + h} - f\of{x_0} &= \frac{1}{2}\sprod{h, H_l\of{x_0 + \Theta h}h} > 0
-            \end{align*}
-            Damit ist $x_0$ ein isoliertes Minimum.
-        \end{proof}
-    \end{satz}
-
-    \begin{bemerkung}
-        Die Aussage aus Satz~\ref{satz:krit-punkt-extrema} gilt auch für lokale Maxima.
-    \end{bemerkung}
 
 \end{document}
