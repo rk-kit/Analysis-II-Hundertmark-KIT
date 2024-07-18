@@ -31,6 +31,9 @@
 \usepackage[T1]{fontenc}
 \usepackage{lmodern}
 
+% TikZ packages
+\usetikzlibrary{patterns}
+
 % Theorems
 \newtheoremstyle{plain}{}{}{}{}{\bfseries}{.}{ }{}
 \theoremstyle{plain}
@@ -843,7 +846,7 @@
         \end{align*}
 
         \begin{proof}
-            $A$ hat die  Eigenwerte $\lambda_1 \leq \lambda_2 \leq \dots \leq \lambda_n$ mit normierten Eigenvektoren $e_1, \ldots, e_n$. Dann gilt nach der Definition von EV $A e_j = \lambda _j e_j$
+            $A$ hat die Eigenwerte $\lambda_1 \leq \lambda_2 \leq \dots \leq \lambda_n$ mit normierten Eigenvektoren $e_1, \ldots, e_n$. Dann gilt nach der Definition von EV $A e_j = \lambda _j e_j$
             \begin{align*}
                 v &= \sum_{j=1}^{n} \mu_j \cdot e_j\\
                 \impl \sprod{v, Av} &= \sprod{v, A\cdot \sum_{j=1}^{n} \mu_j\cdot e_j}\\
@@ -913,7 +916,7 @@
             \end{align*}
             Gilt sogar (2), dann gilt
             \begin{align*}
-                fof{x_0 + h} - f\of{x_0} &= \frac{1}{2}\sprod{h, H_l\of{x_0 + \Theta h}h} > 0
+                f\of{x_0 + h} - f\of{x_0} &= \frac{1}{2}\sprod{h, H_l\of{x_0 + \Theta h}h} > 0
             \end{align*}
             Damit ist $x_0$ ein isoliertes Minimum.
         \end{proof}
