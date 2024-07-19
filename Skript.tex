@@ -123,6 +123,7 @@
 \DeclareMathOperator{\fehler}{Fehler}
 \DeclareMathOperator{\D}{D\!}
 \DeclareMathOperator{\Id}{Id}
+\DeclareMathOperator{\op}{op}
 
 % Mengenbezeichner
 \newcommand{\R}{\mathbb{R}}
@@ -316,13 +317,15 @@
             \begin{align*}
                 f: D&\to\R^{k+n}\\
                 \pair{x,y}&\mapsto \begin{pmatrix}
-                                       x\\
+                                       x \\
                                        F\of{x,y}
                 \end{pmatrix}
             \end{align*}
-            Angenommen $f: U\to V$ ist invertierbar. $\begin{pmatrix} x\\F\of{x,y} \end{pmatrix} = f\of{x,y} = \begin{pmatrix}
-                                                                      W\\
-                                                                      u
+            Angenommen $f: U\to V$ ist invertierbar. $\begin{pmatrix}
+                                                          x\\F\of{x,y}
+            \end{pmatrix} = f\of{x,y} = \begin{pmatrix}
+                                            W \\
+                                            u
             \end{pmatrix}$ hat eindeutige Lösung. Außerdem haben wir damit $x=w$ und $F\of{x,y} = u$.
             \begin{align*}
                 \begin{pmatrix}
@@ -338,30 +341,158 @@
             \begin{align*}
                 \D f\of{x,y} &= \pair{\text{D}_x f\of{x,y}, \text{D}_y f\of{x,y}}\\
                 &= \pair{\text{D}_x\ \begin{pmatrix}
-                                           x\\F\of{x,y}
+                                         x\\F\of{x,y}
                 \end{pmatrix},\text{D}_y \begin{pmatrix}
-                                           x\\F\of{x,y}
+                                             x\\F\of{x,y}
                 \end{pmatrix}} = \begin{pmatrix}
-                                      \Id_n & 0\\
-                                      \text{D}_x F\of{x,y} & \text{D}_y F\of{x,y}
+                                     \Id_n                & 0                    \\
+                                     \text{D}_x F\of{x,y} & \text{D}_y F\of{x,y}
                 \end{pmatrix}\\
                 \begin{pmatrix}
-                    \Id & 0\\
-                    B & A
+                    \Id & 0 \\
+                    B   & A
                 \end{pmatrix}\begin{pmatrix}
                                  u\\ v
                 \end{pmatrix} &= \begin{pmatrix}
-                                    \alpha\\\beta
+                                     \alpha\\\beta
                 \end{pmatrix}\tag{$\alpha\in\R^k$, $\beta\in\R^n$}
                 \impl \begin{pmatrix}
                           \Id\cdot u + 0\\ Bu + Av
                 \end{pmatrix} &= \begin{pmatrix}
-                                    \alpha\\\beta
+                                     \alpha\\\beta
                 \end{pmatrix}\\
                 \impl u=\alpha\quad Bu + Av = \beta\\
                 Av = \beta - Bu = \beta - B\alpha\\
             \end{align*}
         \end{proof}
     \end{satz}
+
+    \begin{lemma} % Lemma 4
+        \marginnote{[19. Jul]}
+        Seien $X, Y$ normierte Vektorräume, wobei $Y$ vollständig ist. Dann ist $\mL\of{X, Y}$ mit Operatornorm
+        \begin{align*}
+            \norm{A}_{\op} &\coloneqq \sup_{x\in X, \norm{x}_X = 1} \norm{Ax}_Y
+        \end{align*}
+        ein vollständiger Vektorraum.
+        \begin{proof}
+            Wir müssen nur noch die Vollständigkeit zeigen. Sei $(T_n)_n\subseteq\mL\of{X, Y}$ eine Cauchyfolge. Das heißt
+            \begin{align*}
+                \lim_{\ntoinf} \sup_{m \geq n} \norm{T_m - T_n}_{\op} &= 0
+                \intertext{Wir definieren für ein festes $x\in X$}
+                y_n &\coloneqq T_n \cdot x\\
+                \norm{y_m - y_n}_Y &= \norm{T_m x - T_n x}_{Y} = \norm{\pair{T_m - T_n}\cdot x}_Y\\
+                &\leq \underbrace{\norm{T_m - T_n}_{\op}}_{\to 0\text{ für } m,n\to \infty}\cdot\norm{x}_X
+                \intertext{Damit ist $(y_n)_n$ eine Cauchy-Folge in $Y$. Damit existiert ein Grenzwert und wir definieren}
+                y &\coloneqq \lim_{\ntoinf} y_n = \lim_{\ntoinf} T_n x \eqqcolon Tx\\
+                T\of{x_1 + x_2} &= \lim_{\ntoinf} T_n\of{x_1 + x_2}\\
+                &= \lim_{\ntoinf} T_n x_1 + \lim_{\ntoinf} T_n x_2 = Tx_1 + Tx_2
+                \intertext{Analog lässt sich zeigen, dass $T\of{\alpha x} = \alpha T x$. Also ist die Abbildung $T: X\fromto Y$ linear}
+                Tx - T_n x &= \lim_{m\toinf} T_m x - T_n x\\
+                \impl \norm{Tx - T_n x}_Y &= \lim_{m\toinf} \norm{T_m x - T_n x}_Y\\
+                &= \norm{\pair{T_m - T_n}x}_Y\\
+                &\leq \norm{T_m - T_n}_{\op}\cdot\norm{x}_X\\
+                \impl \norm{\pair{T- T_n}x}_Y &\leq \sup_{m\geq n} \underbrace{\norm{T_m - T_n}_{\op}}_{\to 0} \cdot\norm{x}_X\\
+                \impl \norm{T - T_n}_{\op} &= \sup_{\norm{x}_X = 1} \norm{\pair{T- T_n}x}_Y\\
+                &\leq \sup_{m\geq n} \norm{T_m - T_n}_{\op} \fromto 0 \text{ für } \ntoinf
+                \intertext{Wir haben also $T\in\mL\of{X, Y}$ und wollen noch zeigen, dass $\norm{T}_{\op} <\infty$}
+                \norm{Tx}_Y &= \norm{Tx - T_n x + T_nx}_Y\\
+                &\leq \norm{Tx - T_n x}_Y + \norm{T_n x}_Y\\
+                &\leq \pair{\norm{T - T_n}_{\op} + \norm{T_n}_{\op}}\cdot\norm{x}_X\\
+                \impl \norm{T}_{\op} &= \sup_{\norm{x}_X = 1} \norm{Tx}_Y\\
+                &\leq \norm{T - T_n}_{\op} + \norm{T_n}_{\op}\\
+                \impl \norm{T}_{\op} &\leq \liminf_{\ntoinf} \pair{\norm{T - T_n}_{\op} + \norm{T_n}_{\op}}\\
+                &= \liminf_{\ntoinf} \norm{T_n}_{\op} < \infty\qedhere
+            \end{align*}
+        \end{proof}
+    \end{lemma}
+
+    \begin{lemma}
+        Sei $\mL\of{X} \coloneqq\mL\of{X, X}$ ein vollständiger normierter Vektorraum. Dann ist die Menge der invertierbaren Abbildungen $A\in\mL\of{X}$ offen. Genauer: Ist $A: X\to X$ invertierbar mit $\norm{A}_{\op} < \infty$ und $B\in\mL\of{X}$ mit
+        \begin{align*}
+            \underbrace{\norm{A^{-1}\pair{A - B}}_{\op}}_{=\norm{\mathbf{1} - A^{-1}B}_{\op}} &< 1
+            \intertext{dann ist $B$ invertierbar und}
+            \norm{B^{-1}}_{\op} &\leq \frac{1}{1-\norm{\mathbf{1} - A^{-1}B}_{\op}}
+        \end{align*}
+
+        \begin{proof}
+            \textsc{Schritt 1}: Sei $A\in\mL\of{X}$ und $\norm{A}_{\op} < 1$. Wir wollen zeigen, dass $\mathbf{1} - A$ invertierbar ist. Wir wollen dieses Inverse über die geometrische Reihe herleiten, weil wir wissen, dass die geometrische Reihe mit $\abs{q} < 1$ gerade gegen $\frac{1}{1-q}$ konvergiert und wir damit ein Inverses zu $1-q$ gefunden haben. Dieses Konzept wollen wir auf Matrizen übertragen\footnote{Entwicklung nach John von Neumann, für konkrete Anwendung siehe auch Musterlösung zu \textsc{Lineare Algebra II}, Übungsblatt 1, Aufgabe 4e}. Dafür definieren wir
+            \begin{align*}
+                A^0 &= \Id_X = \mathbf{1}\\
+                \intertext{Wir definieren außerdem induktiv}
+                A^{n+1} &= A \circ A^{n}\quad\forall n\in\N
+                \intertext{Seien $A, B\in\mL\of{X}$. Dann gilt}
+                \norm{AB}_{\op} &\leq \norm{A}_{\op} \cdot\norm{B}_{\op}\\
+                \intertext{weil}\norm{ABx}_{X} &\leq \norm{A}_{\op} \cdot\norm{Bx}_X \leq \norm{A}_{\op}\cdot\norm{B}_{\op}\cdot\norm{x}_Y\\
+                \impl \norm{A^{n}}_{\op} &= \norm{AA^{n-1}}_{\op} \leq \norm{A}_{\op} \cdot\norm{A^{n-1}}_{\op}\\
+                &\leq \norm{A}_{\op}^2 \cdot\norm{A^{n-2}}_{\op} \leq \dots \leq \norm{A}_{\op}^n\quad\forall n\in\N
+                \intertext{Wir definieren}
+                s_n &\coloneqq \sum_{k=0}^{\infty} A^k\\
+                S_m - s_n &= \sum_{k=n+1}^{m} A^k\tag{$m\geq n$}\\
+                \norm{S_m - S_n}_{\op} &\leq \sum_{k=n+1}^{m} \norm{A^k}_{\op}\\
+                &\leq \sum_{k=n+1}^{m} \norm{A}_{\op}^k \leq \sum_{k=n+1}^{\infty} \norm{A}^k_{\op}\\
+                &= \norm{A}_{\op}^{n+1} \cdot \sum_{j=0}^{\infty} \norm{A}_{\op}^j\\
+                &= \frac{\norm{A}^{n+1}_{\op}}{\mathbf{1} - \norm{A}_{\op}}\\
+                \impl \sup_{m\geq n} \norm{S_m - S_n}_{\op} &\leq \frac{\norm{A}_{\op}^{n+1}}{\mathbf{1} - \norm{A}_{\op}} \fromto 0 \text{ für } \ntoinf
+                \intertext{Das heißt $(S_n)_n$ ist eine Cauchy-Folge in $\mL\of{X}$}
+                \impl S &= \lim_{\ntoinf} S_n \text{ existiert }\\
+                \pair{\mathbf{1} - A}\cdot S_n &= S_n - AS_n = \sum_{k=0}^{n} A^k - \sum_{k=0}^{n} A^{k+1}\\
+                &= \mathbf{1} - A^{n+1}
+                \intertext{Genauso lässt sich für Linksinverse auch zeigen, dass $S_n\cdot\pair{\mathbf{1} - A} = \mathbf{1} - A^{n+1}$. Für $x\in X$ gilt}
+                \pair{\mathbf{1} - A}\cdot S_n x &= x - A^{n+1} x \fromto x \text{ für } \ntoinf\\
+                \impl \pair{\mathbf{1} - A} \cdot Sx &= x\quad\forall x\in X\\
+                \impl &\begin{cases}
+                          \pair{\mathbf{1} - A}S = \mathbf{1}\\
+                          S\pair{\mathbf{1} - A} = \mathbf{1}\\
+                \end{cases}
+                \intertext{Das heißt $S$ ist die Inverse zu $\mathbf{1} - A$ und es gilt}
+                \norm{\pair{\mathbf{1} - A}^{-1}}_{\op} &= \norm{S}_{\op} = \norm{\sum_{k=0}^{\infty} A^k }_{\op}\\
+                &\leq \sum_{k=0}^{\infty} \norm{A}^k_{\op} = \frac{1}{1-\norm{A}_{\op}}
+                \intertext{\textsc{Schritt 2}: Sei $A\in\mL\of{X}$ invertierbar. Dann gilt}
+                B &= A - \pair{A - B} = A\cdot\pair{\mathbf{1} - A^{-1}\cdot\pair{A - B}}
+                \intertext{ist invertierbar nach \textsc{Schritt 1}, falls $\norm{A^{-1}\cdot\pair{A-B}}_{\op} < 1$}
+                ?
+            \end{align*}
+        \end{proof}
+    \end{lemma}
+
+    \begin{satz}[Banachscher Fixpunktsatz] % Satz 5
+        Sei $\pair{M, d}$ ein vollständiger metrischer Raum und $T: M\to M$ eine Kontraktion - das heißt $\exists k\in\pair{0,1}\colon d\of{T\of{x}, T\of{y}} \leq k\cdot d\of{x,y}~\forall x,y\in M$ - dann hat $T$ einen eindeutigen Fixpunkt. Das heißt es existiert genau ein $x^{\ast}\in M$, sodass $T\of{x^{\ast}} = x^{\ast}$.
+
+        \begin{proof}
+            \textit{Eindeutigkeit.} Seien $x^{\ast}, y^{\ast}$ Fixpunkte. Dann gilt
+            \begin{align*}
+                d\of{x^{\ast}, y^{\ast}} &= d\of{T\of{x^{\ast}}, T\of{y^{\ast}}} \leq k\cdot d\of{x^{\ast}, y^{\ast}}\\
+                \impl \underbrace{\pair{1-k}}_{> 0}\cdot d\of{x^{\ast}, y^{\ast}} &\leq 0\\
+                \impl d\of{x^{\ast}, y^{\ast}} &= 0\\
+                \impl x^{\ast} &= y^{\ast}
+            \end{align*}
+            \textit{Existenz.} \textsc{Schritt 1:} Sei $x_0 \in M$ beliebig. Wir definieren
+            \begin{align*}
+                x_1 &= T\of{x-0}\\
+                x_2 = T\of{T\of{x_0}} &= T^2\of{x_0}\\
+                x_{n+1} = T\of{T^n\of{x_0}} &= T^{n+1}\of{x_0} = T\of{x_n}\tag{induktiv, $n\in\N_0$}\\
+                \intertext{Wir betrachten den Abstand zwischen $x_{n+1}$ und $x_n$}
+                d\of{x_{n+1}, x_n} &= d\of{T\of{x_n}, T\of{x_{n-1}}}\\
+                &\leq k\cdot d\of{x_n, x_{n-1}}\\
+                &\leq k^2 d\of{x_{n-1}, x_{n-2}}\\
+                &\leq \dots \leq k^{n}\cdot d \of{x_1, x_0}
+                \intertext{\textsc{Schritt 2}:}
+                d\of{x_{n+l},x_n} &\leq d\of{x_{n+l}, x_{n+l-1}} + d\of{x_{n+l-1}, x_n}\\
+                &\leq d\of{x_{n+l-1}, x_{n+l-2}} + d\of{x_{n+l-2}, x_n}\\
+                &\leq \dots \leq \sum_{j=0}^{l-1} d\of{x_{n+j+1}, x_{n+j}}\\
+                &\leq d\of{x_1, x_0} \cdot \sum_{j=0}^{l-1} k^{n+j}
+                \intertext{Nach der geometrischen Summenformel}
+                &\leq d\of{x_1, x_0}\cdot \frac{k^n}{1-k}\\
+                \impl \sup_{m\geq n} d\of{x_m, x_n} &\leq \frac{k^n}{1-k}\cdot d\of{x_1, x_0}\fromto 0 \text{ für } \ntoinf
+                \intertext{Damit ist $(x_n)_n$ eine Cauchy-Folge und ein Grenzwert existiert. Wir definieren}
+                x^{\ast} &\coloneqq \lim_{\ntoinf} x_n
+                \intertext{\textsc{Schritt 3}: Wir zeigen, dass dann $x^{\ast}$ ein Fixpunkt sein muss}
+                d\of{T\of{x^{\ast}}, x^{\ast}} &\leq d\of{T\of{x^{\ast}}, x_{n+1}} + d\of{x_{n+1}, x^{\ast}}\\
+                &\leq \underbrace{k\cdot d\of{x^{\ast}, x_n}}_{\to 0} + \underbrace{d\of{x_{n+1}, x^{\ast}}}_{\to 0} \to 0 \text{ für } \ntoinf\\
+                \impl d\of{T\of{x^{\ast}}, x^{\ast}} &= 0\qedhere
+            \end{align*}
+        \end{proof}
+    \end{satz}
+
 
 \end{document}
