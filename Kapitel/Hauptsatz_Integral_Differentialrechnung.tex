@@ -1,4 +1,4 @@
-\section{[*] Der Hauptsatz der Differential- und Integralrechnung}
+\section{Der Hauptsatz der Differential- und Integralrechnung}
 \thispagestyle{pagenumberonly}
 
 Wir haben unseren Integralbegriff bisher über Zerlegungen definiert. Allerdings ist das für das konkrete Berechnen von Integralen nicht wirklich praktikabel. Wenn wir also ein Intervall $I=\interv{a,b}$ und eine Funktion $f\in\mC\of{I}$ betrachten, wie rechnet man das Integral dann konkret aus?
@@ -298,9 +298,10 @@ Wir haben unseren Integralbegriff bisher über Zerlegungen definiert. Allerdings
 \subsection{Integrationstechniken - Substitution}
 
 \begin{satz}[Substitutionsregel] % Satz 4
+    \label{satz:substitution}
     Seien $I=\interv{a,b}$ und $I^{*}$ kompakte Intervalle und $f\in\mC\of{I, \C}$, $\varphi\in\mC^{1}\of{I^{*}, \R}$ sowie $\varphi\of{I^{*}}\subseteq I$. Dann gilt für $\alpha, \beta \in I^{*}$
     \begin{align*}
-        \int_{\alpha}^{\beta} f\of{\varphi\of{t}}\cdot\varphi'\of{t} \dif t &= \int_{\varphi\of{\alpha}}^{\varphi\of{\beta}} f\of{x} \dif x
+        \int_{\alpha}^{\beta} f\of{\varphi\of{t}}\cdot\varphi'\of{t} \dif t &= \int_{\varphi\of{\alpha}}^{\varphi\of{\beta}} f\of{x} \dif x\numberthis\label{eq:substitution}
     \end{align*}
     \begin{proof}
         Sei $F$ eine Stammfunktion von $f$. Wir definieren $h\of{t}\coloneqq F\of{\varphi\of{t}}$. Dann ist $h\in\mC^{1}\of{I^{*}, \C}$ wegen der Kettenregel
@@ -310,56 +311,65 @@ Wir haben unseren Integralbegriff bisher über Zerlegungen definiert. Allerdings
             &= \int_{\varphi\of{\alpha}}^{\varphi\of{\beta}} F'\of{x} \dif x = \int_{\varphi\of{\alpha}}^{\varphi\of{\beta}} f\of{x} \dif x\qedhere
         \end{align*}
     \end{proof}
-    \noindent \textsc{Erste Lesart:} $ \int_{\alpha}^{\beta} g\of{t} \dif t$ ausrechnen. Annahme: Es existiert eine Substitution $x=\varphi\of{t}$ und $f\of{x}$, sodass $g\of{t} = f\of{\varphi\of{t}}\cdot\varphi'\of{t}$ ist.
-    \begin{align*}
-        \impl \int_{\alpha}^{\beta} g\of{t} \dif t &= \int_{a}^{b} f\of{x} \dif x\tag{$b=\varphi\of{\beta}$, $a = \varphi\of{\alpha}$}
-    \end{align*}
 \end{satz}
 
-\begin{beispiel}
-    Wir betrachten des Integral $\int_{\alpha}^{\beta} g\of{t+c} \dif t$. Wir definieren $\varphi\of{t} = t+c$ und $f\of{x} = g\of{x}$. Dann gilt $\varphi'\of{t} = 1$
+\begin{bemerkung}[Erste Lesart von Satz~\ref{satz:substitution}]
+    Wir betrachten folgendes Szenario: Wir wollen $\int_{\alpha}^{\beta} g\of{t} \dif t$ ausrechnen und es existiert eine Substitution $x=\varphi\of{t}$ für eine Funktion $f\of{x}$, sodass
     \begin{align*}
-        \impl \int_{\alpha}^{\beta} g\of{t+c} \dif t &= \int_{\alpha}^{\beta} g\of{\varphi\of{t}}\cdot\varphi'\of{t} \dif t\\
-        &= \int_{\varphi\of{\alpha}}^{\varphi\of{\beta}} g\of{x} \dif x\\
-        &= \int_{a+c}^{b+c} g\of{x} \dif x\tag{Translation}
+        g\of{t} &= f\of{\varphi\of{t}}\cdot\varphi'\of{t}\\
+        \intertext{Dann verwenden wir den Satz, setzen $b=\varphi\of{\beta}$, $a = \varphi\of{\alpha}$ und erhalten}
+        \impl \int_{\alpha}^{\beta} g\of{t} \dif t &= \int_{a}^{b} f\of{x} \dif x
+    \end{align*}
+\end{bemerkung}
+
+\begin{beispiel}
+    Wir betrachten das Integral
+    \begin{align*}
+        \int_{\alpha}^{\beta} &g\of{t+c} \dif t
+        \intertext{Wir definieren $\varphi\of{t} \coloneqq t+c$ und $f\of{x} = g\of{x}$. Dann gilt $\varphi'\of{t} = 1$}
+        \impl \int_{\alpha}^{\beta} g\of{t+c} \dif t = \int_{\alpha}^{\beta} g\of{\varphi\of{t}}\cdot\varphi'\of{t} \dif t &= \int_{\varphi\of{\alpha}}^{\varphi\of{\beta}} g\of{x} \dif x = \int_{\alpha+c}^{\beta+c} g\of{x} \dif x\tag{Translation}
     \end{align*}
 \end{beispiel}
 
 \begin{beispiel}
-    Wir betrachten $\int_{a}^{b} g\of{t} \frac{\dif t}{t}$ mit $a,b > 0$ und definieren $\varphi\of{t} = \ln\of{t}$, $\varphi'\of{t} = \frac{1}{t}$.
+    Sei $a,b >0$. Wir betrachten
     \begin{align*}
-        g\of{t}\cdot \frac{1}{t} &= g\of{t}\cdot\varphi'\of{t}\\
-        &= g\of{e^{\varphi\of{t}}}\cdot\varphi'\of{t}\\
-        f'\of{x} &= g\of{e^x}\\
-        \impl \int_{a}^{b} g\of{t} \frac{\dif t}{t} &= \int_{a}^{b} f\of{\varphi\of{t}}\cdot\varphi'\of{t} \dif t\\
-        &= \int_{\varphi\of{\alpha}}^{\varphi\of{beta}} f\of{x} \dif x = \int_{\ln a}^{\ln b} f\of{x} \dif x\\
-        &= \int_{\ln a}^{\ln b} g\of{e^x} \dif x
+        &\int_{a}^{b} \frac{g\of{t}}{t} \dif t
+        \intertext{und definieren $\varphi\of{t} \coloneqq \ln\of{t}$, $\varphi'\of{t} = \frac{1}{t}$, $t=e^{\varphi\of{t}}$. Dann gilt}
+        g\of{t}\cdot \frac{1}{t} &= g\of{t}\cdot\varphi'\of{t} = g\of{e^{\varphi\of{t}}}\cdot\varphi'\of{t}\\
+        f\of{x} &\coloneqq g\of{e^x}
+        \intertext{Wir wenden Substitution an und erhalten}
+        \impl \int_{a}^{b} g\of{t} \frac{\dif t}{t} &= \int_{a}^{b} f\of{\varphi\of{t}}\cdot\varphi'\of{t} \dif t = \int_{\varphi\of{a}}^{\varphi\of{b}} f\of{x} \dif x\\
+        &= \int_{\ln a}^{\ln b} f\of{x} \dif x = \int_{\ln a}^{\ln b} g\of{e^x} \dif x
     \end{align*}
 \end{beispiel}
 
 \begin{beispiel}
-    Wir betrachten $ \int_{0}^{1} \pair{1+t^2}^{n}\cdot (t \dif x$. $t = \frac{1}{2}\frac{\dif}{\dif t}\pair{1+t^2}$. $\pair{1+t^2}^n = \frac{1}{2}\pair{1+t^2}^n \frac{\dif}{\dif t}\pair{1+t^2}$. $\varphi\of{t} = 1+t^2$, $f\of{x} = \frac{1}{2}x^n$.\\
-    Dann gilt $\pair{1+t^2}^n = \frac{1}{2}f\of{\varphi\of{t}}\cdot\varphi'\of{t}$.
+    Wir betrachten
+    \begin{align*}
+        \int_{0}^{1} &\pair{1+t^2}^{n}\cdot t \dif t
+        \intertext{und definieren $\varphi\of{t} \coloneqq 1 + t^2$, $f\of{x} \coloneqq \frac{1}{2}x^n$}
+        \impl \varphi'\of{t} &= 2t\\
+        \impl \pair{1+t^2}^n\cdot t &= f\of{\varphi\of{t}}\cdot\varphi'\of{t}\\
+        \impl \int_{0}^{1} \pair{1+t^2}^{n}\cdot t \dif t &= \int_{\varphi\of{0}}^{\varphi\of{1}} \frac{1}{2}\cdot x^n \dif t = \int_{1}^{2} \frac{1}{2}\cdot x^n \dif t\\
+        &= \interv{\frac{1}{2\pair{n+1}}\cdot x^{n+1}}_1^2\\
+        &= \frac{1}{2\pair{n+1}}\cdot\pair{2^{n+1} - 1}
+    \end{align*}
 \end{beispiel}
 
-\begin{genv}
+\begin{bemerkung}[Zweite Lesart: Transformationssatz]
     \marginnote{[10. Mai]}
-    Ziel: Berechne $ \int_{a}^{b} f\of{x} \dif x$. Wir führen eine Variablentransformation durch: $x=\varphi\of{t}$, $\alpha \leq t \leq \beta$.
+    Es ist auch möglich, Satz~\ref{satz:substitution} in die andere Richtung anzuwenden. Das heißt wir wollen das Integral auf der rechten Seite von (\ref{eq:substitution}) zum Integral auf der linken Seite umformen. Wir führen eine Transformation mit $\varphi\of{t} = x$ durch und erhalten ein Integral der Form
     \begin{align*}
-        \leadsto \int_{\alpha}^{\beta} h\of{t} \dif x\tag{$h\of{t} = f\of{\varphi\of{t}}\cdot\varphi'\of{t}$}\\
-        \impl \int_{a}^{b} f\of{x} \dif x &= \int_{\varphi^{-1}\of{a}}^{\varphi^{-1}\of{b}} h\of{t} \dif t\\
-        &= \int_{\varphi^{-1}\of{a}}^{\varphi^{-1}\of{b}} f\of{\varphi\of{t}}\cdot\varphi'\of{t} \dif t
+        \int_{a}^{b} f\of{x} \dif x &= \int_{\varphi^{-1}\of{a}}^{\varphi^{-1}\of{b}} f\of{\varphi\of{t}}\cdot\varphi'\of{t} \dif t
     \end{align*}
-    Dazu benötigt man $\varphi: \interv{\alpha, \beta}\fromto\interv{a,b}$ ist invertierbar. (Also zum Beispiel $\varphi' > 0$ oder $\varphi' < 0$ auf ganz $\interv{\alpha, \beta}$)
-\end{genv}
+    Dazu benötigt man, dass $\varphi: \interv{\alpha, \beta}\fromto\interv{a,b}$ invertierbar ist. (Also zum Beispiel $\varphi' > 0$ oder $\varphi' < 0$ auf ganz $\interv{\alpha, \beta}$)
+\end{bemerkung}
 
 \begin{notation}[Leibnitz'sche Schreibweise]
-    $x=\varphi\of{t}$\quad $\frac{\dif x}{\dif t} = \varphi'\of{t}$ (informell).\\
-    $\dif x$ \anf{=} $\varphi'\of{t}\dif t$
+    Schreiben $x=\varphi\of{t}$ oder auch informell $\frac{\dif x}{\dif t} = \varphi'\of{t}$, $\dif x\phantom{|}\text{\anf{=}}\phantom{|}\varphi'\of{t}\dif t$. Eine Anwendung der 2. Lesart wäre das folgende Integral mit $x = \sin\of{t}$
     \begin{align*}
-        \impl \int_{}^{} f\of{x} \dif x &\text{\anf{=}} \int_{}^{} f\of{\varphi\of{t}}\cdot\varphi'\of{t} \dif t\\
-        \int_{0}^{1} \sqrt{r^2-x^2} \dif x &= \int_{0}^{\frac{\pi}{2}} \sqrt{r^2-r^2\sin^2\of{t}}\cdot\cos\of{t} \dif t\tag{$\frac{\dif x}{\dif t} = r\cdot\cos t$}\\
-        &= r^2\cdot\frac{\pi}{4}
+        \int_{0}^{1} \sqrt{1-x^2} \dif x &= \int_{0}^{\frac{\pi}{2}} \sqrt{1-\sin^2\of{t}}\cdot\cos\of{t} \dif t = \int_{0}^{\frac{\pi}{2}} \cos^2\of{t} \dif t = \frac{\pi}{4}\tag{$\frac{\dif x}{\dif t} = \cos t$}\\
     \end{align*}
 \end{notation}
 
