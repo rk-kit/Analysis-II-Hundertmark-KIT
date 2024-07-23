@@ -456,6 +456,7 @@
     \end{lemma}
 
     \begin{satz}[Banachscher Fixpunktsatz] % Satz 5
+        \label{satz:banachsch-fixpunkt}
         Sei $\pair{M, d}$ ein vollständiger metrischer Raum und $T: M\to M$ eine Kontraktion - das heißt $\exists k\in\pair{0,1}\colon d\of{T\of{x}, T\of{y}} \leq k\cdot d\of{x,y}~\forall x,y\in M$ - dann hat $T$ einen eindeutigen Fixpunkt. Das heißt es existiert genau ein $x^{\ast}\in M$, sodass $T\of{x^{\ast}} = x^{\ast}$.
 
         \begin{proof}
@@ -494,5 +495,87 @@
         \end{proof}
     \end{satz}
 
+    \begin{proof}[Beweis von Satz~\ref{satz:invers-funktion}]
+        \marginnote{[23. Jul]}
+        Sei $U\subseteq\R^n$, $\mC^1\ni f: U\fromto\R^n$, $x_0\in U$, $y_0\coloneqq f\of{x_0}\in\R^n$. Dann soll $\D f\of{x_0}: \R^n\fromto\R^n$ invertierbar sein. Das heißt es soll eine Umgebung $\conj{U} \subseteq U$ von $x_0$ geben, sodass $f: \conj{U}\to f\of{\conj{U}}\eqqcolon \conj{V}$ injektiv ist und die Umkehrfunktion $g\coloneqq f^{-1}\vert_{\conj{U}}: \conj{V}\to V$ ist auch in $\mC^1$.\\
+        \textsc{Schritt 1}: O.B.d.A sei $x_0 = 0$. Sonst definieren wir eine Funktion $f_1\of{x} = f\of{x-x_0}$ auf verschobener Menge $U_{x_0} = U + x_0$. Genauso soll \OBDA gelten, dass $y_0 = 0$, sonst definieren wir
+        \begin{align*}
+            f_2\of{x} &= f\of{x-x_0} - y_0
+            \intertext{$x_0 = 0, y_0 = f\of{x_0} = 0$}
+            A &= \D f\of{0}: \R^n\to\R^n \text{ invertierbar }\\
+            h\of{x} &\coloneqq A^{-1} f\of{x} = \D f\of{0}^{-1} f\of{x}\\
+            \impl \D h\of{0} &= \Id\\
+            \D h\of{x} &= \D \pair{A^{-1} f\of{x}}\\
+            &= A^{-1} D f\of{x}\\
+            &= \D f\of{0}^{-1} \D f\of{x} = \Id\\
+            h\of{x} &= y\\
+            \equivalent A^{-1} f\of{x} &= y\\
+            f\of{x} &= \underbrace{Ay}_{\conj{y}}\\
+            y &= h^{-1}\of{x}\\
+            \conj{y} &= f^{-1}\of{x} = Ah^{-1}\of{y}
+            \intertext{Dann folgt \OBDA}
+            x_0 &= 0\quad y_0 = 0\quad \D f\of{x_0} = \Id
+            \intertext{\textsc{Schritt 2}: Behauptung 1: Es existieren Umgebungen $U, V$ von $0$; sodass $f\of{x} = y$ für jedes $y\in V$ eine eindeutige Lösung $x\in U$ hat.\endgraf\noindent Das ist äquivalent zu Behauptung 2: Die Abbildung $h_y: U\to \R^n,~x\mapsto h_y\of{x}\coloneqq x-f\of{x} + y$ hat genau einen Fixpunkt.\endgraf\noindent Diese Äquivalenz folgt aus der genauen Betrachtung der Aussagen. Das heißt es reicht aus, Behauptung 2 zu zeigen}
+            h &\coloneqq h_0\\
+            \D h\of{x} &= \D\pair{x-f\of{x}}\\
+            &= \Id - \underbrace{\D f\of{x}}_{\text{stetig in $x$}} \to \Id - \D f\of{0} \text{ für } x\to 0
+            \intertext{$\D f$ ist stetig}
+            \impl \exists r > 0\colon \norm{\D h\of{x}}_{\op} &= \norm{\Id - \D f\of{x}}_{\op}\\
+            &\leq \frac{1}{2}\quad\forall x\in\overline{B_{2r}\of{0}}
+            \intertext{$h\of{0} = 0$ ($f\of{0} = 0$)}
+            \impl \norm{h\of{x}} &= \norm{h\of{x} - h\of{0}}
+            \intertext{Nach Satz~\ref{satz:schrankensatz-ii} können wir abschätzen}
+            &\leq \sup_{\xi\in\interv{0,x}} \norm{\D h\of{\xi}}\cdot\norm{x-0}\\
+            &\leq \frac{\norm{x}}{2}\quad\forall x\in\conj{B_{2r}\of{0}}
+            \intertext{$y \in\conj{B_r\of{0}}$}
+            \norm{h_y\of{x}} &= \norm{x-f\of{x} + y}\\
+            &= \norm{h\of{x} + y}\\
+            &\leq \underbrace{\norm{y}}_{\leq r} + \norm{h\of{x}} \leq 2r\quad\forall y\in\conj{B_r\of{0}}, x\in\conj{B_{2r}\of{0}}\\
+            \impl h_y: \conj{B_{2r}\of{0}} &\to \conj{B_{2r}\of{0}}
+            \intertext{Wir haben jetzt eine Selbstabbildung, um Satz~\ref{satz:banachsch-fixpunkt} anwenden zu können. Wir müssen noch die Kontraktion prüfen. Sei $x_1, x_2\in\conj{B_{2r}\of{0}}$}
+            \norm{h_y\of{x_1} -h_y\of{x_2}} &= \norm{h\of{x_1} - h\of{x_2}}\\
+            &\leq \sup_{\xi\in\interv{x_1, x_2}} \norm{\D h\of{\xi}}_{\op} \cdot\norm{x_1 - x_2}\\
+            &\leq \frac{1}{2}\norm{x_1 - x_2}
+            \intertext{Damit ist $h_y$ eine Kontraktion mit $k=\frac{1}{2}$. Damit gilt nach Satz~\ref{satz:banachsch-fixpunkt}}
+            \forall \norm{y} < r &\ex! x\in\conj{B_{2r}\of{0}}\colon h_y\of{x} = x \equivalent f\of{x} = y
+            \intertext{\textsc{Schritt 3}: Wir definieren $v\coloneqq B_r\of{0}$}
+            U &\coloneqq B_{2r}\of{0} \cap f^{-1}\of{V} \text{ offen}
+            \intertext{Da $f^{-1}\of{V} \subseteq B_{2r}\of{0}$}
+            \impl U &= f^{-1}\of{V}
+            \intertext{Nach \textsc{Schritt 2} gilt}
+            \forall y\in V\ex! x\colon f\of{x} &= y\\
+            \impl f\vert_{U}: U&\to V \text{ ist bijektiv }\\
+            \impl \text{ Existenz der Inversen } g&\coloneqq f^{-1}\vert_U: V\to U
+            \intertext{\textsc{Schritt 4}: Wir wollen zeigen, dass $g: V\to U$ stetig ist}\\
+            x &= x - f\of{x} + f\of{x} = h\of{x} + f\of{x}\quad\forall x\in U\\
+            \norm{x_1 - x_2} &= \norm{h\of{x_1} - h\of{x_2} + f\of{x_1} - f\of{x_2}}\\
+            &\leq \norm{h\of{x_1} - h\of{x_2}} + \norm{f\of{x_1} - f\of{x_2}}\\
+            &\leq \frac{1}{2}\norm{x_1 - x_2} + \norm{f\of{x_1} - f\of{x_2}}\\
+            \impl \norm{x_1 - x_2} &\leq 2\norm{f\of{x_1} - f\of{x_2}}\quad\forall x_1, x_2\in U\\
+            \equivalent \norm{g\of{y_1} - g\of{y_2}} &\leq 2\norm{y_1 - y_2}\quad\forall y_1, y_2 \in V\\
+            \impl g: V&\to U \text{ ist Lipschitz-stetig}
+            \intertext{\textsc{Schritt 5}: Wir wollen zeigen, dass $g$ differenzierbar ist und dass $\D g\of{y} = \pair{\D f\of{x}}^{-1}$ mit $x=g\of{y}$. Sei $x\in U\subseteq B_{2r}\of{0}$}
+            h\of{x} &= x - f\of{x}\\
+            f\of{x} &= x-h\of{x}\\
+            \impl \D f\of{x} &= \Id - \D h\of{x}\tag{$\norm{\D h\of{x}}_{\op} \leq \frac{1}{2}$}
+            \intertext{Damit ist $\D f\of{x}$ invertierbar $\forall x\in U$ nach der Von-Neumann-Reihe. $y_1, x_2\in V$}
+            x_1 &= g\of{y_1} = f^{-1}\vert_U \of{y_1}\\
+            x_2 &= g\of{y_2}
+            \intertext{$f$ ist differenzierbar}
+            f\of{x_2} &= f\of{x_1} + \D f\of{x_1}\interv{x_2 - x_1} + \underbrace{\varepsilon\of{x_2 - x_2}\cdot\norm{x_2 - x_1}}_{R\of{x_2 - x_1}}\\
+            \D f\of{x_1}\interv{x_2 - x_1} &= f\of{x_2} - f\of{x_1} - R\of{x_2 - x_1}\\
+            \impl x_2 - x_1 &= \D f\of{x_1}^{-1}\interv{f\of{x_2} - f\of{x_1} - R\of{x_2 - x_1}}\\
+            g\of{y_2} - g\of{y_1} &= \D f\of{x_1}^{-1}\interv{y_2 - y_1 - R\of{g\of{y_2} - g\of{y_1}}}\\
+            &= \pair{\D f\of{g\of{y_1}}}^{-1}\interv{y_2 - y_1} - \underbrace{\D f\of{g\of{y_1}}^{-1}\interv{R\of{g\of{y_2} - g\of{y_1}}}}_{\conj{R}\of{y_2 - y_1}}\\
+            \intertext{$A \coloneqq \D f\of{x_1}^{-1}$}
+            \norm{\conj{R}\of{y_2 - y_1}} &= \norm{A^{-1}R\of{g\of{y_2} - g\of{y_1}}}\\
+            &\leq \underbrace{\norm{A^{-1}}_{\op}}_{< 0} \norm{R\of{g\of{y_2} - g\of{y_1}}}\\
+            &= \varepsilon\of{g\of{y_2} - g\of{y_1}}\cdot\norm{g\of{y_2} - g\of{y_1}}\\
+            &\leq 2\norm{A^{-1}_{\op}\cdot\varepsilon\of{g\of{y_2} - g\of{y_1}}}\cdot\norm{y_2 - y_1}\\
+            \impl \lim_{y_2 \to y_1} &\frac{\norm{\conj{R}\of{y_2 - y_1}}}{\norm{y_2 - y_1}} = 0\\
+            \impl g &\text{ ist differenzierbar}
+        \end{align*}
+        und $\D g\of{y_1} = \D f\of{x_1}^{-1}$, $x_1 = g\of{y_1}~\forall y_1\in V \impl g\in\mC^1$.
+    \end{proof}
 
 \end{document}
