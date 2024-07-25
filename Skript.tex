@@ -124,6 +124,7 @@
 \DeclareMathOperator{\D}{D\!}
 \DeclareMathOperator{\Id}{Id}
 \DeclareMathOperator{\op}{op}
+\DeclareMathOperator{\rank}{rk}
 
 % Mengenbezeichner
 \newcommand{\R}{\mathbb{R}}
@@ -239,322 +240,110 @@
     \include{Kapitel/Konvergenz_Stetigkeit_metrische}
     \include{Kapitel/Kompakte_Mengen_metrische}
     \include{Kapitel/Differentialrechnung_R_d}
+    \include{Kapitel/Inverse_implizite_Funkt}
 
 
-    \section{[*] Inverse Funktionen und implizite Funktionen}
-    \imaginarysubsection{Inverse und implizite Funktionen}
+    \section{[*] Mannigfaltigkeiten}
     \thispagestyle{pagenumberonly}
+    \imaginarysubsection{Mannigfaltigkeiten}
 
-    \marginnote{[18. Jul]}
+    \begin{definition}[Immersion]
+        \marginnote{[25. Jul]}
+        Sei $T\subseteq \R^k$ offen und $\varphi: T\to \R^n,~x\mapsto \varphi\of{x}$ heißt Immersion, falls
+        \begin{align*}
+            \D\varphi\of{t} &= \pair{\partial_{t_1}\varphi, \partial_{t_2}\varphi, \ldots, \partial_{t_k}\varphi}\tag{$n\times k$-Matrix}
+            \intertext{den Rang $k$ hat. Das heißt}
+            \rank \D\varphi\of{t} &= k\quad\forall t\in I
+        \end{align*}
+        In diesem Fall sind also alle $\partial_{t_1} \varphi,\ldots,  \partial_{t_k}\varphi$ linear unabhängig. Das heißt außerdem, dass $n\geq k$.
+    \end{definition}
 
-    Sei $D\subseteq \R^k\times\R^n$, $x\in\R^k$, $y\in\R^n$ und $F:D\to\R^n,~\pair{x,y}\mapsto F\of{x,y}$. Seien $\pair{x_0, y_0}\in D$ und $c=F\of{x_0, y_0}$. Gilt dann $F\of{x,y} = c$ für $\pair{x,y}$ nahe $\pair{x_0, y_0}$?
-
-    \begin{satz}[Inverse Funktion] % Satz 1
-        \label{satz:invers-funktion}
-        Sei $D\subseteq\R^n$ offen, $x_0\in D$ und $f: D\to\R^n$ stetig differenzierbar (schreiben $f\in\mC^1\of{D, \R^n}$). Außerdem sei $\D f\of{x_0}: \R^n\to\R^n$ eine invertierbare lineare Abbildung. Wir nennen $x_0$ einen regulären Punkt von $f$ (weil die Ableitung an dieser Stelle invertierbar ist). Dann gilt es existieren offene Umgebungen $U\subseteq D$ von $x_0$ und $V\subseteq\R^n$ von $y_0 = f\of{x_0}$, sodass
-        \begin{enumerate}[label=(\roman*)]
-            \item $f: U\to V$ ist bijektiv
-            \item $g=f^{-1}: V\to U$ ist in $\mC\of{U, V}$ (stetig differenzierbar)
-            \item $\forall x\in U\colon \D f\of{x}$ ist invertierbar
+    \begin{satz} % Satz 2
+        Sei $T\subseteq\R^k$ offen, $\varphi: T\to\R^n$ Immersion. Dann existiert zu $t\in T$ eine offene Umgebung von $U\subseteq T$ von $t$, sodass
+        \begin{align*}
+            \varphi\vert_U: U\to\varphi\of{U} \subseteq\R^n
+        \end{align*}
+        injektiv ist und stetig invertierbar ist (Homöomorphismus)
+        \begin{proof}
+            Für $k=n$ folgt der Satz direkt aus Satz~\ref{satz:invers-funktion}. Sei also $k < n$. Aus $\D \varphi\of{t_0}$ hat Rang $k$ folgt
             \begin{align*}
-                \D g\of{y} &= \pair{\D f\of{x}}^{-1} = \pair{\D f\of{g\of{y}}}^{-1}\\
-                x &= f^{-1}\of{y} = g\of{y}
+                \exists 1 < i_1 < \dots < i_k \leq n&\colon \det\begin{pmatrix}
+                                                                    \partial_1 \varphi_{i_1}\of{t} & \dots  & \partial_k\varphi_{i_k}\of{t}  \\
+                                                                    \vdots                         & \ddots & \vdots                         \\
+                                                                    \partial_1 \varphi_{i_1}\of{t} & \dots  & \partial_k \varphi_{i_k}\of{t}
+                \end{pmatrix}\neq 0\quad\forall t\in U\\
+                \varphi\of{t} &= \begin{pmatrix}
+                                     \varphi_1\of{t} \\
+                                     \vdots          \\
+                                     \varphi_n\of{t}
+                \end{pmatrix}
+                \intertext{\OBDA (Analogon des ? der Koordinaten in $\R^n$)}
+                \varphi\of{t} &= \begin{pmatrix}
+                                     \tilde{\varphi} \\
+                                     \hat{\varphi}
+                \end{pmatrix}\\
+                \tilde{\varphi} &\coloneqq \begin{pmatrix}
+                                               \varphi_1 \\
+                                               \vdots    \\
+                                               \varphi_k
+                \end{pmatrix}\\
+                \hat{\varphi} &\coloneqq \begin{pmatrix}
+                                             \varphi_{k+1} \\
+                                             \vdots        \\
+                                             \varphi_n
+                \end{pmatrix}
+                \intertext{$\D\tilde{\varphi}\of{t}$ hat Rang $k$, weil}
+                \D\tilde{\varphi} &= \pair{\partial_1 \tilde{\varphi}, \ldots, \partial_k\tilde{\varphi}}
+                \intertext{Wegen Stetigkeit hat $\D\tilde{\varphi}\of{t}$ Rang $k$ für alle $t$ nahe $t_0$. Damit ist $\D\tilde{\varphi}\of{t_0}$ invertierbar. Das heißt}
+                \exists \text{offene Umgebung } U\subseteq T \text{ von }t_0\colon &\tilde{\varphi}: U\to \tilde{\varphi}\of{U} \eqqcolon V \text{ ist invertierbar }
+                \intertext{Inverse $\tilde{\psi}: V\fromto U$ ist auch in $\mC^1$}
+                \varphi: U\to V\times\R^{n-k}, t\mapsto\varphi\of{t}\\
+                \varphi &= \begin{pmatrix}
+                               \tilde{\varphi} \\
+                               \hat{\varphi}
+                \end{pmatrix} \text{ ist auch injektiv }\\
+                \varphi\of{t_1} &= \varphi\of{t_2} \impl \tilde{\varphi}\of{t_1} = \tilde{\varphi}\of{t_2} \impl t_1 = t_2\\
+                \impl \varphi: U\to\varphi\of{U} \text{ ist bijektiv}
+                \text{ Inverse: } \tilde{\phi}: \varphi\of{V} &\to U\\
+                x&\mapsto \tilde{\phi}\of{x}\coloneqq \tilde{\phi}\of{x_1, \ldots, x_k}
+            \end{align*}
+        \end{proof}
+    \end{satz}
+
+    \begin{definition}[Untermannigfaltigkeit]
+        Eine Menge $M\subseteq\R^n$ heißt $k$-dimensionale (Unter-)Mannigfaltigkeit von $\R^n$, wenn zu jedem $a\in M$ eine offene Umgebung $U\subseteq\R^n$ und $T\subseteq\R^n$ sowie Immersion $\varphi: T\to\R^n$, sodass $T$ homöomorph von $\varphi$ auf $\varphi\of{T} = M\cap U$ abbildet, existieren.
+    \end{definition}
+
+    \begin{satz} % Satz 3
+        $M$ ist eine $k$-dimensionale Untermannigfaltigkeit, falls es eine der 3 äquivalenten Bedingungen erfüllt
+        \begin{enumerate}[label=(\roman*)]
+            \item (Darstellung durch Gleichung) Zu $a\in M$ gibt es eine offene Umgebung $U\subseteq\R^n$ und $n-k$ stetig differenzierbare Funktionen $f_j: U\to\R$ ($j\in\set{1, \ldots, n-k}$) gibt, sodass
+            \begin{align*}
+                M\cap U = \set{x\in U: f_1\of{x} = f_2\of{x} = \dots = f_{n-k}\of{x} = 0}
+            \end{align*}
+            und $\rank\of{\D f\of{x}} = n-k$ für alle $x\in U$
+            \item (Darstellung als Graph) Zu $a\in M$ gibt es - eventuell nach Umnummerierung der Koordinaten - offene Umgebungen $U'\subseteq\R^k$ von $a' = \pair{a_1, \ldots, a_k}^T$, $U''\subseteq\R^{n-k}$ von $a'' = \pair{a_{k+1}], \ldots, a_n}^{T}$ und $\mC^1\ni g: U'\to U''$, sodass
+            \begin{align*}
+                M\cap \pair{U'\times U''} &= \set{\pair{x', x''}\in U'\times U'': x'' = g\of{x'}}
+            \end{align*}
+            \item (Plätten) Zu $a\in M$ gibt es offene Umgebungen $U\subseteq\R^n$, $V\subseteq\R^n$ und $\mC^1\ni\phi: U\to V$ invertierbar mit
+            \begin{align*}
+                \phi\of{M\cap U} &= E_k \cap V\\
+                E_k &\coloneqq \set{x\in\R^n: x_{k+1} = x_{k+2} = \dots = x_n = 0}
             \end{align*}
         \end{enumerate}
     \end{satz}
 
-    \begin{satz}[Implizite Funktion] % Satz 2
-        \label{satz:implizit-funktion}
-        Sei $D\subseteq\R^k\times\R^n$, $F: D\fromto\R^n$, $F\in\mC\of{D, \R^n}$, $\pair{x_0, y_0}\in D$. Wir definieren $c\coloneqq F\of{x_0, y_0}\in\R^n$ und schreiben $\D F = \pair{\text{D}_x F, \text{D}_y F}: \R^k\times \R^n\to\R^n$, wobei $\text{D}_x F: \R^k\to\R^n$, $\text{D}_y F: \R^n\to\R^n$. Ferner sei $\text{D}_y F\of{x_0, y_0}$ invertierbar. Dann existieren offene Umgebungen $U$ von $x_0$ und $V$ von $y_0$ mit $U\times V \subseteq D$ und eine $\mC^{1}$ Funktion $g: U\to V$, sodass
+    \begin{definition}[Tangentialvektoren]
+        Sei $M\subseteq\R^n$ eine Untermannigfaltigkeit und $a\in M$. Dann heißt $v\in\R^n$ Tangentialvektor, falls es eine stetig differenzierbare Kurve $\gamma: \pair{-\varepsilon, \varepsilon)} \to M$ ($\varepsilon > 0$) gibt, sodass
         \begin{align*}
-            c = F\of{x, g\of{x}}\quad\forall x\in U
+            \gamma\of{0} &= a\\
+            v &= \gamma'\of{0} = \frac{\dif}{\dif t} \gamma\of{t}\vert_{t=0}
         \end{align*}
-        Außerdem gilt: Ist $c=F\of{x,y}$ für $x\in U$ und ein $y\in V$, dann folgt $y=g\of{x}$. Und $g$ ist $\mC^1$. $\D g\of{x} = -\pair{\text{D}_y F\of{x, g\of{x}}}^{-1}\circ \text{D}_x F\of{x,g\of{x}}$.
-    \end{satz}
-
-    \begin{beispiel}
-        $z^3 + 2z^2 - 3xyz + x^3 - y^3 = 0$ in einer Umgebung von $\pair{0,0,-2}$. Wir lösen nach $z$ auf. $F: \R^2\times\R\to\R,~\pair{x,y,z}\mapsto F\of{x,y,z}$ mit $\pair{x,y}\in\R^2$ und $z\in\R$.
+        Wir schreiben $T_a M$ für den Vektorraum aller Tangentialvektoren von $M$ in $a$ und $N_{a}T$ für den Raum normaler Vektoren. Es gilt
         \begin{align*}
-            \partial_z F\of{x,y,z} &= 3z^2 + 4z - 3xy\\
-            \partial_z F\of{0,0,-2} &= 3\cdot 4 - 4\cdot 2 - 0 = 4\neq 0
+            \R^n &= T_a M \oplus N_a M
         \end{align*}
-        Ist invertierbar. Somit greift Satz~\ref{satz:implizit-funktion}.
-    \end{beispiel}
-
-    \begin{satz} % Satz 3
-        Satz~\ref{satz:invers-funktion} und Satz~\ref{satz:implizit-funktion} sind äquivalent.
-        \begin{proof}
-            \anf{$\impl$} Vertauschen Variablen $x,y$ in Satz~\ref{satz:invers-funktion}. Gegeben $f: D\fromto\R^n$, $D\subseteq\R^n$ offen, $f\in\mC^{1}$. Wir definieren $F\of{x,y} \coloneqq f\of{y}-x$. $F:\R^n\times D\to\R^n$ ($k=n$). Dann gilt $\text{D}_x F = -\Id_{n}$ und $\text{D}_y F\of{x,y} = \D f\of{y}$.\\
-            $\text{D}_y F\of{x_0, y_0} = \D f\of{y_0}: \R^n\fromto \R^n$ ist invertierbar nach Voraussetzung. Damit gilt nach Satz\ref{satz:implizit-funktion}, dass es Umgebungen $V$ von $y_0$ und $U$ von $x_0$ gibt. Sowie $g: U\to V$ in $\mC^1$, sodass
-            \begin{align*}
-                f\of{y} - x = F\of{x,g\of{x}} = F\of{x_0, y_0} = f\of{y_0} - x_0 \annot{=}{!} 0\\
-                f\of{y} = x \equivalent y\of{x} = g\of{x}\\
-                \impl f^{-1}\of{x} = g\of{x}\\
-                f\of{g\of{x}} = x\quad\forall x\in U
-            \end{align*}
-            \anf{$\Leftarrow$} Gegeben $F: D\fromto\R^n$ mit $D\subseteq\R^k\times\R^n$ offen. $\pair{x_0, y_0}\in D$. $\text{D}_y F\of{x_0, y_0}$ sei invertierbar und $c\coloneqq F\of{x_0, y_0}$. Wir konstruieren eine Funktion
-            \begin{align*}
-                f: D&\to\R^{k+n}\\
-                \pair{x,y}&\mapsto \begin{pmatrix}
-                                       x \\
-                                       F\of{x,y}
-                \end{pmatrix}
-            \end{align*}
-            Angenommen $f: U\to V$ ist invertierbar. $\begin{pmatrix}
-                                                          x\\F\of{x,y}
-            \end{pmatrix} = f\of{x,y} = \begin{pmatrix}
-                                            W \\
-                                            u
-            \end{pmatrix}$ hat eindeutige Lösung. Außerdem haben wir damit $x=w$ und $F\of{x,y} = u$.
-            \begin{align*}
-                \begin{pmatrix}
-                    x\\y
-                \end{pmatrix} &= y\pair{w,u} = \begin{pmatrix}
-                                                   g_1\of{w,u}\\g_2\of{w,u}
-                \end{pmatrix}\\
-                \impl y &= g_2\of{x,u}
-                \intertext{setzen wir $c\coloneqq F\of{x_0, y_0}$}
-                \impl F\of{x, g_2\of{x,c}} = c.
-            \end{align*}
-            Frage: Was ist $\D f\of{x,y}$?
-            \begin{align*}
-                \D f\of{x,y} &= \pair{\text{D}_x f\of{x,y}, \text{D}_y f\of{x,y}}\\
-                &= \pair{\text{D}_x\ \begin{pmatrix}
-                                         x\\F\of{x,y}
-                \end{pmatrix},\text{D}_y \begin{pmatrix}
-                                             x\\F\of{x,y}
-                \end{pmatrix}} = \begin{pmatrix}
-                                     \Id_n                & 0                    \\
-                                     \text{D}_x F\of{x,y} & \text{D}_y F\of{x,y}
-                \end{pmatrix}\\
-                \begin{pmatrix}
-                    \Id & 0 \\
-                    B   & A
-                \end{pmatrix}\begin{pmatrix}
-                                 u\\ v
-                \end{pmatrix} &= \begin{pmatrix}
-                                     \alpha\\\beta
-                \end{pmatrix}\tag{$\alpha\in\R^k$, $\beta\in\R^n$}
-                \impl \begin{pmatrix}
-                          \Id\cdot u + 0\\ Bu + Av
-                \end{pmatrix} &= \begin{pmatrix}
-                                     \alpha\\\beta
-                \end{pmatrix}\\
-                \impl u=\alpha\quad Bu + Av = \beta\\
-                Av = \beta - Bu = \beta - B\alpha\\
-            \end{align*}
-        \end{proof}
-    \end{satz}
-
-    \begin{lemma} % Lemma 4
-        \marginnote{[19. Jul]}
-        Seien $X, Y$ normierte Vektorräume, wobei $Y$ vollständig ist. Dann ist $\mL\of{X, Y}$ mit Operatornorm
-        \begin{align*}
-            \norm{A}_{\op} &\coloneqq \sup_{x\in X, \norm{x}_X = 1} \norm{Ax}_Y
-        \end{align*}
-        ein vollständiger Vektorraum.
-        \begin{proof}
-            Wir müssen nur noch die Vollständigkeit zeigen. Sei $(T_n)_n\subseteq\mL\of{X, Y}$ eine Cauchyfolge. Das heißt
-            \begin{align*}
-                \lim_{\ntoinf} \sup_{m \geq n} \norm{T_m - T_n}_{\op} &= 0
-                \intertext{Wir definieren für ein festes $x\in X$}
-                y_n &\coloneqq T_n \cdot x\\
-                \norm{y_m - y_n}_Y &= \norm{T_m x - T_n x}_{Y} = \norm{\pair{T_m - T_n}\cdot x}_Y\\
-                &\leq \underbrace{\norm{T_m - T_n}_{\op}}_{\to 0\text{ für } m,n\to \infty}\cdot\norm{x}_X
-                \intertext{Damit ist $(y_n)_n$ eine Cauchy-Folge in $Y$. Damit existiert ein Grenzwert und wir definieren}
-                y &\coloneqq \lim_{\ntoinf} y_n = \lim_{\ntoinf} T_n x \eqqcolon Tx\\
-                T\of{x_1 + x_2} &= \lim_{\ntoinf} T_n\of{x_1 + x_2}\\
-                &= \lim_{\ntoinf} T_n x_1 + \lim_{\ntoinf} T_n x_2 = Tx_1 + Tx_2
-                \intertext{Analog lässt sich zeigen, dass $T\of{\alpha x} = \alpha T x$. Also ist die Abbildung $T: X\fromto Y$ linear}
-                Tx - T_n x &= \lim_{m\toinf} T_m x - T_n x\\
-                \impl \norm{Tx - T_n x}_Y &= \lim_{m\toinf} \norm{T_m x - T_n x}_Y\\
-                &= \norm{\pair{T_m - T_n}x}_Y\\
-                &\leq \norm{T_m - T_n}_{\op}\cdot\norm{x}_X\\
-                \impl \norm{\pair{T- T_n}x}_Y &\leq \sup_{m\geq n} \underbrace{\norm{T_m - T_n}_{\op}}_{\to 0} \cdot\norm{x}_X\\
-                \impl \norm{T - T_n}_{\op} &= \sup_{\norm{x}_X = 1} \norm{\pair{T- T_n}x}_Y\\
-                &\leq \sup_{m\geq n} \norm{T_m - T_n}_{\op} \fromto 0 \text{ für } \ntoinf
-                \intertext{Wir haben also $T\in\mL\of{X, Y}$ und wollen noch zeigen, dass $\norm{T}_{\op} <\infty$}
-                \norm{Tx}_Y &= \norm{Tx - T_n x + T_nx}_Y\\
-                &\leq \norm{Tx - T_n x}_Y + \norm{T_n x}_Y\\
-                &\leq \pair{\norm{T - T_n}_{\op} + \norm{T_n}_{\op}}\cdot\norm{x}_X\\
-                \impl \norm{T}_{\op} &= \sup_{\norm{x}_X = 1} \norm{Tx}_Y\\
-                &\leq \norm{T - T_n}_{\op} + \norm{T_n}_{\op}\\
-                \impl \norm{T}_{\op} &\leq \liminf_{\ntoinf} \pair{\norm{T - T_n}_{\op} + \norm{T_n}_{\op}}\\
-                &= \liminf_{\ntoinf} \norm{T_n}_{\op} < \infty\qedhere
-            \end{align*}
-        \end{proof}
-    \end{lemma}
-
-    \begin{lemma}
-        Sei $\mL\of{X} \coloneqq\mL\of{X, X}$ ein vollständiger normierter Vektorraum. Dann ist die Menge der invertierbaren Abbildungen $A\in\mL\of{X}$ offen. Genauer: Ist $A: X\to X$ invertierbar mit $\norm{A}_{\op} < \infty$ und $B\in\mL\of{X}$ mit
-        \begin{align*}
-            \underbrace{\norm{A^{-1}\pair{A - B}}_{\op}}_{=\norm{\mathbf{1} - A^{-1}B}_{\op}} &< 1
-            \intertext{dann ist $B$ invertierbar und}
-            \norm{B^{-1}}_{\op} &\leq \frac{1}{1-\norm{\mathbf{1} - A^{-1}B}_{\op}}
-        \end{align*}
-
-        \begin{proof}
-            \textsc{Schritt 1}: Sei $A\in\mL\of{X}$ und $\norm{A}_{\op} < 1$. Wir wollen zeigen, dass $\mathbf{1} - A$ invertierbar ist. Wir wollen dieses Inverse über die geometrische Reihe herleiten, weil wir wissen, dass die geometrische Reihe mit $\abs{q} < 1$ gerade gegen $\frac{1}{1-q}$ konvergiert und wir damit ein Inverses zu $1-q$ gefunden haben. Dieses Konzept wollen wir auf Matrizen übertragen\footnote{Entwicklung nach John von Neumann, für konkrete Anwendung siehe auch Musterlösung zu \textsc{Lineare Algebra II}, Übungsblatt 1, Aufgabe 4e}. Dafür definieren wir
-            \begin{align*}
-                A^0 &= \Id_X = \mathbf{1}\\
-                \intertext{Wir definieren außerdem induktiv}
-                A^{n+1} &= A \circ A^{n}\quad\forall n\in\N
-                \intertext{Seien $A, B\in\mL\of{X}$. Dann gilt}
-                \norm{AB}_{\op} &\leq \norm{A}_{\op} \cdot\norm{B}_{\op}\\
-                \intertext{weil}\norm{ABx}_{X} &\leq \norm{A}_{\op} \cdot\norm{Bx}_X \leq \norm{A}_{\op}\cdot\norm{B}_{\op}\cdot\norm{x}_Y\\
-                \impl \norm{A^{n}}_{\op} &= \norm{AA^{n-1}}_{\op} \leq \norm{A}_{\op} \cdot\norm{A^{n-1}}_{\op}\\
-                &\leq \norm{A}_{\op}^2 \cdot\norm{A^{n-2}}_{\op} \leq \dots \leq \norm{A}_{\op}^n\quad\forall n\in\N
-                \intertext{Wir definieren}
-                s_n &\coloneqq \sum_{k=0}^{\infty} A^k\\
-                S_m - s_n &= \sum_{k=n+1}^{m} A^k\tag{$m\geq n$}\\
-                \norm{S_m - S_n}_{\op} &\leq \sum_{k=n+1}^{m} \norm{A^k}_{\op}\\
-                &\leq \sum_{k=n+1}^{m} \norm{A}_{\op}^k \leq \sum_{k=n+1}^{\infty} \norm{A}^k_{\op}\\
-                &= \norm{A}_{\op}^{n+1} \cdot \sum_{j=0}^{\infty} \norm{A}_{\op}^j\\
-                &= \frac{\norm{A}^{n+1}_{\op}}{\mathbf{1} - \norm{A}_{\op}}\\
-                \impl \sup_{m\geq n} \norm{S_m - S_n}_{\op} &\leq \frac{\norm{A}_{\op}^{n+1}}{\mathbf{1} - \norm{A}_{\op}} \fromto 0 \text{ für } \ntoinf
-                \intertext{Das heißt $(S_n)_n$ ist eine Cauchy-Folge in $\mL\of{X}$}
-                \impl S &= \lim_{\ntoinf} S_n \text{ existiert }\\
-                \pair{\mathbf{1} - A}\cdot S_n &= S_n - AS_n = \sum_{k=0}^{n} A^k - \sum_{k=0}^{n} A^{k+1}\\
-                &= \mathbf{1} - A^{n+1}
-                \intertext{Genauso lässt sich für Linksinverse auch zeigen, dass $S_n\cdot\pair{\mathbf{1} - A} = \mathbf{1} - A^{n+1}$. Für $x\in X$ gilt}
-                \pair{\mathbf{1} - A}\cdot S_n x &= x - A^{n+1} x \fromto x \text{ für } \ntoinf\\
-                \impl \pair{\mathbf{1} - A} \cdot Sx &= x\quad\forall x\in X\\
-                \impl &\begin{cases}
-                           \pair{\mathbf{1} - A}S = \mathbf{1}\\
-                           S\pair{\mathbf{1} - A} = \mathbf{1}\\
-                \end{cases}
-                \intertext{Das heißt $S$ ist die Inverse zu $\mathbf{1} - A$ und es gilt}
-                \norm{\pair{\mathbf{1} - A}^{-1}}_{\op} &= \norm{S}_{\op} = \norm{\sum_{k=0}^{\infty} A^k }_{\op}\\
-                &\leq \sum_{k=0}^{\infty} \norm{A}^k_{\op} = \frac{1}{1-\norm{A}_{\op}}
-                \intertext{\textsc{Schritt 2}: Sei $A\in\mL\of{X}$ invertierbar. Dann gilt}
-                B &= A - \pair{A - B} = A\cdot\pair{\mathbf{1} - A^{-1}\cdot\pair{A - B}}
-                \intertext{ist invertierbar nach \textsc{Schritt 1}, falls $\norm{A^{-1}\cdot\pair{A-B}}_{\op} < 1$}
-                ?
-            \end{align*}
-        \end{proof}
-    \end{lemma}
-
-    \begin{satz}[Banachscher Fixpunktsatz] % Satz 5
-        \label{satz:banachsch-fixpunkt}
-        Sei $\pair{M, d}$ ein vollständiger metrischer Raum und $T: M\to M$ eine Kontraktion - das heißt $\exists k\in\pair{0,1}\colon d\of{T\of{x}, T\of{y}} \leq k\cdot d\of{x,y}~\forall x,y\in M$ - dann hat $T$ einen eindeutigen Fixpunkt. Das heißt es existiert genau ein $x^{\ast}\in M$, sodass $T\of{x^{\ast}} = x^{\ast}$.
-
-        \begin{proof}
-            \textit{Eindeutigkeit.} Seien $x^{\ast}, y^{\ast}$ Fixpunkte. Dann gilt
-            \begin{align*}
-                d\of{x^{\ast}, y^{\ast}} &= d\of{T\of{x^{\ast}}, T\of{y^{\ast}}} \leq k\cdot d\of{x^{\ast}, y^{\ast}}\\
-                \impl \underbrace{\pair{1-k}}_{> 0}\cdot d\of{x^{\ast}, y^{\ast}} &\leq 0\\
-                \impl d\of{x^{\ast}, y^{\ast}} &= 0\\
-                \impl x^{\ast} &= y^{\ast}
-            \end{align*}
-            \textit{Existenz.} \textsc{Schritt 1:} Sei $x_0 \in M$ beliebig. Wir definieren
-            \begin{align*}
-                x_1 &= T\of{x-0}\\
-                x_2 = T\of{T\of{x_0}} &= T^2\of{x_0}\\
-                x_{n+1} = T\of{T^n\of{x_0}} &= T^{n+1}\of{x_0} = T\of{x_n}\tag{induktiv, $n\in\N_0$}\\
-                \intertext{Wir betrachten den Abstand zwischen $x_{n+1}$ und $x_n$}
-                d\of{x_{n+1}, x_n} &= d\of{T\of{x_n}, T\of{x_{n-1}}}\\
-                &\leq k\cdot d\of{x_n, x_{n-1}}\\
-                &\leq k^2 d\of{x_{n-1}, x_{n-2}}\\
-                &\leq \dots \leq k^{n}\cdot d \of{x_1, x_0}
-                \intertext{\textsc{Schritt 2}:}
-                d\of{x_{n+l},x_n} &\leq d\of{x_{n+l}, x_{n+l-1}} + d\of{x_{n+l-1}, x_n}\\
-                &\leq d\of{x_{n+l-1}, x_{n+l-2}} + d\of{x_{n+l-2}, x_n}\\
-                &\leq \dots \leq \sum_{j=0}^{l-1} d\of{x_{n+j+1}, x_{n+j}}\\
-                &\leq d\of{x_1, x_0} \cdot \sum_{j=0}^{l-1} k^{n+j}
-                \intertext{Nach der geometrischen Summenformel}
-                &\leq d\of{x_1, x_0}\cdot \frac{k^n}{1-k}\\
-                \impl \sup_{m\geq n} d\of{x_m, x_n} &\leq \frac{k^n}{1-k}\cdot d\of{x_1, x_0}\fromto 0 \text{ für } \ntoinf
-                \intertext{Damit ist $(x_n)_n$ eine Cauchy-Folge und ein Grenzwert existiert. Wir definieren}
-                x^{\ast} &\coloneqq \lim_{\ntoinf} x_n
-                \intertext{\textsc{Schritt 3}: Wir zeigen, dass dann $x^{\ast}$ ein Fixpunkt sein muss}
-                d\of{T\of{x^{\ast}}, x^{\ast}} &\leq d\of{T\of{x^{\ast}}, x_{n+1}} + d\of{x_{n+1}, x^{\ast}}\\
-                &\leq \underbrace{k\cdot d\of{x^{\ast}, x_n}}_{\to 0} + \underbrace{d\of{x_{n+1}, x^{\ast}}}_{\to 0} \to 0 \text{ für } \ntoinf\\
-                \impl d\of{T\of{x^{\ast}}, x^{\ast}} &= 0\qedhere
-            \end{align*}
-        \end{proof}
-    \end{satz}
-
-    \begin{proof}[Beweis von Satz~\ref{satz:invers-funktion}]
-        \marginnote{[23. Jul]}
-        Sei $U\subseteq\R^n$, $\mC^1\ni f: U\fromto\R^n$, $x_0\in U$, $y_0\coloneqq f\of{x_0}\in\R^n$. Dann soll $\D f\of{x_0}: \R^n\fromto\R^n$ invertierbar sein. Das heißt es soll eine Umgebung $\conj{U} \subseteq U$ von $x_0$ geben, sodass $f: \conj{U}\to f\of{\conj{U}}\eqqcolon \conj{V}$ injektiv ist und die Umkehrfunktion $g\coloneqq f^{-1}\vert_{\conj{U}}: \conj{V}\to V$ ist auch in $\mC^1$.\\
-        \textsc{Schritt 1}: O.B.d.A sei $x_0 = 0$. Sonst definieren wir eine Funktion $f_1\of{x} = f\of{x-x_0}$ auf verschobener Menge $U_{x_0} = U + x_0$. Genauso soll \OBDA gelten, dass $y_0 = 0$, sonst definieren wir
-        \begin{align*}
-            f_2\of{x} &= f\of{x-x_0} - y_0
-            \intertext{$x_0 = 0, y_0 = f\of{x_0} = 0$}
-            A &= \D f\of{0}: \R^n\to\R^n \text{ invertierbar }\\
-            h\of{x} &\coloneqq A^{-1} f\of{x} = \D f\of{0}^{-1} f\of{x}\\
-            \impl \D h\of{0} &= \Id\\
-            \D h\of{x} &= \D \pair{A^{-1} f\of{x}}\\
-            &= A^{-1} D f\of{x}\\
-            &= \D f\of{0}^{-1} \D f\of{x} = \Id\\
-            h\of{x} &= y\\
-            \equivalent A^{-1} f\of{x} &= y\\
-            f\of{x} &= \underbrace{Ay}_{\conj{y}}\\
-            y &= h^{-1}\of{x}\\
-            \conj{y} &= f^{-1}\of{x} = Ah^{-1}\of{y}
-            \intertext{Dann folgt \OBDA}
-            x_0 &= 0\quad y_0 = 0\quad \D f\of{x_0} = \Id
-            \intertext{\textsc{Schritt 2}: Behauptung 1: Es existieren Umgebungen $U, V$ von $0$; sodass $f\of{x} = y$ für jedes $y\in V$ eine eindeutige Lösung $x\in U$ hat.\endgraf\noindent Das ist äquivalent zu Behauptung 2: Die Abbildung $h_y: U\to \R^n,~x\mapsto h_y\of{x}\coloneqq x-f\of{x} + y$ hat genau einen Fixpunkt.\endgraf\noindent Diese Äquivalenz folgt aus der genauen Betrachtung der Aussagen. Das heißt es reicht aus, Behauptung 2 zu zeigen}
-            h &\coloneqq h_0\\
-            \D h\of{x} &= \D\pair{x-f\of{x}}\\
-            &= \Id - \underbrace{\D f\of{x}}_{\text{stetig in $x$}} \to \Id - \D f\of{0} \text{ für } x\to 0
-            \intertext{$\D f$ ist stetig}
-            \impl \exists r > 0\colon \norm{\D h\of{x}}_{\op} &= \norm{\Id - \D f\of{x}}_{\op}\\
-            &\leq \frac{1}{2}\quad\forall x\in\overline{B_{2r}\of{0}}
-            \intertext{$h\of{0} = 0$ ($f\of{0} = 0$)}
-            \impl \norm{h\of{x}} &= \norm{h\of{x} - h\of{0}}
-            \intertext{Nach Satz~\ref{satz:schrankensatz-ii} können wir abschätzen}
-            &\leq \sup_{\xi\in\interv{0,x}} \norm{\D h\of{\xi}}\cdot\norm{x-0}\\
-            &\leq \frac{\norm{x}}{2}\quad\forall x\in\conj{B_{2r}\of{0}}
-            \intertext{$y \in\conj{B_r\of{0}}$}
-            \norm{h_y\of{x}} &= \norm{x-f\of{x} + y}\\
-            &= \norm{h\of{x} + y}\\
-            &\leq \underbrace{\norm{y}}_{\leq r} + \norm{h\of{x}} \leq 2r\quad\forall y\in\conj{B_r\of{0}}, x\in\conj{B_{2r}\of{0}}\\
-            \impl h_y: \conj{B_{2r}\of{0}} &\to \conj{B_{2r}\of{0}}
-            \intertext{Wir haben jetzt eine Selbstabbildung, um Satz~\ref{satz:banachsch-fixpunkt} anwenden zu können. Wir müssen noch die Kontraktion prüfen. Sei $x_1, x_2\in\conj{B_{2r}\of{0}}$}
-            \norm{h_y\of{x_1} -h_y\of{x_2}} &= \norm{h\of{x_1} - h\of{x_2}}\\
-            &\leq \sup_{\xi\in\interv{x_1, x_2}} \norm{\D h\of{\xi}}_{\op} \cdot\norm{x_1 - x_2}\\
-            &\leq \frac{1}{2}\norm{x_1 - x_2}
-            \intertext{Damit ist $h_y$ eine Kontraktion mit $k=\frac{1}{2}$. Damit gilt nach Satz~\ref{satz:banachsch-fixpunkt}}
-            \forall \norm{y} < r &\ex! x\in\conj{B_{2r}\of{0}}\colon h_y\of{x} = x \equivalent f\of{x} = y
-            \intertext{\textsc{Schritt 3}: Wir definieren $v\coloneqq B_r\of{0}$}
-            U &\coloneqq B_{2r}\of{0} \cap f^{-1}\of{V} \text{ offen}
-            \intertext{Da $f^{-1}\of{V} \subseteq B_{2r}\of{0}$}
-            \impl U &= f^{-1}\of{V}
-            \intertext{Nach \textsc{Schritt 2} gilt}
-            \forall y\in V\ex! x\colon f\of{x} &= y\\
-            \impl f\vert_{U}: U&\to V \text{ ist bijektiv }\\
-            \impl \text{ Existenz der Inversen } g&\coloneqq f^{-1}\vert_U: V\to U
-            \intertext{\textsc{Schritt 4}: Wir wollen zeigen, dass $g: V\to U$ stetig ist}\\
-            x &= x - f\of{x} + f\of{x} = h\of{x} + f\of{x}\quad\forall x\in U\\
-            \norm{x_1 - x_2} &= \norm{h\of{x_1} - h\of{x_2} + f\of{x_1} - f\of{x_2}}\\
-            &\leq \norm{h\of{x_1} - h\of{x_2}} + \norm{f\of{x_1} - f\of{x_2}}\\
-            &\leq \frac{1}{2}\norm{x_1 - x_2} + \norm{f\of{x_1} - f\of{x_2}}\\
-            \impl \norm{x_1 - x_2} &\leq 2\norm{f\of{x_1} - f\of{x_2}}\quad\forall x_1, x_2\in U\\
-            \equivalent \norm{g\of{y_1} - g\of{y_2}} &\leq 2\norm{y_1 - y_2}\quad\forall y_1, y_2 \in V\\
-            \impl g: V&\to U \text{ ist Lipschitz-stetig}
-            \intertext{\textsc{Schritt 5}: Wir wollen zeigen, dass $g$ differenzierbar ist und dass $\D g\of{y} = \pair{\D f\of{x}}^{-1}$ mit $x=g\of{y}$. Sei $x\in U\subseteq B_{2r}\of{0}$}
-            h\of{x} &= x - f\of{x}\\
-            f\of{x} &= x-h\of{x}\\
-            \impl \D f\of{x} &= \Id - \D h\of{x}\tag{$\norm{\D h\of{x}}_{\op} \leq \frac{1}{2}$}
-            \intertext{Damit ist $\D f\of{x}$ invertierbar $\forall x\in U$ nach der Von-Neumann-Reihe. $y_1, x_2\in V$}
-            x_1 &= g\of{y_1} = f^{-1}\vert_U \of{y_1}\\
-            x_2 &= g\of{y_2}
-            \intertext{$f$ ist differenzierbar}
-            f\of{x_2} &= f\of{x_1} + \D f\of{x_1}\interv{x_2 - x_1} + \underbrace{\varepsilon\of{x_2 - x_2}\cdot\norm{x_2 - x_1}}_{R\of{x_2 - x_1}}\\
-            \D f\of{x_1}\interv{x_2 - x_1} &= f\of{x_2} - f\of{x_1} - R\of{x_2 - x_1}\\
-            \impl x_2 - x_1 &= \D f\of{x_1}^{-1}\interv{f\of{x_2} - f\of{x_1} - R\of{x_2 - x_1}}\\
-            g\of{y_2} - g\of{y_1} &= \D f\of{x_1}^{-1}\interv{y_2 - y_1 - R\of{g\of{y_2} - g\of{y_1}}}\\
-            &= \pair{\D f\of{g\of{y_1}}}^{-1}\interv{y_2 - y_1} - \underbrace{\D f\of{g\of{y_1}}^{-1}\interv{R\of{g\of{y_2} - g\of{y_1}}}}_{\conj{R}\of{y_2 - y_1}}\\
-            \intertext{$A \coloneqq \D f\of{x_1}^{-1}$}
-            \norm{\conj{R}\of{y_2 - y_1}} &= \norm{A^{-1}R\of{g\of{y_2} - g\of{y_1}}}\\
-            &\leq \underbrace{\norm{A^{-1}}_{\op}}_{< 0} \norm{R\of{g\of{y_2} - g\of{y_1}}}\\
-            &= \varepsilon\of{g\of{y_2} - g\of{y_1}}\cdot\norm{g\of{y_2} - g\of{y_1}}\\
-            &\leq 2\norm{A^{-1}_{\op}\cdot\varepsilon\of{g\of{y_2} - g\of{y_1}}}\cdot\norm{y_2 - y_1}\\
-            \impl \lim_{y_2 \to y_1} &\frac{\norm{\conj{R}\of{y_2 - y_1}}}{\norm{y_2 - y_1}} = 0\\
-            \impl g &\text{ ist differenzierbar}
-        \end{align*}
-        und $\D g\of{y_1} = \D f\of{x_1}^{-1}$, $x_1 = g\of{y_1}~\forall y_1\in V \impl g\in\mC^1$.
-    \end{proof}
+    \end{definition}
 
 \end{document}
