@@ -125,6 +125,7 @@
 \DeclareMathOperator{\Id}{Id}
 \DeclareMathOperator{\op}{op}
 \DeclareMathOperator{\rank}{rk}
+\DeclareMathOperator{\spann}{Spann  }
 
 % Mengenbezeichner
 \newcommand{\R}{\mathbb{R}}
@@ -141,6 +142,7 @@
 \newcommand{\mJ}{\mathcal{J}}
 \newcommand{\mPC}{\mathcal{PC}}
 \newcommand{\mM}{\mathcal{M}}
+\newcommand{\mS}{\mathcal{S}}
 
 % Spezielle Symbole
 \NewDocumentCommand{\Tau}{e{^_}}{
@@ -335,15 +337,117 @@
     \end{satz}
 
     \begin{definition}[Tangentialvektoren]
-        Sei $M\subseteq\R^n$ eine Untermannigfaltigkeit und $a\in M$. Dann heißt $v\in\R^n$ Tangentialvektor, falls es eine stetig differenzierbare Kurve $\gamma: \pair{-\varepsilon, \varepsilon)} \to M$ ($\varepsilon > 0$) gibt, sodass
+        Sei $M\subseteq\R^n$ eine Untermannigfaltigkeit und $a\in M$. Dann heißt $v\in\R^n$ Tangentialvektor, falls es eine stetig differenzierbare Kurve $\gamma: \pair{-\varepsilon, \varepsilon} \to M$ ($\varepsilon > 0$) gibt, sodass
         \begin{align*}
             \gamma\of{0} &= a\\
             v &= \gamma'\of{0} = \frac{\dif}{\dif t} \gamma\of{t}\vert_{t=0}
         \end{align*}
-        Wir schreiben $T_a M$ für den Vektorraum aller Tangentialvektoren von $M$ in $a$ und $N_{a}T$ für den Raum normaler Vektoren. Es gilt
+        Wir schreiben $T_a M$ für den Vektorraum aller Tangentialvektoren von $M$ in $a$ und $N_{a}T$ für das orthogonale Komplement von $T_a M$ in $\R^n$. Das ist also der Raum der normalen Vektoren an $M$ in $a$. Es gilt
         \begin{align*}
             \R^n &= T_a M \oplus N_a M
         \end{align*}
+        Wie berechnet man $T_a M$ und $N_a M$?
     \end{definition}
+
+    \begin{bemerkung}[\anf{Berechnen} von $T_a M$ und $N_a M$]
+        \marginnote{[26. Jul]}
+        Wir nehmen ein lokales Koordinatensystem. Sei $U\subseteq\R^k$, $\varphi: U\to M \subseteq\R^n$. Sei $\varphi$ Immersion, das heißt $\varphi\in\mC^1$ und $\rank\of{\D\varphi\of{t}} = k,~\forall t\in U$. Behauptung:
+        \begin{align*}
+            T_a M &= \spann\of{\partial_1 \varphi\of{t_0}, \ldots, \partial_k \varphi\of{t_0}}\\
+            &= \text{ Menge aller Linearkombinationen der Vektoren $\partial_j \varphi\of{t_0}$}\\
+            \varphi\of{t_0} &= a
+            \intertext{Zur Berechnung von $N_a M$ schreiben wir $M$ lokal als}
+            M \cap U &= \set{x\in U: f_1\of{x} = f_2 \of{x} = \dots = f_{n-k}\of{x}}\\
+            \rank\of{\D f\of{x}} &= n-k
+            \intertext{$\nabla f_j\of{a}$, $j\in\set{1, \ldots, n-k}$ bilden Basen von $N_{a} M$}
+        \end{align*}
+        \begin{proof}
+            \begin{align*}
+                V&\coloneqq \spann\of{\partial_1 \varphi\of{t_0}, \ldots, \partial_{k}\varphi\of{t_0}} \subseteq T_a M\\
+                W &\coloneqq \spann\of{\nabla f_j\of{a}}\\
+                v &= \sum_{j=1}^{k} c_j \partial_j\varphi\of{t_0}\tag{$c_j\in\R$}\\
+                \gamma: \pair{-\varepsilon, \varepsilon} &\to M\\
+                \gamma\of{s} &= \gamma\of{t_0 + s}\\
+                \frac{\dif}{\dif s}\gamma\of{x}\vert_{s=0} &= \D \varphi\of{t_1 + cs}\interv{c}\vert_{s=c}\\
+                &= \D \varphi\of{t_0}\interv{c} = \pair{\partial_1 \varphi\of{t_0}, \ldots, \partial_k\of{\varphi\of{t_0}}}\\
+                V&\subseteq T_a M\\
+                W &\subseteq N_a M
+                \intertext{Es reicht zu zeigen, dass $\nabla f_j\of{a} \perp T_a M$}
+                \gamma\of{s} &= M\quad\forall\abs{s} < \varepsilon\\
+                \impl f_j\of{\gamma\of{s}} &= 0\quad\forall \abs{s} < \varepsilon\tag{$j\in\set{1, \ldots, n-k}$}\\
+                \impl \frac{\dif}{\dif s} f_j\of{\gamma\of{x}} = 0\\
+                D f_1\of{\gamma\of{x}}\interv{g\of{s}} &= 0\quad\forall\\
+                r &\coloneqq \gamma'\of{0} \subseteq T_0 M\\
+                \D f_j\of{a} &= \pair{\partial_1 f_1\of{a}, \ldots, \partial_n f_j\of{k}}\\
+                \D f_j\of{a}\interv{v} &= \begin{pmatrix}
+                                              \partial_1 f_j\of{a} \\
+                                              \vdots               \\
+                                              \partial_n f_j\of{a}
+                \end{pmatrix}\cdot\begin{pmatrix}
+                                      v_1    \\
+                                      \vdots \\
+                                      v_n
+                \end{pmatrix}\\
+                &= \nabla f_j\of{a} \cdot v = 0\\
+                \impl \nabla f_j\of{a} \perp V\quad\forall v\in T_a M\\
+                \impl W &\subseteq N_a M\\
+                v \subseteq T_a M &\perp N_a M \supseteq W\\
+                V \perp W \impl W &= V^{\perp}\\
+                \R^n &= V\oplus W\\
+                \impl T_a M \oplus N_a M\\
+                \impl V &= T_a M\quad W = N_a M\qedhere
+            \end{align*}
+        \end{proof}
+    \end{bemerkung}
+
+    \subsection{Extrema und Nebenbedingungen}
+
+    \begin{satz}
+        Sei $U\subseteq\R^n$ offen und $M\subseteq U$ eine $r$-codimensionale Untermannigfaltigkeit
+        \begin{align*}
+            M &= \set{x\in U: g_1\of{x} = \dots = g_r\of{x} = 0}\\
+            \mC^1 \ni g &= \begin{pmatrix}
+                               g_1    \\
+                               \vdots \\
+                               g_r
+            \end{pmatrix}\\
+            \rank\of{\D g\of{x}} &= r\quad\forall x\in M\\
+        \end{align*}
+        und $F: U\to\R$, $F\in\mC$ mit lokalem Minimum (Maximum) in $a\in M$. Dann gilt
+        \begin{align*}
+            \exists\lambda_1, \vdots, \lambda_r\in\R\colon \nabla F\of{a} &= \sum_{j=1}^{r} \lambda_j \nabla g_j\of{a}
+        \end{align*}
+        Wir nennen $\lambda_1, \ldots, \lambda_r$ in diesem Fall die Lagrange-Multiplikatoren und $a$ heißt lokales Minimum (Maximum) unter der Nebenbedingung $g_1, \ldots, g_r = 0$.
+        \begin{proof}
+            Sei $\gamma: \pair{-\varepsilon, \varepsilon} \to M$ eine Kurve in $M$ durch $a$. Dann existiert ein lokales Minimum in $a$. Das heißt $k\of{s} \coloneqq F\of{\gamma\of{s}}$ hat ein lokales Minimum in $s=0$
+            \begin{align*}
+                \impl \frac{\dif}{\dif s} k\of{s}\vert_{s=0} &= 0\\
+                \frac{\dif}{\dif s} k\of{s} &= \D F\of{\gamma\of{s}}\interv{\gamma\of{s}} = \sprod{\nabla F\of{\gamma\of{s}}, \gamma'\of{a}}\\
+                \impl 0 &= k\of{0} = \sprod{\nabla  F\of{\gamma\of{a}}, \gamma'\of{a}} = \sprod{\nabla F\of{a}, v}\tag{$v = \gamma'\of{a}\in T_a M$}\\
+                \impl \nabla F\of{a} &\in N_{a} M\\
+                \impl \sum_{j=1}^{?} \lambda_j \nabla g_j\of{a} &\in N_a M
+            \end{align*}
+        \end{proof}
+    \end{satz}
+
+    \begin{beispiel}
+        Wir betrachten den $\R^n$ und $F\of{x} = \sprod{x, Ax}$, wobei $A$ eine symmetrische $n\times n$ Matrix ist. Nebenbedingung: $g\of{x} = \abs{x}^2 - 1 = 0 = \sprod{x,x} -1$. $r = 1$. Dann gilt $g\of{x} = 0 \equivalent \abs{x} = 1$
+        \begin{align*}
+            M &= \set{g\of{x} = 0} = \mS^{d-1} = \set{\abs{x} = 1}\\
+            \D F: F\of{x+h} - F\of{x} &= \sprod{x+h, A\pair{x+h}} - \sprod{x, Ax}\\
+            &= \sprod{x,Ax} + \sprod{h, Ax} + \sprod{h, Ax} + \sprod{h, Ah} - \sprod{x, Ax}\\
+            &= 2\sprod{Ax, h} + F\of{h}\\
+            \abs{F\of{h}} &= \abs{\sprod{h, Ah}} \leq \norm{A}_{\op}\cdot\norm{h}^2\\
+            \D F\of{x}\interv{h} &= 2\sprod{Ax, h}\\
+            \impl \nabla F\of{x} &= 2Ax
+            \intertext{Um die Ableitung von $g$ zu bestimmen, können wir das gleiche Prinzip mit $A$ als Einheitsmatrix anwenden. Dann gilt}
+            \D g\of{x}\interv{h} &= \sprod{x, h}\\
+            \nabla g\of{x} &= x\\
+            \impl \text{ lokales Max oder Min bei $x\in\mS^{d-1}$ }: \nabla F\of{x} = \lambda \nabla g\of{x}\\
+            2Ax &= 2\lambda x\\
+            Ax &= \lambda x\\
+            \impl x\in\mS^{d-1} \text{ ist Eigenvektor von $A$ }
+        \end{align*}
+    \end{beispiel}
 
 \end{document}
