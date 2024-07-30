@@ -307,7 +307,7 @@ Behauptung: Angenommen (*) und $\varepsilon_x\of{h} \fromto 0$ gilt. Dann folgt,
     \begin{align*}
         \norm{f\of{y}  -f\of{x}}_Y \leq \sup_{\xi\in\interv{x,y}} \norm{\D f\of{\xi}}_{X\fromto Y} \cdot \norm{y-x}_X &= \sup_{0\leq s \leq 1}\norm{\D f\of{\pair{1-s}\cdot x + sy}}_{X\fromto Y}\cdot\norm{y-x}_X
         \intertext{Außerdem $\forall A\in\mL\of{X, Y}$}
-        \norm{f\of{y} - f\of{x} - A\interv{y-x}}_Y &\leq \sup_{\xi\in\interv{x,y}} \norm{\D f\of{\xi} - A}_{X\fromto Y} \cdot\norm{y-x}_X\numberthis\label{eq:schrankensatz-ii}
+        \norm{f\of{y} - f\of{x} - A\interv{y-x}}_Y &\leq \sup_{\xi\in\interv{x,y}} \norm{\D f\of{\xi} - A}_{X\fromto Y} \cdot\norm{y-x}_X\numbereq{eq:schrankensatz-ii}
     \end{align*}
 
     \begin{proof}[Beweis von (\ref{eq:schrankensatz-ii})]
@@ -558,7 +558,7 @@ Das Ziel dieses Teilkapitels ist es, ein Differenzierbarkeitskriterium zu finden
             &= f\of{x} + \nabla f\of{x}\cdot v +\int_{0}^{1} \pair{1-t}\sprod{v, H_l \of{x+tv}\cdot v} \dif t\\
             \intertext{Nach dem verallgemeinerten Mittelwertsatz der Integrale}
             &= f\of{x} + \nabla f\of{x}\cdot v + k\of{\Theta}\cdot \int_{0}^{1} \pair{1-t} \dif x\tag{$\Theta\in\pair{0,1}$}\\
-            &= f\of{x} + \nabla f\of{x}\cdot v + \frac{1}{2}\underbrace{\sprod{v, H_l\of{x+\Theta v}}}_{\text{symmetrische $n\times n$-Matrix}}\numberthis\label{eq:extrema-lokal}
+            &= f\of{x} + \nabla f\of{x}\cdot v + \frac{1}{2}\underbrace{\sprod{v, H_l\of{x+\Theta v}}}_{\text{symmetrische $n\times n$-Matrix}}\numbereq{eq:extrema-lokal}
         \end{align*}
     \end{proof}
 \end{satz}

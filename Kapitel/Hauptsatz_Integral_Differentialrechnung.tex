@@ -146,7 +146,7 @@ Wir haben unseren Integralbegriff bisher über Zerlegungen definiert. Allerdings
     Seien $f, g\in \mC^1\of{I, \K}$ ($\K\in\set{\R, \C}$) für ein Intervall $I$. Dann gilt für $a,b\in I$
     \begin{align*}
         \int_{a}^{b} f'\of{x}g\of{x} \dif x &= \interv{f\of{x}g\of{x}}_a^b - \int_{a}^{b} f\of{x}g'\of{x} \dif x\\
-        &= f\of{b}g\of{b} - f\of{a}g\of{a} - \int_{a}^{b} f\of{x}g'\of{x} \dif x\numberthis\label{eq:partial-int}
+        &= f\of{b}g\of{b} - f\of{a}g\of{a} - \int_{a}^{b} f\of{x}g'\of{x} \dif x\numbereq{eq:partial-int}
     \end{align*}
     \begin{proof}
         Wir wenden die Produktregel der Ableitung an. Es gilt
@@ -247,7 +247,7 @@ Wir haben unseren Integralbegriff bisher über Zerlegungen definiert. Allerdings
         \intertext{Analog lässt sich zeigen, dass}
         \int_{}^{} \sin^{n}\of{x} \dif x &= -\frac{1}{n}\cos\of{x}\sin^{n-1}\of{x} + \frac{n-1}{n} \int_{}^{} \sin^{n-2}\of{x} \dif x
         \intertext{Wir nutzen nun die Rekursionsformel, um einen Wert für das Intervall $\interv{0, \frac{\pi}{2}}$ zu berechnen}
-        c_n &\coloneqq \int_{0}^{\frac{\pi}{2}} \cos^{n}\of{x} \dif x\numberthis\label{eq:int-cos-potenz}\\
+        c_n &\coloneqq \int_{0}^{\frac{\pi}{2}} \cos^{n}\of{x} \dif x\numbereq{eq:int-cos-potenz}\\
         &= \interv{\frac{1}{n}\sin\of{x}\cos^{n-1}\of{x}}_0^{\frac{\pi}{2}} + \frac{n-1}{n} \int_{0}^{\frac{\pi}{2}} \cos^{n-2}\of{x} \dif x\\
         &= \frac{n-1}{n} \underbrace{\int_{0}^{\frac{\pi}{2}} \cos^{n-2}\of{x} \dif x}_{= c_{n-2}}\\
         \impl c_n &= \frac{n-1}{n}\cdot c_{n-2}\qquad\forall n\geq 2\\
@@ -302,7 +302,7 @@ Wir haben unseren Integralbegriff bisher über Zerlegungen definiert. Allerdings
     \label{satz:substitution}
     Seien $I=\interv{a,b}$ und $I^{*}$ kompakte Intervalle und $f\in\mC\of{I, \C}$, $\varphi\in\mC^{1}\of{I^{*}, \R}$ sowie $\varphi\of{I^{*}}\subseteq I$. Dann gilt für $\alpha, \beta \in I^{*}$
     \begin{align*}
-        \int_{\alpha}^{\beta} f\of{\varphi\of{t}}\cdot\varphi'\of{t} \dif t &= \int_{\varphi\of{\alpha}}^{\varphi\of{\beta}} f\of{x} \dif x\numberthis\label{eq:substitution}
+        \int_{\alpha}^{\beta} f\of{\varphi\of{t}}\cdot\varphi'\of{t} \dif t &= \int_{\varphi\of{\alpha}}^{\varphi\of{\beta}} f\of{x} \dif x\numbereq{eq:substitution}
     \end{align*}
     \begin{proof}
         Sei $F$ eine Stammfunktion von $f$. Wir definieren $h\of{t}\coloneqq F\of{\varphi\of{t}}$. Dann ist $h\in\mC^{1}\of{I^{*}, \C}$ wegen der Kettenregel

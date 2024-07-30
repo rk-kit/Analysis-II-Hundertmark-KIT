@@ -55,9 +55,12 @@
 \newtheorem{skizze}[blockelement]{Skizze}
 \newtheorem{genv}[blockelement]{}
 
-% Equation numbering
+% Numbering (equations and conditions)
 \numberwithin{equation}{subsection}
-\newcommand{\numberthis}[0]{\addtocounter{equation}{1}\tag{\theequation}}
+\newcommand{\numbereq}[1]{\addtocounter{equation}{1}\tag{\theequation}\label{#1}}
+\newcounter{condition}
+\renewcommand{\thecondition}{V\arabic{condition}}
+\newcommand{\condition}[1]{\hypertarget{#1}{\refstepcounter{condition}(\label{#1}\thecondition})}
 
 % Marginnotes left
 \makeatletter

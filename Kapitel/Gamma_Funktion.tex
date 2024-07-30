@@ -58,7 +58,7 @@ Erinnerung: Die $\Gamma$-Funktion ist für $x>0$ definiert als
         &= \log\of{F\of{x}^{\Theta}} + \log\of{F\of{y}^{1-\Theta}}\\
         &= \log\of{F\of{x}^{\Theta}\cdot F\of{y}^{1-\Theta}}\\
         \intertext{Das heißt die Bedingung für logarithmische Konvexität ist äquivalent zu}
-        \equivalent F\of{\Theta x + \pair{1-\Theta}y} &\leq F\of{x}^{\Theta} \cdot F\of{y}^{1-\Theta}\quad\fa x,y\in I\fa 0\leq \Theta \leq 1\numberthis\label{eq:logarithm-konvex}
+        \equivalent F\of{\Theta x + \pair{1-\Theta}y} &\leq F\of{x}^{\Theta} \cdot F\of{y}^{1-\Theta}\quad\fa x,y\in I\fa 0\leq \Theta \leq 1\numbereq{eq:logarithm-konvex}
     \end{align*}
 \end{definition}
 
@@ -107,7 +107,7 @@ Erinnerung: Die $\Gamma$-Funktion ist für $x>0$ definiert als
             \frac{b_n\of{x}}{a_n\of{x}} &= \frac{n^x}{n\cdot\pair{n+x}^{x-1}} = \frac{\pair{n+x}\cdot n^x}{n\cdot\pair{n+x}^x}\\
             &= \frac{n+x}{n}\cdot\pair{\frac{n}{n+x}}^x\underset{\ntoinf}{\fromto}  1\\[10pt]
             \impl F\of{x} &= \lim_{\ntoinf} b_n\of{x}\\
-            &= \lim_{\ntoinf} \frac{\pair{n-1}! \cdot n^x}{x\cdot\pair{x+1}\cdot \ldots\cdot \pair{x+n-1}}\numberthis\label{eq:gamma-alt}
+            &= \lim_{\ntoinf} \frac{\pair{n-1}! \cdot n^x}{x\cdot\pair{x+1}\cdot \ldots\cdot \pair{x+n-1}}\numbereq{eq:gamma-alt}
         \end{align*}
         also ist $F\of{x}$ eindeutig bestimmt.
     \end{proof}
@@ -115,7 +115,7 @@ Erinnerung: Die $\Gamma$-Funktion ist für $x>0$ definiert als
 
 \begin{korollar}[Gaußsche Darstellung von $\Gamma$] % Korollar 4
     \begin{align*}
-        \Gamma\of{x} &= \lim_{\ntoinf} \frac{n!\cdot n^x}{x\cdot\pair{x+1}\cdot\ldots\cdot \pair{x+n}}\numberthis\label{eq:gamma-gauss}
+        \Gamma\of{x} &= \lim_{\ntoinf} \frac{n!\cdot n^x}{x\cdot\pair{x+1}\cdot\ldots\cdot \pair{x+n}}\numbereq{eq:gamma-gauss}
     \end{align*}
     \begin{proof}
         Da $\frac{n}{n+1}\fromto 1$ für $\ntoinf$ folgt die Behauptung for $0 < x < 1$ direkt aus (\ref{eq:gamma-alt}). Für $x=1$ rechnet sich die Formel leicht nach.
