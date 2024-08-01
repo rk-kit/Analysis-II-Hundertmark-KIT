@@ -1,30 +1,33 @@
 \section{[*] Uneigentliche Integrale}
 \thispagestyle{pagenumberonly}
-Bisher haben wir immer nur Integrale auf kompakten Intervalle $I$ berechnet und dabei waren alle Funktionen $f\in\mR\of{I}$ insbesondere beschränkt.\\
-Frage: Was ist $ \int_{0}^{1} \frac{1}{\sqrt{x}} \dif x$? Was ist $ \int_{0}^{\infty} e^{-t} \dif t$?
-\begin{align*}
-    \int_{a}^{b} e^{-t} \dif t &= \interv{-e^{-t}}_a^b = e^{-0} - e^{-b} = 1 - e^{-b} = 1 -\frac{1}{e^b}\fromto 1 \text{ für } b\fromto\infty
-\end{align*}
 
-\subsection{Uneigentliche Integrale: Fall I}
-Es sei $I=\linterv{a, \infty}$, $f: I\fromto\R$ und $f\in\mR\of{\interv{a,b}}~\forall a<b<\infty$ sowie $F\of{b} = \int_{a}^{b} f\of{x} \dif x$.
-\begin{definition}[Fall]
-    Wir definieren
+Bisher haben wir immer nur Integrale auf kompakten Intervallen berechnet und dabei waren alle Funktionen $f\in\mR\of{I}$ insbesondere beschränkt. Frage: Was ist $\int_{0}^{1} \frac{1}{\sqrt{x}} \dif x$? Was ist $ \int_{0}^{\infty} e^{-t} \dif t$?
+\begin{align*}
+    \int_{0}^{b} e^{-t} \dif t &= \interv{-e^{-t}}_0^b = e^{-0} - e^{-b} = 1 - e^{-b} = 1 -\frac{1}{e^b}\fromto 1 \text{ für } b\fromto\infty
+\end{align*}
+Wir betrachten unterschiedliche Fälle von solchen sogenannten uneigentlichen Integralen.
+
+\subsection{Uneigentliche Integrale - Fall I}
+
+\begin{mdframed}
+    \condition{cond:uneigentlich-fall1}: In diesem Teilkapitel sei $I=\linterv{a, \infty}$, $f: I\to\R$ und $f\in\mR\of{\interv{a,b}}~\forall a < b < \infty$. Wir definieren $F\of{b} \coloneqq \int_{a}^{b} f\of{x} \dif x$.
+\end{mdframed}
+
+\begin{definition}
+    Es gelte~(\ref{cond:uneigentlich-fall1}). Wir definieren
     \begin{align*}
         \int_{a}^{\infty} f\of{x} \dif x &\coloneqq \lim_{b\toinf} F\of{b} = \lim_{b\toinf} \int_{a}^{b} f\of{x} \dif x
     \end{align*}
-    sofern der Grenzwert existiert nennen wir das das uneigentliche Integral von $f$ über $\linterv{a,\infty}$. Wenn der Grenzwert existiert, sagen wir das Integral konvergiert.\\
+    sofern der Grenzwert existiert. Dann nennen wir dies das uneigentliche Integral von $f$ über $\linterv{a,\infty}$. Wenn der Grenzwert existiert, sagen wir das Integral konvergiert.\\
     Divergiert das Integral und gilt $F\of{b}\toinf$ für $b\toinf$ (oder $F\of{b}\fromto -\infty$ für $b\toinf$), so nennen wir das Integral bestimmt divergent und schreiben
     \begin{align*}
-        \int_{a}^{\infty} f\of{x} \dif x &= +\infty
-        \intertext{oder}
-        \int_{a}^{\infty} f\of{x} \dif x &= -\infty
+        \int_{a}^{\infty} f\of{x} \dif x = +\infty\quad\text{oder}\quad\int_{a}^{\infty} f\of{x} \dif x = -\infty
     \end{align*}
 \end{definition}
 
 \begin{satz} % Satz 2
     \label{satz:int-uneigentlich-epsilon}
-    Das Integral $ \int_{a}^{\infty} f\of{x} \dif x$ existiert genau dann, wenn
+    Es gelte~(\ref{cond:uneigentlich-fall1}). Das Integral $ \int_{a}^{\infty} f\of{x} \dif x$ existiert genau dann, wenn
     \begin{align*}
         \forall\varepsilon > 0\ex R\geq a\colon \abs{F\of{b_2} - F\of{b_1}} &= \abs{ \int_{b_1}^{b_2} f\of{x} \dif x} < \varepsilon\quad\forall b_1, b_2 \geq R
     \end{align*}
@@ -34,79 +37,64 @@ Es sei $I=\linterv{a, \infty}$, $f: I\fromto\R$ und $f\in\mR\of{\interv{a,b}}~\f
 \end{satz}
 
 \begin{definition}[Absolut konvergente uneigentliche Integrale]
-    Das Integral
-    \begin{align*}
-        \int_{a}^{\infty} f\of{x} \dif x
-        \intertext{heißt absolut konvergent, falls}
-        \int_{a}^{\infty} \abs{f\of{x}} \dif x
-    \end{align*}
-    konvergiert.
+    Das Integral $\int_{a}^{\infty} f\of{x} \dif x$ heißt absolut konvergent, falls $\int_{a}^{\infty} \abs{f\of{x}} \dif x$ konvergiert.
 \end{definition}
 
+
 \begin{satz}
-    Ist das Integral $\int_{a}^{\infty} f\of{x} \dif x$ absolut konvergent, so ist es auch konvergent. Das heißt ist $ \int_{a}^{\infty} \abs{f\of{x}} \dif x < \infty$, so konvergiert auch $ \int_{a}^{\infty} f\of{x} \dif x$.
+    Es gelte~(\ref{cond:uneigentlich-fall1}). Ist das Integral $\int_{a}^{\infty} f\of{x} \dif x$ absolut konvergent, so ist es auch konvergent. Das heißt ist $ \int_{a}^{\infty} \abs{f\of{x}} \dif x < \infty$, so konvergiert auch $ \int_{a}^{\infty} f\of{x} \dif x$.
     \begin{proof}
         Wir setzen $G\of{b} = \int_{a}^{b} \abs{f\of{x}} \dif x$ und $F\of{b} = \int_{a}^{b} f\of{x} \dif x$. Wir nehmen an, dass $\biglim{b\toinf} G\of{b}$ existiert, das heißt
         \begin{align*}
             \forall\varepsilon > 0\ex R\geq a\colon \abs{G\of{b_2} - G\of{b_1}} &< \varepsilon\quad\forall b_1, b_2\geq R\\
-            \impl \abs{F\of{b_2} - F\of{b_1}} &= \abs{ \int_{b_1}^{b_2} f\of{x} \dif x}\\
-            &\leq \int_{b_1}^{b_2} \abs{f\of{x}} \dif x = G\of{b_2} - G\of{b_1}
+            \impl \abs{F\of{b_2} - F\of{b_1}} = \abs{ \int_{b_1}^{b_2} f\of{x} \dif x} &\leq \int_{b_1}^{b_2} \abs{f\of{x}} \dif x = G\of{b_2} - G\of{b_1}
         \end{align*}
         Damit folgt die Behauptung aus Satz~\ref{satz:int-uneigentlich-epsilon}.
     \end{proof}
 \end{satz}
 
-\begin{satz} % Satz 5
+\newpage
+
+\begin{satz}[Majorantenkriterium] % Satz 5
     \label{satz:int-majorant}
-    Sei $\varphi: \linterv{a,\infty}\fromto\linterv{0, \infty}$ mit
+    Es gelte~(\ref{cond:uneigentlich-fall1}). Sei $\varphi: \linterv{a,\infty}\fromto\linterv{0, \infty}$ mit $\int_{a}^{\infty} \varphi\of{x} \dif x < \infty$ und es existiert ein $R_0 \geq 0$, sodass
     \begin{align*}
-        \int_{a}^{\infty} \varphi\of{x} \dif x &< \infty
-        \intertext{une es existiert ein $R_0 \geq 0$, sodass}
         \abs{f\of{x}} &\leq \varphi\of{x}\quad\forall x \geq R_0
-        \intertext{Dann ist}
-        \int_{a}^{\infty} f\of{x} \dif x
     \end{align*}
-    absolut konvergent.
+    Dann ist $\int_{a}^{\infty} f\of{x} \dif x$ absolut konvergent.
     \begin{proof}
         Für $b_2 \geq b_1\geq R_0$ gilt
         \begin{align*}
             \abs{F\of{b_2} - F\of{b_1}} &= \abs{ \int_{b_1}^{b_2} f\of{x} \dif x}\\
-            &\leq \int_{b_1}^{b_2} \abs{f\of{x}} \dif x < \int_{b_1}^{b_2} \varphi\of{x} \dif x\\
-            &\leq \int_{b_1}^{b_2} \varphi\of{x} \dif x\fromto 0 \text{ für } b_1\toinf
+            &\leq \int_{b_1}^{b_2} \abs{f\of{x}} \dif x \leq \int_{b_1}^{b_2} \varphi\of{x} \dif x\\
+            &\leq \int_{b_1}^{\infty} \varphi\of{x} \dif x\fromto 0 \text{ für } b_1\toinf
         \end{align*}
+        Also folgt die Behauptung aus Satz~\ref{satz:int-uneigentlich-epsilon}.
     \end{proof}
 \end{satz}
 
-\begin{beispiel}
+\begin{beispiel}[Konvergenz ohne absolute Konvergenz]
     Das Integral
     \begin{align*}
-        \int_{a}^{\infty} \frac{\sin x}{x} \dif x&
-        \intertext{ist konvergent, aber nicht absolut konvergent. Wir definieren}
-        f\of{x} &= \begin{cases}
-                       \frac{\sin x}{x} &x\neq 0\\
-                       1 &x = 0
-        \end{cases}
-        \intertext{Damit ist $f$ stetig auf $\pair{-\infty, \infty}$ und damit folgt $f\in\mR\of{\interv{a,b}}~\forall a,b\in\R$. Insbesondere existiert}
-        \int_{0}^{1} \frac{\sin x}{x} \dif x&\\
-        \int_{a}^{b} \frac{\sin x}{x} \dif x &= \int_{a}^{1} \frac{\sin x}{x} \dif x + \int_{1}^{b} \frac{\sin x}{x} \dif x\\
-        \int_{1}^{b} \frac{\sin x}{x} \dif x &= \interv{-\cos + \frac{1}{x}}_1^b - \int_{1}^{b} \frac{\cos x}{x^2} \dif x\\
-        &= \cos 1 - \frac{\cos b}{b} - \int_{1}^{b} \frac{\cos x}{x^2} \dif x
-        \intertext{Wir definieren $\varphi\of{x} = \frac{1}{x^2}$ mit}
-        \int_{1}^{b} \frac{1}{x^2} \dif x &= \interv{-\frac{1}{x}}_1^b = 1 - \frac{1}{b}\fromto 1
+        \int_{\pi}^{\infty} \frac{\sin x}{x} \dif x&\numbereq{eq:int-frac-sin-x}
+        \intertext{ist konvergent, aber nicht absolut konvergent. Um die Konvergenz nachzuweisen, verwenden wir partielle Integration}
+        \int_{\pi}^{b} \frac{\sin x}{x} \dif x &= \interv{-\cos\of{x}\cdot\frac{1}{x}}_\pi^b - \int_{\pi}^{b} \frac{\cos x}{x^2} \dif x\\
+        &= \frac{\cos\pi}{\pi} - \frac{\cos b}{b} - \int_{\pi}^{b} \frac{\cos x}{x^2} \dif x
+        \intertext{Wir wollen Satz~\ref{satz:int-majorant} anwenden und definieren $\varphi\of{x} = \frac{1}{x^2}$ mit}
+        \int_{\pi}^{b} \frac{1}{x^2} \dif x &= \interv{-\frac{1}{x}}_{\pi}^b = \frac{1}{\pi} - \frac{1}{b}\fromto \frac{1}{\pi}
         \intertext{Außerdem gilt}
         \abs{\frac{\cos x}{x^2}} &\leq \frac{1}{x^2}
-        \intertext{Damit ist das Integral nach dem Majorantenkriterium konvergent. Um einzusehen, dass es nicht absolut konvergent ist, betrachten wir für $N\in\N$}
-        \int_{N\pi}^{\pair{N+1}\pi} \abs{\frac{\sin x}{\pi}} \dif x &= \int_{N\pi}^{\abs{N+1}\pi} \frac{\abs{\sin x}}{x} \dif x\\
-        &\geq \frac{1}{\pi\pair{N+1}} \cdot \int_{N\pi}^{\pair{N+1}\pi} \abs{\sin x} \dif x\\
-        \impl \int_{0}^{\pair{k+1}\pi} \abs{\frac{\sin x}{x}} \dif x &= \sum_{n=0}^{k} \int_{n\pi}^{\pair{n+1}\pi} \frac{\abs{\sin x}}{x} \dif x\\
-        &\geq \sum_{n=0}^{k} \frac{2}{\pi\pair{n+1}} = \frac{2}{\pi} \sum_{n=0}^{k} \frac{1}{n+1}\fromto \infty
+        \intertext{Damit ist (\ref{eq:int-frac-sin-x}) nach dem Majorantenkriterium konvergent. Um einzusehen, dass es nicht absolut konvergent ist, betrachten wir für $N\in\N$}
+        \int_{N\pi}^{\pair{N+1}\pi} \abs{\frac{\sin x}{x}} \dif x &= \int_{N\pi}^{\pair{N+1}\pi} \frac{\abs{\sin x}}{x} \dif x\\
+        &\geq \frac{1}{\pi\pair{N+1}} \cdot \int_{N\pi}^{\pair{N+1}\pi} \abs{\sin x} \dif x = \frac{2}{\pi\pair{N+1}}\\
+        \impl \int_{\pi}^{\pair{N+1}\pi} \abs{\frac{\sin x}{x}} \dif x &= \sum_{k=1}^{N} \int_{k\pi}^{\pair{k+1}\pi} \frac{\abs{\sin x}}{x} \dif x\\
+        &\geq \sum_{k=1}^{N} \frac{2}{\pi\pair{k+1}} = \frac{2}{\pi} \sum_{n=0}^{N} \frac{1}{k+1}\fromto \infty \text{ für } N\toinf
     \end{align*}
 \end{beispiel}
 
 \begin{bemerkung}
-    Analog zu $\linterv{a, \infty}$ wollen wir auch die Integrale in $\rinterv{-\infty, b}$ betrachten. Wir setzen
+    Es gelte~(\ref{cond:uneigentlich-fall1}). Dann wollen wir analog zu $\linterv{a, \infty}$ auch die Integrale in $\rinterv{-\infty, b}$ betrachten. Wir definieren
     \begin{align*}
-        F\of{a} &= \int_{a}^{b} f\of{x} \dif x\\
         \int_{-\infty}^{b} f\of{x} \dif x &\coloneqq \lim_{a\fromto -\infty} \int_{a}^{b} f\of{x} \dif x
     \end{align*}
     sofern der Grenzwert existiert. Alle Aussagen für $\linterv{a, \infty}$ gelten analog auch für $\rinterv{-\infty, b}$.
@@ -117,7 +105,7 @@ Es sei $I=\linterv{a, \infty}$, $f: I\fromto\R$ und $f\in\mR\of{\interv{a,b}}~\f
     \begin{align*}
         \int_{-\infty}^{\infty} f\of{x} \dif x&
         \intertext{konvergiert, falls}
-        \int_{-\infty}^{c} f\of{x} \dif& \text{ und } \int_{c}^{\infty} f\of{x} \dif x
+        \int_{-\infty}^{c} f\of{x} \dif x& \text{ und } \int_{c}^{\infty} f\of{x} \dif x
         \intertext{beide konvergieren. Und setzen}
         \int_{-\infty}^{\infty} f\of{x} \dif x &\coloneqq \int_{-\infty}^{c} f\of{x} \dif x + \int_{c}^{\infty} f\of{x} \dif x
     \end{align*}
@@ -128,15 +116,18 @@ Es sei $I=\linterv{a, \infty}$, $f: I\fromto\R$ und $f\in\mR\of{\interv{a,b}}~\f
 \end{uebung}
 
 \begin{bemerkung}
-    Es ist allerdings zu beachten, dass
+    Es ist allerdings zu beachten, dass im Allgemeinen
     \begin{align*}
         \lim_{a\toinf} \int_{a}^{c} f\of{x} \dif x + \lim_{b\toinf} \int_{c}^{b}  \dif x &\neq \lim_{R\toinf} \int_{-R}^{R} f\of{x} \dif x
     \end{align*}
-    Das heißt die Integrale müssen tatsächlich getrennt betrachtet werden. Zum Beispiel bei der Funktion $f\of{x} = x$ geht $ \int_{-R}^{R} x \dif x \fromto 0$, aber ist eigentlich nicht auf $\pair{-\infty, \infty}$ integrierbar, da sich bei der Trennung in zwei Integrale kein Grenzwert ergibt.
+    Das heißt die Integrale müssen tatsächlich getrennt betrachtet werden. Zum Beispiel bei der Funktion $f\of{x} = x$ gilt $\displaystyle\lim_{R\toinf} \int_{-R}^{R} x \dif x = 0$, aber diese ist eigentlich nicht auf $\pair{-\infty, \infty}$ integrierbar, da sich bei der Trennung in zwei Integrale kein Grenzwert ergibt.
 \end{bemerkung}
 
-\subsection{Uneigentliche Integrale: Fall II}
-Es sei $I=\linterv{a, b}$ (oder $I=\rinterv{a, b}$) und $f:I\fromto\R$ unbeschränkt bei $x=a$ (oder $x=b$). Außerdem $f\in\mR\of{\interv{a,c}}~\forall a<c < b$ (oder $f\in\mR\of{\interv{c, b}}~\forall a < c < b$)
+\subsection{Uneigentliche Integrale - Fall II}
+
+\begin{mdframed}
+    \condition{cond:uneigentlich-fall2}: In diesem Teilkapitel sei $I=\linterv{a, b}$ (oder $I=\rinterv{a, b}$) und $f:I\fromto\R$ hat Singularität bei $x=a$ (oder $x=b$). Außerdem $f\in\mR\of{\interv{a,c}}~\forall a<c < b$ (oder $f\in\mR\of{\interv{c, b}}~\forall a < c < b$).
+\end{mdframed}
 
 \begin{definition}
     Existiert
@@ -144,24 +135,22 @@ Es sei $I=\linterv{a, b}$ (oder $I=\rinterv{a, b}$) und $f:I\fromto\R$ unbeschr�
         \lim_{c\fromto b-} \int_{a}^{c} f\of{x} \dif x\quad &\pair{\text{oder } \lim_{c\fromto a+} \int_{c}^{b} f\of{x} \dif x}
         \intertext{so setzen wir}
         \int_{a}^{b} f\of{x} \dif x = \lim_{c\fromto b-} \int_{a}^{c} f\of{x} \dif x\quad &\pair{\text{oder } \int_{a}^{b} f\of{x} \dif x = \lim_{c\fromto a+} \int_{c}^{b} f\of{x} \dif x}
-        \intertext{und sagen}
-        \int_{a}^{b} f\of{x} \dif x
     \end{align*}
-    konvergiert.
+    und sagen $\displaystyle\int_{a}^{b} f\of{x} \dif x$ konvergiert.
 \end{definition}
 
 \begin{satz}
-    Ist $\abs{f\of{x}} \leq \varphi\of{x}~\forall x\in\linterv{a,b}$ (oder $\forall x\in\rinterv{a,b}$) und konvergiert $ \int_{a}^{b} \varphi\of{x} \dif x$, so konvergiert auch $ \int_{a}^{b} f\of{x} \dif x$
+    Ist $\abs{f\of{x}} \leq \varphi\of{x}~\forall x\in\linterv{a,b}$ (oder $\forall x\in\rinterv{a,b}$) und konvergiert $ \int_{a}^{b} \varphi\of{x} \dif x$, so konvergiert auch $\int_{a}^{b} f\of{x} \dif x$.
 \end{satz}
 
 \begin{beispiel}
     Sei $f: \rinterv{0, 1}\fromto\R,~x\mapsto \frac{1}{\sqrt{x}}$. Dann gilt $F\of{x}  = 2\sqrt{x}$
     \begin{align*}
-        \int_{0}^{1} \frac{1}{\sqrt{x}} \dif x &= \interv{2\sqrt{x}}_c^1 = 2-2\sqrt{c}\fromto 2
+        \int_{0}^{1} \frac{1}{\sqrt{x}} \dif x &= \lim_{c\to 0+}\int_{c}^{1} \frac{1}{\sqrt{x}} \dif x = \lim_{c\to 0+}\interv{2\sqrt{x}}_c^1 = \lim_{c\to 0+}\pair{2-2\sqrt{c}} = 2
     \end{align*}
 \end{beispiel}
 
-\subsection{Uneigentliche Integrale Fall III}
+\subsection{[*] Uneigentliche Integrale - Fall III}
 \marginnote{[14. Mai]}
 $f$ hat eine Singularität in $\xi$ im Inneren von $\interv{a,b}$.
 \begin{beispiel}
@@ -192,7 +181,9 @@ $f$ hat eine Singularität in $\xi$ im Inneren von $\interv{a,b}$.
     Sei $f\of{x} = \frac{1}{x^2}$, $I=\interv{-1, 1}$. Dann existiert der Cauchysche Hauptwert, aber nicht (\ref{eq:un-iii}).
 \end{beispiel}
 
-\subsection{Uneigentliche Integrale Fall IV}
+\newpage
+
+\subsection{[*] Uneigentliche Integrale Fall IV}
 
 \begin{definition}
     Man hat Singularitäten in $\R$ für $f$ oder/und $b=+\infty$, $a=-\infty$. Dann zerlege $\linterv{a, \infty}$ oder $\rinterv{-\infty, b}$ oder $\pair{-\infty, \infty}$ in endlich viele Intervalle, wobei die Singularitäten die Randpunkte sind (oder $-\infty$, $\infty$). Dann existiert das Integral, falls die endlich vielen uneigentlichen Integrale existieren. Dann nehme Summe aller dieser uneigentlichen Integrale
