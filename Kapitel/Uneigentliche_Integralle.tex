@@ -1,4 +1,4 @@
-\section{[*] Uneigentliche Integrale}
+\section{Uneigentliche Integrale}
 \thispagestyle{pagenumberonly}
 
 Bisher haben wir immer nur Integrale auf kompakten Intervallen berechnet und dabei waren alle Funktionen $f\in\mR\of{I}$ insbesondere beschränkt. Frage: Was ist $\int_{0}^{1} \frac{1}{\sqrt{x}} \dif x$? Was ist $ \int_{0}^{\infty} e^{-t} \dif t$?
@@ -146,16 +146,13 @@ Wir betrachten unterschiedliche Fälle von solchen sogenannten uneigentlichen In
 \begin{beispiel}
     Sei $f: \rinterv{0, 1}\fromto\R,~x\mapsto \frac{1}{\sqrt{x}}$. Dann gilt $F\of{x}  = 2\sqrt{x}$
     \begin{align*}
-        \int_{0}^{1} \frac{1}{\sqrt{x}} \dif x &= \lim_{c\to 0+}\int_{c}^{1} \frac{1}{\sqrt{x}} \dif x = \lim_{c\to 0+}\interv{2\sqrt{x}}_c^1 = \lim_{c\to 0+}\pair{2-2\sqrt{c}} = 2
+        \int_{0}^{1} \frac{1}{\sqrt{x}} \dif x &= \lim_{c\to 0+}\int_{c}^{1} \frac{1}{\sqrt{x}} \dif x = \lim_{c\to 0+}\interv{2\sqrt{x}}_c^1 = \lim_{c\to 0+}\pair{2-2\sqrt{c}} = 2\numbereq{eq:int-0-1-frac-sqrt-x}
     \end{align*}
 \end{beispiel}
 
-\subsection{[*] Uneigentliche Integrale - Fall III}
+\subsection{Uneigentliche Integrale - Fall III}
 \marginnote{[14. Mai]}
-$f$ hat eine Singularität in $\xi$ im Inneren von $\interv{a,b}$.
-\begin{beispiel}
-    $f\of{x} = \frac{1}{\abs{\sqrt{x}}}$ auf $\linterv{-1, 0} \cup \rinterv{0, 1}$.
-\end{beispiel}
+Im vorherigen Kapitel haben wir den Fall betrachtet, dass $f$ eine Singularität auf einer der Intervallgrenzen hat. Jetzt wollen wir das ergänzen, indem wir eine Singularität an einer beliebigen Stelle $\xi$ im Inneren von $\interv{a,b}$ zulassen.
 
 \begin{definition}
     Wir sagen, dass
@@ -168,30 +165,34 @@ $f$ hat eine Singularität in $\xi$ im Inneren von $\interv{a,b}$.
     \end{align*}
 \end{definition}
 
-\begin{bemerkung}
-(\ref{eq:un-iii})
-    ist stärker als die Existenz von
+\begin{beispiel}
+    Wir betrachten die Funktion $f\of{x} = \frac{1}{\sqrt{\abs{x}}}$ mit der Singularität bei $\xi = 0$. Dann gilt
     \begin{align*}
-        \lim_{\varepsilon\searrow} \int_{I_{\varepsilon}}^{} f\of{x} \dif x
+        \int_{-1}^{1} \frac{1}{\sqrt{\abs{x}}} \dif x &= \int_{0}^{1} \frac{1}{\sqrt{\abs{x}}} \dif x + \int_{-1}^{0} \frac{1}{\sqrt{\abs{x}}} \dif x = 2\int_{0}^{1} \frac{1}{\sqrt{x}} \dif x \annot{=}{(\ref{eq:int-0-1-frac-sqrt-x})} 4
     \end{align*}
-    mit $I=\interv{a,b}$ und $I_{\varepsilon}\coloneqq I\exclude\pair{\xi-\varepsilon, \xi+\varepsilon} = \interv{a, \xi-\varepsilon} \cup \interv{\xi+\varepsilon, b}$. (Cauchyscher Hauptwert).
+\end{beispiel}
+
+\begin{bemerkung}
+    Die Existenz von (\ref{eq:un-iii}) ist echt stärker als die Existenz des \emph{Cauchyschen Hauptwerts}
+    \begin{align*}
+        \lim_{\varepsilon\searrow 0} \int_{I_{\varepsilon}}^{} f\of{x} \dif x
+    \end{align*}
+    mit $I=\interv{a,b}$ und $I_{\varepsilon}\coloneqq I\exclude\pair{\xi-\varepsilon, \xi+\varepsilon} = \interv{a, \xi-\varepsilon} \cup \interv{\xi+\varepsilon, b}$.
 \end{bemerkung}
 
-\begin{beispiel}
+\begin{beispiel}[Cauchyscher Hauptwert bei Nichtexistenz des Integrals]
     Sei $f\of{x} = \frac{1}{x^2}$, $I=\interv{-1, 1}$. Dann existiert der Cauchysche Hauptwert, aber nicht (\ref{eq:un-iii}).
 \end{beispiel}
 
-\newpage
-
-\subsection{[*] Uneigentliche Integrale Fall IV}
+\subsection{Uneigentliche Integrale - Fall IV}
 
 \begin{definition}
-    Man hat Singularitäten in $\R$ für $f$ oder/und $b=+\infty$, $a=-\infty$. Dann zerlege $\linterv{a, \infty}$ oder $\rinterv{-\infty, b}$ oder $\pair{-\infty, \infty}$ in endlich viele Intervalle, wobei die Singularitäten die Randpunkte sind (oder $-\infty$, $\infty$). Dann existiert das Integral, falls die endlich vielen uneigentlichen Integrale existieren. Dann nehme Summe aller dieser uneigentlichen Integrale
+    Sei $f$ eine Funktion mit Singularitäten in $\R$, deren Integral wir auf einem Intervall $\interv{a,b}$ (oder $\linterv{a, \infty}$, $\rinterv{-\infty, b}$, $\pair{-\infty, \infty}$) berechnen wollen. Dann zerlegen wir das Intervall in endlich viele Intervalle, wobei die Singularitäten (oder $-\infty, \infty$) die Randpunkte sind. Wir sagen, dass das gesamte Integral existiert, falls die endlich vielen uneigentlichen Integrale existieren und setzen den Wert auf die Summe all dieser uneigentlichen Integrale.
 \end{definition}
 
 \begin{satz}[Integralvergleichskriterium] % Satz 10
     \label{satz:integral-vergleich}
-    Sei $f: \linterv{1, \infty} \fromto\R$ monoton fallend. Dann gilt
+    Sei $f: \linterv{1, \infty} \fromto\linterv{0, \infty}$ monoton fallend. Dann gilt
     \begin{align*}
         \sum_{n=1}^{\infty}  f\of{n} \text{ konvergiert } \equivalent \int_{1}^{\infty} f\of{x} \dif x \text{ existiert }
     \end{align*}
@@ -201,59 +202,45 @@ $f$ hat eine Singularität in $\xi$ im Inneren von $\interv{a,b}$.
 \end{satz}
 
 \begin{beispiel}
-    Es sei $f\of{x} = x^{-p}$ mit $p\neq 1$. Dann ist $F\of{x} = \frac{1}{1-p}x^{1-p}$ für $F'=f$.
+    Es sei $f\of{x} = x^{-p}$ mit $p\neq 1$. Dann ist $F\of{x} = \frac{1}{1-p}x^{1-p}$ für $F'=f$. Es gilt
     \begin{align*}
         \int_{1}^{\infty} \frac{1}{x^p} \dif x &= \lim_{R\toinf} \interv{\frac{1}{1-p}x^{1-p}}_1^R
-    \end{align*}
-    existiert nach Satz~\ref{satz:integral-vergleich} für $p>1$.
-\end{beispiel}
-
-\begin{beispiel}
-    $f\of{x} = \log_2\of{x} = \log\of{\log\of{x}}$, $x > 1$
-    \begin{align*}
-        \frac{\dif}{\dif x} \log_2\of{x} &= \frac{1}{\log\of{x}}\cdot\frac{1}{x}\\
-        \frac{\dif}{\dif x}\pair{\log_2\of{x}}^{1-s} &= \frac{1-s}{\pair{\log x}^s}\cdot \frac{1}{x}\\
-        \impl \sum_{n=2}^{\infty} \frac{1}{n\pair{\log^s n}^s} \text{ konvergiert } &\equivalent s > 1
+        \intertext{Dieses Integral existiert für $p > 1$. Das heißt nach Satz~\ref{satz:integral-vergleich} gilt}
+        \sum_{n=1}^{\infty} \frac{1}{n^p} \text{ konvergiert } &\equivalent p > 1
     \end{align*}
 \end{beispiel}
 
-\begin{beispiel}[Gamma-Funktion]
+\subsection{Die Gamma-Funktion}
+
+Als ein Beispiel für ein uneigentliches Integral betrachten wir in diesem Teilkapitel noch die Gamma-Funktion, die über ein uneigentliches Integral definiert ist. Wir werden zunächst nur ein paar Eigenschaften beweisen und später in Kapitel~\ref{sec:gamma-funktion} noch genauer auf diese Funktion eingehen.
+
+\begin{definition}[Gamma-Funktion]
+    Wir definieren
     \begin{align*}
         \Gamma\of{x} &\coloneqq \int_{0}^{\infty} t^{x-1} e^{-t} \dif t\tag{$x > 0$}
     \end{align*}
-    \begin{enumerate}[label=(\alph*)]
-        \item
-        \begin{align*}
-            t^{x-1}e^{-t} &\leq t^{x-1}\quad\forall t > 0
-            \intertext{\item~}
-            t^{x-1}e^{-t} &= t^{x-1}e^{-\frac{t}{2}}e^{-\frac{t}{2}}\\
-            &\leq c_x e^{-\frac{t}{2}}\quad\forall t\geq 1\tag{$c_x\coloneqq \sup_{t\geq 1} t^{x-1}e^{-\frac{t}{2}}$}
-            \intertext{$t^{x-1}e^{-\frac{t}{2}}$ ist beschränkt auf $\linterv{1, \infty}$}
-            \int_{0}^{1} t^{x-1}e^{-t} \dif t &\leq \int_{0}^{1} t^{x-1} \dif t\\
-            &= \lim_{c\toinf} \interv{\frac{1}{x}t^{x}}_c^1\\
-            &= \lim_{c\fromto 0^{+}} \frac{1}{x}\pair{1-e^{x}}\\
-            0 &\leq \int_{1}^{\infty} t^{x-1}e^{-t} \dif t\\
-            &= \lim_{b\toinf} \int_{a}^{b} t^{x-1}e^{-t} \dif t\\
-            &\leq c_x e^{-\frac{t}{2}}\\
-            &\leq \lim_{b\toinf} c_x \int_{a}^{b} e^{-\frac{t}{2}} \dif t < \infty\\
-            \int_{a}^{b} e^{-\frac{t}{2}} &= \interv{-2e^{-\frac{t}{2}}}_1^b = 2\pair{e^{-\frac{1}{2}} - e^{-\frac{b}{2}}}\fromto 2e^{-\frac{1}{2}}
-        \end{align*}
-    \end{enumerate}
-\end{beispiel}
+    Warum ist das wohldefiniert? Also warum existiert das Integral für alle $x > 0$? Wir teilen das Integral in zwei Teile und schätzen ab mit $t^{x-1}e^{-t} \leq t^{x-1}~\forall t \geq 0$
+    \begin{align*}
+        \int_{0}^{1} t^{x-1}e^{-t} \dif t &\leq \int_{0}^{1} t^{x-1} \dif t = \lim_{c\to 0+} \interv{\frac{1}{x}t^{x}}_c^1\\
+        &= \lim_{c\to 0+} \frac{1}{x}\pair{1-c^x} = \frac{1}{x}
+        \intertext{Damit existiert der erste Teil. Wir schätzen den Rest ab. Es gilt für $t\geq 1$}
+        t^{x-1}e^{-t} &= t^{x-1}e^{-\frac{t}{2}}e^{-\frac{t}{2}} \leq C_x e^{-\frac{t}{2}}\tag{$C_x\coloneqq \sup_{t\geq 1} t^{x-1}e^{-\frac{t}{2}} < \infty$}\\
+        \impl 0 \leq \int_{1}^{\infty} t^{x-1}e^{-t} \dif t &= \lim_{b\to\infty} \int_{1}^{b} t^{x-1}e^{-t} \dif t \leq \lim_{b\fromto\infty} C_x \int_{1}^{b} e^{-\frac{t}{2}} \dif t\\
+        &= C_x\lim_{b\fromto \infty}\interv{-2e^{-\frac{t}{2}}}_1^b = C_x\cdot\pair{2e^{-\frac{1}{2}}} < \infty
+    \end{align*}
+\end{definition}
 
 \begin{satz}[Funktionalgleichung der $\Gamma$-Funktion] % Satz 12
     \label{satz:gamma-funktion}
-    Es gilt $\Gamma\of{n+1} = n!$ und $x\Gamma\of{x} = \Gamma\of{x+1}$ für alle $x>0$.
+    Es gilt $\Gamma\of{n+1} = n!$ für alle $n\in\N$ und $x\Gamma\of{x} = \Gamma\of{x+1}$ für alle $x>0$.
     \begin{proof}
         \begin{align*}
-            \Gamma\of{x+1} &= \int_{0}^{\infty} t^{(x+1)-1}e^{-t} \dif t\\
-            &= \int_{0}^{\infty} t^{x}e^{-t} \dif t\\
+            \Gamma\of{x+1} &= \int_{0}^{\infty} t^{(x+1)-1}e^{-t} \dif t = \int_{0}^{\infty} t^{x}e^{-t} \dif t\\
             \intertext{Wir integrieren partiell. Sei $0 < a < b < \infty$}
             \int_{a}^{b} t^{x}e^{-t} \dif t &= \interv{-t^x e^{-t}}_a^b + \int_{a}^{b} xt^{x-1}e^{-t} \dif t\\
-            &= a^{x}e^{-b} - b^{x}e^{-b} + x \int_{a}^{b} t^{x-1}e^{-t} \dif t\\
-            \impl \int_{a}^{\infty} t^x e^{-t} \dif t &= \lim_{b\toinf} \int_{a}^{b} t^x e^{-t} \dif t\\
-            &= a^x e^{-a} + x \int_{a}^{\infty} t^{x-1} e^{-t} \dif t\\
-            \impl \Gamma\of{x+1} &= \int_{0}^{\infty} t^x e^{-t} \dif x = x\Gamma\of{x}
+            &= a^{x}e^{-a} - b^{x}e^{-b} + x \int_{a}^{b} t^{x-1}e^{-t} \dif t\\
+            \impl \int_{a}^{\infty} t^x e^{-t} \dif t &= \lim_{b\toinf} \int_{a}^{b} t^x e^{-t} \dif t = a^x e^{-a} + x \int_{a}^{\infty} t^{x-1} e^{-t} \dif t\\
+            \impl \Gamma\of{x+1} &= \int_{0}^{\infty} t^x e^{-t} \dif t = x\Gamma\of{x}
             \intertext{Damit folgt die zweite Behauptung. Wir betrachten außerdem}
             \Gamma\of{n+1} &= n\Gamma\of{n} = n\Gamma\of{n-1+1}\\
             &= n\pair{n-1}\Gamma\of{n-1} = n\cdot \pair{n-1}\cdot\ldots\cdot 2 \cdot 1 \cdot \Gamma\of{1}\\
@@ -263,16 +250,14 @@ $f$ hat eine Singularität in $\xi$ im Inneren von $\interv{a,b}$.
 \end{satz}
 
 \begin{anwendung}
-    Nach Substitution mit $t^2 = x$ gilt $\frac{\dif t}{\dif x} = \frac{1}{2\sqrt{x}}$
+    Wir können auch andere Integrale auf die Gamma-Funktion zurückführen. Nach Substitution mit $t^2 = x$ gilt
     \begin{align*}
-        \int_{a}^{\xi} e^{-t^2} \dif t &= \int_{}^{} e^{-x}\frac{1}{2}\sqrt{x} \dif x\\
-        &= \frac{1}{2} \int_{0}^{\infty} \frac{1}{\sqrt{x}}e^{-x} \dif x\\
-        &= \frac{1}{2} \int_{?}^{b} s^{-\frac{1}{2}} e^{-s} \dif s\\
-        \intertext{für $b\toinf$ und $a\searrow 0$}
-        \impl 2 \int_{0}^{\infty} e^{-t^2} \dif x &= \int_{0}^{\infty} s^{-\frac{1}{2}} e^{-s} \dif s\\
-        &= \Gamma\of{\frac{1}{2}}
+        \int_{0}^{\infty} e^{-t^2} \dif t &= \int_{0}^{\infty} e^{-x}\cdot\frac{1}{2\sqrt{x}} \dif x = \frac{1}{2} \int_{0}^{\infty} x^{-\frac{1}{2}}\cdot e^{-x} \dif x\\
+        &= \frac{1}{2} \int_{0}^{\infty} t^{\frac{1}{2}-1}\cdot e^{-t} \dif t = \frac{1}{2}\Gamma\of{\frac{1}{2}}\\
+        \impl 2 \int_{0}^{\infty} e^{-t^2} \dif t &= \Gamma\of{\frac{1}{2}}
+        \intertext{Wie wir später in Satz~\ref{satz:gamma-einhalb} sehen werden, gilt damit}
+        \int_{0}^{\infty} e^{-t^2} \dif t &= \frac{\sqrt{\pi}}{2}
     \end{align*}
-    Berechnung von $\Gamma\of{\frac{1}{2}}$ später.
 \end{anwendung}
 
 \newpage
