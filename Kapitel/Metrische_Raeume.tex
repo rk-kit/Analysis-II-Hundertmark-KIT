@@ -79,15 +79,11 @@ Frage: Wie definiert man Abstand auf allgemeinen Mengen?
 \end{definition}
 
 \begin{satz} % Satz 3
-    Ist $\pair{V, \norm{\cdot}}$ ein normierter VR, so wird durch $d\of{x,y}\coloneqq \norm{x-y}$ eine Metrik auf $V$ definiert.
+    Ist $\pair{V, \norm{\cdot}}$ ein normierter VR, so definiert $d\of{x,y}\coloneqq \norm{x-y}$ eine Metrik auf $V$.
     \begin{proof}
         Die Axiome der Metrik folgen unmittelbar aus den Axiomen der Norm.
     \end{proof}
 \end{satz}
-
-\begin{bemerkung}[Halbnorm]
-    Gelten für eine Abbildung die Norm-Eigenschaften (ii) und (ii), aber statt (i) nur $\norm{x} \geq 0~\forall x\in V$. Dann heißt $\norm{\cdot}$ eine Halbnorm. Ein Beispiel dafür im $\R^2$ wäre die Abbildung $\pair{x_1~x_2}\mapsto x_1$.
-\end{bemerkung}
 
 \begin{beispiel}
     \theoremescape
@@ -120,13 +116,17 @@ Frage: Wie definiert man Abstand auf allgemeinen Mengen?
     \end{enumerate}
 \end{beispiel}
 
-\subsection{[*] Umgebungen und offene Mengen}
+\begin{bemerkung}[Halbnorm]
+    Gelten für eine Abbildung die Norm-Eigenschaften (ii) und (iii), aber statt (i) nur $\norm{x} \geq 0~\forall x\in V$. Dann heißt $\norm{\cdot}$ eine Halbnorm. Ein Beispiel dafür im $\R^2$ wäre die Abbildung $\pair{x_1~x_2}\mapsto x_1$.
+\end{bemerkung}
+
+\subsection{Umgebungen und offene Mengen}
 
 \begin{definition}[Umgebung]
     Sei $\pair{X, d}$ ein metrischer Raum
     \begin{enumerate}[label=(\alph*)]
         \item Für $a\in X$, $r > 0$ heißt $B_r\of{a} \coloneqq \set{x\in X ~\middle\vert~ d\of{a, x} < r}$ die (offene) Kugel um $a$ mit dem Radius $r$ und dem Mittelpunkt $a$.
-        \item Eine Teilmenge $U\subseteq X$ heißt \emph{Umgebung} von $x\in X$, falls $\exists\varepsilon > 0$, sodass $B_{\varepsilon}\of{x} \subseteq U$. Insbesondere ist $B_{\varepsilon}\of{x}$ eine Umgebung von $x$. Wir nennen $B_{\varepsilon}\of{x}$ die $\varepsilon$-Umgebung von $x$.
+        \item Eine Teilmenge $U\subseteq X$ heißt Umgebung von $x\in X$, falls $\exists\varepsilon > 0$, sodass $B_{\varepsilon}\of{x} \subseteq U$. Insbesondere ist $B_{\varepsilon}\of{x}$ eine Umgebung von $x$. Wir nennen $B_{\varepsilon}\of{x}$ die $\varepsilon$-Umgebung von $x$.
     \end{enumerate}
 \end{definition}
 
@@ -147,6 +147,8 @@ Frage: Wie definiert man Abstand auf allgemeinen Mengen?
     Sei $\pair{X, d}$ ein metrischer Raum. Eine Teilmenge $U\subseteq X$ heißt offen, wenn $\forall x\in U\ex \varepsilon > 0\colon B_{\varepsilon}\of{x}\subseteq U$.
 \end{definition}
 
+\newpage
+
 \begin{beispiel}
     Seien $a, b\in\R$ und $a < b$
     \begin{enumerate}
@@ -164,14 +166,14 @@ Frage: Wie definiert man Abstand auf allgemeinen Mengen?
         \end{align*}
     \end{proof}
     \begin{proof}[Beweis für 4.]
-        Sei $B_{\varepsilon}^{\infty}\of{x}\coloneqq\set{y\in \R^d: \norm{x-y}_{\infty} < \varepsilon}$ und $B_{\varepsilon}^{(2)}\of{x} \coloneqq \set{y\in\R^d: \norm{x-y}_2 < \varepsilon}$. Für ein $y\in B_{\frac{\varepsilon}{\sqrt{d}}}^{(2)}\of{x}$ gilt
+        Sei $B_{\varepsilon}^{\infty}\of{x}\coloneqq\set{y\in \R^d: \norm{x-y}_{\infty} < \varepsilon}$ und $B_{\varepsilon}^{(2)}\of{x} \coloneqq \set{y\in\R^d: \norm{x-y}_2 < \varepsilon}$. Für ein $y\in B_{\varepsilon}^{(2)}\of{x}$ gilt
         \begin{align*}
-            \sqrt{ \sum_{i=1}^{d} \pair{y_i - x_i}^2} &< \frac{\varepsilon}{\sqrt{d}}\\
-            \impl \sum_{i=1}^{d} \pair{y_i - x_i}^2 &< \frac{\varepsilon^2}{d}\\
+            \sqrt{ \sum_{i=1}^{d} \pair{y_i - x_i}^2} &< \varepsilon\\
+            \impl \sum_{i=1}^{d} \pair{y_i - x_i}^2 &< \varepsilon^2\\
             \impl \max_{1 \leq i \leq d} \abs{x_i - y_i} &< \varepsilon\\
-            \impl y&\in B_{\varepsilon}^{\infty}\of{x}
-            \intertext{Außerdem lässt sich zeigen, dass daraus auch folgt, dass $y\in B_{\varepsilon}^{(2)}\of{x}$. Das heißt}
-            B_{\frac{\varepsilon}{\sqrt{d}}}^{(2)}\of{x} \subseteq B_{\varepsilon}^{\infty}\of{x} &\subseteq B_{\varepsilon}^{(2)}\of{x}\qedhere
+            \impl y\in B_{\varepsilon}^{\infty}\of{x}&
+            \intertext{Außerdem lässt sich zeigen, dass daraus auch folgt, dass $y\in B_{\sqrt{d}\cdot\varepsilon}^{(2)}\of{x}$. Das heißt}
+            B_{\varepsilon}^{(2)}\of{x} \subseteq B_{\varepsilon}^{\infty}\of{x} &\subseteq B_{\sqrt{d}\cdot\varepsilon}^{(2)}\of{x}\qedhere
         \end{align*}
     \end{proof}
 \end{beispiel}
@@ -227,7 +229,7 @@ Frage: Wie definiert man Abstand auf allgemeinen Mengen?
 \end{definition}
 
 \begin{beispiel}
-    Wir betrachten die Menge $A = \rinterv{0, 1}$ und die Folge $x_n = \frac{1}{n}$. Dann liegt $\lim_{\ntoinf} x_n$ nicht in $A$. Das heißt $A$ ist nicht folgenabgeschlossen. Die Menge $\interv{0, 1}$ hingegen schon.
+    Wir betrachten die Menge $A = \rinterv{0, 1}$ und die Folge $x_n = \frac{1}{n}$. Dann liegt $\biglim{\ntoinf} x_n$ nicht in $A$. Das heißt $A$ ist nicht folgenabgeschlossen. Die Menge $\interv{0, 1}$ hingegen schon.
 \end{beispiel}
 
 \begin{satz} % Satz 11
@@ -235,7 +237,7 @@ Frage: Wie definiert man Abstand auf allgemeinen Mengen?
     Sei $\pair{X, d}$ ein metrischer Raum. Für $A\subseteq X$ gilt, $A$ ist genau dann abgeschlossen, wenn $A$ folgenabgeschlossen ist.
 \end{satz}
 
-Um diesen Satz zu beweisen, benötigen wir zunächst noch folgende Lemmata
+\noindent Um diesen Satz zu beweisen, benötigen wir zunächst noch folgende Lemmata
 
 \begin{lemma} % Lemma 12
     \label{lemma:komplement-folgen-abgeschlossen}
@@ -246,7 +248,7 @@ Um diesen Satz zu beweisen, benötigen wir zunächst noch folgende Lemmata
         \begin{align*}
             \exists N\in\N\colon &d\of{a, x_n} < \varepsilon\quad\forall n> N \\
             \equivalent \exists N\in\N\colon &x_n \in B_{\varepsilon}\of{a}\quad\forall n > N\\
-            \impl &x_n\not\in U^{\mathrm{C}}\quad\forall n > N\tag*{(Widerspruch)\qedhere}
+            \impl \exists N\in\N\colon &x_n\not\in U^{\mathrm{C}}\quad\forall n > N\tag*{(Widerspruch)\qedhere}
         \end{align*}
     \end{proof}
 \end{lemma}
