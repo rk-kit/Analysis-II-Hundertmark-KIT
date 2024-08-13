@@ -1,4 +1,4 @@
-\section{[*] Metrische Räume, topologische Räume und normierte Vektorräume}
+\section{Metrische Räume, topologische Räume und normierte Vektorräume}
 
 \subsection{Metrische Räume}
 \thispagestyle{pagenumberonly}
@@ -206,7 +206,7 @@ Frage: Wie definiert man Abstand auf allgemeinen Mengen?
 \end{beispiel}
 
 \begin{definition}[Abgeschlossene Menge]
-    In einem metrischen Raum $\pair{X, d}$ nennen wir eine Menge $A\subseteq X$ abgeschlossen, wenn ihr Komplement $A^{\mathrm{C}}\coloneqq X \exclude A = \set{y\in X: y\not\in A}$ offen ist.
+    In einem metrischen Raum $\pair{X, d}$ nennen wir eine Menge $A\subseteq X$ abgeschlossen, wenn ihr Komplement $\comp{A}\coloneqq X \exclude A = \set{y\in X: y\not\in A}$ offen ist.
 \end{definition}
 
 \begin{bemerkung}
@@ -241,34 +241,34 @@ Frage: Wie definiert man Abstand auf allgemeinen Mengen?
 
 \begin{lemma} % Lemma 12
     \label{lemma:komplement-folgen-abgeschlossen}
-    Sei $\pair{X, d}$ ein metrischer Raum. Ist $U\subseteq X$ offen, so ist $U^{\mathrm{C}}$ folgenabgeschlossen.
+    Sei $\pair{X, d}$ ein metrischer Raum. Ist $U\subseteq X$ offen, so ist $\comp{U}$ folgenabgeschlossen.
 
     \begin{proof}
-        Angenommen es gibt eine Folge $(x_n)_n \subseteq U^{\mathrm{C}}$ mit $x_n\fromto a$, aber $a\not\in U^{\mathrm{C}}$. Das heißt $a\in U$. Da $U$ offen ist, existiert eine Kugel $B_{\varepsilon}\of{a} \subseteq U$ (für ein $\varepsilon > 0$). Da $x_n\fromto a$ für $\ntoinf$ gilt
+        Angenommen es gibt eine Folge $(x_n)_n \subseteq \comp{U}$ mit $x_n\fromto a$, aber $a\not\in \comp{U}$. Das heißt $a\in U$. Da $U$ offen ist, existiert eine Kugel $B_{\varepsilon}\of{a} \subseteq U$ (für ein $\varepsilon > 0$). Da $x_n\fromto a$ für $\ntoinf$ gilt
         \begin{align*}
             \exists N\in\N\colon &d\of{a, x_n} < \varepsilon\quad\forall n> N \\
             \equivalent \exists N\in\N\colon &x_n \in B_{\varepsilon}\of{a}\quad\forall n > N\\
-            \impl \exists N\in\N\colon &x_n\not\in U^{\mathrm{C}}\quad\forall n > N\tag*{(Widerspruch)\qedhere}
+            \impl \exists N\in\N\colon &x_n\not\in \comp{U}\quad\forall n > N\tag*{(Widerspruch)\qedhere}
         \end{align*}
     \end{proof}
 \end{lemma}
 
 \begin{lemma}
     \label{lemma:komplement-offen}
-    Sei $\pair{X, d}$ ein metrischer Raum und $A\subseteq X$ folgenabgeschlossen. Dann ist $A^{\mathrm{C}}$ offen.
+    Sei $\pair{X, d}$ ein metrischer Raum und $A\subseteq X$ folgenabgeschlossen. Dann ist $\comp{A}$ offen.
 
     \begin{proof}
-        Angenommen $A^{\mathrm{C}}$ ist nicht offen. Das heißt $\exists x_0 \in A^{\mathrm{C}}$, sodass für jedes $\varepsilon > 0$ die Kugel $B_{\varepsilon}\of{x_0}$ nicht ganz in $A^{\mathrm{C}}$ enthalten ist. Das heißt
+        Angenommen $\comp{A}$ ist nicht offen. Das heißt $\exists x_0 \in \comp{A}$, sodass für jedes $\varepsilon > 0$ die Kugel $B_{\varepsilon}\of{x_0}$ nicht ganz in $\comp{A}$ enthalten ist. Das heißt
         \begin{align*}
             \forall\varepsilon > 0\colon B_{\varepsilon}\of{x_0}\cap A \neq \emptyset
         \end{align*}
-        Wir wählen eine Folge $(x_n)_n\subseteq A$ mit $x_n\in B_{\frac{1}{n}}\of{x_0}$. Also gilt $x_n\fromto x_0\in A^{\mathrm{C}}$. Das heißt $A$ ist nicht folgenabgeschlossen. Widerspruch.
+        Wir wählen eine Folge $(x_n)_n\subseteq A$ mit $x_n\in B_{\frac{1}{n}}\of{x_0}$. Also gilt $x_n\fromto x_0\in \comp{A}$. Das heißt $A$ ist nicht folgenabgeschlossen. Widerspruch.
     \end{proof}
 \end{lemma}
 
 \begin{proof}[Beweis von Satz~\ref{satz:vergleich-folgen-abgeschlossen}]
     ~\\
-    \anf{$\impl$} Wenn $A$ abgeschlossen ist, dann gilt nach Definition, dass $A^{\mathrm{C}}$ offen ist. Mit Lemma~\ref{lemma:komplement-folgen-abgeschlossen} folgt dann, dass $A$ folgenabgeschlossen ist.\\
+    \anf{$\impl$} Wenn $A$ abgeschlossen ist, dann gilt nach Definition, dass $\comp{A}$ offen ist. Mit Lemma~\ref{lemma:komplement-folgen-abgeschlossen} folgt dann, dass $A$ folgenabgeschlossen ist.\\
     \anf{$\Leftarrow$} Sei $A$ folgenabgeschlossen. Dann folgt direkt aus Lemma~\ref{lemma:komplement-offen}, dass $A$ abgeschlossen.
 \end{proof}
 
@@ -278,17 +278,17 @@ Frage: Wie definiert man Abstand auf allgemeinen Mengen?
     \marginnote{[14. Jun]}
     Seien $A_1\subseteq\R^k$, $A_2\subseteq\R^m$ abgeschlossen. Dann ist auch $A_1\times A_2 \subseteq \R^k \times \R^m$ abgeschlossen.
     \begin{proof}
-        Sei $\pair{x,y}\in \pair{A_1 \times A_2}^{\mathrm{C}} \supseteq A_1^C \times \R^m \cup \R^k \times A_2^C$.\\[.5\baselineskip]
-        \textsc{Fall 1}: $x \in A_1^C$. Dann gilt wegen der Abgeschlossenheit von $A_1$
+        Sei $\pair{x,y}\in \comp{\pair{A_1 \times A_2}} \supseteq \comp{A_1} \times \R^m \cup \R^k \times A_2^C$.\\[.5\baselineskip]
+        \textsc{Fall 1}: $x \in \comp{A_1}$. Dann gilt wegen der Abgeschlossenheit von $A_1$
         \begin{align*}
-            \exists \varepsilon > 0\colon B_{\varepsilon}\of{x} &\subseteq A_1^C\\
-            \impl B_{\varepsilon}\of{x, y} &\subseteq A_1^{\mathrm{C}} \times \R^m
+            \exists \varepsilon > 0\colon B_{\varepsilon}\of{x} &\subseteq \comp{A_1}\\
+            \impl B_{\varepsilon}\of{x, y} &\subseteq \comp{A_1} \times \R^m
             \intertext{Aber $B_{\varepsilon}\of{x,y}$ ist eine offene Menge mit}
-            B_{\varepsilon}\of{x,y} \subseteq A^{\mathrm{C}}_1 \times \R^m &\subseteq \pair{A_1 \times A_2}^{\mathrm{C}}
-            \intertext{\textsc{Fall 2}: $y\in A_2^{\mathrm{C}}$. Dann gilt analog zu \textsc{Fall 1}}
-            \impl \exists \varepsilon > 0\colon B_{\varepsilon}\of{x,y} &\subseteq \pair{A_1 \times A_2}^{\mathrm{C}}
+            B_{\varepsilon}\of{x,y} \subseteq \comp{A}_1 \times \R^m &\subseteq \comp{\pair{A_1 \times A_2}}
+            \intertext{\textsc{Fall 2}: $y\in \comp{A_2}$. Dann gilt analog zu \textsc{Fall 1}}
+            \impl \exists \varepsilon > 0\colon B_{\varepsilon}\of{x,y} &\subseteq \comp{\pair{A_1 \times A_2}}
         \end{align*}
-        Das heißt $\pair{A_1 \times A_2}^{\mathrm{C}}$ ist offen und damit ist $\pair{A_1 \times A_2}$ abgeschlossen.
+        Das heißt $\comp{\pair{A_1 \times A_2}}$ ist offen und damit ist $\pair{A_1 \times A_2}$ abgeschlossen.
     \end{proof}
 \end{beispiel}
 
@@ -309,7 +309,7 @@ Frage: Wie definiert man Abstand auf allgemeinen Mengen?
         \item $U, V\in \Tau \impl U \cap V \in \Tau$ und
         \item Für eine beliebige Indexmenge $I$ mit $\forall j\in I\colon V_j \in \Tau$ folgt $\displaystyle\bigcup_{j\in I} V_j \in \Tau$
     \end{enumerate}
-    Ein topologischer Raum ist ein Paar $\pair{X, \Tau}$. $V\subseteq X$ heißt offen, falls $V\in\Tau$ und $A\subseteq X$ heißt abgeschlossen, falls $A^{\mathrm{C}} \in\Tau$.
+    Ein topologischer Raum ist ein Paar $\pair{X, \Tau}$. $V\subseteq X$ heißt offen, falls $V\in\Tau$ und $A\subseteq X$ heißt abgeschlossen, falls $\comp{A} \in\Tau$.
 \end{definition}
 
 \begin{beispiel}
@@ -354,7 +354,7 @@ Frage: Wie definiert man Abstand auf allgemeinen Mengen?
     \end{enumerate}
 \end{beispiel}
 
-\subsection{[*] Berührpunkt, Häufungspunkt und Randpunkt}
+\subsection{Berührpunkt, Häufungspunkt und Randpunkt}
 
 \begin{mdframed}
     \begin{center}
@@ -371,7 +371,7 @@ Frage: Wie definiert man Abstand auf allgemeinen Mengen?
 \end{definition}
 
 \begin{definition}[Randpunkt]
-    Ein Punkt $x\in X$ heißt Randpunkt von $A$, falls es in jeder offenen Umgebung $U$ von $x$ mindestens einen Punkt aus $A$ und einen Punkt aus $A^{\mathrm{C}}$ gibt. Das heißt für alle offenen Mengen $U$ mit $x\in U$ ist $U\cap A \neq \emptyset$ und $U\cap A^{\mathrm{C}} \neq \emptyset$. Wir schreiben $\partial A$ für die Menge aller Randpunkte von $A$.
+    Ein Punkt $x\in X$ heißt Randpunkt von $A$, falls es in jeder offenen Umgebung $U$ von $x$ mindestens einen Punkt aus $A$ und einen Punkt aus $\comp{A}$ gibt. Das heißt für alle offenen Mengen $U$ mit $x\in U$ ist $U\cap A \neq \emptyset$ und $U\cap \comp{A} \neq \emptyset$. Wir schreiben $\partial A$ für die Menge aller Randpunkte von $A$.
 \end{definition}
 
 \begin{satz} % Satz 19
@@ -388,72 +388,74 @@ Frage: Wie definiert man Abstand auf allgemeinen Mengen?
         \begin{enumerate}[label=(\roman*)]
             \item Sei $x\in A \exclude \partial A$ beliebig. Dann folgt es existiert eine offene Umgebung $V$ von $x$ mit
             \begin{align*}
-                V \cap A^{\mathrm{C}} &= V\cap \pair{X\exclude A} = \emptyset\tag{(1)}
-                \intertext{denn ansonsten wäre $x\in\partial A$}
-                \impl V \cap \partial A &= \emptyset\tag{(2)}
-                \intertext{Denn wäre $V\cap \partial A \neq \emptyset$. Dann würde folgen}
-                \impl \exists y&\in V \cap \partial A\\
+                V \cap \comp{A} &= V\cap \pair{X\exclude A} = \emptyset\tag{1}
+                \intertext{denn ansonsten wäre $x\in\partial A$. Außerdem gilt}
+                V \cap \partial A &= \emptyset\tag{2}
+                \intertext{denn wäre $V\cap \partial A \neq \emptyset$, dann würde folgen}
+                \impl \exists y\in V &\cap \partial A\\
                 \impl V \text{ offene Umgebung von  } y&\in \partial A\\
-                \impl V\cap A^{\mathrm{C}} &\neq \emptyset\tag{Widerspruch zu (1)}
+                \impl V\cap \comp{A} &\neq \emptyset\tag{Widerspruch zu (1)}
                 \intertext{Mit (1) und (2) folgt}
-                V \cap\pair{\partial A \cup A^{\mathrm{C}}} &= \emptyset\\
-                \equivalent V \subseteq A \exclude \partial A\\
-                \impl A\exclude \partial A \text{ ist offen }
+                V \cap\pair{\partial A \cup \comp{A}} &= \emptyset\\
+                \equivalent V \subseteq A &\exclude \partial A\\
+                \impl A\exclude \partial A \text{ ist }&\text{offen}
             \end{align*}
-            \item $A^{\mathrm{C}} = X \exclude A$. Aus der Definition des Randes folgt $\partial A = \partial A^{\mathrm{C}}$. Nach (i) gilt dann
+            \item Aus der Definition des Randes folgt $\partial A = \partial \comp{A}$. Nach (i) gilt dann
             \begin{align*}
-                A^{\mathrm{C}} \exclude \partial A = A^{\mathrm{C}} \exclude \partial A^{\mathrm{C}} \text{ ist offen }\\
-                \equivalent \pair{A^{\mathrm{C}} \exclude \partial A}^{\mathrm{C}} \text{ ist abgeschlossen }\\
-                \equivalent \pair{A^{\mathrm{C}} \exclude \partial A}^{\mathrm{C}} &= X\exclude\pair{A^{\mathrm{C}} \exclude \partial A}\\
-                &= X\exclude A^{\mathrm{C}} \cup \partial A = A\cup \partial A \text{ ist abgeschlossen }
+                \comp{A} \exclude \partial A &= \comp{A} \exclude \partial \comp{A} \text{ ist offen }\\
+                \equivalent \comp{\pair{\comp{A} \exclude \partial A}} &\text{ ist abgeschlossen }\\
+                \equivalent \comp{\pair{\comp{A} \exclude \partial A}} &= X\exclude\pair{\comp{A} \exclude \partial A}\\
+                &= X\exclude \comp{A} \cup \partial A\\
+                &= A\cup \partial A \text{ ist abgeschlossen }
             \end{align*}
             \item
             \begin{align*}
-                \partial A &= \pair{A\cup \partial A} \cap \pair{A^C \cup \partial A}\\
-                &= \pair{A \cup \partial A} \cap \pair{A^C \cup \partial A^{\mathrm{C}}} \text{ ist abgeschlossen}
+                \partial A &= \pair{\vphantom{\comp{A}}A\cup \partial A} \cap \pair{\comp{A} \cup \partial A}\\
+                &= \underbrace{\pair{\vphantom{\comp{A}}A \cup \partial A}}_{\text{abgeschlossen}} \cap \underbrace{\pair{\comp{A}\cup \partial \comp{A}}}_{\text{abgeschlossen}}\qedhere
             \end{align*}
         \end{enumerate}
     \end{proof}
 \end{satz}
 
-\begin{definition}[Inneres und Abschluss, abgeschlossene Hülle]
-    Sei $\pair{X, \Tau}$ ein topologischer Raum und $A\subseteq X$.
+\begin{definition}[Inneres und Abschluss]
+    Sei $\pair{X, \Tau}$ ein topologischer Raum und $A\subseteq X$. Wir definieren
     \begin{enumerate}[label=(\roman*)]
-        \item $U\of{A} \coloneqq \set{U\in\Tau: U\subseteq A}= $ alle offenen Teilmengen von $A$.\\
-        Das Innere von $A = A^{\circ} \coloneqq \bigcup_{\sigma\in U\of{A}} \sigma= $Vereinigung aller offenen Teilmengen von $A$
-        \item $B\of{A} \coloneqq \set{B\subseteq X \text{ abgeschlossen}: A \subseteq B} \neq \emptyset$ (da $X\in B\of{A}$)\\
-        Der Abschluss von $B$ sei $\overline{B} =$ abgeschlossene Hülle von $B \coloneqq \bigcap_{B\in B\of{A}} B$ abgeschlossen
+        \item $\mathfrak{U}\of{A} \coloneqq \set{U\in\Tau: U\subseteq A}$ als die Menge aller offenen Teilmengen von $A$
+        \item $A^{\circ} \coloneqq \bigcup_{\sigma\in \mathfrak{U}\of{A}} \sigma$ als die Vereinigung aller offenen Teilmengen von $A$. Wir nennen $A^{\circ}$ das Innere von $A$
+        \item $\mathfrak{B}\of{A} \coloneqq \set{B\subseteq X \text{ abgeschlossen}: A \subseteq B}$ als die Menge aller geschlossenen Mengen, die $A$ enthalten. (Wobei $\mathfrak{B}\of{A} \neq \emptyset$, da $X\in \mathfrak{B}\of{A}$)
+        \item $\overline{A} \coloneqq \bigcap_{B\in \mathfrak{B}\of{A}} B$ als der Schnitt über alle abgeschlossenen Mengen, die $A$ enthalten. Wir nennen $\overline{A}$ die abgeschlossene Hülle von $A$
     \end{enumerate}
-    Damit gilt $A \subseteq \overline{A}$.
 \end{definition}
 
 \begin{bemerkung}
-    $A^{\circ} =$ größte offene Teilmenge von $A$ und $\overline{A} = $ kleinste abgeschlossene Menge, die $A$ enthält.
+    Nach Definition gilt $A \subseteq \overline{A}$. Außerdem ist $A^{\circ}$ die größte offene Teilmenge von $A$ und $\overline{A}$ die kleinste abgeschlossene Menge, die $A$ enthält.
 \end{bemerkung}
 
 \begin{satz} % Satz 21
-    $A^{\circ} = A \exclude \partial A$ und $\overline{A} = A \cup \partial A$.
+    Sei $\pair{X, \Tau}$ ein topologischer Raum und $A\subseteq X$. Dann gilt
+    \begin{enumerate}[label=(\roman*)]
+        \item $A^{\circ} = A \exclude \partial A$
+        \item $\overline{A} = A \cup \partial A$
+    \end{enumerate}
+
     \begin{proof}
-        \textsc{Teil 1}: Nach Satz~\ref{satz:top-rand} ist $A\exclude \partial A$ offen und $A \exclude \partial A \subseteq A$. Damit folgt $A \exclude \partial A \subseteq A^{\circ}$.\\
-        Damit ist noch zu zeigen, dass $A^{\circ} \subseteq A \exclude \partial A$. Ist $U\subseteq A$ offen
-        \begin{align*}
-            \impl U\cap A^{\mathrm{C}} &= \emptyset \\
-            \impl U \cap \partial A &= \emptyset
-        \end{align*}
-        Falls nicht $\exists y \in U \cap \partial A$, dann folgt $U\cap A^{\mathrm{C}} \neq \emptyset$. Das ergibt einen Widerspruch.\\
-        Das heißt für jede offene Teilmenge $U\subseteq A$ gilt $U\subseteq A\exclude \partial A$.
-        \begin{align*}
-            A = \bigcup_{U\in U\of{A}} U \subseteq A \exclude \partial A\\
-            \impl A^{\circ} \subseteq A \exclude \partial A\\
-            \impl A \exclude \partial A = A^{\circ}
-        \end{align*}
-        \textsc{Teil 2}: Behauptung: Aus $B\subseteq X$ ist abgeschlossen und $A \subseteq B$ folgt $\partial A \subseteq B$. Angenommen die Behauptung ist falsch. Dann würde gelten $B^{\mathrm{C}} \cap \partial A \neq \emptyset$.\\
-        $x\in \partial A \cap B^{\mathrm{C}}$. $B^{\mathrm{C}}$ ist offene Umgebung von $x$. Nach Definition von $\partial A$ ist $A\cap B^{\mathrm{C}}\neq \emptyset$. Das heißt $A \subseteq B$. (Widerspruch).\\
-        Aus der Behauptung folgt jetzt also $B \supseteq A \cup \partial A~\forall B\supseteq A$ und $B$ ist abgeschlossen
-        \begin{align*}
-            \impl A \cup \partial A \subseteq \bigcap_{B\in B\of{A}} B = \overline{A}
-        \end{align*}
-        Andererseits ist nach Satz~\ref{satz:top-rand} $A \cup \partial A$ abgeschlossen und sicherlich $A \subseteq A \cup \partial A$. Daraus folgt $\overline{A} \subseteq A \cup\partial A$. Damit folgt $\overline{A} = A \cup \partial A$.
+        \theoremescape
+        \begin{enumerate}[label=(\roman*)]
+            \item Nach Satz~\ref{satz:top-rand} ist $A\exclude \partial A$ offen und $A \exclude \partial A \subseteq A$. Damit folgt $A \exclude \partial A \subseteq A^{\circ}$. Es ist noch zu zeigen, dass $A^{\circ} \subseteq A \exclude \partial A$. Sei $U\subseteq A$ offen, dann folgt (wie beim Beweis von Satz~\ref{satz:top-rand} (i))
+            \begin{align*}
+                \impl U\cap \comp{A} &= \emptyset \\
+                \impl U \cap \partial A &= \emptyset
+                \intertext{Das heißt für jede offene Teilmenge $U\subseteq A$ gilt $U\subseteq A\exclude \partial A$.}
+                \impl \bigcup_{U\in \mathfrak{U}\of{A}} U &\subseteq A \exclude \partial A\\
+                \impl A^{\circ} &\subseteq A \exclude \partial A\\
+            \end{align*}
+            \item Behauptung: Aus $B\subseteq X$ ist abgeschlossen und $A \subseteq B$ folgt schon $\partial A \subseteq B$. Angenommen die Behauptung ist falsch. Dann würde gelten $\comp{B} \cap \partial A \neq \emptyset$. Das heißt $\comp{B}$ ist eine offene Umgebung von $x\in \partial A \cap \comp{B}$. Nach Definition von $\partial A$ ist dann $A\cap \comp{B}\neq \emptyset$. Damit ergibt sich ein Widerspruch zu $A \subseteq B$.\\
+            Aus der Behauptung folgt jetzt also, falls $B$ abgeschlossen, dass $\forall A\subseteq B\colon A \cup \partial A \subseteq B$
+            \begin{align*}
+                \impl A \cup \partial A \subseteq \bigcap_{B\in \mathfrak{B}\of{A}} B = \overline{A}
+            \end{align*}
+            Andererseits ist $A \cup \partial A$ nach Satz~\ref{satz:top-rand} abgeschlossen und sicherlich $A \subseteq A \cup \partial A$. Daraus folgt $\overline{A} \subseteq A \cup\partial A$.\qedhere
+        \end{enumerate}
     \end{proof}
 \end{satz}
 
